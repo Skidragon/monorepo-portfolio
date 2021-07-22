@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import { Button } from '@sd/product-feedback-ui-components';
 const StyledPage = styled.div`
   .page {
   }
@@ -13,6 +13,7 @@ export function Index() {
    */
   return (
     <StyledPage>
+      <Button>test</Button>
       <h2>Resources &amp; Tools</h2>
       <p>Thank you for using and showing some ♥ for Nx.</p>
       <div className="flex github-star-container">
