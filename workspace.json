@@ -21,7 +21,8 @@
           "executor": "@nrwl/next:server",
           "options": {
             "buildTarget": "product-feedback:build",
-            "dev": true
+            "dev": true,
+            "proxyConfig": "apps/product-feedback/proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -48,6 +49,56 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/product-feedback/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
+    },
+    "product-feedback-api": {
+      "root": "apps/product-feedback-api",
+      "sourceRoot": "apps/product-feedback-api/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/product-feedback-api",
+            "main": "apps/product-feedback-api/src/main.ts",
+            "tsConfig": "apps/product-feedback-api/tsconfig.app.json",
+            "assets": ["apps/product-feedback-api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/product-feedback-api/src/environments/environment.ts",
+                  "with": "apps/product-feedback-api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "product-feedback-api:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/product-feedback-api/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/product-feedback-api"],
+          "options": {
+            "jestConfig": "apps/product-feedback-api/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }
