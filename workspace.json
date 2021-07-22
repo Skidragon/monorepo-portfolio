@@ -227,6 +227,37 @@
           }
         }
       }
+    },
+    "shared-util-styles": {
+      "root": "libs/shared/util/styles",
+      "sourceRoot": "libs/shared/util/styles/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/workspace:tsc",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/shared/util/styles",
+            "main": "libs/shared/util/styles/src/index.ts",
+            "tsConfig": "libs/shared/util/styles/tsconfig.lib.json",
+            "assets": ["libs/shared/util/styles/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/util/styles/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/util/styles"],
+          "options": {
+            "jestConfig": "libs/shared/util/styles/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

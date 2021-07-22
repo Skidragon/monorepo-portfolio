@@ -46,6 +46,9 @@
     "product-feedback-ui-e2e": {
       "tags": [],
       "implicitDependencies": ["product-feedback-ui"]
+    },
+    "shared-util-styles": {
+      "tags": []
     }
   }
 }

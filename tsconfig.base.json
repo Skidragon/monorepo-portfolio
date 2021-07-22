@@ -17,7 +17,8 @@
     "paths": {
       "@sd/product-feedback-ui-components": [
         "libs/product-feedback/ui/src/index.ts"
-      ]
+      ],
+      "@sd/shared/util/styles": ["libs/shared/util/styles/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
