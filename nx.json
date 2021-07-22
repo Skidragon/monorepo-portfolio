@@ -39,6 +39,9 @@
     "product-feedback-e2e": {
       "tags": [],
       "implicitDependencies": ["product-feedback"]
+    },
+    "product-feedback-ui": {
+      "tags": []
     }
   }
 }

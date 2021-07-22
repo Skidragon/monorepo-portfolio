@@ -128,6 +128,48 @@
           }
         }
       }
+    },
+    "product-feedback-ui": {
+      "root": "libs/product-feedback/ui",
+      "sourceRoot": "libs/product-feedback/ui/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/product-feedback/ui",
+            "tsConfig": "libs/product-feedback/ui/tsconfig.lib.json",
+            "project": "libs/product-feedback/ui/package.json",
+            "entryFile": "libs/product-feedback/ui/src/index.ts",
+            "external": ["react/jsx-runtime"],
+            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+            "assets": [
+              {
+                "glob": "libs/product-feedback/ui/README.md",
+                "input": ".",
+                "output": "."
+              }
+            ]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/product-feedback/ui/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/product-feedback/ui"],
+          "options": {
+            "jestConfig": "libs/product-feedback/ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
