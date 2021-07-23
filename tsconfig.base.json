@@ -18,6 +18,9 @@
       "@sd/product-feedback-ui-components": [
         "libs/product-feedback/ui/src/index.ts"
       ],
+      "@sd/react-component-types": [
+        "libs/shared/util/component-types/src/index.ts"
+      ],
       "@sd/shared/util/styles": ["libs/shared/util/styles/src/index.ts"]
     }
   },

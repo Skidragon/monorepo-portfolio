@@ -47,6 +47,9 @@
       "tags": [],
       "implicitDependencies": ["product-feedback-ui"]
     },
+    "shared-util-component-types": {
+      "tags": []
+    },
     "shared-util-styles": {
       "tags": []
     }
