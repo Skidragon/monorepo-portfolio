@@ -27,9 +27,6 @@
       "@sd/product-feedback/feature/product": [
         "libs/product-feedback/feature/product/src/index.ts"
       ],
-      "@sd/product-feedback/feature/project": [
-        "libs/product-feedback/feature/project/src/index.ts"
-      ],
       "@sd/product-feedback/feature/roadmap": [
         "libs/product-feedback/feature/roadmap/src/index.ts"
       ],
