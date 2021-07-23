@@ -7,6 +7,7 @@ import React, {
 import styled from 'styled-components';
 import { createContext, useContext } from 'react';
 import { useEffect } from 'react';
+import { __values } from 'tslib';
 /* eslint-disable-next-line */
 export interface DropdownProps
   extends DetailedHTMLProps<
@@ -19,9 +20,9 @@ export interface OptionsProps<V> {
   children: React.ReactNode;
   value: V;
 }
-const DropdownContext = createContext<{ value: string }>({
+const DropdownContext = createContext<IOption>({
   value: '',
-  open: false,
+  children: '',
 });
 const StyledDropdown = styled.div`
   display: inline-flex;
@@ -32,7 +33,14 @@ const StyledDropdown = styled.div`
   border-radius: 6px;
   position: relative;
 `;
-const StyledOptionsList = styled.ul<{ open: true }>`
+interface IOptionList {
+  open: boolean;
+  children: React.ReactNode;
+}
+interface IOptionListStyle {
+  open: boolean;
+}
+const StyledOptionsList = styled.ul<IOptionListStyle>`
   display: ${(props) => (props.open ? 'flex' : ' none')};
   flex-flow: column;
   position: absolute;
@@ -53,7 +61,14 @@ const StyledOptionsList = styled.ul<{ open: true }>`
     background: blue;
   }
 `;
-const StyledOption = styled.li`
+interface IOption<V> {
+  value: V;
+  children: React.ReactNode;
+}
+interface IOptionStyle {
+  isSelected: boolean;
+}
+const StyledOption = styled.li<IOptionStyle>`
   position: relative;
   border: 2px solid lightgrey;
   padding: 1em;
@@ -78,43 +93,55 @@ export function Dropdown({
   ...props
 }: DropdownProps) {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState('');
-  useEffect(() => {
-    if (children) {
-      children.forEach((child) => {
-        if(child.props.value === controlledValue) {
-          
-        }
-      });
-    }
-  }, [children, controlledValue]);
+  const [options] = useState<IOption[]>(() =>
+    children.map((child) => child.props.value)
+  );
+  const selectedOption = (): IOption => {
+    return options.find((option) => {
+      return option.value === controlledValue;
+    });
+  };
   return (
-    <StyledDropdown
-      onClick={(e) => {
-        setOpen((prevState) => !prevState);
-        console.log(e.target.value);
-      }}
-    >
-      <div>
-        <span>{label} </span> {value ? <span>{` : value`}</span> : ''}
-      </div>
-      <OptionsList
-        onClick={() => {
-          setOpen(false);
+    <DropdownContext.Provider value={selectedOption}>
+      <StyledDropdown
+        onClick={(e) => {
+          setOpen((prevState) => !prevState);
+          console.log(e.target.value);
         }}
-        open={open}
       >
-        {children}
-      </OptionsList>
-    </StyledDropdown>
+        <div>
+          <span>{label} </span>{' '}
+          {selectedOption.value ? (
+            <span>{` : ${selectedOption.value}`}</span>
+          ) : (
+            ''
+          )}
+        </div>
+        <OptionsList
+          onClick={(e) => {
+            setOpen(false);
+          }}
+          onHover={(e) => {
+            console.log(e);
+          }}
+          open={open}
+        >
+          {children}
+        </OptionsList>
+      </StyledDropdown>
+    </DropdownContext.Provider>
   );
 }
-export const OptionsList = ({ children, open }) => {
+export const OptionsList = ({ children, open }: IOptionList) => {
   return <StyledOptionsList open={open}>{children}</StyledOptionsList>;
 };
-export const Option = ({ children, value }) => {
+export const Option = ({ children, value }: IOption) => {
+  const selectedOption = React.useContext(DropdownContext);
   return (
-    <StyledOption value={value} isSelected={true}>
+    <StyledOption
+      data-value={value}
+      isSelected={value === selectedOption.value}
+    >
       {children}
     </StyledOption>
   );
