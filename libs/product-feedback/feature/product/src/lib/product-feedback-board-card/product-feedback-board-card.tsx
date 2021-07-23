@@ -56,7 +56,9 @@ export function ProductFeedbackBoardCard(props: ProductFeedbackBoardCardProps) {
           <ProjectHeading>Frontend Mentor</ProjectHeading>
           <BoardHeading>Feedback Board</BoardHeading>
         </Headings>
-        <Hamburger>H</Hamburger>
+        <Hamburger>
+          <span role="img" aria-label="feedbacks menu">🍔</span>
+        </Hamburger>
       </ProductFeedbackBoardCardStyled>,
       document.body
     );
