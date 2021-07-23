@@ -1,17 +1,15 @@
 import styled from 'styled-components';
-import { Button } from '@sd/product-feedback-ui-components';
+import { Button, Box, Badge } from '@sd/product-feedback-ui-components';
 /* eslint-disable-next-line */
 export interface FeedbackProps {}
 
-const StyledFeedbackBox = styled.div`
+const StyledFeedbackBox = styled(Box)`
   display: grid;
   grid-template-rows: 2fr 1fr;
   grid-template-columns: 1fr 1fr;
   grid-template-areas:
     'm m'
     'v c';
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
-    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   grid-gap: 1rem;
   .main-content {
     display: grid;
@@ -37,7 +35,6 @@ const StyledFeedbackBox = styled.div`
     align-self: center;
   }
   max-width: 750px;
-  padding: 1em;
   @media (min-width: 600px) {
     grid-template-rows: repeat(3, 1fr);
     grid-template-columns: auto 1fr auto;
@@ -69,7 +66,7 @@ export function Feedback(props: FeedbackProps) {
       <div className="main-content">
         <h3>Add Tags for solutions</h3>
         <p>Easier to search for solutions based on a specific stack.</p>
-        <div className="category">Enhancement</div>
+        <Badge className="category">Enhancement</Badge>
       </div>
       <Button className="vote-btn">
         <div>^</div>
