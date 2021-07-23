@@ -1,6 +1,7 @@
 import { SelectHTMLAttributes } from 'react';
 import { DetailedHTMLProps } from 'react';
 import styled from 'styled-components';
+import React from 'react';
 
 /* eslint-disable-next-line */
 export interface DropdownProps
@@ -28,12 +29,14 @@ export const DropdownOption = styled.option`
   background: var(--color-background-dropdown-option, white);
   color: var(--color-text-dropdown-option, #373f68);
 `;
-export function Dropdown({ children, value = '', id = '' }: DropdownProps) {
-  return (
-    <StyledDropdown value={value} id={id}>
-      {children}
-    </StyledDropdown>
-  );
-}
+export const Dropdown = React.forwardRef<HTMLSelectElement, DropdownProps>(
+  (props, ref) => {
+    return (
+      <StyledDropdown {...props} ref={ref}>
+        {props.children}
+      </StyledDropdown>
+    );
+  }
+);
 
 export default Dropdown;
