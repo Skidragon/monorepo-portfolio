@@ -1,1 +1,1 @@
-export * from './lib/product-feedback-feature-roadmap';
+export * from './lib/roadmap-overview/roadmap-overview';
