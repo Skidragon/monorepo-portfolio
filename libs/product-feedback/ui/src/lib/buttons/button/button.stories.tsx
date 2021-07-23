@@ -6,7 +6,9 @@ export default {
   title: 'Button',
 } as Meta;
 
-const Template: Story<ButtonProps> = (args) => <Button {...args} />;
+const Template: Story<ButtonProps> = (args) => (
+  <Button variant={args.variant}>{args.children}</Button>
+);
 
 export const Primary = Template.bind({});
 Primary.args = {

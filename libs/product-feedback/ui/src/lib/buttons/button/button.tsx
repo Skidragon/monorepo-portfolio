@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
-import { ButtonExtended } from '@sd/react-component-types';
+import { BaseButton, ButtonExtended } from '@sd/react-component-types';
 import React from 'react';
 /* eslint-disable-next-line */
-export interface ButtonProps extends ButtonExtended {
+export interface ButtonProps extends BaseButton, ButtonExtended {
   children: React.ReactNode;
 }
 
@@ -67,24 +67,21 @@ const StyledButton = styled.button<ButtonExtended>`
       `;
     }
     return css`
-      color: var(--color-text-button-primary, white);
-      background: var(--color-text-button-primary, #ad1fea);
+      color: var(--color-text-button-default, #4661e6);
+      background: var(--color-text-button-default, #f2f4fe);
     `;
   }}
 `;
 
-export function Button({
-  variant = 'primary',
-  children,
-  Icon,
-  ...props
-}: ButtonProps) {
-  return (
-    <StyledButton variant={variant} {...props}>
-      {Icon && React.cloneElement(Icon, { className: 'icon' })}
-      {children}
-    </StyledButton>
-  );
-}
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  (props, ref) => {
+    return (
+      <StyledButton variant={props.variant} {...props} ref={ref}>
+        {props.Icon && React.cloneElement(props.Icon, { className: 'icon' })}
+        {props.children}
+      </StyledButton>
+    );
+  }
+);
 
 export default Button;
