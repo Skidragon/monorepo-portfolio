@@ -18,6 +18,21 @@
       "@sd/product-feedback-ui-components": [
         "libs/product-feedback/ui/src/index.ts"
       ],
+      "@sd/product-feedback/feature/comment": [
+        "libs/product-feedback/feature/comment/src/index.ts"
+      ],
+      "@sd/product-feedback/feature/feedback": [
+        "libs/product-feedback/feature/feedback/src/index.ts"
+      ],
+      "@sd/product-feedback/feature/product": [
+        "libs/product-feedback/feature/product/src/index.ts"
+      ],
+      "@sd/product-feedback/feature/project": [
+        "libs/product-feedback/feature/project/src/index.ts"
+      ],
+      "@sd/product-feedback/feature/roadmap": [
+        "libs/product-feedback/feature/roadmap/src/index.ts"
+      ],
       "@sd/react-component-types": [
         "libs/shared/util/component-types/src/index.ts"
       ],

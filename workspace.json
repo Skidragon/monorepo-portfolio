@@ -129,6 +129,216 @@
         }
       }
     },
+    "product-feedback-feature-comment": {
+      "root": "libs/product-feedback/feature/comment",
+      "sourceRoot": "libs/product-feedback/feature/comment/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/product-feedback/feature/comment",
+            "tsConfig": "libs/product-feedback/feature/comment/tsconfig.lib.json",
+            "project": "libs/product-feedback/feature/comment/package.json",
+            "entryFile": "libs/product-feedback/feature/comment/src/index.ts",
+            "external": ["react/jsx-runtime"],
+            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+            "assets": [
+              {
+                "glob": "libs/product-feedback/feature/comment/README.md",
+                "input": ".",
+                "output": "."
+              }
+            ]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/product-feedback/feature/comment/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/product-feedback/feature/comment"],
+          "options": {
+            "jestConfig": "libs/product-feedback/feature/comment/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "product-feedback-feature-feedback": {
+      "root": "libs/product-feedback/feature/feedback",
+      "sourceRoot": "libs/product-feedback/feature/feedback/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/product-feedback/feature/feedback",
+            "tsConfig": "libs/product-feedback/feature/feedback/tsconfig.lib.json",
+            "project": "libs/product-feedback/feature/feedback/package.json",
+            "entryFile": "libs/product-feedback/feature/feedback/src/index.ts",
+            "external": ["react/jsx-runtime"],
+            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+            "assets": [
+              {
+                "glob": "libs/product-feedback/feature/feedback/README.md",
+                "input": ".",
+                "output": "."
+              }
+            ]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/product-feedback/feature/feedback/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/product-feedback/feature/feedback"],
+          "options": {
+            "jestConfig": "libs/product-feedback/feature/feedback/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "product-feedback-feature-product": {
+      "root": "libs/product-feedback/feature/product",
+      "sourceRoot": "libs/product-feedback/feature/product/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/product-feedback/feature/product",
+            "tsConfig": "libs/product-feedback/feature/product/tsconfig.lib.json",
+            "project": "libs/product-feedback/feature/product/package.json",
+            "entryFile": "libs/product-feedback/feature/product/src/index.ts",
+            "external": ["react/jsx-runtime"],
+            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+            "assets": [
+              {
+                "glob": "libs/product-feedback/feature/product/README.md",
+                "input": ".",
+                "output": "."
+              }
+            ]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/product-feedback/feature/product/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/product-feedback/feature/product"],
+          "options": {
+            "jestConfig": "libs/product-feedback/feature/product/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "product-feedback-feature-project": {
+      "root": "libs/product-feedback/feature/project",
+      "sourceRoot": "libs/product-feedback/feature/project/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/product-feedback/feature/project",
+            "tsConfig": "libs/product-feedback/feature/project/tsconfig.lib.json",
+            "project": "libs/product-feedback/feature/project/package.json",
+            "entryFile": "libs/product-feedback/feature/project/src/index.ts",
+            "external": ["react/jsx-runtime"],
+            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+            "assets": [
+              {
+                "glob": "libs/product-feedback/feature/project/README.md",
+                "input": ".",
+                "output": "."
+              }
+            ]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/product-feedback/feature/project/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/product-feedback/feature/project"],
+          "options": {
+            "jestConfig": "libs/product-feedback/feature/project/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "product-feedback-feature-roadmap": {
+      "root": "libs/product-feedback/feature/roadmap",
+      "sourceRoot": "libs/product-feedback/feature/roadmap/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/product-feedback/feature/roadmap",
+            "tsConfig": "libs/product-feedback/feature/roadmap/tsconfig.lib.json",
+            "project": "libs/product-feedback/feature/roadmap/package.json",
+            "entryFile": "libs/product-feedback/feature/roadmap/src/index.ts",
+            "external": ["react/jsx-runtime"],
+            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+            "assets": [
+              {
+                "glob": "libs/product-feedback/feature/roadmap/README.md",
+                "input": ".",
+                "output": "."
+              }
+            ]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/product-feedback/feature/roadmap/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/product-feedback/feature/roadmap"],
+          "options": {
+            "jestConfig": "libs/product-feedback/feature/roadmap/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "product-feedback-ui": {
       "root": "libs/product-feedback/ui",
       "sourceRoot": "libs/product-feedback/ui/src",

@@ -40,6 +40,21 @@
       "tags": [],
       "implicitDependencies": ["product-feedback"]
     },
+    "product-feedback-feature-comment": {
+      "tags": []
+    },
+    "product-feedback-feature-feedback": {
+      "tags": []
+    },
+    "product-feedback-feature-product": {
+      "tags": []
+    },
+    "product-feedback-feature-project": {
+      "tags": []
+    },
+    "product-feedback-feature-roadmap": {
+      "tags": []
+    },
     "product-feedback-ui": {
       "tags": []
     },
