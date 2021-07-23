@@ -56,6 +56,10 @@
       "tags": [],
       "implicitDependencies": ["product-feedback-feature-feedback"]
     },
+    "product-feedback-features-product-e2e": {
+      "tags": [],
+      "implicitDependencies": ["product-feedback-feature-product"]
+    },
     "product-feedback-ui": {
       "tags": []
     },
