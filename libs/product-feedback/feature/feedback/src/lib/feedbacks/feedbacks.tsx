@@ -5,6 +5,7 @@ import {
   Button,
   Dropdown,
   DropdownOption,
+  Box,
 } from '@sd/product-feedback-ui-components';
 /* eslint-disable-next-line */
 export interface FeedbacksProps {
@@ -41,7 +42,7 @@ const Skeleton = styled.div`
   width: 100%;
   border-radius: 6px;
 `;
-const FeedbackInteractBar = styled.div`
+const FeedbackInteractBar = styled(Box)`
   display: flex;
   justify-content: space-between;
   width: 100%;
