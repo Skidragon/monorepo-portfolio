@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { ButtonExtended } from '@sd/react-component-types';
+import React from 'react';
 /* eslint-disable-next-line */
 export interface ButtonProps extends ButtonExtended {
   children: React.ReactNode;
@@ -21,6 +22,19 @@ const StyledButton = styled.button<ButtonExtended>`
     box-shadow: unset;
     filter: brightness(100%);
   }
+  ${(props) =>
+    props.Icon &&
+    css`
+      display: inline-flex;
+      align-items: baseline;
+      margin-inline-end: 1rem;
+      .icon {
+        width: 0.75em;
+        width: 1cap;
+        height: 0.75em;
+        height: 1cap;
+      }
+    `}
   ${(props) => {
     if (props.variant === 'primary') {
       return css`
@@ -62,10 +76,12 @@ const StyledButton = styled.button<ButtonExtended>`
 export function Button({
   variant = 'primary',
   children,
+  Icon,
   ...props
 }: ButtonProps) {
   return (
     <StyledButton variant={variant} {...props}>
+      {Icon && React.cloneElement(Icon, { className: 'icon' })}
       {children}
     </StyledButton>
   );
