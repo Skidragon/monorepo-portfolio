@@ -1,5 +1,5 @@
 import { Story, Meta } from '@storybook/react';
-import { Dropdown, DropdownProps, Option } from './dropdown';
+import { Dropdown, DropdownProps, DropdownOption } from './dropdown';
 
 export default {
   component: Dropdown,
@@ -8,9 +8,9 @@ export default {
 
 const Template: Story<DropdownProps> = (args) => (
   <Dropdown {...args}>
-    <Option value={'a1'}>Test 1</Option>
-    <Option value={'a2'}>Test 2</Option>
-    <Option value={'a3'}>Test 3</Option>
+    <DropdownOption value={'a1'}>Test 1</DropdownOption>
+    <DropdownOption value={'a2'}>Test 2</DropdownOption>
+    <DropdownOption value={'a3'}>Test 3</DropdownOption>
   </Dropdown>
 );
 
