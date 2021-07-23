@@ -1,1 +1,2 @@
-export * from './lib/product-feedback-feature-feedback';
+export * from './lib/feedback/feedback';
+export * from './lib/feedbacks/feedbacks';

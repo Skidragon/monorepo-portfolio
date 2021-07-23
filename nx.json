@@ -55,6 +55,10 @@
     "product-feedback-feature-roadmap": {
       "tags": []
     },
+    "product-feedback-features-feedback-e2e": {
+      "tags": [],
+      "implicitDependencies": ["product-feedback-feature-feedback"]
+    },
     "product-feedback-ui": {
       "tags": []
     },
