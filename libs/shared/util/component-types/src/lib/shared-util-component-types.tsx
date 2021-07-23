@@ -9,5 +9,5 @@ interface BaseField {
   errorMessage?: string;
   hasError?: boolean;
 }
-export type SelectExtended = BaseField;
+export type SelectExtended = BaseField & { label: string };
 export type TextFieldExtended = BaseField;
