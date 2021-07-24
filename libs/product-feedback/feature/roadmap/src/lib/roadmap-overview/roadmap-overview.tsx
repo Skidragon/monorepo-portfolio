@@ -12,19 +12,17 @@ const Header = styled.div`
 `;
 const RoadmapHeader = styled.h4``;
 const Stack = styled.div`
-  .stack {
-    --space: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-  }
+  --space: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 
-  .stack > * {
+  & > * {
     margin-top: 0;
     margin-bottom: 0;
   }
 
-  .stack > * + * {
+  & > * + * {
     margin-top: var(--space);
   }
 `;
@@ -89,13 +87,13 @@ export function RoadmapOverview(props: RoadmapOverviewProps) {
           <a>View</a>
         </Link>
       </Header>
-      <Stack>
-        <List>
+      <List>
+        <Stack>
           <StatusLineItem statusType={'PLANNED'} amount={3} />
           <StatusLineItem statusType={'IN_PROGRESS'} amount={3} />
           <StatusLineItem statusType={'LIVE'} amount={3} />
-        </List>
-      </Stack>
+        </Stack>
+      </List>
     </StyledRoadmapOverview>
   );
 }
