@@ -1,9 +1,19 @@
 import { Box, Button } from '@sd/product-feedback-ui-components';
-import styled from 'styled-components';
-
+import styled, { css } from 'styled-components';
+import React from 'react';
 /* eslint-disable-next-line */
-export interface FeedbacksCategoryFilterProps {}
-
+export interface FeedbacksCategoryFilterProps
+  extends Omit<
+    React.DetailedHTMLProps<
+      React.HTMLAttributes<HTMLUListElement>,
+      HTMLUListElement
+    >,
+    'onClick'
+  > {
+  data: string[];
+  onClick: (event: React.MouseEvent<HTMLUListElement>, value: string) => void;
+  value: string;
+}
 const StyledFeedbacksCategoryFilter = styled(Box)`
   color: pink;
 `;
@@ -14,20 +24,42 @@ const Cluster = styled.ul`
   gap: var(--space, 1rem);
   justify-content: flex-start;
   align-items: center;
+  list-style-type: none;
 `;
-export function FeedbacksCategoryFilter(props: FeedbacksCategoryFilterProps) {
+const ButtonBadge = styled(Button)<{ isActive: boolean }>`
+  border-radius: 12px;
+  ${(props) =>
+    props.isActive &&
+    css`
+      background: #4661e6;
+      color: white;
+    `}
+`;
+export const FeedbacksCategoryFilter = React.forwardRef<
+  HTMLUListElement,
+  FeedbacksCategoryFilterProps
+>((props, ref) => {
+  const { data, onClick, value, ...rest } = props;
   return (
     <StyledFeedbacksCategoryFilter>
-      <Cluster>
-        <Button>All</Button>
-        <Button>UI</Button>
-        <Button>UX</Button>
-        <Button>Enahncement</Button>
-        <Button>Bug</Button>
-        <Button>Feature</Button>
+      <Cluster
+        onClick={(e: React.MouseEvent<HTMLUListElement>) => {
+          const input = e.target as HTMLElement;
+          onClick(e, input.innerText);
+        }}
+        {...rest}
+        ref={ref}
+      >
+        {data.map((text) => {
+          return (
+            <li key={text}>
+              <ButtonBadge isActive={value === text}>{text}</ButtonBadge>
+            </li>
+          );
+        })}
       </Cluster>
     </StyledFeedbacksCategoryFilter>
   );
-}
+});
 
 export default FeedbacksCategoryFilter;

@@ -1,0 +1,33 @@
+import { Story, Meta } from '@storybook/react';
+import { useState } from 'react';
+import {
+  FeedbacksCategoryFilter,
+  FeedbacksCategoryFilterProps,
+} from './feedbacks-category-filter';
+
+export default {
+  component: FeedbacksCategoryFilter,
+  title: 'FeedbacksCategoryFilter',
+} as Meta;
+
+const Template: Story<FeedbacksCategoryFilterProps> = (args) => {
+  const [value, setValue] = useState('');
+  return (
+    <FeedbacksCategoryFilter
+      data={['UI', 'UX', 'Enhanced', 'Feature']}
+      onClick={(event, value) => {
+        setValue(value);
+      }}
+      value={value}
+    />
+  );
+};
+
+export const Primary = Template.bind({});
+Primary.args = {
+  data: ['UI', 'UX'],
+  onClick: (e, value) => {
+    console.log(value);
+  },
+  value: 'UX',
+};
