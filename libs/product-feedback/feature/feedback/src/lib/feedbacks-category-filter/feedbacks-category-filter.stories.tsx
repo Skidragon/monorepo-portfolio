@@ -14,7 +14,7 @@ const Template: Story<FeedbacksCategoryFilterProps> = (args) => {
   const [value, setValue] = useState('');
   return (
     <FeedbacksCategoryFilter
-      data={['UI', 'UX', 'Enhanced', 'Feature']}
+      data={['All', 'UI', 'UX', 'Bug', 'Enhanced', 'Feature']}
       onClick={(event, value) => {
         setValue(value);
       }}
@@ -24,10 +24,4 @@ const Template: Story<FeedbacksCategoryFilterProps> = (args) => {
 };
 
 export const Primary = Template.bind({});
-Primary.args = {
-  data: ['UI', 'UX'],
-  onClick: (e, value) => {
-    console.log(value);
-  },
-  value: 'UX',
-};
+Primary.args = {};
