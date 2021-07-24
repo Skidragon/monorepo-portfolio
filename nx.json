@@ -60,6 +60,10 @@
       "tags": [],
       "implicitDependencies": ["product-feedback-feature-product"]
     },
+    "product-feedback-features-roadmap-e2e": {
+      "tags": [],
+      "implicitDependencies": ["product-feedback-feature-roadmap"]
+    },
     "product-feedback-ui": {
       "tags": []
     },
