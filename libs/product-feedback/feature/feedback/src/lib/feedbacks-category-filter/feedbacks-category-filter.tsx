@@ -14,9 +14,7 @@ export interface FeedbacksCategoryFilterProps
   onClick: (event: React.MouseEvent<HTMLUListElement>, value: string) => void;
   value: string;
 }
-const StyledFeedbacksCategoryFilter = styled(Box)`
-  color: pink;
-`;
+const StyledFeedbacksCategoryFilter = styled(Box)``;
 
 const Cluster = styled.ul`
   display: flex;
