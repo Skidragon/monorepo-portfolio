@@ -1,3 +1,4 @@
+export * from './lib/cards/card/card';
 export * from './lib/tabs/tabs';
 export * from './lib/boxes/box/box';
 export * from './lib/badges/badge/badge';
