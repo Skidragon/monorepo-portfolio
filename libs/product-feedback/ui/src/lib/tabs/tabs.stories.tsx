@@ -8,19 +8,26 @@ export default {
 const Template: Story = (args) => {
   return (
     <Tabs>
-      <TabList style={{ width: 400 }}>
-        <Tab index={0}>One</Tab> <Tab index={1}>Two</Tab>{' '}
-        <Tab index={2}>Three</Tab>
+      <TabList>
+        <Tab borderColor={'orange'} index={0}>
+          Planned (5)
+        </Tab>{' '}
+        <Tab borderColor={'purple'} index={1}>
+          In-Progress (1)
+        </Tab>
+        <Tab borderColor={'lightblue'} index={2}>
+          Live (2)
+        </Tab>
       </TabList>
       <TabPanels>
         <TabPanel>
-          <p>one!</p>
+          <p>Planned!</p>
         </TabPanel>
         <TabPanel>
-          <p>two!</p>
+          <p>Progress!</p>
         </TabPanel>
         <TabPanel>
-          <p>three!</p>
+          <p>Live!</p>
         </TabPanel>
       </TabPanels>
     </Tabs>

@@ -5,20 +5,20 @@ import {
   Tab as ReachTab,
   TabPanels as ReachTabPanels,
   TabPanel as ReachTabPanel,
-  TabsProps as ReachTabsProps,
   TabProps as ReachTabProps,
   useTabsContext,
 } from '@reach/tabs';
-import React, { useState, useRef, useContext } from 'react';
-import { useRect, RectProps } from '@reach/rect';
 
 /* eslint-disable-next-line */
 
-const StyledTabs = styled(ReachTabs)``;
+export const Tabs = styled(ReachTabs)``;
 export const TabList = styled(ReachTabList)`
-  border-bottom: 2px solid lightgrey;
+  border-bottom: 3px solid #8c92b3;
 `;
-const StyledTab = styled(ReachTab)`
+interface TabProps extends ReachTabProps {
+  borderColor?: string;
+}
+export const StyledTab = styled(ReachTab)<{ style: React.CSSProperties }>`
   background: none;
   color: inherit;
   border: none;
@@ -26,79 +26,32 @@ const StyledTab = styled(ReachTab)`
   cursor: pointer;
   outline: inherit;
   margin: 0;
-  padding: 1em 2em;
+  padding: 1em;
   text-transform: capitalize;
+  font-weight: 600;
 `;
-export const TabPanels = styled(ReachTabPanels)``;
-export const TabPanel = styled(ReachTabPanel)``;
-
-const AnimatedContext = React.createContext<React.Dispatch<
-  React.SetStateAction<DOMRect | null>
-> | null>(null);
-
-export const Tabs: React.FunctionComponent<ReachTabsProps> = ({
-  children,
-  ...rest
-}) => {
-  const [activeRect, setActiveRect] =
-    useState<ReturnType<typeof useRect>>(null);
-  const ref = useRef();
-  const rect = useRect(ref, {});
-
-  return (
-    <AnimatedContext.Provider value={setActiveRect}>
-      <StyledTabs
-        {...rest}
-        ref={ref}
-        style={{ ...(rest?.style || {}), position: 'relative' }}
-      >
-        <div
-          style={{
-            position: 'absolute',
-            height: 2,
-            background: 'lightblue',
-            transition: 'all 300ms ease',
-            left: (activeRect?.left ?? 0) - (rect?.left ?? 0),
-            top: (activeRect?.bottom ?? 0) - (rect?.top ?? 0),
-            width: activeRect?.width ?? 0,
-          }}
-        >
-          {children}
-        </div>
-      </StyledTabs>
-    </AnimatedContext.Provider>
-  );
-};
-
-export const Tab: React.FunctionComponent<ReachTabProps> = ({
+export const Tab: React.FunctionComponent<TabProps> = ({
   index,
+  borderColor,
   ...props
 }) => {
   const { selectedIndex } = useTabsContext();
   const isSelected = selectedIndex === index;
-
-  const ref = React.useRef();
-  const rect = useRect(ref, { observe: isSelected });
-
-  const setActiveRect = useContext(AnimatedContext);
-
-  React.useLayoutEffect(() => {
-    if (isSelected && setActiveRect) {
-      setActiveRect(rect);
-    }
-  }, [isSelected, rect, setActiveRect]);
-  console.log(props.style);
   return (
     <StyledTab
-      ref={ref}
-      {...props}
       style={{
-        ...props.style,
-        border: 'none',
+        borderBottom: isSelected
+          ? `5px solid ${borderColor || 'black'}`
+          : 'none',
+        color: isSelected ? 'black' : 'lightgrey',
       }}
+      {...props}
     />
   );
 };
+export const TabPanels = styled(ReachTabPanels)``;
+export const TabPanel = styled(ReachTabPanel)``;
+
 // import {
 //   Tabs,
 //   TabList,
