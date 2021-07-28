@@ -25,7 +25,7 @@ const HelperText = styled.p`
   font-size: 1.25em;
   line-height: 0;
 `;
-const StyledInput = styled.input<{ hasError: boolean }>`
+const StyledInput = styled.input<Pick<InputProps, 'hasError'>>`
   ${(props) => {
     if (props.hasError) {
       return css`
