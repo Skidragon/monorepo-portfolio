@@ -74,7 +74,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           id={id}
           ref={ref}
         />
-        {hasError && errorMessage ? <Error>{errorMessage}</Error> : null}
+        {hasError && errorMessage ? (
+          <Error aria-live="polite">{errorMessage}</Error>
+        ) : null}
       </Container>
     );
   }
