@@ -4,7 +4,7 @@ import Feedbacks from './feedbacks';
 
 describe('Feedbacks', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Feedbacks />);
+    const { baseElement } = render(<Feedbacks data={[]} loading={false} />);
     expect(baseElement).toBeTruthy();
   });
 });

@@ -4,7 +4,7 @@ import Badge from './badge';
 
 describe('Badge', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Badge />);
+    const { baseElement } = render(<Badge>Test</Badge>);
     expect(baseElement).toBeTruthy();
   });
 });

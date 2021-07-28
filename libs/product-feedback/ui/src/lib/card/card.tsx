@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Box } from '@sd/product-feedback-ui-components';
+import { Box } from '../box/box';
 /* eslint-disable-next-line */
 export interface CardProps {}
 

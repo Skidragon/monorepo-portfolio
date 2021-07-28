@@ -1,7 +1,6 @@
-import React, { HTMLAttributes } from 'react';
+import React, { HTMLAttributes, DetailedHTMLProps } from 'react';
 import styled from 'styled-components';
-import { Box } from '@sd/product-feedback-ui-components';
-import { DetailedHTMLProps } from 'react';
+import { Box } from '../box/box';
 /* eslint-disable-next-line */
 export interface BadgeProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {

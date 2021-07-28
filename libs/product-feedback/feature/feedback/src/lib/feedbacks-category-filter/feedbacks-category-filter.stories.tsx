@@ -10,7 +10,7 @@ export default {
   title: 'FeedbacksCategoryFilter',
 } as Meta;
 
-const Template: Story<FeedbacksCategoryFilterProps> = (args) => {
+const Template: Story<FeedbacksCategoryFilterProps> = (...args) => {
   const [value, setValue] = useState('');
   return (
     <FeedbacksCategoryFilter
@@ -19,6 +19,8 @@ const Template: Story<FeedbacksCategoryFilterProps> = (args) => {
         setValue(value);
       }}
       value={value}
+      {...args}
+      ref={undefined}
     />
   );
 };

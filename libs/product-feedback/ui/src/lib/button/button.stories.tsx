@@ -1,4 +1,5 @@
 import { Story, Meta } from '@storybook/react';
+import { useRef } from 'react';
 import { Button, ButtonProps } from './button';
 
 export default {
@@ -6,9 +7,14 @@ export default {
   title: 'Button',
 } as Meta;
 
-const Template: Story<ButtonProps> = (args) => (
-  <Button variant={args.variant}>{args.children}</Button>
-);
+const Template: Story<ButtonProps> = (args) => {
+  const ref = useRef(null);
+  return (
+    <Button variant={args.variant} ref={ref}>
+      {args.children}
+    </Button>
+  );
+};
 
 export const Primary = Template.bind({});
 Primary.args = {

@@ -9,4 +9,7 @@ export default {
 const Template: Story<FeedbacksProps> = (args) => <Feedbacks {...args} />;
 
 export const Primary = Template.bind({});
-Primary.args = {};
+Primary.args = {
+  loading: false,
+  data: [],
+};

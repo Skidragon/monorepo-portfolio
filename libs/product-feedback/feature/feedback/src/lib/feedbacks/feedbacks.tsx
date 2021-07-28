@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import { Feedback } from '@sd/product-feedback/feature/feedback';
+import { Feedback } from '../feedback/feedback';
 import {
   Button,
   Dropdown,
@@ -10,6 +10,7 @@ import {
 /* eslint-disable-next-line */
 export interface FeedbacksProps {
   loading: boolean;
+  data: any[];
 }
 
 const StyledContainer = styled.div`
@@ -42,7 +43,7 @@ const Skeleton = styled.div`
   width: 100%;
   border-radius: 6px;
 `;
-const FeedbackInteractBar = styled(Box)`
+const FeedbacksBar = styled(Box)`
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -50,19 +51,29 @@ const FeedbackInteractBar = styled(Box)`
   background: blue;
   color: white;
 `;
-
+const FeedbacksCTA = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const FeedbacksAmountHeading = styled.h3``;
 const OPTIONS = {
   MOST_UPVOTES: 'Most Upvotes',
   LEAST_UPVOTES: 'Least Upvotes',
   MOST_COMMENTS: 'Most Comments',
   LEAST_COMMENTS: 'Least Comments',
 };
-export function Feedbacks({ loading = true, ...props }: FeedbacksProps) {
-  const [sortValue, setSortValue] = useState(OPTIONS.MOST_UPVOTES);
+export function Feedbacks({
+  loading = true,
+  data = [],
+  ...props
+}: FeedbacksProps) {
+  const [sortValue, setSortValue] = useState(OPTIONS.MOST_UPVOTES || '');
+  const amountOfFeedbacks = data.length;
   return (
     <StyledContainer {...props}>
-      <FeedbackInteractBar>
-        <div>
+      <FeedbacksBar>
+        <FeedbacksCTA>
+          <FeedbacksAmountHeading>{`${amountOfFeedbacks} Suggestions`}</FeedbacksAmountHeading>
           <label htmlFor="sort-dropdown">Sort By:</label>
           <Dropdown
             value={sortValue}
@@ -84,9 +95,9 @@ export function Feedbacks({ loading = true, ...props }: FeedbacksProps) {
               {OPTIONS.LEAST_COMMENTS}
             </DropdownOption>
           </Dropdown>
-        </div>
+        </FeedbacksCTA>
         <Button variant={'primary'}>Feedback</Button>
-      </FeedbackInteractBar>
+      </FeedbacksBar>
       <StyledFeedbacks>
         {loading ? (
           <Skeleton />
