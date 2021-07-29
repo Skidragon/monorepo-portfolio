@@ -40,13 +40,17 @@ const Container = styled(({ children, ...props }) => {
 interface DropdownButtonProps extends BaseButton {
   isOpen: DropdownProps['isOpen'];
 }
-const DropdownButton = styled(({ children, ...props }: DropdownButtonProps) => {
-  return (
-    <button type="button" aria-haspopup="true" {...props}>
-      {children}
-    </button>
-  );
-})`
+const DropdownButton = styled(
+  React.forwardRef<HTMLButtonElement, DropdownButtonProps>(
+    ({ children, ...props }, ref) => {
+      return (
+        <button type="button" aria-haspopup="true" {...props} ref={ref}>
+          {children}
+        </button>
+      );
+    }
+  )
+)`
   appearance: none;
   background: var(--color-background-dropdown);
   color: var(--color-text-dropdown);
@@ -108,7 +112,7 @@ interface DropdownMenuProps extends BaseUList {
 }
 const DropdownMenu = styled(({ children, ...props }: DropdownMenuProps) => {
   const ref = useRef<HTMLUListElement | null>(null);
-  const { setIsOpen, isOpen, onOptionChange } = useDropdown();
+  const { setIsOpen, isOpen, onOptionChange, focusOnDropdown } = useDropdown();
   useEffect(() => {
     if (ref?.current) {
       const firstLiChild = ref.current.children[0] as HTMLLIElement;
@@ -121,6 +125,7 @@ const DropdownMenu = styled(({ children, ...props }: DropdownMenuProps) => {
       aria-expanded={isOpen}
       onClick={(e) => {
         const li = e.target as HTMLLIElement;
+        focusOnDropdown();
         onOptionChange(li.dataset.value as string);
       }}
       onKeyDown={(e) => {
@@ -145,7 +150,7 @@ const DropdownMenu = styled(({ children, ...props }: DropdownMenuProps) => {
           lastLiChild.focus();
         }
         if (e.key === 'Enter') {
-          setIsOpen(false);
+          focusOnDropdown();
           onOptionChange(li.dataset.value as string);
         }
         if (e.key === 'Escape') {
@@ -237,6 +242,7 @@ interface DropdownProviderValues {
   hasOptionSelected: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   onOptionChange: DropdownProps['onOptionChange'];
+  focusOnDropdown: () => void;
 }
 const DropdownContext = React.createContext<DropdownProviderValues | null>(
   null
@@ -254,6 +260,18 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
     const selectedOption = props.children.find((option) => {
       return option.props.value === controlledValue;
     });
+    const buttonDropdownRef = useRef<HTMLButtonElement>(null);
+
+    useEffect(() => {
+      if (!isOpen && buttonDropdownRef?.current) {
+        buttonDropdownRef.current.focus();
+      }
+    }, [isOpen]);
+    const focusOnDropdown = () => {
+      if (buttonDropdownRef?.current) {
+        buttonDropdownRef.current.focus();
+      }
+    };
 
     return (
       <DropdownContext.Provider
@@ -264,6 +282,7 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
           isOpen,
           setIsOpen,
           onOptionChange,
+          focusOnDropdown,
         }}
       >
         <Container {...props} ref={ref}>
@@ -272,6 +291,7 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
             onClick={() => {
               setIsOpen((prevOpen) => !prevOpen);
             }}
+            ref={buttonDropdownRef}
           >{`${props.label}${
             controlledValue ? ` : ${selectedOption?.props.children}` : ''
           }`}</DropdownButton>
