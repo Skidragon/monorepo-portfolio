@@ -13,17 +13,17 @@ const Template: Story<DropdownProps> = (args) => {
     <Dropdown
       {...args}
       value={value}
-      onChange={() => {
-        setValue('a1');
+      onOptionChange={(value) => {
+        console.log(value);
+        setValue(value);
       }}
       label={'Sort By'}
-      isOpen={true}
       ref={undefined}
     >
       <DropdownOption value={'a1'}>Most Upvotes</DropdownOption>
       <DropdownOption value={'a2'}>Least Upvotes</DropdownOption>
-      <DropdownOption value={'a2'}>Most Comments</DropdownOption>
-      <DropdownOption value={'a2'}>Least Comments</DropdownOption>
+      <DropdownOption value={'a3'}>Most Comments</DropdownOption>
+      <DropdownOption value={'a4'}>Least Comments</DropdownOption>
     </Dropdown>
   );
 };

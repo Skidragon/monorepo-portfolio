@@ -15,6 +15,18 @@ export interface ButtonExtended {
   Icon?: ReactElement<any, string | JSXElementConstructor<any>>;
 }
 
+export type BaseUList = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLUListElement>,
+  HTMLUListElement
+>;
+export type BaseLI = React.DetailedHTMLProps<
+  React.LiHTMLAttributes<HTMLLIElement>,
+  HTMLLIElement
+>;
+export type BaseDiv = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+>;
 interface BaseField {
   errorMessage?: string;
   hasError?: boolean;
