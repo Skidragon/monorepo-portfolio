@@ -14,3 +14,11 @@ Primary.args = {
   lastName: 'Davis',
   src: '',
 };
+
+export const Loading = Template.bind({});
+Loading.args = {
+  firstName: 'Simon',
+  lastName: 'Davis',
+  src: '',
+  loading: true,
+};
