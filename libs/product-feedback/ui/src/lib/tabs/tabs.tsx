@@ -13,6 +13,7 @@ import {
 
 export const Tabs = styled(ReachTabs)``;
 export const TabList = styled(ReachTabList)`
+  display: inline-block;
   border-bottom: 3px solid #8c92b3;
 `;
 interface TabProps extends ReachTabProps {
