@@ -68,9 +68,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         </Label>
         {helperText ? <HelperText>{helperText}</HelperText> : null}
         <StyledInput
+          placeholder={label}
           {...props}
           hasError={hasError}
-          placeholder={label}
           id={id}
           ref={ref}
         />
