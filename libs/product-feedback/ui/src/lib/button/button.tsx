@@ -7,20 +7,24 @@ export interface ButtonProps extends BaseButton, ButtonExtended {
 }
 
 const StyledButton = styled.button<ButtonExtended>`
-  filter: brightness(120%);
-  border-radius: 6px;
-  padding: 1em;
+  appearance: none;
+  border: none;
+  outline: none;
+  --color-text: #4661e6;
+  --color-background: #f2f4fe;
+  --color-shadow: #545454;
+  color: var(--color-text);
+  background: var(--color-background);
   cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
-    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-  border: unset;
+  padding: 1em;
+  border-radius: 6px;
   text-transform: capitalize;
-  &:hover {
-    filter: brightness(140%);
-  }
+  box-shadow: -2px 3px var(--color-shadow), -2px 1px var(--color-shadow);
+  transform: translate(5px, -5px);
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
   &:active {
-    box-shadow: unset;
-    filter: brightness(100%);
+    box-shadow: 0 0 var(--color-shadow), 0 0 var(--color-shadow);
+    transform: translateX(0);
   }
   ${(props) =>
     props.Icon &&
@@ -38,37 +42,37 @@ const StyledButton = styled.button<ButtonExtended>`
   ${(props) => {
     if (props.variant === 'primary') {
       return css`
-        color: var(--color-text-button-primary, white);
-        background: var(--color-text-button-primary, #ad1fea);
+        --color-text: var(--color-text-button-primary, white);
+        --color-background: var(--color-background-button-primary, #ad1fea);
       `;
     }
     if (props.variant === 'secondary') {
       return css`
-        color: var(--color-text-button-secondary, white);
-        background: var(--color-text-button-secondary, #4661e6);
+        --color-text: var(--color-text-button-primary, white);
+        --color-background: var(--color-background-button-primary, #4661e6);
       `;
     }
     if (props.variant === 'tertiary') {
       return css`
-        color: var(--color-text-button-tertiary, white);
-        background: var(--color-text-button-tertiary, #373f68);
+        --color-text: var(--color-text-button-tertiary, white);
+        --color-background: var(--color-text-button-tertiary, #373f68);
       `;
     }
     if (props.variant === 'error') {
       return css`
-        color: var(--color-text-button-error, white);
-        background: var(--color-text-button-error, red);
+        --color-text: var(--color-text-button-error, white);
+        --color-background: var(--color-text-button-error, red);
       `;
     }
     if (props.variant === 'success') {
       return css`
-        color: var(--color-text-button-success, white);
-        background: var(--color-text-button-success, green);
+        --color-text: var(--color-text-button-success, white);
+        --color-background: var(--color-text-button-success, green);
       `;
     }
     return css`
-      color: var(--color-text-button-default, #4661e6);
-      background: var(--color-text-button-default, #f2f4fe);
+      --color-text: var(--color-text-button-default, #4661e6);
+      --color-background: var(--color-text-button-default, #f2f4fe);
     `;
   }}
 `;
