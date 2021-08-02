@@ -12,7 +12,7 @@ const StyledButton = styled.button<ButtonExtended>`
   outline: none;
   --color-text: #4661e6;
   --color-background: #f2f4fe;
-  --color-shadow: #545454;
+  --color-shadow: #8c8c8c;
   color: var(--color-text);
   background: var(--color-background);
   cursor: pointer;
