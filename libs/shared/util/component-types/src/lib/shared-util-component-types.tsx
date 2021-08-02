@@ -9,6 +9,8 @@ export interface ButtonExtended {
     | 'primary'
     | 'secondary'
     | 'tertiary'
+    | 'outlined'
+    | 'text'
     | 'success'
     | 'error'
     | 'default';
