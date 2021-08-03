@@ -38,6 +38,8 @@
     "document-register-element": "1.13.1",
     "next": "11.0.1",
     "react": "17.0.2",
+    "react-dnd": "^14.0.2",
+    "react-dnd-html5-backend": "^14.0.0",
     "react-dom": "17.0.2",
     "react-is": "17.0.2",
     "react-use": "^17.2.4",
