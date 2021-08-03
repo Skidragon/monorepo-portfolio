@@ -47,11 +47,19 @@ export function RoadmapFeedbackStatusBoard(
       <StyledRoadmapFeedbackStatusBoard>
         <DropColumn>
           <DraggableFeedback
+            title={'More comprehensive reports'}
+            description={
+              'It would be great to see a more detailed breakdown of solutions.'
+            }
             statusType={'PLANNED'}
             showStatus={true}
             isCompactView={true}
           />
           <DraggableFeedback
+            title={'Learning Paths'}
+            description={
+              'Sequenced projects for different goals to help people improve.'
+            }
             statusType={'PLANNED'}
             showStatus={true}
             isCompactView={true}
@@ -59,11 +67,17 @@ export function RoadmapFeedbackStatusBoard(
         </DropColumn>
         <DropColumn>
           <DraggableFeedback
+            title={'One-click portfolio generation'}
+            description={
+              'Add ability to create professional looking portfolio from profile.'
+            }
             statusType={'IN_PROGRESS'}
             showStatus={true}
             isCompactView={true}
           />
           <DraggableFeedback
+            title={'Bookmark challenges'}
+            description={'Be able to bookmark challenges to take later on.'}
             statusType={'IN_PROGRESS'}
             showStatus={true}
             isCompactView={true}
@@ -71,11 +85,8 @@ export function RoadmapFeedbackStatusBoard(
         </DropColumn>
         <DropColumn>
           <DraggableFeedback
-            statusType={'LIVE'}
-            showStatus={true}
-            isCompactView={true}
-          />
-          <DraggableFeedback
+            title={'Add micro-interactions'}
+            description={'Small animations at specific points can add delight.'}
             statusType={'LIVE'}
             showStatus={true}
             isCompactView={true}
