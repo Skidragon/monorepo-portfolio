@@ -1,9 +1,10 @@
 import styled, { css } from 'styled-components';
 import { Button, Box, Badge } from '@sd/product-feedback-ui-components';
 import React from 'react';
+import { BaseDiv } from '@sd/react-component-types';
 /* eslint-disable-next-line */
 type FeedbackStatusType = 'PLANNED' | 'IN_PROGRESS' | 'LIVE';
-export interface FeedbackProps {
+export interface FeedbackProps extends BaseDiv {
   statusType?: FeedbackStatusType;
   showStatus?: boolean;
   isCompactView?: boolean;
@@ -89,18 +90,25 @@ const StyledFeedbackBox = styled(Box)<FeedbackProps>`
       }
     `}
 `;
-
+const Status = styled.span``;
 export const Feedback = React.forwardRef<HTMLDivElement, FeedbackProps>(
   (props, ref) => {
-    const { showStatus = false, isCompactView = false, ...rest } = props;
+    const {
+      statusType,
+      showStatus = false,
+      isCompactView = false,
+      ...rest
+    } = props;
     return (
       <StyledFeedbackBox
         showStatus={showStatus}
         isCompactView={isCompactView}
+        statusType={statusType}
         {...rest}
         ref={ref}
       >
         <div className="main-content">
+          {showStatus ? <Status>{statusType}</Status> : null}
           <h3>Add Tags for solutions</h3>
           <p>Easier to search for solutions based on a specific stack.</p>
           <Badge className="category">Enhancement</Badge>
