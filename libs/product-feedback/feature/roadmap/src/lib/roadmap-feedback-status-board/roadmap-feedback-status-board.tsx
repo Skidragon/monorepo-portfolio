@@ -3,9 +3,10 @@ import styled from 'styled-components';
 import { Feedback, FeedbackProps } from '@sd/product-feedback/feature/feedback';
 import { useDrag, useDrop, DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { mockFeedbacks } from './mockFeedbacks';
 /* eslint-disable-next-line */
-export interface RoadmapFeedbackStatusBoardProps {}
+export interface RoadmapFeedbackStatusBoardProps {
+  data: FeedbackProps[];
+}
 export const ITEM_TYPES = {
   FEEDBACK: 'feedback',
 };
@@ -13,6 +14,7 @@ const StyledRoadmapFeedbackStatusBoard = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 1rem;
+  font-family: var(--font-family, sans-serif);
 `;
 
 const Column = styled.div`
@@ -24,12 +26,12 @@ const Column = styled.div`
   min-height: 100vh;
 `;
 interface DropColumnProps {
-  children: React.ReactNode[];
+  feedbacks: FeedbackProps[];
   description: string;
   statusType: FeedbackProps['statusType'];
 }
 const DropColumn: React.FunctionComponent<DropColumnProps> = ({
-  children,
+  feedbacks,
   description,
   statusType,
 }) => {
@@ -39,7 +41,7 @@ const DropColumn: React.FunctionComponent<DropColumnProps> = ({
       highlight: monitor.isOver(),
     }),
   }));
-  const feedbacksTotal = children.length;
+  const feedbacksTotal = feedbacks.length;
   return (
     <div>
       <h2>
@@ -52,7 +54,16 @@ const DropColumn: React.FunctionComponent<DropColumnProps> = ({
         }}
         ref={dropRef}
       >
-        {children}
+        {feedbacks.map((feedback) => {
+          return (
+            <DraggableFeedback
+              title={feedback.title}
+              description={feedback.description}
+              statusType={statusType}
+              key={feedback.title}
+            />
+          );
+        })}
       </Column>
     </div>
   );
@@ -76,21 +87,21 @@ const DraggableFeedback = styled<
     }),
     [props.statusType]
   );
-  return show ? (
+  return (
     <Feedback {...props} showStatus={true} isCompactView={true} ref={dragRef} />
-  ) : null;
+  );
 })``;
 
-export function RoadmapFeedbackStatusBoard(
-  props: RoadmapFeedbackStatusBoardProps
-) {
-  const plannedFeedbacks = mockFeedbacks.filter((feedback) => {
+export function RoadmapFeedbackStatusBoard({
+  data,
+}: RoadmapFeedbackStatusBoardProps) {
+  const plannedFeedbacks = data.filter((feedback) => {
     return feedback.statusType === 'PLANNED';
   });
-  const inProgressFeedbacks = mockFeedbacks.filter((feedback) => {
+  const inProgressFeedbacks = data.filter((feedback) => {
     return feedback.statusType === 'IN_PROGRESS';
   });
-  const liveFeedbacks = mockFeedbacks.filter((feedback) => {
+  const liveFeedbacks = data.filter((feedback) => {
     return feedback.statusType === 'LIVE';
   });
   return (
@@ -99,43 +110,19 @@ export function RoadmapFeedbackStatusBoard(
         <DropColumn
           statusType={'PLANNED'}
           description={'Ideas prioritized for research'}
-        >
-          {plannedFeedbacks.map((feedback, index) => {
-            return (
-              <DraggableFeedback
-                title={feedback.title}
-                description={feedback.description}
-                statusType={'PLANNED'}
-                positionIndex={index}
-              />
-            );
-          })}
-        </DropColumn>
+          feedbacks={plannedFeedbacks}
+        />
         <DropColumn
           statusType={'IN_PROGRESS'}
           description={'Currently being developed'}
-        >
-          {inProgressFeedbacks.map((feedback) => {
-            return (
-              <DraggableFeedback
-                title={feedback.title}
-                description={feedback.description}
-                statusType={'IN_PROGRESS'}
-              />
-            );
-          })}
-        </DropColumn>
-        <DropColumn statusType={'LIVE'} description={'Released features'}>
-          {liveFeedbacks.map((feedback) => {
-            return (
-              <DraggableFeedback
-                title={feedback.title}
-                description={feedback.description}
-                statusType={'LIVE'}
-              />
-            );
-          })}
-        </DropColumn>
+          feedbacks={inProgressFeedbacks}
+        />
+
+        <DropColumn
+          statusType={'LIVE'}
+          description={'Released features'}
+          feedbacks={liveFeedbacks}
+        />
       </StyledRoadmapFeedbackStatusBoard>
     </DndProvider>
   );
