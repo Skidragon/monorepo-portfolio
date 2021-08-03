@@ -5,12 +5,16 @@ import { BaseDiv } from '@sd/react-component-types';
 /* eslint-disable-next-line */
 type FeedbackStatusType = 'PLANNED' | 'IN_PROGRESS' | 'LIVE';
 export interface FeedbackProps extends BaseDiv {
+  title: string;
+  description: string;
   statusType?: FeedbackStatusType;
   showStatus?: boolean;
   isCompactView?: boolean;
 }
 
-const StyledFeedbackBox = styled(Box)<FeedbackProps>`
+const StyledFeedbackBox = styled(Box)<
+  Pick<FeedbackProps, 'statusType' | 'showStatus' | 'isCompactView'>
+>`
   display: grid;
   grid-template-rows: 2fr 1fr;
   grid-template-columns: 1fr 1fr;
@@ -41,6 +45,7 @@ const StyledFeedbackBox = styled(Box)<FeedbackProps>`
     justify-self: flex-end;
     align-self: center;
   }
+  background: white;
   ${(props) => {
     if (props.showStatus) {
       if (props.statusType === 'PLANNED') {
@@ -94,6 +99,8 @@ const Status = styled.span``;
 export const Feedback = React.forwardRef<HTMLDivElement, FeedbackProps>(
   (props, ref) => {
     const {
+      title,
+      description,
       statusType,
       showStatus = false,
       isCompactView = false,
@@ -109,8 +116,8 @@ export const Feedback = React.forwardRef<HTMLDivElement, FeedbackProps>(
       >
         <div className="main-content">
           {showStatus ? <Status>{statusType}</Status> : null}
-          <h3>Add Tags for solutions</h3>
-          <p>Easier to search for solutions based on a specific stack.</p>
+          <h3>{title}</h3>
+          <p>{description}</p>
           <Badge className="category">Enhancement</Badge>
         </div>
         <Button className="vote-btn">
