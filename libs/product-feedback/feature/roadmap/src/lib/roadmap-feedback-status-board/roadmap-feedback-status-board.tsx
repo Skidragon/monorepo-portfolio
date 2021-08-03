@@ -3,9 +3,12 @@ import styled from 'styled-components';
 import { Feedback, FeedbackProps } from '@sd/product-feedback/feature/feedback';
 import { useDrag, useDrop, DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { mockFeedbacks } from './mockFeedbacks';
 /* eslint-disable-next-line */
 export interface RoadmapFeedbackStatusBoardProps {}
-
+export const ITEM_TYPES = {
+  FEEDBACK: 'feedback',
+};
 const StyledRoadmapFeedbackStatusBoard = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -13,84 +16,125 @@ const StyledRoadmapFeedbackStatusBoard = styled.div`
 `;
 
 const Column = styled.div`
-  display: grid;
-  grid-gap: 1rem;
+  display: flex;
+  flex-flow: column;
+  & > * {
+    margin-bottom: 1rem;
+  }
+  min-height: 100vh;
 `;
 interface DropColumnProps {
-  children: React.ReactNode;
+  children: React.ReactNode[];
+  description: string;
+  statusType: FeedbackProps['statusType'];
 }
-const DropColumn: React.FunctionComponent<DropColumnProps> = ({ children }) => {
-  const [collectedProps, dropRef] = useDrop(() => ({
-    accept: 'FEEDBACK',
+const DropColumn: React.FunctionComponent<DropColumnProps> = ({
+  children,
+  description,
+  statusType,
+}) => {
+  const [{ highlight }, dropRef] = useDrop(() => ({
+    accept: ITEM_TYPES.FEEDBACK,
+    collect: (monitor) => ({
+      highlight: monitor.isOver(),
+    }),
   }));
-  console.log('DropColumn: ', collectedProps);
-  return <Column ref={dropRef}>{children}</Column>;
+  const feedbacksTotal = children.length;
+  return (
+    <div>
+      <h2>
+        {statusType || ''} {`(${feedbacksTotal})`}
+      </h2>
+      <p>{description}</p>
+      <Column
+        style={{
+          background: highlight ? 'lightgrey' : 'none',
+        }}
+        ref={dropRef}
+      >
+        {children}
+      </Column>
+    </div>
+  );
 };
-
-const DraggableFeedback: React.FunctionComponent<FeedbackProps> = (props) => {
-  const [{ opacity }, dragRef] = useDrag(
+interface DraggableFeedbackProps extends FeedbackProps {
+  positionIndex?: number;
+}
+const DraggableFeedback = styled<
+  React.FunctionComponent<DraggableFeedbackProps>
+>((props) => {
+  const [{ opacity, show }, dragRef] = useDrag(
     () => ({
-      type: 'FEEDBACK',
+      type: ITEM_TYPES.FEEDBACK,
+      item: {
+        statusType: props.statusType,
+      },
       collect: (monitor) => ({
+        show: !monitor.isDragging(),
         opacity: monitor.isDragging() ? 0.5 : 1,
       }),
     }),
-    []
+    [props.statusType]
   );
-  return <Feedback {...props} ref={dragRef} />;
-};
+  return show ? (
+    <Feedback {...props} showStatus={true} isCompactView={true} ref={dragRef} />
+  ) : null;
+})``;
+
 export function RoadmapFeedbackStatusBoard(
   props: RoadmapFeedbackStatusBoardProps
 ) {
+  const plannedFeedbacks = mockFeedbacks.filter((feedback) => {
+    return feedback.statusType === 'PLANNED';
+  });
+  const inProgressFeedbacks = mockFeedbacks.filter((feedback) => {
+    return feedback.statusType === 'IN_PROGRESS';
+  });
+  const liveFeedbacks = mockFeedbacks.filter((feedback) => {
+    return feedback.statusType === 'LIVE';
+  });
   return (
     <DndProvider backend={HTML5Backend}>
       <StyledRoadmapFeedbackStatusBoard>
-        <DropColumn>
-          <DraggableFeedback
-            title={'More comprehensive reports'}
-            description={
-              'It would be great to see a more detailed breakdown of solutions.'
-            }
-            statusType={'PLANNED'}
-            showStatus={true}
-            isCompactView={true}
-          />
-          <DraggableFeedback
-            title={'Learning Paths'}
-            description={
-              'Sequenced projects for different goals to help people improve.'
-            }
-            statusType={'PLANNED'}
-            showStatus={true}
-            isCompactView={true}
-          />
+        <DropColumn
+          statusType={'PLANNED'}
+          description={'Ideas prioritized for research'}
+        >
+          {plannedFeedbacks.map((feedback, index) => {
+            return (
+              <DraggableFeedback
+                title={feedback.title}
+                description={feedback.description}
+                statusType={'PLANNED'}
+                positionIndex={index}
+              />
+            );
+          })}
         </DropColumn>
-        <DropColumn>
-          <DraggableFeedback
-            title={'One-click portfolio generation'}
-            description={
-              'Add ability to create professional looking portfolio from profile.'
-            }
-            statusType={'IN_PROGRESS'}
-            showStatus={true}
-            isCompactView={true}
-          />
-          <DraggableFeedback
-            title={'Bookmark challenges'}
-            description={'Be able to bookmark challenges to take later on.'}
-            statusType={'IN_PROGRESS'}
-            showStatus={true}
-            isCompactView={true}
-          />
+        <DropColumn
+          statusType={'IN_PROGRESS'}
+          description={'Currently being developed'}
+        >
+          {inProgressFeedbacks.map((feedback) => {
+            return (
+              <DraggableFeedback
+                title={feedback.title}
+                description={feedback.description}
+                statusType={'IN_PROGRESS'}
+              />
+            );
+          })}
         </DropColumn>
-        <DropColumn>
-          <DraggableFeedback
-            title={'Add micro-interactions'}
-            description={'Small animations at specific points can add delight.'}
-            statusType={'LIVE'}
-            showStatus={true}
-            isCompactView={true}
-          />
+        <DropColumn statusType={'LIVE'} description={'Released features'}>
+          {liveFeedbacks.map((feedback) => {
+            return (
+              <DraggableFeedback
+                title={feedback.title}
+                description={feedback.description}
+                statusType={'LIVE'}
+              />
+            );
+          })}
         </DropColumn>
       </StyledRoadmapFeedbackStatusBoard>
     </DndProvider>
