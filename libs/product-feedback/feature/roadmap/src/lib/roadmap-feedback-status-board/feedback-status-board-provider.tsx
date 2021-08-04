@@ -23,7 +23,7 @@ const actionTypes = {
 };
 type UpdateFeedbackPlacementPayload = {
   title: string;
-  positionIndex: number;
+  toIndex: number;
   currentStatus: NonNullable<FeedbackProps['statusType']>;
   newStatus: NonNullable<FeedbackProps['statusType']>;
 };
@@ -31,21 +31,59 @@ type Action = {
   type: 'UPDATE_FEEDBACK_PLACEMENT';
   payload: UpdateFeedbackPlacementPayload;
 };
+function moveItem<T>(array: T[], fromIndex: number, toIndex: number): T[] {
+  if (array.length === 0) {
+    return [];
+  }
+  if (fromIndex === toIndex) {
+    return array;
+  }
+  const itemToMove = array[fromIndex];
+  const itemlessArray = array.filter((_, index) => {
+    return fromIndex !== index;
+  });
+  if (toIndex === 0) {
+    return [itemToMove, ...itemlessArray];
+  }
+  if (fromIndex === itemlessArray.length - 1) {
+    return [...itemlessArray, itemToMove];
+  }
+  return [
+    ...itemlessArray.slice(0, toIndex - 1),
+    itemToMove,
+    ...itemlessArray.slice(toIndex),
+  ];
+}
 const reducer = (state: State, action: Action) => {
   switch (action.type) {
     case actionTypes.updateFeedbackPlacement: {
-      const { title, currentStatus, newStatus, positionIndex } = action.payload;
-
-      const feedbackToUpdate = state[currentStatus].feedbacks.find(
+      const { title, currentStatus, newStatus, toIndex } = action.payload;
+      console.log(toIndex);
+      const updateIndex = state[currentStatus].feedbacks.findIndex(
         (feedback) => {
           return feedback.title === title;
         }
       );
+      const feedbackToUpdate = state[currentStatus].feedbacks[updateIndex];
 
+      if (currentStatus === newStatus) {
+        console.log(
+          moveItem(state[currentStatus].feedbacks, updateIndex, toIndex)
+        );
+        return {
+          ...state,
+          [currentStatus]: {
+            feedbacks: moveItem(
+              state[currentStatus].feedbacks,
+              updateIndex,
+              toIndex
+            ),
+          },
+        };
+      }
       if (feedbackToUpdate) {
         feedbackToUpdate.statusType = newStatus;
       }
-      //getFeedback
 
       return {
         ...state,

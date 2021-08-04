@@ -26,28 +26,33 @@ export const DropFeedbackStatusColumn: React.FunctionComponent<DropColumnProps> 
   ({ description, statusType }) => {
     const { state, dispatch } = useFeedbackStatusBoard();
     const feedbacks = state[statusType].feedbacks;
-    const [{ highlight, isOver, item }, dropRef] = useDrop(() => ({
-      accept: ITEM_TYPES.FEEDBACK,
-      drop: (i) => {
-        const item = i as NonNullable<FeedbackProps>;
-        dispatch({
-          type: 'UPDATE_FEEDBACK_PLACEMENT',
-          payload: {
-            title: item.title,
-            currentStatus: item.statusType,
-            newStatus: statusType,
-            positionIndex: feedbacks.length - 1,
-          },
-        });
-      },
-      collect: (monitor) => ({
-        item: monitor.getItem(),
-        highlight: monitor.isOver(),
-        isOver: monitor.isOver({
-          shallow: true,
+    const [{ highlight, isOver, item }, dropRef] = useDrop(
+      () => ({
+        accept: ITEM_TYPES.FEEDBACK,
+        drop: (i, monitor) => {
+          const item = i as NonNullable<FeedbackProps>;
+          if (monitor.isOver({ shallow: true })) {
+            dispatch({
+              type: 'UPDATE_FEEDBACK_PLACEMENT',
+              payload: {
+                title: item.title,
+                currentStatus: item.statusType,
+                newStatus: statusType,
+                toIndex: feedbacks.length - 1,
+              },
+            });
+          }
+        },
+        collect: (monitor) => ({
+          item: monitor.getItem(),
+          highlight: monitor.isOver(),
+          isOver: monitor.isOver({
+            shallow: true,
+          }),
         }),
       }),
-    }));
+      [feedbacks.length]
+    );
     const feedbacksTotal = feedbacks.length;
     return (
       <div>
@@ -85,7 +90,7 @@ export const DropFeedbackStatusColumn: React.FunctionComponent<DropColumnProps> 
       </div>
     );
   };
-type DraggableFeedbackProps = FeedbackProps & { position: number; };
+type DraggableFeedbackProps = FeedbackProps & { position: number };
 type StyledDraggableFeedbackProps = { show: boolean };
 
 const StyledDraggableFeedback = styled(Feedback)<StyledDraggableFeedbackProps>`
@@ -99,7 +104,7 @@ const DraggableFeedback: React.FunctionComponent<DraggableFeedbackProps> = ({
   position,
   ...rest
 }) => {
-    const { dispatch } = useFeedbackStatusBoard();
+  const { dispatch } = useFeedbackStatusBoard();
   const [{ isDragging }, dragRef] = useDrag(
     () => ({
       type: ITEM_TYPES.FEEDBACK,
@@ -127,9 +132,9 @@ const DraggableFeedback: React.FunctionComponent<DraggableFeedbackProps> = ({
             title: item.title,
             currentStatus: item.statusType,
             newStatus: statusType,
-            positionIndex: position
-          }
-        })
+            toIndex: position,
+          },
+        });
       },
       collect: (monitor) => ({
         item: monitor.getItem(),
