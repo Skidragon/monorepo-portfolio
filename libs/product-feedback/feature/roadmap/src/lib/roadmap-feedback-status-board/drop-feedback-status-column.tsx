@@ -128,8 +128,16 @@ const DraggableFeedback: React.FunctionComponent<DraggableFeedbackProps> = ({
   const [{ isOver, item }, dropRef] = useDrop(
     () => ({
       accept: ITEM_TYPES.FEEDBACK,
-      drop: (i) => {
+      drop: (i, monitor) => {
         const item = i as FeedbackProps;
+        console.table({
+          name: 'feedback',
+          title: item.title,
+          fromStatus: item.statusType,
+          toStatus: statusType,
+          position: position,
+          toIndex: position,
+        });
         dispatch({
           type: 'UPDATE_FEEDBACK_PLACEMENT',
           payload: {
