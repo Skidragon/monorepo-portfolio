@@ -49,7 +49,7 @@ function moveItem<T>(array: T[], fromIndex: number, toIndex: number): T[] {
     return [...itemlessArray, itemToMove];
   }
   return [
-    ...itemlessArray.slice(0, toIndex - 1),
+    ...itemlessArray.slice(0, toIndex),
     itemToMove,
     ...itemlessArray.slice(toIndex),
   ];
