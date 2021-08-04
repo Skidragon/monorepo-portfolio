@@ -30,20 +30,36 @@ interface DropColumnProps {
   description: string;
   statusType: FeedbackProps['statusType'];
 }
-const GhostFeedback = styled(Feedback)`
+const PreviewFeedback = styled(Feedback)`
   opacity: 0.4;
 `;
+
 const DropColumn: React.FunctionComponent<DropColumnProps> = ({
-  feedbacks,
+  feedbacks: data,
   description,
   statusType,
 }) => {
+  const [feedbacks, setFeedbacks] = useState<FeedbackProps[]>([]);
+  useEffect(() => {
+    if (data?.length) {
+      setFeedbacks(
+        data.map((feedback) => {
+          return {
+            ...feedback,
+          };
+        })
+      );
+    }
+  }, [data]);
   const [{ highlight, isOver, item }, dropRef] = useDrop(() => ({
     accept: ITEM_TYPES.FEEDBACK,
+
     collect: (monitor) => ({
       item: monitor.getItem(),
       highlight: monitor.isOver(),
-      isOver: monitor.isOver(),
+      isOver: monitor.isOver({
+        shallow: true,
+      }),
     }),
   }));
   const feedbacksTotal = feedbacks.length;
@@ -59,15 +75,6 @@ const DropColumn: React.FunctionComponent<DropColumnProps> = ({
         }}
         ref={dropRef}
       >
-        {isOver ? (
-          <GhostFeedback
-            title={item.title}
-            description={item.description}
-            statusType={statusType}
-            showStatus={true}
-            isCompactView={true}
-          />
-        ) : null}
         {feedbacks.map((feedback) => {
           return (
             <DraggableFeedback
@@ -78,6 +85,15 @@ const DropColumn: React.FunctionComponent<DropColumnProps> = ({
             />
           );
         })}
+        {isOver && (
+          <PreviewFeedback
+            title={item.title}
+            description={item.description}
+            isCompactView={true}
+            statusType={statusType}
+            showStatus={true}
+          />
+        )}
       </Column>
     </div>
   );
@@ -109,17 +125,37 @@ const DraggableFeedback: React.FunctionComponent<DraggableFeedbackProps> = ({
     }),
     [title, description]
   );
+  const [{ highlight, isOver, item }, dropRef] = useDrop(() => ({
+    accept: ITEM_TYPES.FEEDBACK,
+
+    collect: (monitor) => ({
+      item: monitor.getItem(),
+      highlight: monitor.isOver(),
+      isOver: monitor.isOver(),
+    }),
+  }));
   return (
-    <StyledDraggableFeedback
-      {...rest}
-      show={isDragging}
-      title={title}
-      description={description}
-      statusType={statusType}
-      showStatus={true}
-      isCompactView={true}
-      ref={dragRef}
-    />
+    <div ref={dropRef}>
+      {isOver && (
+        <PreviewFeedback
+          title={item.title}
+          description={item.description}
+          isCompactView={true}
+          statusType={statusType}
+          showStatus={true}
+        />
+      )}
+      <StyledDraggableFeedback
+        {...rest}
+        show={isDragging}
+        title={title}
+        description={description}
+        statusType={statusType}
+        showStatus={true}
+        isCompactView={true}
+        ref={dragRef}
+      />
+    </div>
   );
 };
 
