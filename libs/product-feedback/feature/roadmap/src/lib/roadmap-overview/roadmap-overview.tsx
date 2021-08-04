@@ -4,7 +4,10 @@ import Link from 'next/link';
 /* eslint-disable-next-line */
 export interface RoadmapOverviewProps {}
 
-const StyledRoadmapOverview = styled(Box)``;
+const StyledRoadmapOverview = styled(Box)`
+  max-width: 15em;
+  width: 100%;
+`;
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
