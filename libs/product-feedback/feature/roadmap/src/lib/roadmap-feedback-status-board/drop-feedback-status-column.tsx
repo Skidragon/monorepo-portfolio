@@ -96,7 +96,10 @@ export const DropFeedbackStatusColumn: React.FunctionComponent<DropColumnProps> 
       </div>
     );
   };
-type DraggableFeedbackProps = FeedbackProps & { position: number };
+type DraggableFeedbackProps = FeedbackProps & {
+  position: number;
+  statusType: NonNullable<FeedbackProps['statusType']>;
+};
 type StyledDraggableFeedbackProps = { show: boolean };
 
 const StyledDraggableFeedback = styled(Feedback)<StyledDraggableFeedbackProps>`
