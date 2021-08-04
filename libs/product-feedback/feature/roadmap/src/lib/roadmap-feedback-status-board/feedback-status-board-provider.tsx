@@ -94,11 +94,10 @@ const reducer = (state: State, action: Action) => {
           },
         };
       }
-      const feedbackToUpdate = state[currentStatus].feedbacks[updateIndex];
-      if (feedbackToUpdate) {
-        feedbackToUpdate.statusType = newStatus;
+      const feedbackToAdd = state[currentStatus].feedbacks[updateIndex];
+      if (feedbackToAdd) {
+        feedbackToAdd.statusType = newStatus;
       }
-
       return {
         ...state,
         [currentStatus]: {
@@ -109,7 +108,7 @@ const reducer = (state: State, action: Action) => {
         [newStatus]: {
           feedbacks: addItem(
             state[newStatus].feedbacks,
-            feedbackToUpdate,
+            feedbackToAdd,
             toIndex
           ),
         },
