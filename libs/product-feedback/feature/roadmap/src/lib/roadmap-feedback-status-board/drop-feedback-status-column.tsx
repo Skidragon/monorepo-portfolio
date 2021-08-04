@@ -128,8 +128,8 @@ const DraggableFeedback: React.FunctionComponent<DraggableFeedbackProps> = ({
   const [{ isOver, item }, dropRef] = useDrop(
     () => ({
       accept: ITEM_TYPES.FEEDBACK,
-      drop: (i, monitor) => {
-        const item = i as FeedbackProps;
+      drop: (i: NonNullable<FeedbackProps>, monitor) => {
+        const item = i;
         console.table({
           name: 'feedback',
           title: item.title,
