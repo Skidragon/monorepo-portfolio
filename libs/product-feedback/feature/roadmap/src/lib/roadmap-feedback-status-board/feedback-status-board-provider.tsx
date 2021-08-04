@@ -54,17 +54,27 @@ function moveItem<T>(array: T[], fromIndex: number, toIndex: number): T[] {
     ...itemlessArray.slice(toIndex),
   ];
 }
+function addItem<T>(array: T[], item: T, insertIndex: number): T[] {
+  if (array.length === 0) {
+    return [item];
+  }
+  if (insertIndex === 0) {
+    return [item, ...array];
+  }
+  if (insertIndex === array.length - 1) {
+    return [...array, item];
+  }
+  return [...array.slice(0, insertIndex), item, ...array.slice(insertIndex)];
+}
 const reducer = (state: State, action: Action) => {
   switch (action.type) {
     case actionTypes.updateFeedbackPlacement: {
       const { title, currentStatus, newStatus, toIndex } = action.payload;
-      console.log(toIndex);
       const updateIndex = state[currentStatus].feedbacks.findIndex(
         (feedback) => {
           return feedback.title === title;
         }
       );
-      const feedbackToUpdate = state[currentStatus].feedbacks[updateIndex];
 
       if (currentStatus === newStatus) {
         console.log(
@@ -81,6 +91,7 @@ const reducer = (state: State, action: Action) => {
           },
         };
       }
+      const feedbackToUpdate = state[currentStatus].feedbacks[updateIndex];
       if (feedbackToUpdate) {
         feedbackToUpdate.statusType = newStatus;
       }
@@ -93,9 +104,11 @@ const reducer = (state: State, action: Action) => {
           }),
         },
         [newStatus]: {
-          feedbacks: feedbackToUpdate
-            ? [...state[newStatus].feedbacks, feedbackToUpdate]
-            : state[newStatus].feedbacks,
+          feedbacks: addItem(
+            state[newStatus].feedbacks,
+            feedbackToUpdate,
+            toIndex
+          ),
         },
       };
     }
