@@ -30,15 +30,20 @@ interface DropColumnProps {
   description: string;
   statusType: FeedbackProps['statusType'];
 }
+const GhostFeedback = styled(Feedback)`
+  opacity: 0.4;
+`;
 const DropColumn: React.FunctionComponent<DropColumnProps> = ({
   feedbacks,
   description,
   statusType,
 }) => {
-  const [{ highlight }, dropRef] = useDrop(() => ({
+  const [{ highlight, isOver, item }, dropRef] = useDrop(() => ({
     accept: ITEM_TYPES.FEEDBACK,
     collect: (monitor) => ({
+      item: monitor.getItem(),
       highlight: monitor.isOver(),
+      isOver: monitor.isOver(),
     }),
   }));
   const feedbacksTotal = feedbacks.length;
@@ -54,6 +59,15 @@ const DropColumn: React.FunctionComponent<DropColumnProps> = ({
         }}
         ref={dropRef}
       >
+        {isOver ? (
+          <GhostFeedback
+            title={item.title}
+            description={item.description}
+            statusType={statusType}
+            showStatus={true}
+            isCompactView={true}
+          />
+        ) : null}
         {feedbacks.map((feedback) => {
           return (
             <DraggableFeedback
@@ -68,29 +82,46 @@ const DropColumn: React.FunctionComponent<DropColumnProps> = ({
     </div>
   );
 };
-interface DraggableFeedbackProps extends FeedbackProps {
-  positionIndex?: number;
-}
-const DraggableFeedback = styled<
-  React.FunctionComponent<DraggableFeedbackProps>
->((props) => {
-  const [{ opacity, show }, dragRef] = useDrag(
+type DraggableFeedbackProps = FeedbackProps;
+type StyledDraggableFeedbackProps = { show: boolean };
+
+const StyledDraggableFeedback = styled(Feedback)<StyledDraggableFeedbackProps>`
+  display: ${(props) => (props.show ? 'grid' : 'none')};
+  cursor: move;
+`;
+const DraggableFeedback: React.FunctionComponent<DraggableFeedbackProps> = ({
+  title,
+  description,
+  statusType,
+  ...rest
+}) => {
+  const [{ opacity, isDragging }, dragRef] = useDrag(
     () => ({
       type: ITEM_TYPES.FEEDBACK,
       item: {
-        statusType: props.statusType,
+        title,
+        description,
       },
       collect: (monitor) => ({
-        show: !monitor.isDragging(),
+        isDragging: !monitor.isDragging(),
         opacity: monitor.isDragging() ? 0.5 : 1,
       }),
     }),
-    [props.statusType]
+    [title, description]
   );
   return (
-    <Feedback {...props} showStatus={true} isCompactView={true} ref={dragRef} />
+    <StyledDraggableFeedback
+      {...rest}
+      show={isDragging}
+      title={title}
+      description={description}
+      statusType={statusType}
+      showStatus={true}
+      isCompactView={true}
+      ref={dragRef}
+    />
   );
-})``;
+};
 
 export function RoadmapFeedbackStatusBoard({
   data,
