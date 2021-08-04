@@ -573,6 +573,38 @@
         }
       }
     },
+    "product-feedback-util-functions": {
+      "root": "libs/product-feedback/util/functions",
+      "sourceRoot": "libs/product-feedback/util/functions/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/product-feedback/util/functions",
+            "tsConfig": "libs/product-feedback/util/functions/tsconfig.lib.json",
+            "packageJson": "libs/product-feedback/util/functions/package.json",
+            "main": "libs/product-feedback/util/functions/src/index.ts",
+            "assets": ["libs/product-feedback/util/functions/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/product-feedback/util/functions/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/product-feedback/util/functions"],
+          "options": {
+            "jestConfig": "libs/product-feedback/util/functions/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "shared-util-component-types": {
       "root": "libs/shared/util/component-types",
       "sourceRoot": "libs/shared/util/component-types/src",

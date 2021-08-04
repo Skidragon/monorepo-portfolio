@@ -1,5 +1,6 @@
 import { Feedback, FeedbackProps } from '@sd/product-feedback/feature/feedback';
 import React, { useReducer, createContext, useContext } from 'react';
+import { moveItem, addItem } from '@sd/product-feedback/util/functions';
 interface FeedbackStatusBoardContext {
   state: State;
   dispatch: React.Dispatch<Action>;
@@ -31,41 +32,7 @@ type Action = {
   type: 'UPDATE_FEEDBACK_PLACEMENT';
   payload: UpdateFeedbackPlacementPayload;
 };
-function moveItem<T>(array: T[], fromIndex: number, toIndex: number): T[] {
-  if (array.length === 0) {
-    return [];
-  }
-  if (fromIndex === toIndex) {
-    return array;
-  }
-  const itemToMove = array[fromIndex];
-  const itemlessArray = array.filter((_, index) => {
-    return fromIndex !== index;
-  });
-  if (toIndex === 0) {
-    return [itemToMove, ...itemlessArray];
-  }
-  if (toIndex === array.length - 1) {
-    return [...itemlessArray, itemToMove];
-  }
-  return [
-    ...itemlessArray.slice(0, toIndex),
-    itemToMove,
-    ...itemlessArray.slice(toIndex),
-  ];
-}
-function addItem<T>(array: T[], item: T, insertIndex: number): T[] {
-  if (array.length === 0) {
-    return [item];
-  }
-  if (insertIndex === 0) {
-    return [item, ...array];
-  }
-  if (insertIndex === array.length) {
-    return [...array, item];
-  }
-  return [...array.slice(0, insertIndex), item, ...array.slice(insertIndex)];
-}
+
 const reducer = (state: State, action: Action) => {
   switch (action.type) {
     case actionTypes.updateFeedbackPlacement: {

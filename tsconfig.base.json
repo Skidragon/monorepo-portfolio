@@ -30,6 +30,9 @@
       "@sd/product-feedback/feature/roadmap": [
         "libs/product-feedback/feature/roadmap/src/index.ts"
       ],
+      "@sd/product-feedback/util/functions": [
+        "libs/product-feedback/util/functions/src/index.ts"
+      ],
       "@sd/react-component-types": [
         "libs/shared/util/component-types/src/index.ts"
       ],
