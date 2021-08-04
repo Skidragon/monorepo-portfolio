@@ -45,7 +45,7 @@ function moveItem<T>(array: T[], fromIndex: number, toIndex: number): T[] {
   if (toIndex === 0) {
     return [itemToMove, ...itemlessArray];
   }
-  if (fromIndex === itemlessArray.length - 1) {
+  if (toIndex === array.length - 1) {
     return [...itemlessArray, itemToMove];
   }
   return [
@@ -75,11 +75,14 @@ const reducer = (state: State, action: Action) => {
           return feedback.title === title;
         }
       );
-
+      const hasNoChanges =
+        updateIndex === toIndex && currentStatus === newStatus;
+      if (hasNoChanges) {
+        return {
+          ...state,
+        };
+      }
       if (currentStatus === newStatus) {
-        console.log(
-          moveItem(state[currentStatus].feedbacks, updateIndex, toIndex)
-        );
         return {
           ...state,
           [currentStatus]: {

@@ -32,13 +32,17 @@ export const DropFeedbackStatusColumn: React.FunctionComponent<DropColumnProps> 
         drop: (i, monitor) => {
           const item = i as NonNullable<FeedbackProps>;
           if (monitor.isOver({ shallow: true })) {
+            console.table({
+              name: 'column',
+              toIndex: feedbacks.length,
+            });
             dispatch({
               type: 'UPDATE_FEEDBACK_PLACEMENT',
               payload: {
                 title: item.title,
                 currentStatus: item.statusType,
                 newStatus: statusType,
-                toIndex: feedbacks.length - 1,
+                toIndex: feedbacks.length,
               },
             });
           }
