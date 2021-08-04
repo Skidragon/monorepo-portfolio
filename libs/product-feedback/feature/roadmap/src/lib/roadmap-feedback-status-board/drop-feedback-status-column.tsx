@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Feedback, FeedbackProps } from '@sd/product-feedback/feature/feedback';
 import { useDrop, useDrag } from 'react-dnd';
@@ -17,20 +17,20 @@ const Column = styled.div`
 interface DropColumnProps {
   description: string;
   statusType: NonNullable<FeedbackProps['statusType']>;
+  id: string;
 }
 const PreviewFeedback = styled(Feedback)`
   opacity: 0.4;
 `;
 
 export const DropFeedbackStatusColumn: React.FunctionComponent<DropColumnProps> =
-  ({ description, statusType }) => {
+  ({ description, statusType, id }) => {
     const { state, dispatch } = useFeedbackStatusBoard();
     const feedbacks = state[statusType].feedbacks;
     const [{ highlight, isOver, item }, dropRef] = useDrop(
       () => ({
         accept: ITEM_TYPES.FEEDBACK,
-        drop: (i, monitor) => {
-          const item = i as NonNullable<FeedbackProps>;
+        drop: (item: Required<FeedbackProps>, monitor) => {
           if (monitor.isOver({ shallow: true })) {
             console.table({
               name: 'column',
@@ -61,7 +61,8 @@ export const DropFeedbackStatusColumn: React.FunctionComponent<DropColumnProps> 
     return (
       <div>
         <h2>
-          {statusType || ''} {`(${feedbacksTotal})`}
+          {statusType || ''} (
+          <span data-testid={`${id}-feedbacks-total`}>{feedbacksTotal}</span>)
         </h2>
         <p>{description}</p>
         <Column
@@ -69,6 +70,7 @@ export const DropFeedbackStatusColumn: React.FunctionComponent<DropColumnProps> 
             background: highlight ? 'lightgrey' : 'none',
           }}
           ref={dropRef}
+          data-testid={`${id}-column`}
         >
           {feedbacks.map((feedback, index) => {
             return (
@@ -128,8 +130,7 @@ const DraggableFeedback: React.FunctionComponent<DraggableFeedbackProps> = ({
   const [{ isOver, item }, dropRef] = useDrop(
     () => ({
       accept: ITEM_TYPES.FEEDBACK,
-      drop: (i: NonNullable<FeedbackProps>, monitor) => {
-        const item = i;
+      drop: (item: Required<FeedbackProps>, monitor) => {
         console.table({
           name: 'feedback',
           title: item.title,

@@ -28,15 +28,18 @@ export function RoadmapFeedbackStatusBoard({
           <DropFeedbackStatusColumn
             statusType={'PLANNED'}
             description={'Ideas prioritized for research'}
+            id={'planned-column'}
           />
           <DropFeedbackStatusColumn
             statusType={'IN_PROGRESS'}
             description={'Currently being developed'}
+            id={'in-progress-column'}
           />
 
           <DropFeedbackStatusColumn
             statusType={'LIVE'}
             description={'Released features'}
+            id={'live-column'}
           />
         </StyledRoadmapFeedbackStatusBoard>
       </FeedbackStatusBoardProvider>
