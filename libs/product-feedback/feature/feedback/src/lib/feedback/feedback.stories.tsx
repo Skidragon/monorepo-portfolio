@@ -6,7 +6,16 @@ export default {
   title: 'Feedback',
 } as Meta;
 
-const Template: Story<FeedbackProps> = (args) => <Feedback {...args} />;
+const Template: Story<FeedbackProps> = (args) => (
+  <Feedback
+    {...args}
+    title={'Latin'}
+    description={
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste vitae quisquam excepturi nostrum cum earum aspernatur maiores dolores, quaerat neque!'
+    }
+    ref={undefined}
+  />
+);
 
 export const Default = Template.bind({});
 Default.args = {};
