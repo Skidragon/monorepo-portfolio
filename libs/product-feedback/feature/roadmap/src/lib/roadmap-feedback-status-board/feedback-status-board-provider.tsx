@@ -1,6 +1,7 @@
 import { Feedback, FeedbackProps } from '@sd/product-feedback/feature/feedback';
 import React, { useReducer, createContext, useContext } from 'react';
 import { moveItem, addItem } from '@sd/product-feedback/util/functions';
+import { FeedbackStatusType } from '@sd/product-feedback/util/types';
 interface FeedbackStatusBoardContext {
   state: State;
   dispatch: React.Dispatch<Action>;
@@ -9,6 +10,7 @@ const FeedbackStatusBoard = createContext<FeedbackStatusBoardContext>(
   {} as FeedbackStatusBoardContext
 );
 interface State {
+  isDragging: boolean;
   PLANNED: {
     feedbacks: FeedbackProps[];
   };
@@ -19,23 +21,38 @@ interface State {
     feedbacks: FeedbackProps[];
   };
 }
-const actionTypes = {
-  updateFeedbackPlacement: 'UPDATE_FEEDBACK_PLACEMENT',
+interface ActionKind {
+  UpdateFeedbackPlacement: 'UPDATE_FEEDBACK_PLACEMENT';
+  Dragging: 'DRAGGING';
+}
+type UpdateFeedbackPlacementAction = {
+  type: ActionKind['UpdateFeedbackPlacement'];
+  payload: {
+    title: string;
+    toIndex: number;
+    currentStatus: FeedbackStatusType;
+    newStatus: FeedbackStatusType;
+  };
 };
-type UpdateFeedbackPlacementPayload = {
-  title: string;
-  toIndex: number;
-  currentStatus: NonNullable<FeedbackProps['statusType']>;
-  newStatus: NonNullable<FeedbackProps['statusType']>;
+
+type DraggingAction = {
+  type: ActionKind['Dragging'];
+  payload: {
+    isDragging: boolean;
+    item: Pick<FeedbackProps, 'title' | 'description' | 'statusType'>;
+  };
 };
-type Action = {
-  type: 'UPDATE_FEEDBACK_PLACEMENT';
-  payload: UpdateFeedbackPlacementPayload;
-};
+type Action = UpdateFeedbackPlacementAction | DraggingAction;
 
 const reducer = (state: State, action: Action) => {
   switch (action.type) {
-    case actionTypes.updateFeedbackPlacement: {
+    case 'DRAGGING': {
+      return {
+        ...state,
+        ...action.payload,
+      };
+    }
+    case 'UPDATE_FEEDBACK_PLACEMENT': {
       const { title, currentStatus, newStatus, toIndex } = action.payload;
       const updateIndex = state[currentStatus].feedbacks.findIndex(
         (feedback) => {
@@ -82,6 +99,7 @@ const reducer = (state: State, action: Action) => {
       };
     }
     default:
+      // @ts-expect-error only if not in a ts env
       throw new Error(`${action.type} is not a valid action.`);
   }
 };
@@ -100,6 +118,7 @@ export const FeedbackStatusBoardProvider: React.FunctionComponent<{
     return feedback.statusType === 'LIVE';
   });
   const [state, dispatch] = useReducer(reducer, {
+    isDragging: false,
     PLANNED: {
       feedbacks: plannedFeedbacks,
     },

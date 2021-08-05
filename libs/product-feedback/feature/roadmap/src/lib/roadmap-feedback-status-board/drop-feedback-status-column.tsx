@@ -4,6 +4,8 @@ import { Feedback, FeedbackProps } from '@sd/product-feedback/feature/feedback';
 import { useDrop, useDrag } from 'react-dnd';
 import { useFeedbackStatusBoard } from './feedback-status-board-provider';
 import { FeedbackStatusType } from '@sd/product-feedback/util/types';
+import { useEffect } from 'react';
+import { BaseDiv } from '@sd/react-component-types';
 export const ITEM_TYPES = {
   FEEDBACK: 'feedback',
 };
@@ -23,12 +25,11 @@ interface DropColumnProps {
 const PreviewFeedback = styled(Feedback)`
   opacity: 0.4;
 `;
-
 export const DropFeedbackStatusColumn: React.FunctionComponent<DropColumnProps> =
   ({ description, statusType, id }) => {
     const { state, dispatch } = useFeedbackStatusBoard();
     const feedbacks = state[statusType].feedbacks;
-    const [{ highlight, isOver, item }, dropRef] = useDrop(
+    const [{ isOver }, dropRef] = useDrop(
       () => ({
         accept: ITEM_TYPES.FEEDBACK,
         drop: (item: Required<FeedbackProps>, monitor) => {
@@ -49,11 +50,7 @@ export const DropFeedbackStatusColumn: React.FunctionComponent<DropColumnProps> 
           }
         },
         collect: (monitor) => ({
-          item: monitor.getItem(),
-          highlight: monitor.isOver(),
-          isOver: monitor.isOver({
-            shallow: true,
-          }),
+          isOver: monitor.isOver(),
         }),
       }),
       [feedbacks.length]
@@ -68,7 +65,7 @@ export const DropFeedbackStatusColumn: React.FunctionComponent<DropColumnProps> 
         <p>{description}</p>
         <Column
           style={{
-            background: highlight ? 'lightgrey' : 'none',
+            background: isOver ? 'lightgrey' : 'none',
           }}
           ref={dropRef}
           data-testid={`${id}-column`}
@@ -84,15 +81,6 @@ export const DropFeedbackStatusColumn: React.FunctionComponent<DropColumnProps> 
               />
             );
           })}
-          {isOver && (
-            <PreviewFeedback
-              title={item.title}
-              description={item.description}
-              isCompactView={true}
-              statusType={statusType}
-              showStatus={true}
-            />
-          )}
         </Column>
       </div>
     );
@@ -101,18 +89,67 @@ type DraggableFeedbackProps = FeedbackProps & {
   position: number;
   statusType: FeedbackStatusType;
 };
-type StyledDraggableFeedbackProps = { show: boolean };
 
-const StyledDraggableFeedback = styled(Feedback)<StyledDraggableFeedbackProps>`
-  display: ${(props) => (props.show ? 'grid' : 'none')};
+const StyledDraggableFeedback = styled(Feedback)`
+  position: relative;
   cursor: move;
 `;
+const OverlayTriggerStyled = styled.div<{
+  isOver: boolean;
+  isDragging: boolean;
+}>`
+  height: 50%;
+  width: 100%;
+  bottom: 0;
+  position: absolute;
+  z-index: 1000;
+  pointer-events: ${(props) => (props.isDragging ? 'unset' : 'none')};
+  background: ${(props) => (props.isOver ? 'black' : 'none')};
+  opacity: 0.1;
+`;
+type OverlayTriggerProps = BaseDiv & {
+  statusType: FeedbackStatusType;
+  position: number;
+};
+const OverlayTrigger: React.FunctionComponent<OverlayTriggerProps> = (
+  props
+) => {
+  const { state, dispatch } = useFeedbackStatusBoard();
+
+  const [{ isOver }, dropRef] = useDrop(
+    () => ({
+      accept: ITEM_TYPES.FEEDBACK,
+      drop: (item: Required<FeedbackProps>) => {
+        dispatch({
+          type: 'UPDATE_FEEDBACK_PLACEMENT',
+          payload: {
+            title: item.title,
+            currentStatus: item.statusType,
+            newStatus: props.statusType,
+            toIndex: props.position,
+          },
+        });
+      },
+      collect: (monitor) => ({
+        isOver: monitor.isOver(),
+      }),
+    }),
+    [dispatch, props.statusType, props.position]
+  );
+  return (
+    <OverlayTriggerStyled
+      isDragging={state.isDragging}
+      isOver={isOver}
+      ref={dropRef}
+      style={props.style}
+    />
+  );
+};
 const DraggableFeedback: React.FunctionComponent<DraggableFeedbackProps> = ({
   title,
   description,
   statusType,
   position,
-  ...rest
 }) => {
   const { dispatch } = useFeedbackStatusBoard();
   const [{ isDragging }, dragRef] = useDrag(
@@ -123,64 +160,65 @@ const DraggableFeedback: React.FunctionComponent<DraggableFeedbackProps> = ({
         description,
         statusType,
       },
-
       collect: (monitor) => ({
-        isDragging: !monitor.isDragging(),
+        isDragging: monitor.isDragging(),
         opacity: monitor.isDragging() ? 0.5 : 1,
       }),
     }),
-    [title, description, statusType]
+    [title, description, statusType, dispatch]
   );
-  const [{ isOver, item }, dropRef] = useDrop(
-    () => ({
-      accept: ITEM_TYPES.FEEDBACK,
-      drop: (item: Required<FeedbackProps>, monitor) => {
-        console.table({
-          name: 'feedback',
-          title: item.title,
-          fromStatus: item.statusType,
-          toStatus: statusType,
-          position: position,
-          toIndex: position,
-        });
-        dispatch({
-          type: 'UPDATE_FEEDBACK_PLACEMENT',
-          payload: {
-            title: item.title,
-            currentStatus: item.statusType,
-            newStatus: statusType,
-            toIndex: position,
-          },
-        });
+  useEffect(() => {
+    dispatch({
+      type: 'DRAGGING',
+      payload: {
+        isDragging: isDragging,
+        item: {
+          title,
+          description,
+          statusType,
+        },
       },
-      collect: (monitor) => ({
-        item: monitor.getItem(),
-        highlight: monitor.isOver(),
-        isOver: monitor.isOver(),
-      }),
-    }),
-    [statusType, dispatch, position]
-  );
+    });
+  }, [isDragging, title, description, statusType, dispatch]);
+
   return (
-    <div ref={dropRef}>
-      {isOver && (
+    <div
+      style={{
+        position: 'relative',
+      }}
+    >
+      <OverlayTrigger
+        style={{
+          top: 0,
+        }}
+        statusType={statusType}
+        position={position}
+      />
+      {isDragging && (
         <PreviewFeedback
-          title={item.title}
-          description={item.description}
-          isCompactView={true}
+          title={title}
+          description={description}
           statusType={statusType}
           showStatus={true}
+          isCompactView={true}
         />
       )}
-      <StyledDraggableFeedback
-        {...rest}
-        show={isDragging}
-        title={title}
-        description={description}
+      {!isDragging && (
+        <StyledDraggableFeedback
+          title={title}
+          description={description}
+          statusType={statusType}
+          showStatus={true}
+          isCompactView={true}
+          ref={dragRef}
+        />
+      )}
+      <OverlayTrigger
+        style={{
+          bottom: 0,
+        }}
         statusType={statusType}
-        showStatus={true}
-        isCompactView={true}
-        ref={dragRef}
+        position={isDragging ? position : position + 1}
       />
     </div>
   );
