@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Feedback, FeedbackProps } from '@sd/product-feedback/feature/feedback';
 import { useDrop, useDrag } from 'react-dnd';
 import { useFeedbackStatusBoard } from './feedback-status-board-provider';
+import { FeedbackStatusType } from '@sd/product-feedback/util/types';
 export const ITEM_TYPES = {
   FEEDBACK: 'feedback',
 };
@@ -16,7 +17,7 @@ const Column = styled.div`
 `;
 interface DropColumnProps {
   description: string;
-  statusType: NonNullable<FeedbackProps['statusType']>;
+  statusType: FeedbackStatusType;
   id: string;
 }
 const PreviewFeedback = styled(Feedback)`
@@ -98,7 +99,7 @@ export const DropFeedbackStatusColumn: React.FunctionComponent<DropColumnProps> 
   };
 type DraggableFeedbackProps = FeedbackProps & {
   position: number;
-  statusType: NonNullable<FeedbackProps['statusType']>;
+  statusType: FeedbackStatusType;
 };
 type StyledDraggableFeedbackProps = { show: boolean };
 
