@@ -44,6 +44,7 @@ const StyledButton = styled.button<ButtonExtended>`
       return css`
         --color-text: var(--color-text-button-primary, white);
         --color-background: var(--color-background-button-primary, #ad1fea);
+        font-weight: 700;
       `;
     }
     if (props.variant === 'secondary') {

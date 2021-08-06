@@ -1,17 +1,91 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { ReactComponent as NxLogo } from '../public/nx-logo-white.svg';
-import './styles.css';
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
-:root {
-  --color-background-page: white;
-  --color-text-button-primary: purple;
-  --color-background-button-primary:
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
-  body {
+
+::root {
+  --flow: 1.5rem;
+  --color-primary: #AD1FEA;
+  --color-secondary: #4661E6;
+  --color-tertiary: #4661E6;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.3;
+  font-family: sans-serif;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+   scroll-behavior: auto;
   }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 `;
 
 function CustomApp({ Component, pageProps }: AppProps) {
@@ -22,10 +96,6 @@ function CustomApp({ Component, pageProps }: AppProps) {
       </Head>
       <GlobalStyle />
       <div className="app">
-        <header className="flex">
-          <NxLogo width="75" height="50" />
-          <h1>Welcome to product-feedback!</h1>
-        </header>
         <main>
           <Component {...pageProps} />
         </main>
