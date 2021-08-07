@@ -22,6 +22,11 @@ const StyledButton = styled.button<ButtonExtended>`
   box-shadow: -2px 3px var(--color-shadow), -2px 1px var(--color-shadow);
   transform: translate(5px, -5px);
   transition: box-shadow 0.15s ease, transform 0.15s ease;
+  &:focus,
+  &:hover {
+    filter: brightness(120%);
+    --color-shadow: #9f9f9f;
+  }
   &:active {
     box-shadow: 0 0 var(--color-shadow), 0 0 var(--color-shadow);
     transform: translateX(0);
