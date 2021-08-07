@@ -23,15 +23,17 @@ const MainContentContainer = styled(Box)`
   background: white;
 `;
 const Title = styled.h1`
-  background-image: radial-gradient(
-    128.88% 128.88% at 103.9% -10.39%,
-    #e84d70 0%,
-    #a337f6 53.09%,
-    #28a7ed 100%
-  );
   font-size: 3rem;
-  background-clip: text;
-  color: transparent;
+  @supports (background-clip: text) {
+    color: transparent;
+    background-clip: text;
+    background-image: radial-gradient(
+      128.88% 128.88% at 103.9% -10.39%,
+      #e84d70 0%,
+      #a337f6 53.09%,
+      #28a7ed 100%
+    );
+  }
 `;
 const CTAText = styled.p`
   font-size: 1.75rem;
@@ -47,13 +49,7 @@ export function Index() {
   return (
     <StyledPage>
       <ImageWrapper>
-        <HeroImage
-          src="/hero.jpg"
-          layout="fill"
-          alt={''}
-          placeholder={'blur'}
-          blurDataURL={'L3SPX~Dt%Q.600Vz^-Nt00r{?cI;'}
-        />
+        <HeroImage src="/hero.jpg" layout="fill" alt={''} />
       </ImageWrapper>
       <MainContentContainer>
         <Stack>
