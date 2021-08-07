@@ -708,6 +708,46 @@
         }
       }
     },
+    "shared-ui-layout": {
+      "root": "libs/shared/ui/layout",
+      "sourceRoot": "libs/shared/ui/layout/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/shared/ui/layout",
+            "tsConfig": "libs/shared/ui/layout/tsconfig.lib.json",
+            "project": "libs/shared/ui/layout/package.json",
+            "entryFile": "libs/shared/ui/layout/src/index.ts",
+            "external": ["react/jsx-runtime"],
+            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+            "assets": [
+              {
+                "glob": "libs/shared/ui/layout/README.md",
+                "input": ".",
+                "output": "."
+              }
+            ]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/ui/layout/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/ui/layout"],
+          "options": {
+            "jestConfig": "libs/shared/ui/layout/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "shared-util-component-types": {
       "root": "libs/shared/util/component-types",
       "sourceRoot": "libs/shared/util/component-types/src",

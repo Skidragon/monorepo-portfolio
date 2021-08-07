@@ -80,6 +80,9 @@
     "shared-storybook": {
       "tags": []
     },
+    "shared-ui-layout": {
+      "tags": []
+    },
     "shared-util-component-types": {
       "tags": []
     },

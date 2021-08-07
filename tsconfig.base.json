@@ -42,6 +42,9 @@
       "@sd/react-component-types": [
         "libs/shared/util/component-types/src/index.ts"
       ],
+      "@sd/react-layout-styled-components": [
+        "libs/shared/ui/layout/src/index.ts"
+      ],
       "@sd/shared/util/styles": ["libs/shared/util/styles/src/index.ts"]
     }
   },
