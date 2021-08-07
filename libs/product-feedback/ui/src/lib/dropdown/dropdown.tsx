@@ -1,78 +1,39 @@
 import styled, { css } from 'styled-components';
-import React, { useEffect, useRef, useState } from 'react';
-import { useClickAway } from 'react-use';
-import {
-  BaseButton,
-  BaseDiv,
-  BaseLI,
-  BaseUList,
-} from '@sd/react-component-types';
-
+import React from 'react';
+import { BaseButton, BaseDiv } from '@sd/react-component-types';
+import { useSelect, UseSelectProps } from 'downshift';
 /* eslint-disable-next-line */
-type DropdownChild = React.ReactElement<DropdownOptionProps>;
-export interface DropdownProps extends BaseDiv {
-  isOpen: boolean;
+export type DropdownItem<T = any> =
+  | {
+      value: T;
+      label: string;
+    }
+  | Record<string, never>;
+export type DropdownProps = BaseDiv & {
   label: string;
-  value: string;
-  children: DropdownChild[];
-  onOptionChange: (value: string) => void;
-}
-const Container = styled(({ children, ...props }) => {
-  const { setIsOpen } = useDropdown();
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  useClickAway(containerRef, () => setIsOpen(false));
-  return (
-    <div
-      {...props}
-      ref={(ref) => {
-        containerRef.current = ref;
-      }}
-    >
-      {children}
-    </div>
-  );
-})`
-  --color-background-dropdown: #373f68;
+} & UseSelectProps<DropdownItem>;
+const Container = styled.div`
+  --color-background-dropdown: var(--color-tertiary, #373f68);
   --color-text-dropdown: white;
   position: relative;
-  display: inline-block;
+  display: inline-flex;
 `;
 interface DropdownButtonProps extends BaseButton {
   isOpen: DropdownProps['isOpen'];
 }
-const DropdownButton = styled(
-  React.forwardRef<HTMLButtonElement, DropdownButtonProps>(
-    ({ children, ...props }, ref) => {
-      return (
-        <button type="button" aria-haspopup="true" {...props} ref={ref}>
-          {children}
-        </button>
-      );
-    }
-  )
-)`
+const DropdownButton = styled.button<DropdownButtonProps>`
   appearance: none;
   background: var(--color-background-dropdown);
   color: var(--color-text-dropdown);
   border: 0;
   font-size: 1;
   font-weight: 600;
-  padding: 1em
-    ${() => {
-      const { hasOptionSelected } = useDropdown();
-      if (hasOptionSelected) {
-        return '10em';
-      } else {
-        return '5em';
-      }
-    }}
-    1em 1em;
+  padding: 1em 3em 1em 1em;
   border-radius: 6px;
   text-align: left;
   position: relative;
   width: 100%;
   max-width: 400px;
-  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   cursor: pointer;
@@ -107,126 +68,50 @@ const DropdownButton = styled(
   }
 `;
 
-interface DropdownMenuProps extends BaseUList {
-  isOpen: DropdownProps['isOpen'];
-}
-const DropdownMenu = styled(({ children, ...props }: DropdownMenuProps) => {
-  const ref = useRef<HTMLUListElement | null>(null);
-  const { setIsOpen, isOpen, onOptionChange, focusOnDropdown } = useDropdown();
-  useEffect(() => {
-    if (ref?.current) {
-      const firstLiChild = ref.current.children[0] as HTMLLIElement;
-      firstLiChild.focus();
-    }
-  }, [isOpen]);
-  return (
-    <ul
-      role="listbox"
-      aria-expanded={isOpen}
-      onClick={(e) => {
-        const li = e.target as HTMLLIElement;
-        focusOnDropdown();
-        onOptionChange(li.dataset.value as string);
-      }}
-      onKeyDown={(e) => {
-        const li = e.target as HTMLLIElement;
-        if (e.key === 'ArrowUp' && li.previousElementSibling) {
-          const previousLi = li.previousElementSibling as HTMLLIElement;
-          previousLi.focus();
-        }
-        if (e.key === 'ArrowDown' && li.nextElementSibling) {
-          const nextLi = li.nextElementSibling as HTMLLIElement;
-          nextLi.focus();
-        }
-        if (e.key === 'Home' && ref.current) {
-          const firstLiChild = ref.current.children[0] as HTMLLIElement;
-          firstLiChild.focus();
-        }
-        if (e.key === 'End' && ref.current) {
-          const lastChildIndex = ref.current.children.length - 1;
-          const lastLiChild = ref.current.children[
-            lastChildIndex
-          ] as HTMLLIElement;
-          lastLiChild.focus();
-        }
-        if (e.key === 'Enter') {
-          focusOnDropdown();
-          onOptionChange(li.dataset.value as string);
-        }
-        if (e.key === 'Escape') {
-          setIsOpen(false);
-        }
-      }}
-      ref={ref}
-      {...props}
-    >
-      {children}
-    </ul>
-  );
-})`
+const DropdownMenu = styled.ul<{ isOpen: DropdownProps['isOpen'] }>`
   display: none;
   position: absolute;
-  top: 110%;
+  z-index: 1000;
+  bottom: 0;
+  transform: translateY(100%);
   margin: 0;
   padding: 0;
   list-style: none;
   cursor: pointer;
   color: #5e5e5e;
-  &[aria-expanded='true'] {
-    display: block;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    font-size: 1rem;
-    background: white;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
-      rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-    border-radius: 12px;
-    cursor: pointer;
-    position: relative;
-  }
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 1rem;
+  background: white;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  border-radius: 12px;
+  cursor: pointer;
 `;
-interface DropdownOptionProps extends BaseLI {
-  value: string;
-}
-export const DropdownOption = styled(
-  ({ children, value, ...props }: DropdownOptionProps) => {
-    const { controlledValue, setIsOpen } = useDropdown();
-    const isSelected = Boolean(controlledValue === value);
-    return (
-      <li
-        role="option"
-        onClick={() => setIsOpen(false)}
-        aria-selected={isSelected}
-        tabIndex={0}
-        data-value={value}
-        {...props}
-      >
-        {children}
-      </li>
-    );
-  }
-)`
+
+type DropdownOptionStyles = { highlightedIndex: number; index: number };
+const DropdownOption = styled.li<DropdownOptionStyles>`
   padding: 1em 5em 1em 1em;
   text-overflow: ellipsis;
   white-space: nowrap;
+  background: white;
+
+  ${(props) => {
+    if (props.highlightedIndex === props.index) {
+      return css`
+        color: var(--color-primary, #d500d5);
+      `;
+    }
+    return css``;
+  }}
   &:first-child,
   & + li {
     border-bottom: 2px solid #f2f2f2;
   }
   &::after {
     content: '';
-    ${(props) => {
-      const { controlledValue } = useDropdown();
-      const isSelected = Boolean(controlledValue === props.value);
-      return isSelected
-        ? css`
-            content: '✔️';
-          `
-        : css`
-            content: none;
-          `;
-    }};
     position: absolute;
     right: 1em;
   }
@@ -235,69 +120,51 @@ export const DropdownOption = styled(
     color: var(--color-primary, #d500d5);
   }
 `;
-interface DropdownProviderValues {
-  controlledValue: string;
-  hasControlledValue: boolean;
-  isOpen: boolean;
-  hasOptionSelected: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  onOptionChange: DropdownProps['onOptionChange'];
-  focusOnDropdown: () => void;
-}
-const DropdownContext = React.createContext<DropdownProviderValues | null>(
-  null
-);
-const useDropdown = () => {
-  const context = React.useContext(DropdownContext);
 
-  if (!context) throw new Error('Expected to be wrapped in a DropdownProvider');
-
-  return context;
-};
 export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
-  ({ value: controlledValue, onOptionChange, ...props }, ref) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const selectedOption = props.children.find((option) => {
-      return option.props.value === controlledValue;
+  ({ label, items, id, ...props }, ref) => {
+    const {
+      isOpen,
+      selectedItem,
+      getToggleButtonProps,
+      getMenuProps,
+      highlightedIndex,
+      getItemProps,
+    } = useSelect({
+      items,
+      ...props,
     });
-    const buttonDropdownRef = useRef<HTMLButtonElement>(null);
-
-    useEffect(() => {
-      if (!isOpen && buttonDropdownRef?.current) {
-        buttonDropdownRef.current.focus();
-      }
-    }, [isOpen]);
-    const focusOnDropdown = () => {
-      if (buttonDropdownRef?.current) {
-        buttonDropdownRef.current.focus();
-      }
-    };
-
+    const hasSelectedItem = Boolean(selectedItem?.value);
     return (
-      <DropdownContext.Provider
-        value={{
-          hasControlledValue: Boolean(controlledValue),
-          controlledValue,
-          hasOptionSelected: Boolean(selectedOption),
-          isOpen,
-          setIsOpen,
-          onOptionChange,
-          focusOnDropdown,
-        }}
-      >
-        <Container {...props} ref={ref}>
-          <DropdownButton
-            isOpen={isOpen}
-            onClick={() => {
-              setIsOpen((prevOpen) => !prevOpen);
-            }}
-            ref={buttonDropdownRef}
-          >{`${props.label}${
-            controlledValue ? ` : ${selectedOption?.props.children}` : ''
-          }`}</DropdownButton>
-          <DropdownMenu isOpen={isOpen}>{props.children}</DropdownMenu>
-        </Container>
-      </DropdownContext.Provider>
+      <Container id={id} ref={ref}>
+        <DropdownButton {...getToggleButtonProps()} isOpen={isOpen}>
+          {hasSelectedItem ? `${label}:` : label}
+          {hasSelectedItem ? (
+            <span
+              style={{
+                marginLeft: '.5em',
+              }}
+            >
+              {selectedItem?.label || ''}
+            </span>
+          ) : (
+            ''
+          )}
+        </DropdownButton>
+        <DropdownMenu {...getMenuProps()}>
+          {isOpen &&
+            items.map((item, index) => {
+              return React.createElement(DropdownOption, {
+                children: item.label,
+                value: item.value,
+                index,
+                key: item.value,
+                highlightedIndex,
+                ...{ ...getItemProps({ item, index }) },
+              });
+            })}
+        </DropdownMenu>
+      </Container>
     );
   }
 );

@@ -1,6 +1,6 @@
 import { Story, Meta } from '@storybook/react';
 import { useState } from 'react';
-import { Dropdown, DropdownProps, DropdownOption } from './dropdown';
+import { Dropdown, DropdownProps, DropdownItem } from './dropdown';
 
 export default {
   component: Dropdown,
@@ -8,23 +8,27 @@ export default {
 } as Meta;
 
 const Template: Story<DropdownProps> = (args) => {
-  const [value, setValue] = useState('');
+  const [item, setItem] = useState<DropdownItem>({});
   return (
     <Dropdown
       {...args}
-      value={value}
-      onOptionChange={(value) => {
-        console.log(value);
-        setValue(value);
+      selectedItem={item}
+      onSelectedItemChange={(changes) => {
+        setItem(changes?.selectedItem || {});
       }}
+      items={[
+        {
+          value: 'mostUpvotes',
+          label: 'Most Upvotes',
+        },
+        {
+          value: 'leastUpvotes',
+          label: 'Least Upvotes',
+        },
+      ]}
       label={'Sort By'}
       ref={undefined}
-    >
-      <DropdownOption value={'a1'}>Most Upvotes</DropdownOption>
-      <DropdownOption value={'a2'}>Least Upvotes</DropdownOption>
-      <DropdownOption value={'a3'}>Most Comments</DropdownOption>
-      <DropdownOption value={'a4'}>Least Comments</DropdownOption>
-    </Dropdown>
+    />
   );
 };
 

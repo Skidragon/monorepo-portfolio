@@ -36,6 +36,7 @@
     "@reach/tabs": "^0.15.3",
     "core-js": "^3.6.5",
     "document-register-element": "1.13.1",
+    "downshift": "^6.1.6",
     "next": "11.0.1",
     "react": "17.0.2",
     "react-dnd": "^14.0.2",
