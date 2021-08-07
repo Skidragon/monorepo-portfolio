@@ -86,6 +86,10 @@ const StyledButton = styled.button<ButtonExtended>`
     return css`
       --color-text: var(--color-text-button-default, #4661e6);
       --color-background: var(--color-text-button-default, #f2f4fe);
+      &:focus,
+      &:hover {
+        filter: brightness(95%);
+      }
     `;
   }}
 `;
