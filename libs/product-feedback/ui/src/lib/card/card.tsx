@@ -1,11 +1,14 @@
 import styled from 'styled-components';
 import { Box } from '../box/box';
 /* eslint-disable-next-line */
-export interface CardProps {}
+export interface CardProps {
+  title: string;
+  children: React.ReactNode;
+  icon?: string;
+}
 
 const StyledCard = styled(Box)`
   position: relative;
-  min-height: 10rem;
 `;
 
 const IconAvatar = styled.div`
@@ -25,10 +28,13 @@ const IconAvatar = styled.div`
     #28a7ed 100%
   );
 `;
+const Title = styled.h2``;
 export function Card(props: CardProps) {
   return (
     <StyledCard>
-      <IconAvatar>+</IconAvatar>
+      <IconAvatar>{props.icon || ''}</IconAvatar>
+      <Title>{props.title}</Title>
+      <p>{props.children}</p>
     </StyledCard>
   );
 }
