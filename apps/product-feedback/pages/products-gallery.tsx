@@ -68,7 +68,7 @@ export function ProductsGallery(props: ProductsGalleryProps) {
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea eius
               beatae doloremque sed eveniet non!
             </p>
-            <Link href={'#'} passHref={true}>
+            <Link href={'/product/1/feedbacks'} passHref={true}>
               <Button variant={'secondary'} fullWidth={true}>
                 Frontend Mentor ▶️
               </Button>
