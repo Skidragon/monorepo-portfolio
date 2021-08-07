@@ -7,6 +7,7 @@ import {
 } from '@sd/product-feedback-ui-components';
 import Link from 'next/link';
 import { useState } from 'react';
+import { Stack, Grid } from '@sd/react-layout-styled-components';
 /* eslint-disable-next-line */
 
 export interface ProductsGalleryProps {
@@ -26,16 +27,10 @@ const Title = styled.h1`
 const AddProductButton = styled(Button)`
   margin-left: auto;
 `;
-const Grid = styled.section`
-  display: grid;
-  column-gap: 2rem;
-  row-gap: 4rem;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-auto-rows: 20rem;
-  align-items: stretch;
-  margin-top: 4rem;
+const ProductsGrid = styled(Grid)`
+  margin-top: 6rem;
+  padding: 1rem;
 `;
-
 export function ProductsGallery(props: ProductsGalleryProps) {
   const [item, setItem] = useState<DropdownItem>({
     value: 'public',
@@ -66,31 +61,43 @@ export function ProductsGallery(props: ProductsGalleryProps) {
         </div>
         <AddProductButton variant={'primary'}>+ Add Product</AddProductButton>
       </ProductBar>
-      <Grid>
+      <ProductsGrid rowGap={3} columnGap={2}>
         <Card title={'Frontend Mentor'}>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea eius
-          beatae doloremque sed eveniet non!
-          <Link href={'#'} passHref={true}>
-            <Button variant={'secondary'} fullWidth={true}>
-              Frontend Mentor ▶️
-            </Button>
-          </Link>
+          <Stack>
+            <p>
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea eius
+              beatae doloremque sed eveniet non!
+            </p>
+            <Link href={'#'} passHref={true}>
+              <Button variant={'secondary'} fullWidth={true}>
+                Frontend Mentor ▶️
+              </Button>
+            </Link>
+          </Stack>
         </Card>
         <Card title={'Product Feedback'}>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea eius
-          beatae doloremque sed eveniet non!
-          <Button variant={'secondary'} fullWidth={true}>
-            Product Feedback ▶️
-          </Button>
+          <Stack>
+            <p>
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea eius
+              beatae doloremque sed eveniet non!
+            </p>
+            <Button variant={'secondary'} fullWidth={true}>
+              Product Feedback ▶️
+            </Button>
+          </Stack>
         </Card>
         <Card title={'Linkedin'}>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea eius
-          beatae doloremque sed eveniet non!
-          <Button variant={'secondary'} fullWidth={true}>
-            Linkedin ▶️
-          </Button>
+          <Stack>
+            <p>
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea eius
+              beatae doloremque sed eveniet non!
+            </p>
+            <Button variant={'secondary'} fullWidth={true}>
+              Linkedin ▶️
+            </Button>
+          </Stack>
         </Card>
-      </Grid>
+      </ProductsGrid>
     </StyledProductsGallery>
   );
 }
