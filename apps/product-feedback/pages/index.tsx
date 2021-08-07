@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Box, Button } from '@sd/product-feedback-ui-components';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Stack } from '@sd/react-layout-styled-components';
 const StyledPage = styled.div`
   height: 100vh;
   position: relative;
@@ -20,9 +21,6 @@ const MainContentContainer = styled(Box)`
   left: 50%;
   transform: translate(-50%, -50%);
   background: white;
-  & > * + * {
-    margin-top: var(--flow, 0.75rem);
-  }
 `;
 const Title = styled.h1`
   background-image: radial-gradient(
@@ -58,11 +56,13 @@ export function Index() {
         />
       </ImageWrapper>
       <MainContentContainer>
-        <Title>Product Feedback</Title>
-        <CTAText>Get Feedback from stockholders and potential users.</CTAText>
-        <Link href={'/products-gallery'} passHref={true}>
-          <LinkButton variant="primary">Get Started!</LinkButton>
-        </Link>
+        <Stack>
+          <Title>Product Feedback</Title>
+          <CTAText>Get Feedback from stockholders and potential users.</CTAText>
+          <Link href={'/products-gallery'} passHref={true}>
+            <LinkButton variant="primary">Get Started!</LinkButton>
+          </Link>
+        </Stack>
       </MainContentContainer>
     </StyledPage>
   );
