@@ -11,13 +11,12 @@ const GlobalStyle = createGlobalStyle`
   box-sizing: border-box;
 }
 
-::root {
+html {
   --flow: 1.5rem;
   --color-primary: #AD1FEA;
   --color-secondary: #4661E6;
   --color-tertiary: #4661E6;
 }
-
 /* Remove default margin */
 body,
 h1,
