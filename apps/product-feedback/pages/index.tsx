@@ -1,14 +1,17 @@
 import styled from 'styled-components';
 import { Box, Button } from '@sd/product-feedback-ui-components';
 import Image from 'next/image';
+import Link from 'next/link';
 const StyledPage = styled.div`
-  background: #262835;
   height: 100vh;
   position: relative;
 `;
-const HeroImage = styled(Image)`
+const ImageWrapper = styled.div`
   filter: brightness(80%);
+  height: 100vh;
+  width: 100%;
 `;
+const HeroImage = styled(Image)``;
 const MainContentContainer = styled(Box)`
   display: flex;
   flex-flow: column;
@@ -36,6 +39,7 @@ const CTAText = styled.p`
   font-size: 1.75rem;
   color: var(--color-primary);
 `;
+const LinkButton = styled(Button)``;
 export function Index() {
   /*
    * Replace the elements below with your own.
@@ -44,11 +48,21 @@ export function Index() {
    */
   return (
     <StyledPage>
-      <HeroImage src="/hero.jpg" layout="fill" alt={''} />
+      <ImageWrapper>
+        <HeroImage
+          src="/hero.jpg"
+          layout="fill"
+          alt={''}
+          placeholder={'blur'}
+          blurDataURL={'L3SPX~Dt%Q.600Vz^-Nt00r{?cI;'}
+        />
+      </ImageWrapper>
       <MainContentContainer>
         <Title>Product Feedback</Title>
         <CTAText>Get Feedback from stockholders and potential users.</CTAText>
-        <Button variant="primary">Get Started!</Button>
+        <Link href={'/products-gallery'} passHref={true}>
+          <LinkButton variant="primary">Get Started!</LinkButton>
+        </Link>
       </MainContentContainer>
     </StyledPage>
   );
