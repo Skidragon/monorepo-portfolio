@@ -2,9 +2,10 @@ import styled, { css } from 'styled-components';
 import { BaseButton, ButtonExtended } from '@sd/react-component-types';
 import React from 'react';
 /* eslint-disable-next-line */
-export interface ButtonProps extends BaseButton, ButtonExtended {
-  children: React.ReactNode;
-}
+export type ButtonProps = BaseButton &
+  ButtonExtended & {
+    children: React.ReactNode;
+  };
 
 const StyledButton = styled.button<ButtonExtended>`
   appearance: none;
@@ -16,6 +17,13 @@ const StyledButton = styled.button<ButtonExtended>`
   color: var(--color-text);
   background: var(--color-background);
   cursor: pointer;
+  display: inline-block;
+  ${(props) =>
+    props.fullWidth
+      ? css`
+          width: 100%;
+        `
+      : css``};
   padding: 1em;
   border-radius: 6px;
   text-transform: capitalize;
@@ -34,7 +42,6 @@ const StyledButton = styled.button<ButtonExtended>`
   ${(props) =>
     props.Icon &&
     css`
-      display: inline-flex;
       align-items: baseline;
       margin-inline-end: 1rem;
       .icon {
