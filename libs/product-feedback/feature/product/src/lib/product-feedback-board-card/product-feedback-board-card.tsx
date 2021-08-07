@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Box, Button } from '@sd/product-feedback-ui-components';
 import { useMedia } from 'react-use';
 import ReactDOM from 'react-dom';
+import { useEffect, useState } from 'react';
 /* eslint-disable-next-line */
 export interface ProductFeedbackBoardCardProps {}
 
@@ -40,6 +41,10 @@ const Hamburger = styled(Button)``;
 export function ProductFeedbackBoardCard(props: ProductFeedbackBoardCardProps) {
   const BREAKPOINT = '480px';
   const isWide = useMedia(`(min-width: ${BREAKPOINT})`);
+  const [doesWindowExist, setDoesWindowExist] = useState(false);
+  useEffect(() => {
+    setDoesWindowExist(true);
+  }, []);
   if (isWide) {
     return (
       <ProductFeedbackBoardCardStyled>
@@ -49,7 +54,7 @@ export function ProductFeedbackBoardCard(props: ProductFeedbackBoardCardProps) {
         </Headings>
       </ProductFeedbackBoardCardStyled>
     );
-  } else {
+  } else if (doesWindowExist) {
     return ReactDOM.createPortal(
       <ProductFeedbackBoardCardStyled>
         <Headings>
@@ -64,6 +69,8 @@ export function ProductFeedbackBoardCard(props: ProductFeedbackBoardCardProps) {
       </ProductFeedbackBoardCardStyled>,
       document.body
     );
+  } else {
+    return null;
   }
 }
 

@@ -1,12 +1,8 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { Feedback } from '../feedback/feedback';
-import {
-  Button,
-  Dropdown,
-  DropdownOption,
-  Box,
-} from '@sd/product-feedback-ui-components';
+import { Button, Box, Dropdown } from '@sd/product-feedback-ui-components';
+import { Stack } from '@sd/react-layout-styled-components';
 /* eslint-disable-next-line */
 export interface FeedbacksProps {
   loading: boolean;
@@ -20,7 +16,7 @@ const StyledContainer = styled.div`
     margin-bottom: 1rem;
   }
 `;
-const StyledFeedbacks = styled.div`
+const StyledFeedbacks = styled(Stack)`
   display: flex;
   flex-flow: column;
   & > * {
@@ -46,7 +42,6 @@ const Skeleton = styled.div`
 const FeedbacksBar = styled(Box)`
   display: flex;
   justify-content: space-between;
-  width: 100%;
   padding: 2em 1em;
   background: blue;
   color: white;
@@ -74,38 +69,32 @@ export function Feedbacks({
       <FeedbacksBar>
         <FeedbacksCTA>
           <FeedbacksAmountHeading>{`${amountOfFeedbacks} Suggestions`}</FeedbacksAmountHeading>
-          <label htmlFor="sort-dropdown">Sort By:</label>
-          <Dropdown
-            value={sortValue}
-            id={'sort-dropdown'}
-            onChange={(e) => {
-              setSortValue(e.target.value);
-            }}
-          >
-            <DropdownOption value={OPTIONS.MOST_UPVOTES}>
-              {OPTIONS.MOST_UPVOTES}
-            </DropdownOption>
-            <DropdownOption value={OPTIONS.LEAST_UPVOTES}>
-              {OPTIONS.LEAST_UPVOTES}
-            </DropdownOption>
-            <DropdownOption value={OPTIONS.MOST_COMMENTS}>
-              {OPTIONS.MOST_COMMENTS}
-            </DropdownOption>
-            <DropdownOption value={OPTIONS.LEAST_COMMENTS}>
-              {OPTIONS.LEAST_COMMENTS}
-            </DropdownOption>
-          </Dropdown>
         </FeedbacksCTA>
-        <Button variant={'primary'}>Feedback</Button>
+        <Button variant={'primary'}>+ Add Feedback</Button>
       </FeedbacksBar>
       <StyledFeedbacks>
         {loading ? (
           <Skeleton />
         ) : (
           <>
-            <Feedback />
-            <Feedback />
-            <Feedback />
+            <Feedback
+              title={'Latin'}
+              description={
+                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste vitae quisquam excepturi nostrum cum earum aspernatur maiores dolores, quaerat neque!'
+              }
+            />
+            <Feedback
+              title={'Latin'}
+              description={
+                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste vitae quisquam excepturi nostrum cum earum aspernatur maiores dolores, quaerat neque!'
+              }
+            />
+            <Feedback
+              title={'Latin'}
+              description={
+                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste vitae quisquam excepturi nostrum cum earum aspernatur maiores dolores, quaerat neque!'
+              }
+            />
           </>
         )}
       </StyledFeedbacks>

@@ -23,6 +23,10 @@ const Cluster = styled.ul`
   justify-content: flex-start;
   align-items: center;
   list-style-type: none;
+  & > * + * {
+    margin-right: 0.5rem;
+    margin-top: 0.5rem;
+  }
 `;
 const ButtonBadge = styled(Button)<{ isActive: boolean }>`
   border-radius: 12px;

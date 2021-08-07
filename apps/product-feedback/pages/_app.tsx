@@ -16,7 +16,10 @@ html {
   --color-primary: #AD1FEA;
   --color-secondary: #4661E6;
   --color-tertiary: #4661E6;
+  font-family: sans-serif;
+
 }
+
 /* Remove default margin */
 body,
 h1,
@@ -48,6 +51,8 @@ body {
   text-rendering: optimizeSpeed;
   line-height: 1.3;
   font-family: sans-serif;
+  margin: 0;
+
 }
 
 /* A elements that don't have a class get default styles */
