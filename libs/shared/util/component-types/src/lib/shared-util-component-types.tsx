@@ -14,6 +14,7 @@ export interface ButtonExtended {
     | 'success'
     | 'error'
     | 'default';
+  fullWidth?: boolean;
   Icon?: ReactElement<any, string | JSXElementConstructor<any>>;
 }
 
