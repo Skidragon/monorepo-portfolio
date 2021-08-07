@@ -35,19 +35,7 @@ const Grid = styled.section`
   align-items: stretch;
   margin-top: 4rem;
 `;
-const BreakoutButton = styled(Button)`
-  margin-top: 2rem;
-  width: 100%;
-  &::before {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-`;
+
 export function ProductsGallery(props: ProductsGalleryProps) {
   const [item, setItem] = useState<DropdownItem>({
     value: 'public',
@@ -83,22 +71,24 @@ export function ProductsGallery(props: ProductsGalleryProps) {
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea eius
           beatae doloremque sed eveniet non!
           <Link href={'#'} passHref={true}>
-            <BreakoutButton variant={'secondary'}>
+            <Button variant={'secondary'} fullWidth={true}>
               Frontend Mentor ▶️
-            </BreakoutButton>
+            </Button>
           </Link>
         </Card>
         <Card title={'Product Feedback'}>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea eius
           beatae doloremque sed eveniet non!
-          <BreakoutButton variant={'secondary'}>
+          <Button variant={'secondary'} fullWidth={true}>
             Product Feedback ▶️
-          </BreakoutButton>
+          </Button>
         </Card>
         <Card title={'Linkedin'}>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea eius
           beatae doloremque sed eveniet non!
-          <BreakoutButton variant={'secondary'}>Linkedin ▶️</BreakoutButton>
+          <Button variant={'secondary'} fullWidth={true}>
+            Linkedin ▶️
+          </Button>
         </Card>
       </Grid>
     </StyledProductsGallery>
