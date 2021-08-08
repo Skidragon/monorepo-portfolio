@@ -91,7 +91,11 @@ const DropdownMenu = styled.ul<{ isOpen: DropdownProps['isOpen'] }>`
   cursor: pointer;
 `;
 
-type DropdownOptionStyles = { highlightedIndex: number; index: number };
+type DropdownOptionStyles = {
+  highlightedIndex: number;
+  index: number;
+  selectedItem: UseSelectProps<DropdownItem>['selectedItem'];
+};
 const DropdownOption = styled.li<DropdownOptionStyles>`
   padding: 1em 5em 1em 1em;
   text-overflow: ellipsis;
@@ -111,7 +115,17 @@ const DropdownOption = styled.li<DropdownOptionStyles>`
     border-bottom: 2px solid #f2f2f2;
   }
   &::after {
-    content: '';
+    ${(props) => {
+      if (props.selectedItem && props.selectedItem?.value === props.value) {
+        return css`
+          content: '✔️';
+        `;
+      } else {
+        return css`
+          content: '';
+        `;
+      }
+    }};
     position: absolute;
     right: 1em;
   }
@@ -160,6 +174,7 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                 index,
                 key: item.value,
                 highlightedIndex,
+                selectedItem: props.selectedItem,
                 ...{ ...getItemProps({ item, index }) },
               });
             })}
