@@ -1,11 +1,12 @@
 import styled, { css } from 'styled-components';
 import { Box } from '@sd/product-feedback-ui-components';
+import { FeedbackStatusType } from '@sd/product-feedback/util/types';
+import { Stack } from '@sd/react-layout-styled-components';
 import Link from 'next/link';
 /* eslint-disable-next-line */
 export interface RoadmapOverviewProps {}
 
 const StyledRoadmapOverview = styled(Box)`
-  max-width: 15em;
   width: 100%;
 `;
 const Header = styled.div`
@@ -14,22 +15,7 @@ const Header = styled.div`
   align-items: center;
 `;
 const RoadmapHeader = styled.h4``;
-const Stack = styled.div`
-  --space: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
 
-  & > * {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-
-  & > * + * {
-    margin-top: var(--space);
-  }
-`;
-type FeedbackStatusType = 'PLANNED' | 'IN_PROGRESS' | 'LIVE';
 const List = styled.ul`
   list-style: none;
   padding: 0;
