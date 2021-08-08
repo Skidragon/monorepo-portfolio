@@ -133,7 +133,7 @@ export const Feedback = React.forwardRef<HTMLDivElement, FeedbackProps>(
           <div>^</div>
           <div>{upvotes}</div>
         </Button>
-        <Link href={'/product/1/feedback/1/comments'} passHref={true}>
+        <Link href={'/product/1/feedback/1/details'} passHref={true}>
           <Button className="comment-btn">
             2
             <span role={'img'} aria-label="comments">
