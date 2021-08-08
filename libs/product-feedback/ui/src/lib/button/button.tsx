@@ -8,9 +8,7 @@ export type ButtonProps = BaseButton &
     isActive?: boolean;
   };
 
-const StyledButton = styled.button<
-  Exclude<ButtonProps, 'children'>
->`
+const StyledButton = styled.button<Exclude<ButtonProps, 'children'>>`
   appearance: none;
   border: none;
   outline: none;
