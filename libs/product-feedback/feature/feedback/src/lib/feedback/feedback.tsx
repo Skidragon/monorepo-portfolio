@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { Button, Box, Badge } from '@sd/product-feedback-ui-components';
-import React from 'react';
+import React, { useState } from 'react';
+import Link from 'next/link';
 import { BaseDiv } from '@sd/react-component-types';
 /* eslint-disable-next-line */
 type FeedbackStatusType = 'PLANNED' | 'IN_PROGRESS' | 'LIVE';
@@ -106,6 +107,8 @@ export const Feedback = React.forwardRef<HTMLDivElement, FeedbackProps>(
       isCompactView = false,
       ...rest
     } = props;
+    const [hasUpvote, setHasUpvote] = useState(false);
+    const upvotes = hasUpvote ? 102 + 1 : 102;
     return (
       <StyledFeedbackBox
         showStatus={showStatus}
@@ -120,11 +123,24 @@ export const Feedback = React.forwardRef<HTMLDivElement, FeedbackProps>(
           <p>{description}</p>
           <Badge className="category">Enhancement</Badge>
         </div>
-        <Button className="vote-btn">
+        <Button
+          className="vote-btn"
+          onClick={() => {
+            setHasUpvote((prevState) => !prevState);
+          }}
+          isActive={hasUpvote}
+        >
           <div>^</div>
-          <div>102</div>
+          <div>{upvotes}</div>
         </Button>
-        <Button className="comment-btn">2C</Button>
+        <Link href={'/product/1/feedback/1/comments'} passHref={true}>
+          <Button className="comment-btn">
+            2
+            <span role={'img'} aria-label="comments">
+              🗯️
+            </span>
+          </Button>
+        </Link>
       </StyledFeedbackBox>
     );
   }
