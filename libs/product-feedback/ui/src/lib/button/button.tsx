@@ -46,6 +46,7 @@ const StyledButton = styled.button<Exclude<ButtonProps, 'children'>>`
       background: #4661e6;
       color: white;
       box-shadow: unset;
+      transform: unset;
     `}
   ${(props) =>
     props.Icon &&
