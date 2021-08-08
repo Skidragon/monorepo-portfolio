@@ -1,1 +1,2 @@
-export * from './lib/product-feedback-feature-comment';
+export * from './lib/create-comment-form/create-comment-form';
+export * from './lib/comments/comments';
