@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
 
 html {
   --flow: 1.5rem;
+  --measure: 75ch;
   --color-primary: #AD1FEA;
   --color-secondary: #4661E6;
   --color-tertiary: #4661E6;
