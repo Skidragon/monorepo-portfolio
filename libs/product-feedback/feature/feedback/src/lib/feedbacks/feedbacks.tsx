@@ -7,6 +7,7 @@ import {
   Dropdown,
   DropdownItem,
 } from '@sd/product-feedback-ui-components';
+import Link from 'next/link';
 import { Stack, Center } from '@sd/react-layout-styled-components';
 /* eslint-disable-next-line */
 export interface FeedbacksProps {
@@ -94,7 +95,9 @@ export function Feedbacks({
             }}
           />
         </FeedbacksCTA>
-        <Button variant={'primary'}>+ Add Feedback</Button>
+        <Link href={'/product/1/add-feedback'}>
+          <Button variant={'primary'}>+ Add Feedback</Button>
+        </Link>
       </FeedbacksBar>
       <Center>
         <StyledFeedbacks>
