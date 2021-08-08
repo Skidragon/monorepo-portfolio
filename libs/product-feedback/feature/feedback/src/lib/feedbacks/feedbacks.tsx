@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { Feedback } from '../feedback/feedback';
-import { Button, Box, Dropdown } from '@sd/product-feedback-ui-components';
+import {
+  Button,
+  Box,
+  Dropdown,
+  DropdownItem,
+} from '@sd/product-feedback-ui-components';
 import { Stack, Center } from '@sd/react-layout-styled-components';
 /* eslint-disable-next-line */
 export interface FeedbacksProps {
@@ -51,7 +56,7 @@ const FeedbacksCTA = styled.div`
   align-items: center;
 `;
 const FeedbacksAmountHeading = styled.h3``;
-const OPTIONS = {
+const OPTIONS: Record<string, string> = {
   MOST_UPVOTES: 'Most Upvotes',
   LEAST_UPVOTES: 'Least Upvotes',
   MOST_COMMENTS: 'Most Comments',
@@ -62,13 +67,32 @@ export function Feedbacks({
   data = [],
   ...props
 }: FeedbacksProps) {
-  const [sortValue, setSortValue] = useState(OPTIONS.MOST_UPVOTES || '');
+  const [sortItem, setSortItem] = useState<DropdownItem>({
+    value: OPTIONS.MOST_UPVOTES,
+    label: OPTIONS.MOST_UPVOTES,
+  });
+  const sortDropdownItems = Object.keys(OPTIONS).map<DropdownItem>((key) => {
+    return {
+      label: OPTIONS[key],
+      value: OPTIONS[key],
+    };
+  });
   const amountOfFeedbacks = data.length;
   return (
     <StyledContainer {...props}>
       <FeedbacksBar>
         <FeedbacksCTA>
           <FeedbacksAmountHeading>{`${amountOfFeedbacks} Suggestions`}</FeedbacksAmountHeading>
+          <Dropdown
+            label={'Sort By'}
+            selectedItem={sortItem}
+            items={sortDropdownItems}
+            onSelectedItemChange={(changes) => {
+              if (changes && changes?.selectedItem?.value) {
+                setSortItem(changes.selectedItem);
+              }
+            }}
+          />
         </FeedbacksCTA>
         <Button variant={'primary'}>+ Add Feedback</Button>
       </FeedbacksBar>
