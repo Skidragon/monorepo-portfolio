@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import {
   FeedbacksCategoryFilter,
@@ -20,18 +21,16 @@ const ProductOverviewContainer = styled.div`
   grid-gap: var(--flow);
 `;
 export function Feedbacks(props: FeedbacksProps) {
+  const [category, setCategory] = useState('All');
   return (
     <StyledFeedbacks>
       <ProductOverviewContainer>
         <ProductFeedbackBoardCard />
         <FeedbacksCategoryFilter
           data={['All', 'UI', 'UX', 'Bug', 'Enhanced', 'Feature']}
-          value={'All'}
-          style={{
-            maxWidth: '200px',
-          }}
-          onClick={() => {
-            console.log('');
+          value={category}
+          onClick={(_, value) => {
+            setCategory(value);
           }}
         />
         <RoadmapOverview />
