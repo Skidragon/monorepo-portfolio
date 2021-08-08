@@ -17,6 +17,7 @@ html {
   --color-primary: #AD1FEA;
   --color-secondary: #4661E6;
   --color-tertiary: #4661E6;
+  background: #F7F8FD;
   font-family: sans-serif;
 
 }
