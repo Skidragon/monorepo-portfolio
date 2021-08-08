@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { Feedback } from '../feedback/feedback';
 import { Button, Box, Dropdown } from '@sd/product-feedback-ui-components';
-import { Stack } from '@sd/react-layout-styled-components';
+import { Stack, Center } from '@sd/react-layout-styled-components';
 /* eslint-disable-next-line */
 export interface FeedbacksProps {
   loading: boolean;
@@ -43,7 +43,7 @@ const FeedbacksBar = styled(Box)`
   display: flex;
   justify-content: space-between;
   padding: 2em 1em;
-  background: blue;
+  background: var(--color-secondary);
   color: white;
 `;
 const FeedbacksCTA = styled.div`
@@ -72,32 +72,34 @@ export function Feedbacks({
         </FeedbacksCTA>
         <Button variant={'primary'}>+ Add Feedback</Button>
       </FeedbacksBar>
-      <StyledFeedbacks>
-        {loading ? (
-          <Skeleton />
-        ) : (
-          <>
-            <Feedback
-              title={'Latin'}
-              description={
-                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste vitae quisquam excepturi nostrum cum earum aspernatur maiores dolores, quaerat neque!'
-              }
-            />
-            <Feedback
-              title={'Latin'}
-              description={
-                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste vitae quisquam excepturi nostrum cum earum aspernatur maiores dolores, quaerat neque!'
-              }
-            />
-            <Feedback
-              title={'Latin'}
-              description={
-                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste vitae quisquam excepturi nostrum cum earum aspernatur maiores dolores, quaerat neque!'
-              }
-            />
-          </>
-        )}
-      </StyledFeedbacks>
+      <Center>
+        <StyledFeedbacks>
+          {loading ? (
+            <Skeleton />
+          ) : (
+            <>
+              <Feedback
+                title={'Latin'}
+                description={
+                  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste vitae quisquam excepturi nostrum cum earum aspernatur maiores dolores, quaerat neque!'
+                }
+              />
+              <Feedback
+                title={'Latin'}
+                description={
+                  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste vitae quisquam excepturi nostrum cum earum aspernatur maiores dolores, quaerat neque!'
+                }
+              />
+              <Feedback
+                title={'Latin'}
+                description={
+                  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste vitae quisquam excepturi nostrum cum earum aspernatur maiores dolores, quaerat neque!'
+                }
+              />
+            </>
+          )}
+        </StyledFeedbacks>
+      </Center>
     </StyledContainer>
   );
 }
