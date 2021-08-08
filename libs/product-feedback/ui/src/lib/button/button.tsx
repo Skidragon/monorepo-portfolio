@@ -5,9 +5,12 @@ import React from 'react';
 export type ButtonProps = BaseButton &
   ButtonExtended & {
     children: React.ReactNode;
+    isActive?: boolean;
   };
 
-const StyledButton = styled.button<ButtonExtended>`
+const StyledButton = styled.button<
+  Exclude<ButtonProps, 'children'>
+>`
   appearance: none;
   border: none;
   outline: none;
@@ -39,6 +42,13 @@ const StyledButton = styled.button<ButtonExtended>`
     box-shadow: 0 0 var(--color-shadow), 0 0 var(--color-shadow);
     transform: translateX(0);
   }
+  ${(props) =>
+    props.isActive &&
+    css`
+      background: #4661e6;
+      color: white;
+      box-shadow: unset;
+    `}
   ${(props) =>
     props.Icon &&
     css`
