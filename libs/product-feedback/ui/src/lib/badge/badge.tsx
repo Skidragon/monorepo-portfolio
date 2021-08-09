@@ -12,6 +12,7 @@ const StyledBadge = styled(Box)`
   display: inline-flex;
   color: var(--color-primary, purple);
   padding: 0.5em;
+  align-items: center;
 `;
 
 export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
