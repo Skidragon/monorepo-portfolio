@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { Stack } from '@sd/react-layout-styled-components';
 /* eslint-disable-next-line */
 export interface InputProps
   extends React.DetailedHTMLProps<
@@ -17,6 +18,9 @@ const Container = styled.div`
   display: inline-flex;
   flex-flow: column;
   font-size: 1rem;
+  & > * + * {
+    margin-top: 1rem;
+  }
 `;
 const Label = styled.label`
   font-size: 1.5em;

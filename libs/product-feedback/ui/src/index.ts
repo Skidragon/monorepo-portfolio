@@ -5,3 +5,4 @@ export * from './lib/box/box';
 export * from './lib/badge/badge';
 export * from './lib/button/button';
 export * from './lib/dropdown/dropdown';
+export * from './lib/avatar/avatar'
