@@ -7,7 +7,7 @@ export interface InputProps
     React.InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
   > {
-  label: string;
+  label?: string;
   id: string;
   helperText?: string;
   hasError?: boolean;

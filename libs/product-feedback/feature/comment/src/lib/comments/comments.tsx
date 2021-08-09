@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { Stack, Center } from '@sd/react-layout-styled-components';
 import { Box, Avatar, Button } from '@sd/product-feedback-ui-components';
+import { ReplyForm } from '../reply-form/reply-form';
+import { useState } from 'react';
 /* eslint-disable-next-line */
 const StyledComment = styled(Stack)``;
 const CommentHeader = styled.div`
@@ -33,20 +35,29 @@ const Comment: React.FunctionComponent<CommentProps> = ({
 }) => {
   const name = `${firstName} ${lastName}`;
   const userHandle = `@${handle}`;
+  const [showReplyForm, setShowReplyForm] = useState(false);
   return (
-    <StyledComment>
-      <CommentHeader>
-        <User>
-          <Avatar firstName={firstName} lastName={lastName} src="" />
-          <UserInfo>
-            <Username>{name}</Username>
-            <Handle>{userHandle}</Handle>
-          </UserInfo>
-        </User>
-        <Button>Reply</Button>
-      </CommentHeader>
-      <p>{comment}</p>
-    </StyledComment>
+    <>
+      <StyledComment>
+        <CommentHeader>
+          <User>
+            <Avatar firstName={firstName} lastName={lastName} src="" />
+            <UserInfo>
+              <Username>{name}</Username>
+              <Handle>{userHandle}</Handle>
+            </UserInfo>
+          </User>
+          <Button
+            isActive={showReplyForm}
+            onClick={() => setShowReplyForm((prevState) => !prevState)}
+          >
+            Reply
+          </Button>
+        </CommentHeader>
+        <p>{comment}</p>
+      </StyledComment>
+      {showReplyForm ? <ReplyForm /> : null}
+    </>
   );
 };
 export interface CommentsProps {
