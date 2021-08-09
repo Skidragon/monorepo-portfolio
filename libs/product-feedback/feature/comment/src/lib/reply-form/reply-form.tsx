@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { Button, Input } from '@sd/product-feedback-ui-components';
 /* eslint-disable-next-line */
-export interface ReplyFormProps {}
+export interface ReplyFormProps {
+  handle: string;
+}
 
 const Form = styled.form`
   display: grid;
@@ -10,13 +13,22 @@ const Form = styled.form`
 `;
 
 export function ReplyForm(props: ReplyFormProps) {
+  const [reply, setReply] = useState('');
   return (
     <Form
       onSubmit={(e) => {
         e.preventDefault();
       }}
     >
-      <Input id="reply-field" placeholder="reply" />
+      <Input
+        value={reply}
+        label={`reply to @${props.handle}`}
+        id="reply-field"
+        onChange={(e) => {
+          setReply(e.target.value);
+        }}
+        placeholder="reply"
+      />
       <Button variant="primary" type="submit">
         Post Reply
       </Button>

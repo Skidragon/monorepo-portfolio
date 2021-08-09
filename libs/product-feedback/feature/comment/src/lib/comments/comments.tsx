@@ -26,12 +26,15 @@ type CommentProps = {
   lastName: string;
   handle: string;
   comment: string;
+  replies: ReplyProps[];
 };
+type ReplyProps = Exclude<CommentProps, 'replies'>;
 const Comment: React.FunctionComponent<CommentProps> = ({
-  firstName = 'Simon',
-  lastName = 'Davis',
-  handle = 'hexagon.bestagon',
+  firstName,
+  lastName,
+  handle,
   comment,
+  replies = [],
 }) => {
   const name = `${firstName} ${lastName}`;
   const userHandle = `@${handle}`;
@@ -56,7 +59,17 @@ const Comment: React.FunctionComponent<CommentProps> = ({
         </CommentHeader>
         <p>{comment}</p>
       </StyledComment>
-      {showReplyForm ? <ReplyForm /> : null}
+      {showReplyForm ? <ReplyForm handle={handle} /> : null}
+      <div
+        style={{
+          width: '90%',
+          marginLeft: 'auto',
+        }}
+      >
+        {replies.map((reply) => {
+          return <Comment key={reply.handle} {...reply} />;
+        })}
+      </div>
     </>
   );
 };
