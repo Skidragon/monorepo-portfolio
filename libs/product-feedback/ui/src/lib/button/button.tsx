@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { BaseButton, ButtonExtended } from '@sd/react-component-types';
-import React from 'react';
+import React, { useState } from 'react';
 /* eslint-disable-next-line */
 export type ButtonProps = BaseButton &
   ButtonExtended & {
@@ -8,7 +8,9 @@ export type ButtonProps = BaseButton &
     isActive?: boolean;
   };
 
-const StyledButton = styled.button<Exclude<ButtonProps, 'children'>>`
+const StyledButton = styled.button<
+  Exclude<ButtonProps, 'children'> & { toggleActiveClass: boolean }
+>`
   appearance: none;
   border: none;
   outline: none;
@@ -40,6 +42,12 @@ const StyledButton = styled.button<Exclude<ButtonProps, 'children'>>`
     box-shadow: 0 0 var(--color-shadow), 0 0 var(--color-shadow);
     transform: translateX(0);
   }
+  ${(props) =>
+    props.toggleActiveClass &&
+    css`
+      box-shadow: 0 0 var(--color-shadow), 0 0 var(--color-shadow);
+      transform: translateX(0);
+    `}
   ${(props) =>
     props.isActive &&
     css`
@@ -105,8 +113,30 @@ const StyledButton = styled.button<Exclude<ButtonProps, 'children'>>`
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (props, ref) => {
+    const [toggleActiveClass, setToggleActiveClass] = useState(false);
     return (
-      <StyledButton variant={props.variant} {...props} ref={ref}>
+      <StyledButton
+        toggleActiveClass={toggleActiveClass}
+        variant={props.variant}
+        {...props}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            setToggleActiveClass(true);
+          }
+          if (props.onKeyDown) {
+            props.onKeyDown(e);
+          }
+        }}
+        onKeyUp={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            setToggleActiveClass(false);
+          }
+          if (props.onKeyUp) {
+            props.onKeyUp(e);
+          }
+        }}
+        ref={ref}
+      >
         {props.Icon && React.cloneElement(props.Icon, { className: 'icon' })}
         {props.children}
       </StyledButton>
