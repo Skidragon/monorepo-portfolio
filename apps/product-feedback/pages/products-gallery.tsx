@@ -28,7 +28,6 @@ const AddProductButton = styled(Button)`
   margin-left: auto;
 `;
 const ProductsGrid = styled(Grid)`
-  margin-top: 6rem;
   padding: 1rem;
 `;
 export function ProductsGallery(props: ProductsGalleryProps) {
