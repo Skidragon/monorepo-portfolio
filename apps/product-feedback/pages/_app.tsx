@@ -12,14 +12,34 @@ const GlobalStyle = createGlobalStyle`
 }
 
 html {
-  --flow: 1.5rem;
+  /* Spacing */
   --measure: 75ch;
+  --ratio: 1.5;
+  --s-5: calc(var(--s-4) / var(--ratio));
+  --s-4: calc(var(--s-3) / var(--ratio));
+  --s-3: calc(var(--s-2) / var(--ratio));
+  --s-2: calc(var(--s-1) / var(--ratio));
+  --s-1: calc(var(--s0) / var(--ratio));
+  --s0: 1rem;
+  --s1: calc(var(--s0) * var(--ratio));
+  --s2: calc(var(--s1) * var(--ratio));
+  --s3: calc(var(--s2) * var(--ratio));
+  --s4: calc(var(--s3) * var(--ratio));
+  --s5: calc(var(--s4) * var(--ratio));
+  --flow: 1.5rem;
+
+  /* Design System Colors */
   --color-primary: #AD1FEA;
   --color-secondary: #4661E6;
   --color-tertiary: #4661E6;
-  background: #F7F8FD;
-  font-family: sans-serif;
 
+  /* Design System Typography */
+
+  /* Color Our Components */
+  --color-background-page: #F7F8FD;
+  background: var(---color---color-background-page);
+
+  font-family: sans-serif;
 }
 
 /* Remove default margin */
