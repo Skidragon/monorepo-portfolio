@@ -4,6 +4,7 @@ import {
   FeedbacksCategoryFilter,
   NoFeedbacksCard,
   Feedbacks as FeedbacksList,
+  FeedbackProps,
 } from '@sd/product-feedback/feature/feedback';
 import { ProductFeedbackBoardCard } from '@sd/product-feedback/feature/product';
 import { RoadmapOverview } from '@sd/product-feedback/feature/roadmap';
@@ -21,13 +22,35 @@ const ProductOverviewContainer = styled.div`
   grid-gap: var(--flow);
 `;
 export function Feedbacks(props: FeedbacksProps) {
+  const feedbacks: FeedbackProps[] = [
+    {
+      title: 'Latin',
+      description:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus numquam aperiam vel temporibus tempora eius omnis eligendi corrupti libero. Ab?',
+      category: 'Enhancement',
+    },
+    {
+      title: 'Spanish',
+      description:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus numquam aperiam vel temporibus tempora eius omnis eligendi corrupti libero. Ab?',
+      category: 'UI',
+    },
+  ];
+  const availableCategories = feedbacks.reduce((categories, feedback) => {
+    return categories.add(feedback.category);
+  }, new Set<string>());
   const [category, setCategory] = useState('All');
+  const [categoryFilters, setCategoryFilters] = useState([
+    'All',
+    ...Array.from(availableCategories),
+  ]);
+
   return (
     <StyledFeedbacks>
       <ProductOverviewContainer>
         <ProductFeedbackBoardCard />
         <FeedbacksCategoryFilter
-          data={['All', 'UI', 'UX', 'Bug', 'Enhanced', 'Feature']}
+          data={categoryFilters}
           value={category}
           onClick={(_, value) => {
             setCategory(value);
@@ -35,7 +58,7 @@ export function Feedbacks(props: FeedbacksProps) {
         />
         <RoadmapOverview />
       </ProductOverviewContainer>
-      <FeedbacksList data={[]} loading={false} />
+      <FeedbacksList data={feedbacks} loading={false} />
     </StyledFeedbacks>
   );
 }
