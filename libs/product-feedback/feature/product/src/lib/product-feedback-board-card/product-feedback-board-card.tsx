@@ -18,12 +18,7 @@ const ProductFeedbackBoardCardStyled = styled(Box)`
   justify-content: space-between;
   align-items: center;
   color: white;
-  background: radial-gradient(
-    128.88% 128.88% at 103.9% -10.39%,
-    #e84d70 0%,
-    #a337f6 53.09%,
-    #28a7ed 100%
-  );
+  background: var(--gradient-primary);
 
   @media screen and (min-width: 480px) {
     display: inline-flex;

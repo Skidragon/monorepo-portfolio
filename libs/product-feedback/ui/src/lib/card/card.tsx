@@ -10,6 +10,7 @@ export interface CardProps {
 const StyledCard = styled(Box)`
   position: relative;
   padding-top: 3rem;
+  margin-top: 2rem;
 `;
 
 const IconAvatar = styled.div`
@@ -23,12 +24,7 @@ const IconAvatar = styled.div`
   color: white;
   font-size: 2rem;
   font-weight: 700;
-  background: radial-gradient(
-    128.88% 128.88% at 103.9% -10.39%,
-    #e84d70 0%,
-    #a337f6 53.09%,
-    #28a7ed 100%
-  );
+  background: var(--gradient-primary);
 `;
 const Title = styled.h2`
   margin-bottom: calc(var(--flow) * 1.5);

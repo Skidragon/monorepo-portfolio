@@ -32,6 +32,12 @@ html {
   --color-primary: #AD1FEA;
   --color-secondary: #4661E6;
   --color-tertiary: #4661E6;
+  --gradient-primary: radial-gradient(
+    128.88% 128.88% at 103.9% -10.39%,
+    #e84d70 0%,
+    #a337f6 53.09%,
+    #28a7ed 100%
+  );
 
   /* Design System Typography */
 
