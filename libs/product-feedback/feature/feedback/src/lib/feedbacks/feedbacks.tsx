@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import { Feedback } from '../feedback/feedback';
+import { Feedback, FeedbackProps } from '../feedback/feedback';
 import {
   Button,
   Box,
@@ -12,7 +12,7 @@ import { Stack, Center } from '@sd/react-layout-styled-components';
 /* eslint-disable-next-line */
 export interface FeedbacksProps {
   loading: boolean;
-  data: any[];
+  data: FeedbackProps[];
 }
 
 const StyledContainer = styled.div`
@@ -105,24 +105,16 @@ export function Feedbacks({
             <Skeleton />
           ) : (
             <>
-              <Feedback
-                title={'Latin'}
-                description={
-                  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste vitae quisquam excepturi nostrum cum earum aspernatur maiores dolores, quaerat neque!'
-                }
-              />
-              <Feedback
-                title={'Latin'}
-                description={
-                  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste vitae quisquam excepturi nostrum cum earum aspernatur maiores dolores, quaerat neque!'
-                }
-              />
-              <Feedback
-                title={'Latin'}
-                description={
-                  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste vitae quisquam excepturi nostrum cum earum aspernatur maiores dolores, quaerat neque!'
-                }
-              />
+              {data.map((feedback) => {
+                return (
+                  <Feedback
+                    key={feedback.title}
+                    title={feedback.title}
+                    description={feedback.description}
+                    category={feedback.category}
+                  />
+                );
+              })}
             </>
           )}
         </StyledFeedbacks>
