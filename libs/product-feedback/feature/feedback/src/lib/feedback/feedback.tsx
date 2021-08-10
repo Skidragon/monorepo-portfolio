@@ -8,6 +8,7 @@ type FeedbackStatusType = 'PLANNED' | 'IN_PROGRESS' | 'LIVE';
 export interface FeedbackProps extends BaseDiv {
   title: string;
   description: string;
+  category: string;
   statusType?: FeedbackStatusType;
   showStatus?: boolean;
   isCompactView?: boolean;
@@ -102,6 +103,7 @@ export const Feedback = React.forwardRef<HTMLDivElement, FeedbackProps>(
     const {
       title,
       description,
+      category,
       statusType,
       showStatus = false,
       isCompactView = false,
@@ -121,7 +123,7 @@ export const Feedback = React.forwardRef<HTMLDivElement, FeedbackProps>(
           {showStatus ? <Status>{statusType}</Status> : null}
           <h3>{title}</h3>
           <p>{description}</p>
-          <Badge className="category">Enhancement</Badge>
+          <Badge className="category">{category}</Badge>
         </div>
         <Button
           className="vote-btn"

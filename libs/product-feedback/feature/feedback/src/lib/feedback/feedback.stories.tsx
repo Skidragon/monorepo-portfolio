@@ -13,6 +13,7 @@ const Template: Story<FeedbackProps> = (args) => (
     description={
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste vitae quisquam excepturi nostrum cum earum aspernatur maiores dolores, quaerat neque!'
     }
+    category="Enhanced"
     ref={undefined}
   />
 );
