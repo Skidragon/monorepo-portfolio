@@ -58,7 +58,9 @@ export function ProductsGallery(props: ProductsGalleryProps) {
             ]}
           />
         </div>
-        <AddProductButton variant={'primary'}>+ Add Product</AddProductButton>
+        <Link href={'/create-product'} passHref={true}>
+          <AddProductButton variant={'primary'}>+ Add Product</AddProductButton>
+        </Link>
       </ProductBar>
       <ProductsGrid rowGap={3} columnGap={2}>
         <Card title={'Frontend Mentor'}>
