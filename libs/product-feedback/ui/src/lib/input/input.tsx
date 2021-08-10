@@ -1,6 +1,5 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { Stack } from '@sd/react-layout-styled-components';
 /* eslint-disable-next-line */
 export interface InputProps
   extends React.DetailedHTMLProps<
@@ -26,7 +25,8 @@ const Label = styled.label`
   font-size: 1.5em;
 `;
 const HelperText = styled.p`
-  font-size: 1.25em;
+  font-size: 1em;
+  color: grey;
   line-height: 0;
 `;
 const StyledInput = styled.input<Pick<InputProps, 'hasError'>>`
