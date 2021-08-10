@@ -46,7 +46,9 @@ export const FeedbacksCategoryFilter = React.forwardRef<
       <Cluster
         onClick={(e: React.MouseEvent<HTMLUListElement>) => {
           const input = e.target as HTMLElement;
-          onClick(e, input.innerText);
+          if (input.nodeName === 'BUTTON') {
+            onClick(e, input.innerText);
+          }
         }}
         {...rest}
         ref={ref}
