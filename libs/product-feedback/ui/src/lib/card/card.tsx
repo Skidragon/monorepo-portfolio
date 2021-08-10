@@ -9,25 +9,28 @@ export interface CardProps {
 
 const StyledCard = styled(Box)`
   position: relative;
-  padding-top: 3rem;
-  margin-top: 2rem;
+  padding-top: var(--s3);
+  margin-top: 2.6rem;
 `;
 
-const IconAvatar = styled.div`
-  display: inline-flex;
+const IconAvatar = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 1em;
+  line-height: 0.6;
   border-radius: 50%;
   position: absolute;
   top: 0;
   left: 0;
-  transform: translate(30%, -60%);
+  transform: translate(30%, -50%);
   color: white;
   font-size: 2rem;
   font-weight: 700;
   background: var(--gradient-primary);
 `;
 const Title = styled.h2`
-  margin-bottom: calc(var(--flow) * 1.5);
+  margin-bottom: var(--s2);
 `;
 export function Card(props: CardProps) {
   return (
