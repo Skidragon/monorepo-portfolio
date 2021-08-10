@@ -17,7 +17,7 @@ const FormActions = styled.div`
 export function CreateFeedback(props: CreateFeedbackProps) {
   return (
     <StyledCreateFeedback>
-      <Card title="Create New Feedback">
+      <Card title="Create New Feedback" icon="+">
         <Form
           onSubmit={(e) => {
             e.preventDefault();
