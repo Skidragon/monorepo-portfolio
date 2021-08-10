@@ -1,16 +1,15 @@
+import { RoadmapFeedbackStatusBoard } from '@sd/product-feedback/feature/roadmap';
 import styled from 'styled-components';
 
 /* eslint-disable-next-line */
 export interface RoadmapProps {}
 
-const StyledRoadmap = styled.div`
-  color: pink;
-`;
+const StyledRoadmap = styled.div``;
 
 export function Roadmap(props: RoadmapProps) {
   return (
     <StyledRoadmap>
-      <h1>Welcome to roadmap!</h1>
+      <RoadmapFeedbackStatusBoard data={[]} />
     </StyledRoadmap>
   );
 }
