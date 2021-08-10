@@ -95,7 +95,7 @@ export function Feedbacks({
             }}
           />
         </FeedbacksCTA>
-        <Link href={'/product/1/add-feedback'}>
+        <Link href={'/product/1/create-feedback'}>
           <Button variant={'primary'}>+ Add Feedback</Button>
         </Link>
       </FeedbacksBar>
