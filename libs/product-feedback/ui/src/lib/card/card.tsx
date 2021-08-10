@@ -9,12 +9,14 @@ export interface CardProps {
 
 const StyledCard = styled(Box)`
   position: relative;
+  padding-top: 3rem;
 `;
 
 const IconAvatar = styled.div`
   display: inline-flex;
   padding: 1em;
   border-radius: 50%;
+  position: absolute;
   top: 0;
   left: 0;
   transform: translate(30%, -60%);
@@ -28,7 +30,9 @@ const IconAvatar = styled.div`
     #28a7ed 100%
   );
 `;
-const Title = styled.h2``;
+const Title = styled.h2`
+  margin-bottom: calc(var(--flow) * 1.5);
+`;
 export function Card(props: CardProps) {
   return (
     <StyledCard>
