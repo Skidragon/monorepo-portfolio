@@ -14,9 +14,16 @@ const Template: Story<CardProps> = (args) => (
       width: '100%',
     }}
   >
-    <Card {...args} />
+    <Card {...args} title={'Create New Feedback'}>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui ipsam nemo
+        iusto aperiam, ipsa laboriosam magni eveniet ea laborum quo?
+      </p>
+    </Card>
   </div>
 );
 
 export const Primary = Template.bind({});
-Primary.args = {};
+Primary.args = {
+  title: 'Test',
+};
