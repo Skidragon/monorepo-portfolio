@@ -28,9 +28,9 @@ html {
   --s5: calc(var(--s4) * var(--ratio));
   --flow: 1.5rem;
   /* Devices */
-  --phone: 375;
-  --tablet: 768;
-  --desktop: 1440;
+  --phone: 23.5em;
+  --tablet: 48em;
+  --desktop: 90em;
   /* Design System Colors */
   --color-primary: #AD1FEA;
   --color-secondary: #4661E6;
