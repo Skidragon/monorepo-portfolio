@@ -30,6 +30,49 @@ const AddProductButton = styled(Button)`
 const ProductsGrid = styled(Grid)`
   padding: 1rem;
 `;
+type ProductCardProps = {
+  title: string;
+  description: string;
+  id: string | number;
+};
+const ProductCard: React.FunctionComponent<ProductCardProps> = ({
+  title,
+  description,
+  id,
+}) => {
+  return (
+    <Card title={title}>
+      <Stack>
+        <p>{description}</p>
+        <Link href={`/product/${id}/feedbacks`} passHref={true}>
+          <Button variant={'secondary'} fullWidth={true}>
+            {`${title} ▶️`}
+          </Button>
+        </Link>
+      </Stack>
+    </Card>
+  );
+};
+const products: ProductCardProps[] = [
+  {
+    title: 'Frontend Mentor',
+    description:
+      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos, distinctio!',
+    id: 1,
+  },
+  {
+    title: 'Product Feedback',
+    description:
+      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos, distinctio!',
+    id: 2,
+  },
+  {
+    title: 'Linkedin',
+    description:
+      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos, distinctio!',
+    id: 3,
+  },
+];
 export function ProductsGallery(props: ProductsGalleryProps) {
   const [item, setItem] = useState<DropdownItem>({
     value: 'public',
@@ -63,41 +106,9 @@ export function ProductsGallery(props: ProductsGalleryProps) {
         </Link>
       </ProductBar>
       <ProductsGrid rowGap={3} columnGap={2}>
-        <Card title={'Frontend Mentor'}>
-          <Stack>
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea eius
-              beatae doloremque sed eveniet non!
-            </p>
-            <Link href={'/product/1/feedbacks'} passHref={true}>
-              <Button variant={'secondary'} fullWidth={true}>
-                Frontend Mentor ▶️
-              </Button>
-            </Link>
-          </Stack>
-        </Card>
-        <Card title={'Product Feedback'}>
-          <Stack>
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea eius
-              beatae doloremque sed eveniet non!
-            </p>
-            <Button variant={'secondary'} fullWidth={true}>
-              Product Feedback ▶️
-            </Button>
-          </Stack>
-        </Card>
-        <Card title={'Linkedin'}>
-          <Stack>
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea eius
-              beatae doloremque sed eveniet non!
-            </p>
-            <Button variant={'secondary'} fullWidth={true}>
-              Linkedin ▶️
-            </Button>
-          </Stack>
-        </Card>
+        {products.map((product) => {
+          return <ProductCard key={product.id} {...product} />;
+        })}
       </ProductsGrid>
     </StyledProductsGallery>
   );
