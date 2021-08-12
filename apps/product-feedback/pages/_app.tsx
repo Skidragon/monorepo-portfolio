@@ -11,46 +11,6 @@ const GlobalStyle = createGlobalStyle`
   box-sizing: border-box;
 }
 
-html {
-  /* Spacing */
-  --measure: 75ch;
-  --ratio: 1.5;
-  --s-5: calc(var(--s-4) / var(--ratio));
-  --s-4: calc(var(--s-3) / var(--ratio));
-  --s-3: calc(var(--s-2) / var(--ratio));
-  --s-2: calc(var(--s-1) / var(--ratio));
-  --s-1: calc(var(--s0) / var(--ratio));
-  --s0: 1rem;
-  --s1: calc(var(--s0) * var(--ratio));
-  --s2: calc(var(--s1) * var(--ratio));
-  --s3: calc(var(--s2) * var(--ratio));
-  --s4: calc(var(--s3) * var(--ratio));
-  --s5: calc(var(--s4) * var(--ratio));
-  --flow: 1.5rem;
-  /* Devices */
-  --phone: 23.5em;
-  --tablet: 48em;
-  --desktop: 90em;
-  /* Design System Colors */
-  --color-primary: #AD1FEA;
-  --color-secondary: #4661E6;
-  --color-tertiary: #4661E6;
-  --gradient-primary: radial-gradient(
-    128.88% 128.88% at 103.9% -10.39%,
-    #e84d70 0%,
-    #a337f6 53.09%,
-    #28a7ed 100%
-  );
-
-  /* Design System Typography */
-
-  /* Color Our Components */
-  --color-background-page: #F7F8FD;
-  background: var(---color---color-background-page);
-
-  font-family: sans-serif;
-}
-
 /* Remove default margin */
 body,
 h1,
@@ -119,6 +79,73 @@ select {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+html {
+  /* Spacing */
+  --measure: 75ch;
+  --ratio: 1.5;
+  --s-5: calc(var(--s-4) / var(--ratio));
+  --s-4: calc(var(--s-3) / var(--ratio));
+  --s-3: calc(var(--s-2) / var(--ratio));
+  --s-2: calc(var(--s-1) / var(--ratio));
+  --s-1: calc(var(--s0) / var(--ratio));
+  --s0: 1rem;
+  --s1: calc(var(--s0) * var(--ratio));
+  --s2: calc(var(--s1) * var(--ratio));
+  --s3: calc(var(--s2) * var(--ratio));
+  --s4: calc(var(--s3) * var(--ratio));
+  --s5: calc(var(--s4) * var(--ratio));
+  --flow: 1.5rem;
+  /* Devices */
+  --phone: 23.5em;
+  --tablet: 48em;
+  --desktop: 90em;
+  /* Design System Colors */
+  --color-primary: #AD1FEA;
+  --color-secondary: #4661E6;
+  --color-tertiary: #4661E6;
+  --gradient-primary: radial-gradient(
+    128.88% 128.88% at 103.9% -10.39%,
+    #e84d70 0%,
+    #a337f6 53.09%,
+    #28a7ed 100%
+  );
+
+  /* Design System Typography */
+
+  /* Color Our Components */
+  --color-background-page: #F7F8FD;
+  background: var(---color---color-background-page);
+
+  body {
+    font-family: 'Jost', sans-serif;
+    /* Default Typography */
+    font-size: .75rem;
+    @media (min-width: var(--tablet)) {
+      font-size: 1rem;
+    }
+    line-height: 1.75;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: bold;
+  }
+  h1 {
+    font-size: 1.5em;
+  }
+  h2 {
+    font-size: 1.25em;
+  }
+  h3 {
+    font-size: 1.1em;
+  }
+  h4 {
+    font-weight: bold;
+    font-size: .9em;
   }
 }
 `;
