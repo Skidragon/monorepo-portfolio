@@ -2,7 +2,11 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { ReactComponent as NxLogo } from '../public/nx-logo-white.svg';
 import { createGlobalStyle } from 'styled-components';
-
+const media = {
+  phone: '23.5em',
+  tablet: '48em',
+  desktop: '90em',
+};
 const GlobalStyle = createGlobalStyle`
 /* Box sizing rules */
 *,
@@ -81,9 +85,8 @@ select {
     scroll-behavior: auto !important;
   }
 }
-
-html {
-  /* Spacing */
+:root {
+ /* Spacing */
   --measure: 75ch;
   --ratio: 1.5;
   --s-5: calc(var(--s-4) / var(--ratio));
@@ -112,10 +115,9 @@ html {
     #a337f6 53.09%,
     #28a7ed 100%
   );
+}
+html {
 
-  /* Design System Typography */
-
-  /* Color Our Components */
   --color-background-page: #F7F8FD;
   background: var(---color---color-background-page);
 
@@ -123,7 +125,7 @@ html {
     font-family: 'Jost', sans-serif;
     /* Default Typography */
     font-size: .75rem;
-    @media (min-width: var(--tablet)) {
+    @media screen and (min-width: ${media.tablet}) {
       font-size: 1rem;
     }
     line-height: 1.75;

@@ -56,7 +56,17 @@ const FeedbacksCTA = styled.div`
   display: flex;
   align-items: center;
 `;
-const FeedbacksAmountHeading = styled.h3``;
+const media = {
+  phone: '23.5em',
+  tablet: '48em',
+  desktop: '90em',
+};
+const FeedbacksAmountHeading = styled.h3`
+  display: none;
+  @media screen and (min-width: ${media.tablet}) {
+    display: block;
+  }
+`;
 const OPTIONS: Record<string, string> = {
   MOST_UPVOTES: 'Most Upvotes',
   LEAST_UPVOTES: 'Least Upvotes',
