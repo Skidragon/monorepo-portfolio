@@ -96,7 +96,7 @@ export function ProductsGallery(props: ProductsGalleryProps) {
               },
               {
                 value: 'private',
-                label: 'Private Products',
+                label: 'My Products',
               },
             ]}
           />
