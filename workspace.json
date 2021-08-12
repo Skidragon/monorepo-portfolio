@@ -573,6 +573,38 @@
         }
       }
     },
+    "product-feedback-util-constants": {
+      "root": "libs/product-feedback/util/constants",
+      "sourceRoot": "libs/product-feedback/util/constants/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/product-feedback/util/constants",
+            "tsConfig": "libs/product-feedback/util/constants/tsconfig.lib.json",
+            "packageJson": "libs/product-feedback/util/constants/package.json",
+            "main": "libs/product-feedback/util/constants/src/index.ts",
+            "assets": ["libs/product-feedback/util/constants/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/product-feedback/util/constants/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/product-feedback/util/constants"],
+          "options": {
+            "jestConfig": "libs/product-feedback/util/constants/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "product-feedback-util-functions": {
       "root": "libs/product-feedback/util/functions",
       "sourceRoot": "libs/product-feedback/util/functions/src",

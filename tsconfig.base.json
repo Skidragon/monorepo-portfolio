@@ -33,6 +33,9 @@
       "@sd/product-feedback/feature/roadmap": [
         "libs/product-feedback/feature/roadmap/src/index.ts"
       ],
+      "@sd/product-feedback/util/constants": [
+        "libs/product-feedback/util/constants/src/index.ts"
+      ],
       "@sd/product-feedback/util/functions": [
         "libs/product-feedback/util/functions/src/index.ts"
       ],

@@ -71,6 +71,9 @@
       "tags": [],
       "implicitDependencies": ["product-feedback-ui"]
     },
+    "product-feedback-util-constants": {
+      "tags": []
+    },
     "product-feedback-util-functions": {
       "tags": []
     },
