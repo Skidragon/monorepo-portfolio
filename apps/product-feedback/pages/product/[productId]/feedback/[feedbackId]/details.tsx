@@ -21,6 +21,7 @@ export function FeedbackDetails(props: FeedbackDetailsProps) {
         <Feedback
           title={'Add a dark theme option'}
           description={'It would help people like me with light sensitivities.'}
+          category="Enhancement"
         />
         <Comments
           data={[
