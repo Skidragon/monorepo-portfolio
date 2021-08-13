@@ -78,6 +78,7 @@ export const DropFeedbackStatusColumn: React.FunctionComponent<DropColumnProps> 
                 statusType={statusType}
                 key={feedback.title}
                 position={index}
+                category={feedback.category}
               />
             );
           })}
@@ -150,6 +151,7 @@ const DraggableFeedback: React.FunctionComponent<DraggableFeedbackProps> = ({
   description,
   statusType,
   position,
+  category,
 }) => {
   const { dispatch } = useFeedbackStatusBoard();
   const [{ isDragging }, dragRef] = useDrag(
@@ -199,6 +201,7 @@ const DraggableFeedback: React.FunctionComponent<DraggableFeedbackProps> = ({
           title={title}
           description={description}
           statusType={statusType}
+          category={category}
           showStatus={true}
           isCompactView={true}
         />
@@ -207,6 +210,7 @@ const DraggableFeedback: React.FunctionComponent<DraggableFeedbackProps> = ({
         <StyledDraggableFeedback
           title={title}
           description={description}
+          category={category}
           statusType={statusType}
           showStatus={true}
           isCompactView={true}
