@@ -4,20 +4,25 @@ import { Box, Avatar, Button } from '@sd/product-feedback-ui-components';
 import { ReplyForm } from '../reply-form/reply-form';
 import { useState } from 'react';
 /* eslint-disable-next-line */
-const StyledComment = styled(Stack)``;
-const CommentHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-const User = styled.div`
+const StyledComment = styled.div`
   display: grid;
-  grid-template-columns: auto 1fr auto;
-  grid-gap: 1em;
+  grid-template-columns: auto 1fr;
+  grid-gap: 0.5em;
 `;
+const MainComment = styled.div`
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-gap: 0.5em;
+`;
+const CommentHeader = styled.div`
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-gap: 0.5em;
+`;
+const CommentText = styled.p``;
 const UserInfo = styled.div`
-  display: flex;
-  flex-flow: column;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
 `;
 const Username = styled.h3``;
 const Handle = styled.h4``;
@@ -42,22 +47,17 @@ const Comment: React.FunctionComponent<CommentProps> = ({
   return (
     <>
       <StyledComment>
-        <CommentHeader>
-          <User>
-            <Avatar firstName={firstName} lastName={lastName} src="" />
+        <Avatar firstName={firstName} lastName={lastName} src="" />
+        <MainComment>
+          <CommentHeader>
             <UserInfo>
               <Username>{name}</Username>
               <Handle>{userHandle}</Handle>
             </UserInfo>
-          </User>
-          <Button
-            isActive={showReplyForm}
-            onClick={() => setShowReplyForm((prevState) => !prevState)}
-          >
-            Reply
-          </Button>
-        </CommentHeader>
-        <p>{comment}</p>
+            <Button>Reply</Button>
+          </CommentHeader>
+          <CommentText>{comment}</CommentText>
+        </MainComment>
       </StyledComment>
       {showReplyForm ? <ReplyForm handle={handle} /> : null}
       <div
@@ -85,13 +85,17 @@ const Divider = styled.div`
   margin: 1rem 0;
 `;
 export function Comments(props: CommentsProps) {
-  const commentsLength = props.data.length;
+  const totalCommentsAndReplies = props.data.reduce((total, comment) => {
+    return total + 1 + comment.replies.length;
+  }, 0);
+  const totalComments = props.data.length;
   return (
     <StyledComments>
       <Stack>
-        <h2>{`${commentsLength} Comments`}</h2>
+        <h2>{`${totalCommentsAndReplies} Comments`}</h2>
         {props.data.map((comment, index) => {
-          if (index === commentsLength - 1) {
+          const isLastComment = index === totalComments - 1;
+          if (isLastComment) {
             return <Comment key={comment.handle} {...comment} />;
           }
           return (
