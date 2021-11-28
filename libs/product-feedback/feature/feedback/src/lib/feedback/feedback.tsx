@@ -9,6 +9,8 @@ export interface FeedbackProps extends BaseDiv {
   title: string;
   description: string;
   category: string;
+  upvotes: number;
+  commentsAmount: number;
   statusType?: FeedbackStatusType;
   showStatus?: boolean;
   isCompactView?: boolean;
@@ -110,7 +112,7 @@ export const Feedback = React.forwardRef<HTMLDivElement, FeedbackProps>(
       ...rest
     } = props;
     const [hasUpvote, setHasUpvote] = useState(false);
-    const upvotes = hasUpvote ? 102 + 1 : 102;
+    const upvotes = hasUpvote ? props.upvotes + 1 : props.upvotes;
     return (
       <StyledFeedbackBox
         showStatus={showStatus}
@@ -137,7 +139,7 @@ export const Feedback = React.forwardRef<HTMLDivElement, FeedbackProps>(
         </Button>
         <Link href={'/product/1/feedback/1/details'} passHref={true}>
           <Button className="comment-btn">
-            2
+            {props.commentsAmount}
             <span role={'img'} aria-label="comments">
               🗯️
             </span>

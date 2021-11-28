@@ -117,19 +117,34 @@ export function Feedbacks({
             <Skeleton />
           ) : (
             <>
-              {data.map((feedback) => {
-                if (feedback.category !== category && category !== 'All') {
-                  return null;
-                }
-                return (
-                  <Feedback
-                    key={feedback.title}
-                    title={feedback.title}
-                    description={feedback.description}
-                    category={feedback.category}
-                  />
-                );
-              })}
+              {data
+                .sort((a, b) => {
+                  if (OPTIONS.MOST_COMMENTS === sortItem.value) {
+                    return b.commentsAmount - a.commentsAmount;
+                  }
+                  if (OPTIONS.LEAST_COMMENTS === sortItem.value) {
+                    return a.commentsAmount - b.commentsAmount;
+                  }
+                  if (OPTIONS.LEAST_UPVOTES === sortItem.value) {
+                    return a.upvotes - b.upvotes;
+                  }
+                  return b.upvotes - a.upvotes;
+                })
+                .map((feedback) => {
+                  if (feedback.category !== category && category !== 'All') {
+                    return null;
+                  }
+                  return (
+                    <Feedback
+                      key={feedback.title}
+                      title={feedback.title}
+                      description={feedback.description}
+                      category={feedback.category}
+                      upvotes={feedback.upvotes}
+                      commentsAmount={feedback.commentsAmount}
+                    />
+                  );
+                })}
             </>
           )}
         </StyledFeedbacks>

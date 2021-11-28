@@ -36,12 +36,16 @@ const feedbacks: FeedbackProps[] = [
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus numquam aperiam vel temporibus tempora eius omnis eligendi corrupti libero. Ab?',
     category: 'Enhancement',
+    upvotes: 50,
+    commentsAmount: 3,
   },
   {
     title: 'Spanish',
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus numquam aperiam vel temporibus tempora eius omnis eligendi corrupti libero. Ab?',
     category: 'UI',
+    upvotes: 51,
+    commentsAmount: 2,
   },
 ];
 export function Feedbacks(props: FeedbacksProps) {
