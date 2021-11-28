@@ -32,8 +32,18 @@ export function CreateCommentForm(props: CreateCommentFormProps) {
             id="comment-field"
             label="Type your comment here"
             onChange={(e) => {
-              setComment(e.target.value);
+              if (e.target.value.length > maxCharacters) {
+                return;
+              }
+              const { value } = e.target;
+              setComment(value);
             }}
+            maxLength={maxCharacters}
+            minLength={1}
+            spellCheck={true}
+            autoCorrect={'off'}
+            autoComplete={'off'}
+            value={comment}
           />
           <Footer>
             <CharactersLeft>{`${charactersLeft} Characters Left`}</CharactersLeft>

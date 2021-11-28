@@ -54,12 +54,19 @@ const Comment: React.FunctionComponent<CommentProps> = ({
               <Username>{name}</Username>
               <Handle>{userHandle}</Handle>
             </UserInfo>
-            <Button>Reply</Button>
+            <Button
+              onClick={() => {
+                setShowReplyForm((prevState) => !prevState);
+              }}
+              isActive={showReplyForm}
+            >
+              Reply
+            </Button>
           </CommentHeader>
           <CommentText>{comment}</CommentText>
+          {showReplyForm ? <ReplyForm handle={handle} /> : null}
         </MainComment>
       </StyledComment>
-      {showReplyForm ? <ReplyForm handle={handle} /> : null}
       <div
         style={{
           width: '90%',
