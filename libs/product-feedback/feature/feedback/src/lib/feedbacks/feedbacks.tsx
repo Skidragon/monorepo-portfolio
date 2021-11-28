@@ -13,6 +13,7 @@ import { Stack, Center } from '@sd/react-layout-styled-components';
 export interface FeedbacksProps {
   loading: boolean;
   data: FeedbackProps[];
+  category: string;
 }
 
 const StyledContainer = styled.div`
@@ -76,6 +77,7 @@ const OPTIONS: Record<string, string> = {
 export function Feedbacks({
   loading = true,
   data = [],
+  category,
   ...props
 }: FeedbacksProps) {
   const [sortItem, setSortItem] = useState<DropdownItem>({
@@ -116,6 +118,9 @@ export function Feedbacks({
           ) : (
             <>
               {data.map((feedback) => {
+                if (feedback.category !== category && category !== 'All') {
+                  return null;
+                }
                 return (
                   <Feedback
                     key={feedback.title}

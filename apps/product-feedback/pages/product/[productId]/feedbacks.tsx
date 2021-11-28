@@ -67,7 +67,7 @@ export function Feedbacks(props: FeedbacksProps) {
         />
         <RoadmapOverview />
       </ProductOverviewContainer>
-      <FeedbacksList data={feedbacks} loading={false} />
+      <FeedbacksList data={feedbacks} loading={false} category={category} />
     </StyledFeedbacks>
   );
 }
