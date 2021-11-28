@@ -30,6 +30,13 @@
     ]
   },
   "projects": {
+    "audiophile": {
+      "tags": []
+    },
+    "audiophile-e2e": {
+      "tags": [],
+      "implicitDependencies": ["audiophile"]
+    },
     "product-feedback": {
       "tags": []
     },

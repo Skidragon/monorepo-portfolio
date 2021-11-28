@@ -5,6 +5,7 @@
   "scripts": {
     "nx": "nx",
     "start:pf": "nx run-many --target=serve --projects=product-feedback,product-feedback-api --parallel=true",
+    "start:ap": "nx run-many --target=serve --projects=audiophile --parallel=true",
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
