@@ -37,6 +37,9 @@
       "tags": [],
       "implicitDependencies": ["audiophile"]
     },
+    "audiophile-ui": {
+      "tags": []
+    },
     "product-feedback": {
       "tags": []
     },
