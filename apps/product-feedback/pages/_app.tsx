@@ -122,7 +122,7 @@ html {
   background: var(---color---color-background-page);
 
   body {
-    font-family: 'Jost', sans-serif;
+    font-family: 'Manrope', sans-serif;
     /* Default Typography */
     font-size: .75rem;
     @media screen and (min-width: ${media.tablet}) {

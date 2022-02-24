@@ -1,7 +1,11 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { createGlobalStyle } from 'styled-components';
-
+const media = {
+  phone: '23.5em',
+  tablet: '48em',
+  desktop: '90em',
+};
 const GlobalStyle = createGlobalStyle`
 /* Box sizing rules */
 *,
@@ -97,12 +101,11 @@ select {
   --s5: calc(var(--s4) * var(--ratio));
   --flow: 1.5rem;
   /* Devices */
-  --phone: 23.5em;
-  --tablet: 48em;
-  --desktop: 90em;
+  --phone: ${media.phone};
+  --tablet: ${media.tablet};
+  --desktop: ${media.desktop};
 }
 html {
-
   --color-background-page: #F7F8FD;
   background: var(---color---color-background-page);
 
@@ -112,6 +115,7 @@ html {
     font-size: .75rem;
 
     line-height: 1.25;
+
   }
 
 `;
