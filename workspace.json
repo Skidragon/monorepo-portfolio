@@ -78,6 +78,29 @@
         }
       }
     },
+    "audiophile-feature-product": {
+      "root": "libs/audiophile/feature/product",
+      "sourceRoot": "libs/audiophile/feature/product/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/audiophile/feature/product/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/audiophile/feature/product"],
+          "options": {
+            "jestConfig": "libs/audiophile/feature/product/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "audiophile-ui": {
       "root": "libs/audiophile/ui",
       "sourceRoot": "libs/audiophile/ui/src",
