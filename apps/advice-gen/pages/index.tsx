@@ -58,6 +58,11 @@ const DiceButton = styled.button`
   left: 50%;
   bottom: 0;
   transform: translateX(-50%) translateY(50%);
+  transition: box-shadow 1s;
+  &:hover,
+  &:focus {
+    box-shadow: 0px 0px 40px #53ffaa;
+  }
 `;
 export function Index() {
   /*
