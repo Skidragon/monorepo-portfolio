@@ -8,6 +8,14 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
+      queryFn: async () => {
+        try {
+          const { data } = await axios.get('https://api.adviceslip.com/advice');
+          return data;
+        } catch (err) {
+          throw new Error(err);
+        }
+      },
     },
   },
 });

@@ -1,7 +1,6 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useQuery } from 'react-query';
 import Image from 'next/image';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 const StyledPage = styled.div`
@@ -48,13 +47,13 @@ const MobileDivider = styled.div`
     display: none;
   }
 `;
-const DiceButton = styled.button`
+const DiceButton = styled.button<{ isError: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 1.5em;
   color: #202733;
-  background: #53ffaa;
+  background: ${(props) => (props.isError ? 'red' : '#53ffaa')};
   border-radius: 50%;
   border: none;
   cursor: pointer;
@@ -63,9 +62,25 @@ const DiceButton = styled.button`
   bottom: 0;
   transform: translateX(-50%) translateY(50%);
   transition: box-shadow 1s;
+  overflow-x: hidden;
   &:hover {
     box-shadow: 0px 0px 40px #53ffaa;
   }
+  ${(props) =>
+    props.isError
+      ? css`
+          background: #c70000;
+        `
+      : ''};
+  ${(props) =>
+    props.disabled
+      ? css`
+          background: grey;
+          &:hover {
+            box-shadow: none;
+          }
+        `
+      : ''};
 `;
 const Dice = styled.div<{ on: boolean }>`
   display: flex;
@@ -82,16 +97,24 @@ const Dice = styled.div<{ on: boolean }>`
   animation: ${(props) => (props.on ? 'rotate 1s linear infinite' : 'none')};
 `;
 export function Index() {
-  const { isFetching, data, refetch } = useQuery<{
+  const [canFetch, setCanFetch] = useState(false);
+  const { isFetching, isError, data, refetch } = useQuery<{
     slip: {
       id: number;
       advice: string;
     };
-  }>('advice', async () => {
-    const { data } = await axios.get('https://api.adviceslip.com/advice');
-
-    return data;
+  }>('advice', {
+    onSuccess: () => {
+      setTimeout(() => {
+        setCanFetch(true);
+      }, 2200);
+    },
   });
+  useEffect(() => {
+    if (isFetching) {
+      setCanFetch(false);
+    }
+  }, [isFetching]);
   return (
     <StyledPage>
       <Card>
@@ -113,7 +136,14 @@ export function Index() {
             alt=""
           />
         </MobileDivider>
-        <DiceButton onClick={() => refetch()}>
+        <DiceButton
+          onClick={() => {
+            refetch();
+            setCanFetch(false);
+          }}
+          isError={isError}
+          disabled={isFetching || !canFetch}
+        >
           <Dice on={isFetching}>
             <Image src="/icon-dice.svg" height="24" width="24" alt="" />
           </Dice>
