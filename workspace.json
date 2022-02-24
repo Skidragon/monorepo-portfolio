@@ -1,6 +1,204 @@
 {
   "version": 2,
   "projects": {
+    "advice-gen": {
+      "root": "apps/advice-gen",
+      "sourceRoot": "apps/advice-gen",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/next:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "root": "apps/advice-gen",
+            "outputPath": "dist/apps/advice-gen"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/next:server",
+          "options": {
+            "buildTarget": "advice-gen:build",
+            "dev": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "advice-gen:build:production",
+              "dev": false
+            }
+          }
+        },
+        "export": {
+          "executor": "@nrwl/next:export",
+          "options": {
+            "buildTarget": "advice-gen:build:production"
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/advice-gen"],
+          "options": {
+            "jestConfig": "apps/advice-gen/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/advice-gen/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
+    },
+    "advice-gen-e2e": {
+      "root": "apps/advice-gen-e2e",
+      "sourceRoot": "apps/advice-gen-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/advice-gen-e2e/cypress.json",
+            "tsConfig": "apps/advice-gen-e2e/tsconfig.e2e.json",
+            "devServerTarget": "advice-gen:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "advice-gen:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/advice-gen-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "audiophile": {
+      "root": "apps/audiophile",
+      "sourceRoot": "apps/audiophile",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/next:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "root": "apps/audiophile",
+            "outputPath": "dist/apps/audiophile"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/next:server",
+          "options": {
+            "buildTarget": "audiophile:build",
+            "dev": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "audiophile:build:production",
+              "dev": false
+            }
+          }
+        },
+        "export": {
+          "executor": "@nrwl/next:export",
+          "options": {
+            "buildTarget": "audiophile:build:production"
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/audiophile"],
+          "options": {
+            "jestConfig": "apps/audiophile/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/audiophile/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
+    },
+    "audiophile-e2e": {
+      "root": "apps/audiophile-e2e",
+      "sourceRoot": "apps/audiophile-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/audiophile-e2e/cypress.json",
+            "tsConfig": "apps/audiophile-e2e/tsconfig.e2e.json",
+            "devServerTarget": "audiophile:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "audiophile:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/audiophile-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "audiophile-feature-product": {
+      "root": "libs/audiophile/feature/product",
+      "sourceRoot": "libs/audiophile/feature/product/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/audiophile/feature/product/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/audiophile/feature/product"],
+          "options": {
+            "jestConfig": "libs/audiophile/feature/product/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "audiophile-ui": {
+      "root": "libs/audiophile/ui",
+      "sourceRoot": "libs/audiophile/ui/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/audiophile/ui/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/audiophile/ui"],
+          "options": {
+            "jestConfig": "libs/audiophile/ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "product-feedback": {
       "root": "apps/product-feedback",
       "sourceRoot": "apps/product-feedback",
@@ -129,6 +327,410 @@
         }
       }
     },
+    "product-feedback-feature-comment": {
+      "root": "libs/product-feedback/feature/comment",
+      "sourceRoot": "libs/product-feedback/feature/comment/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/product-feedback/feature/comment",
+            "tsConfig": "libs/product-feedback/feature/comment/tsconfig.lib.json",
+            "project": "libs/product-feedback/feature/comment/package.json",
+            "entryFile": "libs/product-feedback/feature/comment/src/index.ts",
+            "external": ["react/jsx-runtime"],
+            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+            "assets": [
+              {
+                "glob": "libs/product-feedback/feature/comment/README.md",
+                "input": ".",
+                "output": "."
+              }
+            ]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/product-feedback/feature/comment/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/product-feedback/feature/comment"],
+          "options": {
+            "jestConfig": "libs/product-feedback/feature/comment/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "storybook": {
+          "executor": "@nrwl/storybook:storybook",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "port": 4400,
+            "config": {
+              "configFolder": "libs/product-feedback/feature/comment/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        },
+        "build-storybook": {
+          "executor": "@nrwl/storybook:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "uiFramework": "@storybook/react",
+            "outputPath": "dist/storybook/product-feedback-feature-comment",
+            "config": {
+              "configFolder": "libs/product-feedback/feature/comment/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        }
+      }
+    },
+    "product-feedback-feature-feedback": {
+      "root": "libs/product-feedback/feature/feedback",
+      "sourceRoot": "libs/product-feedback/feature/feedback/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/product-feedback/feature/feedback",
+            "tsConfig": "libs/product-feedback/feature/feedback/tsconfig.lib.json",
+            "project": "libs/product-feedback/feature/feedback/package.json",
+            "entryFile": "libs/product-feedback/feature/feedback/src/index.ts",
+            "external": ["react/jsx-runtime"],
+            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+            "assets": [
+              {
+                "glob": "libs/product-feedback/feature/feedback/README.md",
+                "input": ".",
+                "output": "."
+              }
+            ]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/product-feedback/feature/feedback/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/product-feedback/feature/feedback"],
+          "options": {
+            "jestConfig": "libs/product-feedback/feature/feedback/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "storybook": {
+          "executor": "@nrwl/storybook:storybook",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "port": 4400,
+            "config": {
+              "configFolder": "libs/product-feedback/feature/feedback/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        },
+        "build-storybook": {
+          "executor": "@nrwl/storybook:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "uiFramework": "@storybook/react",
+            "outputPath": "dist/storybook/product-feedback-feature-feedback",
+            "config": {
+              "configFolder": "libs/product-feedback/feature/feedback/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        }
+      }
+    },
+    "product-feedback-feature-product": {
+      "root": "libs/product-feedback/feature/product",
+      "sourceRoot": "libs/product-feedback/feature/product/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/product-feedback/feature/product",
+            "tsConfig": "libs/product-feedback/feature/product/tsconfig.lib.json",
+            "project": "libs/product-feedback/feature/product/package.json",
+            "entryFile": "libs/product-feedback/feature/product/src/index.ts",
+            "external": ["react/jsx-runtime"],
+            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+            "assets": [
+              {
+                "glob": "libs/product-feedback/feature/product/README.md",
+                "input": ".",
+                "output": "."
+              }
+            ]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/product-feedback/feature/product/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/product-feedback/feature/product"],
+          "options": {
+            "jestConfig": "libs/product-feedback/feature/product/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "storybook": {
+          "executor": "@nrwl/storybook:storybook",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "port": 4400,
+            "config": {
+              "configFolder": "libs/product-feedback/feature/product/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        },
+        "build-storybook": {
+          "executor": "@nrwl/storybook:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "uiFramework": "@storybook/react",
+            "outputPath": "dist/storybook/product-feedback-feature-product",
+            "config": {
+              "configFolder": "libs/product-feedback/feature/product/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        }
+      }
+    },
+    "product-feedback-feature-roadmap": {
+      "root": "libs/product-feedback/feature/roadmap",
+      "sourceRoot": "libs/product-feedback/feature/roadmap/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/product-feedback/feature/roadmap",
+            "tsConfig": "libs/product-feedback/feature/roadmap/tsconfig.lib.json",
+            "project": "libs/product-feedback/feature/roadmap/package.json",
+            "entryFile": "libs/product-feedback/feature/roadmap/src/index.ts",
+            "external": ["react/jsx-runtime"],
+            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+            "assets": [
+              {
+                "glob": "libs/product-feedback/feature/roadmap/README.md",
+                "input": ".",
+                "output": "."
+              }
+            ]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/product-feedback/feature/roadmap/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/product-feedback/feature/roadmap"],
+          "options": {
+            "jestConfig": "libs/product-feedback/feature/roadmap/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "storybook": {
+          "executor": "@nrwl/storybook:storybook",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "port": 4400,
+            "config": {
+              "configFolder": "libs/product-feedback/feature/roadmap/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        },
+        "build-storybook": {
+          "executor": "@nrwl/storybook:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "uiFramework": "@storybook/react",
+            "outputPath": "dist/storybook/product-feedback-feature-roadmap",
+            "config": {
+              "configFolder": "libs/product-feedback/feature/roadmap/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        }
+      }
+    },
+    "product-feedback-features-comment-e2e": {
+      "root": "apps/product-feedback-features/comment-e2e",
+      "sourceRoot": "apps/product-feedback-features/comment-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/product-feedback-features/comment-e2e/cypress.json",
+            "tsConfig": "apps/product-feedback-features/comment-e2e/tsconfig.e2e.json",
+            "devServerTarget": "product-feedback-feature-comment:storybook"
+          },
+          "configurations": {
+            "ci": {
+              "devServerTarget": "product-feedback-feature-comment:storybook:ci"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/product-feedback-features/comment-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      }
+    },
+    "product-feedback-features-feedback-e2e": {
+      "root": "apps/product-feedback-features/feedback-e2e",
+      "sourceRoot": "apps/product-feedback-features/feedback-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/product-feedback-features/feedback-e2e/cypress.json",
+            "tsConfig": "apps/product-feedback-features/feedback-e2e/tsconfig.e2e.json",
+            "devServerTarget": "product-feedback-feature-feedback:storybook"
+          },
+          "configurations": {
+            "ci": {
+              "devServerTarget": "product-feedback-feature-feedback:storybook:ci"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/product-feedback-features/feedback-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      }
+    },
+    "product-feedback-features-product-e2e": {
+      "root": "apps/product-feedback-features/product-e2e",
+      "sourceRoot": "apps/product-feedback-features/product-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/product-feedback-features/product-e2e/cypress.json",
+            "tsConfig": "apps/product-feedback-features/product-e2e/tsconfig.e2e.json",
+            "devServerTarget": "product-feedback-feature-product:storybook"
+          },
+          "configurations": {
+            "ci": {
+              "devServerTarget": "product-feedback-feature-product:storybook:ci"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/product-feedback-features/product-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      }
+    },
+    "product-feedback-features-roadmap-e2e": {
+      "root": "apps/product-feedback-features/roadmap-e2e",
+      "sourceRoot": "apps/product-feedback-features/roadmap-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/product-feedback-features/roadmap-e2e/cypress.json",
+            "tsConfig": "apps/product-feedback-features/roadmap-e2e/tsconfig.e2e.json",
+            "devServerTarget": "product-feedback-feature-roadmap:storybook"
+          },
+          "configurations": {
+            "ci": {
+              "devServerTarget": "product-feedback-feature-roadmap:storybook:ci"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/product-feedback-features/roadmap-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      }
+    },
     "product-feedback-ui": {
       "root": "libs/product-feedback/ui",
       "sourceRoot": "libs/product-feedback/ui/src",
@@ -224,6 +826,255 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/product-feedback-ui-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "product-feedback-util-constants": {
+      "root": "libs/product-feedback/util/constants",
+      "sourceRoot": "libs/product-feedback/util/constants/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/product-feedback/util/constants",
+            "tsConfig": "libs/product-feedback/util/constants/tsconfig.lib.json",
+            "packageJson": "libs/product-feedback/util/constants/package.json",
+            "main": "libs/product-feedback/util/constants/src/index.ts",
+            "assets": ["libs/product-feedback/util/constants/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/product-feedback/util/constants/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/product-feedback/util/constants"],
+          "options": {
+            "jestConfig": "libs/product-feedback/util/constants/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "product-feedback-util-functions": {
+      "root": "libs/product-feedback/util/functions",
+      "sourceRoot": "libs/product-feedback/util/functions/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/product-feedback/util/functions",
+            "tsConfig": "libs/product-feedback/util/functions/tsconfig.lib.json",
+            "packageJson": "libs/product-feedback/util/functions/package.json",
+            "main": "libs/product-feedback/util/functions/src/index.ts",
+            "assets": ["libs/product-feedback/util/functions/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/product-feedback/util/functions/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/product-feedback/util/functions"],
+          "options": {
+            "jestConfig": "libs/product-feedback/util/functions/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "product-feedback-util-types": {
+      "root": "libs/product-feedback/util/types",
+      "sourceRoot": "libs/product-feedback/util/types/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/product-feedback/util/types",
+            "tsConfig": "libs/product-feedback/util/types/tsconfig.lib.json",
+            "packageJson": "libs/product-feedback/util/types/package.json",
+            "main": "libs/product-feedback/util/types/src/index.ts",
+            "assets": ["libs/product-feedback/util/types/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/product-feedback/util/types/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/product-feedback/util/types"],
+          "options": {
+            "jestConfig": "libs/product-feedback/util/types/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-storybook": {
+      "root": "libs/shared/storybook",
+      "sourceRoot": "libs/shared/storybook/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/shared/storybook",
+            "tsConfig": "libs/shared/storybook/tsconfig.lib.json",
+            "project": "libs/shared/storybook/package.json",
+            "entryFile": "libs/shared/storybook/src/index.ts",
+            "external": ["react/jsx-runtime"],
+            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+            "assets": [
+              {
+                "glob": "libs/shared/storybook/README.md",
+                "input": ".",
+                "output": "."
+              }
+            ]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/storybook/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/storybook"],
+          "options": {
+            "jestConfig": "libs/shared/storybook/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "storybook": {
+          "executor": "@nrwl/storybook:storybook",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "port": 4400,
+            "config": {
+              "configFolder": "libs/shared/storybook/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        },
+        "build-storybook": {
+          "executor": "@nrwl/storybook:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "uiFramework": "@storybook/react",
+            "outputPath": "dist/storybook/shared-storybook",
+            "config": {
+              "configFolder": "libs/shared/storybook/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        }
+      }
+    },
+    "shared-ui-layout": {
+      "root": "libs/shared/ui/layout",
+      "sourceRoot": "libs/shared/ui/layout/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/shared/ui/layout",
+            "tsConfig": "libs/shared/ui/layout/tsconfig.lib.json",
+            "project": "libs/shared/ui/layout/package.json",
+            "entryFile": "libs/shared/ui/layout/src/index.ts",
+            "external": ["react/jsx-runtime"],
+            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+            "assets": [
+              {
+                "glob": "libs/shared/ui/layout/README.md",
+                "input": ".",
+                "output": "."
+              }
+            ]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/ui/layout/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/ui/layout"],
+          "options": {
+            "jestConfig": "libs/shared/ui/layout/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-util-component-types": {
+      "root": "libs/shared/util/component-types",
+      "sourceRoot": "libs/shared/util/component-types/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/shared/util/component-types",
+            "tsConfig": "libs/shared/util/component-types/tsconfig.lib.json",
+            "project": "libs/shared/util/component-types/package.json",
+            "entryFile": "libs/shared/util/component-types/src/index.ts",
+            "external": ["react/jsx-runtime"],
+            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+            "assets": [
+              {
+                "glob": "libs/shared/util/component-types/README.md",
+                "input": ".",
+                "output": "."
+              }
+            ]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/util/component-types/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/util/component-types"],
+          "options": {
+            "jestConfig": "libs/shared/util/component-types/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }

@@ -15,8 +15,42 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@sd/audiophile/feature/product": [
+        "libs/audiophile/feature/product/src/index.ts"
+      ],
+      "@sd/audiophile/ui": ["libs/audiophile/ui/src/index.ts"],
+      "@sd/monorepo-portfolio-storybook": [
+        "libs/shared/storybook/src/index.ts"
+      ],
       "@sd/product-feedback-ui-components": [
         "libs/product-feedback/ui/src/index.ts"
+      ],
+      "@sd/product-feedback/feature/comment": [
+        "libs/product-feedback/feature/comment/src/index.ts"
+      ],
+      "@sd/product-feedback/feature/feedback": [
+        "libs/product-feedback/feature/feedback/src/index.ts"
+      ],
+      "@sd/product-feedback/feature/product": [
+        "libs/product-feedback/feature/product/src/index.ts"
+      ],
+      "@sd/product-feedback/feature/roadmap": [
+        "libs/product-feedback/feature/roadmap/src/index.ts"
+      ],
+      "@sd/product-feedback/util/constants": [
+        "libs/product-feedback/util/constants/src/index.ts"
+      ],
+      "@sd/product-feedback/util/functions": [
+        "libs/product-feedback/util/functions/src/index.ts"
+      ],
+      "@sd/product-feedback/util/types": [
+        "libs/product-feedback/util/types/src/index.ts"
+      ],
+      "@sd/react-component-types": [
+        "libs/shared/util/component-types/src/index.ts"
+      ],
+      "@sd/react-layout-styled-components": [
+        "libs/shared/ui/layout/src/index.ts"
       ],
       "@sd/shared/util/styles": ["libs/shared/util/styles/src/index.ts"]
     }

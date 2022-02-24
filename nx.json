@@ -30,6 +30,26 @@
     ]
   },
   "projects": {
+    "advice-gen": {
+      "tags": []
+    },
+    "advice-gen-e2e": {
+      "tags": [],
+      "implicitDependencies": ["advice-gen"]
+    },
+    "audiophile": {
+      "tags": []
+    },
+    "audiophile-e2e": {
+      "tags": [],
+      "implicitDependencies": ["audiophile"]
+    },
+    "audiophile-feature-product": {
+      "tags": []
+    },
+    "audiophile-ui": {
+      "tags": []
+    },
     "product-feedback": {
       "tags": []
     },
@@ -40,12 +60,58 @@
       "tags": [],
       "implicitDependencies": ["product-feedback"]
     },
+    "product-feedback-feature-comment": {
+      "tags": []
+    },
+    "product-feedback-feature-feedback": {
+      "tags": []
+    },
+    "product-feedback-feature-product": {
+      "tags": []
+    },
+    "product-feedback-feature-roadmap": {
+      "tags": []
+    },
+    "product-feedback-features-comment-e2e": {
+      "tags": [],
+      "implicitDependencies": ["product-feedback-feature-comment"]
+    },
+    "product-feedback-features-feedback-e2e": {
+      "tags": [],
+      "implicitDependencies": ["product-feedback-feature-feedback"]
+    },
+    "product-feedback-features-product-e2e": {
+      "tags": [],
+      "implicitDependencies": ["product-feedback-feature-product"]
+    },
+    "product-feedback-features-roadmap-e2e": {
+      "tags": [],
+      "implicitDependencies": ["product-feedback-feature-roadmap"]
+    },
     "product-feedback-ui": {
       "tags": []
     },
     "product-feedback-ui-e2e": {
       "tags": [],
       "implicitDependencies": ["product-feedback-ui"]
+    },
+    "product-feedback-util-constants": {
+      "tags": []
+    },
+    "product-feedback-util-functions": {
+      "tags": []
+    },
+    "product-feedback-util-types": {
+      "tags": []
+    },
+    "shared-storybook": {
+      "tags": []
+    },
+    "shared-ui-layout": {
+      "tags": []
+    },
+    "shared-util-component-types": {
+      "tags": []
     },
     "shared-util-styles": {
       "tags": []
