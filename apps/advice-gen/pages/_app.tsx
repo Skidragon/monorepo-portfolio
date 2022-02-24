@@ -1,6 +1,16 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { createGlobalStyle } from 'styled-components';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import axios from 'axios';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 const media = {
   phone: '23.5em',
   tablet: '48em',
@@ -129,7 +139,9 @@ function CustomApp({ Component, pageProps }: AppProps) {
       <div className="app">
         <header className="flex"></header>
         <main>
-          <Component {...pageProps} />
+          <QueryClientProvider client={queryClient}>
+            <Component {...pageProps} />
+          </QueryClientProvider>
         </main>
       </div>
     </>

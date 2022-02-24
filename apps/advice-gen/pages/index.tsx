@@ -1,5 +1,8 @@
 import styled from 'styled-components';
+import { useQuery } from 'react-query';
 import Image from 'next/image';
+import axios from 'axios';
+
 const StyledPage = styled.div`
   background: #202733;
   height: 100vh;
@@ -64,20 +67,26 @@ const DiceButton = styled.button`
     box-shadow: 0px 0px 40px #53ffaa;
   }
 `;
+const Dice = styled.div`
+  transform: rotate(360deg);
+  transition: rotate 1s;
+`;
 export function Index() {
-  /*
-   * Replace the elements below with your own.
-   *
-   * Note: The corresponding styles are in the ./index.styled-components file.
-   */
+  const { data, refetch } = useQuery<{
+    slip: {
+      id: number;
+      advice: string;
+    };
+  }>('advice', async () => {
+    const { data } = await axios.get('https://api.adviceslip.com/advice');
+
+    return data;
+  });
   return (
     <StyledPage>
       <Card>
-        <AdviceHeading>Advice #117</AdviceHeading>
-        <Advice>
-          “It is easy to sit up and take notice, what's difficult is getting up
-          and taking action.”
-        </Advice>
+        <AdviceHeading>Advice #{data?.slip?.id || ''}</AdviceHeading>
+        <Advice>“{data?.slip?.advice || ''}”</Advice>
         <DesktopDivider>
           <Image
             src="/pattern-divider-desktop.svg"
@@ -94,8 +103,10 @@ export function Index() {
             alt=""
           />
         </MobileDivider>
-        <DiceButton>
-          <Image src="/icon-dice.svg" height="24" width="24" alt="" />
+        <DiceButton onClick={() => refetch()}>
+          <Dice>
+            <Image src="/icon-dice.svg" height="24" width="24" alt="" />
+          </Dice>
         </DiceButton>
       </Card>
     </StyledPage>
