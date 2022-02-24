@@ -30,6 +30,13 @@
     ]
   },
   "projects": {
+    "advice-gen": {
+      "tags": []
+    },
+    "advice-gen-e2e": {
+      "tags": [],
+      "implicitDependencies": ["advice-gen"]
+    },
     "audiophile": {
       "tags": []
     },
