@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useQuery } from 'react-query';
 import Image from 'next/image';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 const StyledPage = styled.div`
   background: #202733;
@@ -62,17 +63,26 @@ const DiceButton = styled.button`
   bottom: 0;
   transform: translateX(-50%) translateY(50%);
   transition: box-shadow 1s;
-  &:hover,
-  &:focus {
+  &:hover {
     box-shadow: 0px 0px 40px #53ffaa;
   }
 `;
-const Dice = styled.div`
-  transform: rotate(360deg);
-  transition: rotate 1s;
+const Dice = styled.div<{ on: boolean }>`
+  display: flex;
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(359deg);
+    }
+  }
+  transform-origin: center center;
+  animation: ${(props) => (props.on ? 'rotate 1s linear infinite' : 'none')};
 `;
 export function Index() {
-  const { data, refetch } = useQuery<{
+  const { isFetching, data, refetch } = useQuery<{
     slip: {
       id: number;
       advice: string;
@@ -104,7 +114,7 @@ export function Index() {
           />
         </MobileDivider>
         <DiceButton onClick={() => refetch()}>
-          <Dice>
+          <Dice on={isFetching}>
             <Image src="/icon-dice.svg" height="24" width="24" alt="" />
           </Dice>
         </DiceButton>
