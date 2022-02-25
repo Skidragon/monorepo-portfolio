@@ -1,21 +1,12 @@
 import styled from 'styled-components';
 import Image from 'next/image';
 import { LinkButton } from '@sd/minimalist-portfolio/ui';
-import { MobileMenu, Footer } from '@sd/minimalist-portfolio/feature';
-const StyledPage = styled.div`
-  .page {
-  }
-`;
-const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
-  padding: 1em;
-`;
-const Logo = styled.div``;
-const Hamburger = styled.button`
-  all: unset;
-  cursor: pointer;
-`;
+import {
+  MobileMenu,
+  Footer,
+  NavigationBar,
+} from '@sd/minimalist-portfolio/feature';
+const StyledPage = styled.div``;
 const DownArrows = styled.div`
   background: var(--dark-blue);
   filter: brightness(80%);
@@ -49,12 +40,7 @@ export function Index() {
    */
   return (
     <StyledPage>
-      <Header>
-        <Logo>
-          <Image height="32" width="61" src="/logo.svg" alt="" />
-        </Logo>
-        <MobileMenu />
-      </Header>
+      <NavigationBar />
       <IntroSection>
         <h1>Hey, I’m Simon Davis and I love building beautiful websites</h1>
         <LinkButton variant="primary" href="#about-me">
