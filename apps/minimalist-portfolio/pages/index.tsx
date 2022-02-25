@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Image from 'next/image';
 import { LinkButton } from '@sd/minimalist-portfolio/ui';
+import { MobileMenu } from '@sd/minimalist-portfolio/feature';
 const StyledPage = styled.div`
   .page {
   }
@@ -101,9 +102,7 @@ export function Index() {
         <Logo>
           <Image height="32" width="61" src="/logo.svg" alt="" />
         </Logo>
-        <Hamburger>
-          <Image height="13" width="24" src="/hamburger.svg" alt="" />
-        </Hamburger>
+        <MobileMenu />
       </Header>
       <IntroSection>
         <h1>Hey, I’m Simon Davis and I love building beautiful websites</h1>
