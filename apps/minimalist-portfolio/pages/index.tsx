@@ -54,6 +54,7 @@ const Footer = styled.footer`
   @media screen and (min-width: 40em) {
     flex-flow: row;
     align-items: baseline;
+    padding: 2em;
     & > * + * {
       margin-top: 0;
       margin-left: 2rem;
@@ -106,14 +107,14 @@ export function Index() {
       </Header>
       <IntroSection>
         <h1>Hey, I’m Simon Davis and I love building beautiful websites</h1>
-        <LinkButton variant="primary" href="#">
+        <LinkButton variant="primary" href="#about-me">
           <DownArrows>
             <Image height="14" width="16" src="/down-arrows.svg" alt="" />
           </DownArrows>
           <div>About Me</div>
         </LinkButton>
       </IntroSection>
-      <AboutMeSection>
+      <AboutMeSection id="about-me">
         <h2>About Me</h2>
         <p>
           I’m a front-end developer with some back-end knowledge looking for a
@@ -126,13 +127,13 @@ export function Index() {
           I’m not coding, you’ll find me playing the piano, exercising, or
           reading. I’d love you to check out my work.
         </p>
-        <LinkButton variant="secondary" href="#">
+        <LinkButton variant="secondary" href="/portfolio-index">
           Go To Portfolio
         </LinkButton>
       </AboutMeSection>
       <ContactMeSection>
         <Interested>Interested in doing a project together?</Interested>
-        <LinkButton variant="secondary" href="#">
+        <LinkButton variant="secondary" href="/contact-me">
           Contact Me
         </LinkButton>
       </ContactMeSection>
@@ -153,13 +154,14 @@ export function Index() {
         </NavList>
         <SocialList>
           <li>
-            <Image width="25" height="25" src="/github.svg" alt="" />
+            <a href="https://github.com/Skidragon">
+              <Image width="25" height="25" src="/github.svg" alt="" />
+            </a>
           </li>
           <li>
-            <Image width="25" height="25" src="/linkedin.svg" alt="" />
-          </li>
-          <li>
-            <Image width="25" height="25" src="/twitter.svg" alt="" />
+            <a href="https://www.linkedin.com/in/simon-k-davis/">
+              <Image width="25" height="25" src="/linkedin.svg" alt="" />
+            </a>
           </li>
         </SocialList>
       </Footer>
