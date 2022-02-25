@@ -278,6 +278,29 @@
         }
       }
     },
+    "minimalist-portfolio-feature": {
+      "root": "libs/minimalist-portfolio/feature",
+      "sourceRoot": "libs/minimalist-portfolio/feature/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/minimalist-portfolio/feature/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/minimalist-portfolio/feature"],
+          "options": {
+            "jestConfig": "libs/minimalist-portfolio/feature/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "minimalist-portfolio-ui": {
       "root": "libs/minimalist-portfolio/ui",
       "sourceRoot": "libs/minimalist-portfolio/ui/src",

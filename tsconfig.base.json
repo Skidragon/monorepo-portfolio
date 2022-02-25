@@ -19,6 +19,9 @@
         "libs/audiophile/feature/product/src/index.ts"
       ],
       "@sd/audiophile/ui": ["libs/audiophile/ui/src/index.ts"],
+      "@sd/minimalist-portfolio/feature": [
+        "libs/minimalist-portfolio/feature/src/index.ts"
+      ],
       "@sd/minimalist-portfolio/ui": [
         "libs/minimalist-portfolio/ui/src/index.ts"
       ],

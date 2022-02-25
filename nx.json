@@ -57,6 +57,9 @@
       "tags": [],
       "implicitDependencies": ["minimalist-portfolio"]
     },
+    "minimalist-portfolio-feature": {
+      "tags": []
+    },
     "minimalist-portfolio-ui": {
       "tags": []
     },
