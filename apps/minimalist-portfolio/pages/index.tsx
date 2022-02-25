@@ -15,26 +15,67 @@ const Hamburger = styled.button`
   cursor: pointer;
 `;
 const DownArrows = styled.div`
-  background: #172935;
+  background: var(--dark-blue);
+  filter: brightness(80%);
 `;
-const LinkButton = styled.a`
+const PrimaryLinkButton = styled.a`
   display: inline-flex;
   text-decoration: none;
   align-items: center;
-  background: #203a4c;
+  background: var(--dark-blue);
   color: white;
   text-transform: uppercase;
   & > * {
     padding: 1em;
   }
-  &:hover {
+  &:hover > * {
     background: #5fb4a2;
+    stroke: white;
+  }
+`;
+const SecondaryLinkButton = styled.a`
+  border: 2px solid var(--dark-blue);
+  padding: 1em;
+  &:hover {
+    color: white;
+    background: var(--dark-blue);
   }
 `;
 const IntroSection = styled.section``;
 const AboutMeSection = styled.section``;
-const ContactMeSection = styled.section``;
-const Footer = styled.footer``;
+const ContactMeSection = styled.section`
+  text-align: center;
+`;
+const Footer = styled.footer`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4em 2em;
+  background: var(--grayish-dark-blue);
+  color: white;
+  & > * + * {
+    margin-top: 2rem;
+  }
+`;
+const NavList = styled.ul`
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  & > li + li {
+    margin-top: 2rem;
+  }
+`;
+const SocialList = styled.ul`
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  color: white;
+  stroke: white;
+  background: white;
+  & > li + li {
+    margin-left: 1rem;
+  }
+`;
 export function Index() {
   /*
    * Replace the elements below with your own.
@@ -48,22 +89,22 @@ export function Index() {
           <Image height="32" width="61" src="/logo.svg" alt="" />
         </Logo>
         <Hamburger>
-          <Image height="32" width="61" src="/hamburger.svg" alt="" />
+          <Image height="13" width="24" src="/hamburger.svg" alt="" />
         </Hamburger>
       </Header>
       <IntroSection>
         <h1>Hey, I’m Simon Davis and I love building beautiful websites</h1>
-        <LinkButton href="#">
+        <PrimaryLinkButton href="#">
           <DownArrows>
             <Image height="14" width="16" src="/down-arrows.svg" alt="" />
           </DownArrows>
           <div>About Me</div>
-        </LinkButton>
+        </PrimaryLinkButton>
       </IntroSection>
       <AboutMeSection>
         <h2>About Me</h2>
         <p>
-          I’m a front-end developer with some back-end experience looking for a
+          I’m a front-end developer with some back-end knowledge looking for a
           new role in an exciting company. I focus on writing accessible HTML,
           using modern CSS practices and writing clean JavaScript using state
           machines for handling complex state. When writing JavaScript code, I
@@ -73,14 +114,17 @@ export function Index() {
           I’m not coding, you’ll find me playing the piano, exercising, or
           reading. I’d love you to check out my work.
         </p>
-        <a href="#">Go To Portfolio</a>
+        <SecondaryLinkButton href="#">Go To Portfolio</SecondaryLinkButton>
       </AboutMeSection>
       <ContactMeSection>
         <h2>Interested in doing a project together?</h2>
-        <a href="#">Contact Me</a>
+        <SecondaryLinkButton href="#">Contact Me</SecondaryLinkButton>
       </ContactMeSection>
       <Footer>
-        <ul>
+        <div style={{ background: 'white' }}>
+          <Image height="32" width="61" src="/logo.svg" alt="" />
+        </div>
+        <NavList>
           <li>
             <a href="#">Home</a>
           </li>
@@ -90,7 +134,18 @@ export function Index() {
           <li>
             <a href="#">Contact Me</a>
           </li>
-        </ul>
+        </NavList>
+        <SocialList>
+          <li>
+            <Image width="25" height="25" src="/github.svg" alt="" />
+          </li>
+          <li>
+            <Image width="25" height="25" src="/linkedin.svg" alt="" />
+          </li>
+          <li>
+            <Image width="25" height="25" src="/twitter.svg" alt="" />
+          </li>
+        </SocialList>
       </Footer>
     </StyledPage>
   );
