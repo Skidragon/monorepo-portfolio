@@ -36,7 +36,7 @@ function ActiveLink({
 }) {
   const router = useRouter();
 
-  const handleClick = (e) => {
+  const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     router.push(href);
   };
