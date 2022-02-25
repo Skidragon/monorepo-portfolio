@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import Image from 'next/image';
+import { LinkButton } from '@sd/minimalist-portfolio/ui';
+import { MobileMenu } from '@sd/minimalist-portfolio/feature';
 const StyledPage = styled.div`
   .page {
   }
@@ -18,29 +20,7 @@ const DownArrows = styled.div`
   background: var(--dark-blue);
   filter: brightness(80%);
 `;
-const PrimaryLinkButton = styled.a`
-  display: inline-flex;
-  text-decoration: none;
-  align-items: center;
-  background: var(--dark-blue);
-  color: white;
-  text-transform: uppercase;
-  & > * {
-    padding: 1em;
-  }
-  &:hover > * {
-    background: #5fb4a2;
-    stroke: white;
-  }
-`;
-const SecondaryLinkButton = styled.a`
-  border: 2px solid var(--dark-blue);
-  padding: 1em;
-  &:hover {
-    color: white;
-    background: var(--dark-blue);
-  }
-`;
+
 const IntroSection = styled.section``;
 const AboutMeSection = styled.section``;
 const ContactMeSection = styled.section`
@@ -74,6 +54,7 @@ const Footer = styled.footer`
   @media screen and (min-width: 40em) {
     flex-flow: row;
     align-items: baseline;
+    padding: 2em;
     & > * + * {
       margin-top: 0;
       margin-left: 2rem;
@@ -122,20 +103,18 @@ export function Index() {
         <Logo>
           <Image height="32" width="61" src="/logo.svg" alt="" />
         </Logo>
-        <Hamburger>
-          <Image height="13" width="24" src="/hamburger.svg" alt="" />
-        </Hamburger>
+        <MobileMenu />
       </Header>
       <IntroSection>
         <h1>Hey, I’m Simon Davis and I love building beautiful websites</h1>
-        <PrimaryLinkButton href="#">
+        <LinkButton variant="primary" href="#about-me">
           <DownArrows>
             <Image height="14" width="16" src="/down-arrows.svg" alt="" />
           </DownArrows>
           <div>About Me</div>
-        </PrimaryLinkButton>
+        </LinkButton>
       </IntroSection>
-      <AboutMeSection>
+      <AboutMeSection id="about-me">
         <h2>About Me</h2>
         <p>
           I’m a front-end developer with some back-end knowledge looking for a
@@ -148,11 +127,15 @@ export function Index() {
           I’m not coding, you’ll find me playing the piano, exercising, or
           reading. I’d love you to check out my work.
         </p>
-        <SecondaryLinkButton href="#">Go To Portfolio</SecondaryLinkButton>
+        <LinkButton variant="secondary" href="/portfolio-index">
+          Go To Portfolio
+        </LinkButton>
       </AboutMeSection>
       <ContactMeSection>
         <Interested>Interested in doing a project together?</Interested>
-        <SecondaryLinkButton href="#">Contact Me</SecondaryLinkButton>
+        <LinkButton variant="secondary" href="/contact-me">
+          Contact Me
+        </LinkButton>
       </ContactMeSection>
       <Footer>
         <div style={{ background: 'white' }}>
@@ -171,13 +154,14 @@ export function Index() {
         </NavList>
         <SocialList>
           <li>
-            <Image width="25" height="25" src="/github.svg" alt="" />
+            <a href="https://github.com/Skidragon">
+              <Image width="25" height="25" src="/github.svg" alt="" />
+            </a>
           </li>
           <li>
-            <Image width="25" height="25" src="/linkedin.svg" alt="" />
-          </li>
-          <li>
-            <Image width="25" height="25" src="/twitter.svg" alt="" />
+            <a href="https://www.linkedin.com/in/simon-k-davis/">
+              <Image width="25" height="25" src="/linkedin.svg" alt="" />
+            </a>
           </li>
         </SocialList>
       </Footer>

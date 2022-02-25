@@ -1,26 +1,24 @@
 import styled from 'styled-components';
 import Image from 'next/image';
+import { LinkButton } from '@sd/minimalist-portfolio/ui';
 /* eslint-disable-next-line */
 export interface PortfolioIndexProps {}
 
 const StyledPortfolioIndex = styled.div`
-  color: pink;
+  & section > * + * {
+    margin-top: 4rem;
+  }
 `;
-const ProjectCard = styled.div``;
+const ProjectCard = styled.div`
+  & > * + * {
+    margin-top: 1rem;
+  }
+`;
 
 export function PortfolioIndex(props: PortfolioIndexProps) {
   return (
     <StyledPortfolioIndex>
       <section>
-        <ProjectCard>
-          <h2>Advice Generator</h2>
-          <p>
-            This project was made as a challenge based on a design file and is
-            part of a monorepo (NX). I used HTML5, along with Styled Components
-            (styling), and React Query paired with Axios for Data Fetching.
-          </p>
-          <a href="#">View Project</a>
-        </ProjectCard>
         <ProjectCard>
           <h2>Typemaster Landing Page</h2>
           <p>
@@ -29,7 +27,12 @@ export function PortfolioIndex(props: PortfolioIndexProps) {
             accessible and SCSS with flexbox to make it responsive. Snowpack is
             used to create a production build.
           </p>
-          <a href="#">View Project</a>
+          <LinkButton
+            variant="secondary"
+            href="https://sd-typemaster-prelaunch-page.vercel.app/"
+          >
+            View Project
+          </LinkButton>
         </ProjectCard>
         <ProjectCard>
           <h2>Loopstudios Landing Page</h2>
@@ -39,7 +42,26 @@ export function PortfolioIndex(props: PortfolioIndexProps) {
             point using observers and closing the mobile navigation bar using
             the escape key.
           </p>
-          <a href="#">View Project</a>
+          <LinkButton
+            variant="secondary"
+            href="https://loopstudio-nu.vercel.app/"
+          >
+            View Project
+          </LinkButton>
+        </ProjectCard>
+        <ProjectCard>
+          <h2>Advice Generator</h2>
+          <p>
+            This project was made as a challenge based on a design file and is
+            part of a monorepo (NX). I used HTML5, along with Styled Components
+            (styling), and React Query paired with Axios for Data Fetching.
+          </p>
+          <LinkButton
+            variant="secondary"
+            href="https://advice-generator-ashen.vercel.app/"
+          >
+            View Project
+          </LinkButton>
         </ProjectCard>
         <ProjectCard>
           <h2>Tower of Hanoi</h2>
@@ -48,7 +70,12 @@ export function PortfolioIndex(props: PortfolioIndexProps) {
             compared to the out of the box state management given by React. Used
             Typescript to document the code.
           </p>
-          <a href="#">View Project</a>
+          <LinkButton
+            variant="secondary"
+            href="https://codesandbox.io/s/tower-of-hanoi-gmzuk"
+          >
+            View Project
+          </LinkButton>
         </ProjectCard>
         <ProjectCard>
           <h2>Audiophile</h2>
@@ -57,12 +84,19 @@ export function PortfolioIndex(props: PortfolioIndexProps) {
             information about them. Next.js was able to build the pages. Used
             Codegen to create query code to get the products.
           </p>
-          <a href="#">View Project</a>
+          <LinkButton
+            variant="secondary"
+            href="https://sd-audiophile.vercel.app/"
+          >
+            View Project
+          </LinkButton>
         </ProjectCard>
         <ProjectCard>
           <h2>Minimalistic Portfolio</h2>
           <p>Using Next.js, a CMS, Styled components, and Netlify Forms.</p>
-          <a href="#">View Project</a>
+          <LinkButton variant="secondary" href="/">
+            View Project
+          </LinkButton>
         </ProjectCard>
       </section>
     </StyledPortfolioIndex>

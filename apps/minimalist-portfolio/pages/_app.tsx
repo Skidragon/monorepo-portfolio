@@ -103,7 +103,7 @@ select {
   --cyan: #5FB4A2;
   --dark-blue: #203A4C;
   --grayish-dark-blue: #33323D;
-  --very-light-grey: #FAFAFA;
+  --very-light-gray: #FAFAFA;
   --light-gray: #EAEAEB;
   --error-clr: #F43030;
 }
