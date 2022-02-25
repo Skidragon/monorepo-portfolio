@@ -109,7 +109,7 @@ select {
 }
 html {
   --color-background-page: #F7F8FD;
-  background: var(---color---color-background-page);
+  background: var(--color-background-page);
 
   body {
     font-family: 'Jost', sans-serif;
