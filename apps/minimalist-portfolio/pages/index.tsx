@@ -1,12 +1,36 @@
 import styled from 'styled-components';
-
+import Image from 'next/image';
 const StyledPage = styled.div`
   .page {
   }
 `;
-const Header = styled.header``;
+const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+  padding: 1em;
+`;
 const Logo = styled.div``;
-const Hamburger = styled.button``;
+const Hamburger = styled.button`
+  all: unset;
+  cursor: pointer;
+`;
+const DownArrows = styled.div`
+  background: #172935;
+`;
+const LinkButton = styled.a`
+  display: inline-flex;
+  text-decoration: none;
+  align-items: center;
+  background: #203a4c;
+  color: white;
+  text-transform: uppercase;
+  & > * {
+    padding: 1em;
+  }
+  &:hover {
+    background: #5fb4a2;
+  }
+`;
 const IntroSection = styled.section``;
 const AboutMeSection = styled.section``;
 const ContactMeSection = styled.section``;
@@ -20,12 +44,21 @@ export function Index() {
   return (
     <StyledPage>
       <Header>
-        <Logo></Logo>
-        <Hamburger></Hamburger>
+        <Logo>
+          <Image height="32" width="61" src="/logo.svg" alt="" />
+        </Logo>
+        <Hamburger>
+          <Image height="32" width="61" src="/hamburger.svg" alt="" />
+        </Hamburger>
       </Header>
       <IntroSection>
         <h1>Hey, I’m Simon Davis and I love building beautiful websites</h1>
-        <a href="#">About Me</a>
+        <LinkButton href="#">
+          <DownArrows>
+            <Image height="14" width="16" src="/down-arrows.svg" alt="" />
+          </DownArrows>
+          <div>About Me</div>
+        </LinkButton>
       </IntroSection>
       <AboutMeSection>
         <h2>About Me</h2>
