@@ -125,14 +125,25 @@ h1,h2,h3,h4,h5,h6 {
   line-height: 1;
   margin-bottom: 1.5rem;
 }
+a {
+  all: unset;
+  cursor: pointer;
+  display: inline-block;
+  text-transform: uppercase;
+}
 section {
   padding: 1em;
 }
-section + section {
+section + section, footer {
   margin-top: 4em;
 }
 section > * + * {
   margin-top: 1rem;
+}
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 `;
