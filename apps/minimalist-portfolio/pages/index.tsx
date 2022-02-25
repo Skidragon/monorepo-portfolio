@@ -62,13 +62,22 @@ const Interested = styled.h2`
 `;
 const Footer = styled.footer`
   display: flex;
-  flex-direction: column;
+  flex-flow: column;
+  justify-content: center;
   align-items: center;
   padding: 4em 2em;
   background: var(--grayish-dark-blue);
   color: white;
   & > * + * {
     margin-top: 2rem;
+  }
+  @media screen and (min-width: 40em) {
+    flex-flow: row;
+    align-items: baseline;
+    & > * + * {
+      margin-top: 0;
+      margin-left: 2rem;
+    }
   }
 `;
 const NavList = styled.ul`
@@ -77,6 +86,14 @@ const NavList = styled.ul`
   align-items: center;
   & > li + li {
     margin-top: 2rem;
+  }
+  @media screen and (min-width: 40em) {
+    flex-flow: row;
+    align-items: flex-end;
+    & > li + li {
+      margin-top: 0;
+      margin-left: 2rem;
+    }
   }
 `;
 const SocialList = styled.ul`
@@ -88,6 +105,9 @@ const SocialList = styled.ul`
   background: white;
   & > li + li {
     margin-left: 1rem;
+  }
+  @media screen and (min-width: 40em) {
+    margin-left: auto;
   }
 `;
 export function Index() {
