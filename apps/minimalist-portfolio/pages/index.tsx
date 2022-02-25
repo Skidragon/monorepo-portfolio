@@ -44,7 +44,21 @@ const SecondaryLinkButton = styled.a`
 const IntroSection = styled.section``;
 const AboutMeSection = styled.section``;
 const ContactMeSection = styled.section`
+  display: flex;
+  flex-flow: column;
+  align-items: center;
   text-align: center;
+  @media screen and (min-width: 30em) {
+    display: flex;
+    flex-flow: row;
+    align-items: baseline;
+    & > *:last-child {
+      margin-left: auto;
+    }
+  }
+`;
+const Interested = styled.h2`
+  max-width: 17rem;
 `;
 const Footer = styled.footer`
   display: flex;
@@ -117,7 +131,7 @@ export function Index() {
         <SecondaryLinkButton href="#">Go To Portfolio</SecondaryLinkButton>
       </AboutMeSection>
       <ContactMeSection>
-        <h2>Interested in doing a project together?</h2>
+        <Interested>Interested in doing a project together?</Interested>
         <SecondaryLinkButton href="#">Contact Me</SecondaryLinkButton>
       </ContactMeSection>
       <Footer>
