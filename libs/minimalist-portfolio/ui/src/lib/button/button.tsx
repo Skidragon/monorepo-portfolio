@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
 /* eslint-disable-next-line */
-export interface ButtonProps {}
+export interface ButtonProps {
+  variant: 'primary' | 'secondary';
+}
 
 const StyledButton = styled.div`
   color: pink;
