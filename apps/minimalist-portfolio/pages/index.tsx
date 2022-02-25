@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Image from 'next/image';
+import { LinkButton } from '@sd/minimalist-portfolio/ui';
 const StyledPage = styled.div`
   .page {
   }
@@ -18,29 +19,7 @@ const DownArrows = styled.div`
   background: var(--dark-blue);
   filter: brightness(80%);
 `;
-const PrimaryLinkButton = styled.a`
-  display: inline-flex;
-  text-decoration: none;
-  align-items: center;
-  background: var(--dark-blue);
-  color: white;
-  text-transform: uppercase;
-  & > * {
-    padding: 1em;
-  }
-  &:hover > * {
-    background: #5fb4a2;
-    stroke: white;
-  }
-`;
-const SecondaryLinkButton = styled.a`
-  border: 2px solid var(--dark-blue);
-  padding: 1em;
-  &:hover {
-    color: white;
-    background: var(--dark-blue);
-  }
-`;
+
 const IntroSection = styled.section``;
 const AboutMeSection = styled.section``;
 const ContactMeSection = styled.section`
@@ -128,12 +107,12 @@ export function Index() {
       </Header>
       <IntroSection>
         <h1>Hey, I’m Simon Davis and I love building beautiful websites</h1>
-        <PrimaryLinkButton href="#">
+        <LinkButton variant="primary" href="#">
           <DownArrows>
             <Image height="14" width="16" src="/down-arrows.svg" alt="" />
           </DownArrows>
           <div>About Me</div>
-        </PrimaryLinkButton>
+        </LinkButton>
       </IntroSection>
       <AboutMeSection>
         <h2>About Me</h2>
@@ -148,11 +127,15 @@ export function Index() {
           I’m not coding, you’ll find me playing the piano, exercising, or
           reading. I’d love you to check out my work.
         </p>
-        <SecondaryLinkButton href="#">Go To Portfolio</SecondaryLinkButton>
+        <LinkButton variant="secondary" href="#">
+          Go To Portfolio
+        </LinkButton>
       </AboutMeSection>
       <ContactMeSection>
         <Interested>Interested in doing a project together?</Interested>
-        <SecondaryLinkButton href="#">Contact Me</SecondaryLinkButton>
+        <LinkButton variant="secondary" href="#">
+          Contact Me
+        </LinkButton>
       </ContactMeSection>
       <Footer>
         <div style={{ background: 'white' }}>
