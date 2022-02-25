@@ -62,7 +62,7 @@ export function MobileMenu(props: MobileMenuProps) {
             <a href="/portfolio-index">Portfolio</a>
           </li>
           <li>
-            <a href="/contact">Contact Me</a>
+            <a href="/contact-me">Contact Me</a>
           </li>
         </NavList>
       )}

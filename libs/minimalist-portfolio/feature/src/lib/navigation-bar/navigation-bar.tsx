@@ -66,7 +66,7 @@ export function NavigationBar(props: NavigationBarProps) {
           <ActiveLink href="/portfolio-index">Portfolio</ActiveLink>
         </li>
         <li>
-          <ActiveLink href="/contact">Contact Me</ActiveLink>
+          <ActiveLink href="/contact-me">Contact Me</ActiveLink>
         </li>
       </NavList>
       <MobileMenu />
