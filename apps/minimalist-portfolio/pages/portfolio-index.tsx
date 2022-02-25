@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Image from 'next/image';
 import { LinkButton } from '@sd/minimalist-portfolio/ui';
+import { Footer, NavigationBar } from '@sd/minimalist-portfolio/feature';
 /* eslint-disable-next-line */
 export interface PortfolioIndexProps {}
 
@@ -18,6 +19,8 @@ const ProjectCard = styled.div`
 export function PortfolioIndex(props: PortfolioIndexProps) {
   return (
     <StyledPortfolioIndex>
+      <NavigationBar />
+
       <section>
         <ProjectCard>
           <h2>Typemaster Landing Page</h2>
@@ -99,6 +102,7 @@ export function PortfolioIndex(props: PortfolioIndexProps) {
           </LinkButton>
         </ProjectCard>
       </section>
+      <Footer />
     </StyledPortfolioIndex>
   );
 }

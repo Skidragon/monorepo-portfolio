@@ -8,6 +8,9 @@ export interface MobileMenuProps {}
 
 const StyledMobileMenu = styled.div`
   position: relative;
+  @media screen and (min-width: 40em) {
+    display: none;
+  }
 `;
 const Hamburger = styled.div`
   all: unset;
@@ -59,7 +62,7 @@ export function MobileMenu(props: MobileMenuProps) {
             <a href="/portfolio-index">Portfolio</a>
           </li>
           <li>
-            <a href="/contact">Contact Me</a>
+            <a href="/contact-me">Contact Me</a>
           </li>
         </NavList>
       )}

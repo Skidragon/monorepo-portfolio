@@ -1,21 +1,12 @@
 import styled from 'styled-components';
 import Image from 'next/image';
 import { LinkButton } from '@sd/minimalist-portfolio/ui';
-import { MobileMenu } from '@sd/minimalist-portfolio/feature';
-const StyledPage = styled.div`
-  .page {
-  }
-`;
-const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
-  padding: 1em;
-`;
-const Logo = styled.div``;
-const Hamburger = styled.button`
-  all: unset;
-  cursor: pointer;
-`;
+import {
+  MobileMenu,
+  Footer,
+  NavigationBar,
+} from '@sd/minimalist-portfolio/feature';
+const StyledPage = styled.div``;
 const DownArrows = styled.div`
   background: var(--dark-blue);
   filter: brightness(80%);
@@ -40,57 +31,7 @@ const ContactMeSection = styled.section`
 const Interested = styled.h2`
   max-width: 17rem;
 `;
-const Footer = styled.footer`
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-  align-items: center;
-  padding: 4em 2em;
-  background: var(--grayish-dark-blue);
-  color: white;
-  & > * + * {
-    margin-top: 2rem;
-  }
-  @media screen and (min-width: 40em) {
-    flex-flow: row;
-    align-items: baseline;
-    padding: 2em;
-    & > * + * {
-      margin-top: 0;
-      margin-left: 2rem;
-    }
-  }
-`;
-const NavList = styled.ul`
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  & > li + li {
-    margin-top: 2rem;
-  }
-  @media screen and (min-width: 40em) {
-    flex-flow: row;
-    align-items: flex-end;
-    & > li + li {
-      margin-top: 0;
-      margin-left: 2rem;
-    }
-  }
-`;
-const SocialList = styled.ul`
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  color: white;
-  stroke: white;
-  background: white;
-  & > li + li {
-    margin-left: 1rem;
-  }
-  @media screen and (min-width: 40em) {
-    margin-left: auto;
-  }
-`;
+
 export function Index() {
   /*
    * Replace the elements below with your own.
@@ -99,12 +40,7 @@ export function Index() {
    */
   return (
     <StyledPage>
-      <Header>
-        <Logo>
-          <Image height="32" width="61" src="/logo.svg" alt="" />
-        </Logo>
-        <MobileMenu />
-      </Header>
+      <NavigationBar />
       <IntroSection>
         <h1>Hey, I’m Simon Davis and I love building beautiful websites</h1>
         <LinkButton variant="primary" href="#about-me">
@@ -137,34 +73,7 @@ export function Index() {
           Contact Me
         </LinkButton>
       </ContactMeSection>
-      <Footer>
-        <div style={{ background: 'white' }}>
-          <Image height="32" width="61" src="/logo.svg" alt="" />
-        </div>
-        <NavList>
-          <li>
-            <a href="#">Home</a>
-          </li>
-          <li>
-            <a href="#">Portfolio</a>
-          </li>
-          <li>
-            <a href="#">Contact Me</a>
-          </li>
-        </NavList>
-        <SocialList>
-          <li>
-            <a href="https://github.com/Skidragon">
-              <Image width="25" height="25" src="/github.svg" alt="" />
-            </a>
-          </li>
-          <li>
-            <a href="https://www.linkedin.com/in/simon-k-davis/">
-              <Image width="25" height="25" src="/linkedin.svg" alt="" />
-            </a>
-          </li>
-        </SocialList>
-      </Footer>
+      <Footer />
     </StyledPage>
   );
 }
