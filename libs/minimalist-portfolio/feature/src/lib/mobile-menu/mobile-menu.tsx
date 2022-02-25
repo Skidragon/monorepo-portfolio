@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { useClickAway } from 'react-use';
 
 /* eslint-disable-next-line */
 export interface MobileMenuProps {}
@@ -34,7 +35,11 @@ const NavList = styled.ul`
   }
 `;
 export function MobileMenu(props: MobileMenuProps) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+  const ref = useRef<any>();
+  useClickAway(ref, () => {
+    setOpen(false);
+  });
   return (
     <StyledMobileMenu>
       <Hamburger
@@ -46,7 +51,7 @@ export function MobileMenu(props: MobileMenuProps) {
         {open && <Image height="19" width="18" src="/close.svg" alt="" />}
       </Hamburger>
       {open && (
-        <NavList>
+        <NavList ref={ref}>
           <li>
             <a href="/">Home</a>
           </li>
