@@ -13,6 +13,7 @@ const ContactMeSection = styled.section`
     display: flex;
     flex-flow: row;
     align-items: center;
+    text-align: unset;
     & > *:last-child {
       margin: 0;
       margin-left: auto;
