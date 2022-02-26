@@ -37,14 +37,24 @@ export function Index() {
         >
           Hey, I’m Simon Davis and I love building beautiful websites.
         </h1>
-        <LinkButton variant="primary" href="#about-me">
+        <LinkButton
+          variant="primary"
+          href="/simon-davis-resume.pdf"
+          download={'simon-davis-resume'}
+        >
+          <div>Download Résumé</div>
           <DownArrows>
-            <Image height="14" width="16" src="/down-arrows.svg" alt="" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="14">
+              <g fill="none" fillRule="evenodd" stroke="#5FB4A2">
+                <path d="M0 9l8 4 8-4" />
+                <path opacity=".5" d="M0 5l8 4 8-4" />
+                <path opacity=".25" d="M0 1l8 4 8-4" />
+              </g>
+            </svg>
           </DownArrows>
-          <div>About Me</div>
         </LinkButton>
       </IntroSection>
-      <AboutMeSection id="about-me">
+      <AboutMeSection>
         <h2>About Me</h2>
         <p>
           I’m a front-end developer with some back-end knowledge looking for a
