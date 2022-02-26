@@ -44,7 +44,7 @@ const NavList = styled.ul`
   }
 `;
 const StyledLinkTo = styled(LinkTo)`
-  &::visited {
+  &:visited {
     color: white;
   }
 `;
