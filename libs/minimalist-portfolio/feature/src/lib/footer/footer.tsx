@@ -43,7 +43,11 @@ const NavList = styled.ul`
     }
   }
 `;
-
+const StyledLinkTo = styled(LinkTo)`
+  &:visited {
+    color: white;
+  }
+`;
 export function Footer(props: FooterProps) {
   return (
     <StyledFooter>
@@ -52,13 +56,13 @@ export function Footer(props: FooterProps) {
       </LinkTo>
       <NavList>
         <li>
-          <LinkTo href="/">Home</LinkTo>
+          <StyledLinkTo href="/">Home</StyledLinkTo>
         </li>
         <li>
-          <LinkTo href="/portfolio-index">Portfolio</LinkTo>
+          <StyledLinkTo href="/portfolio-index">Portfolio</StyledLinkTo>
         </li>
         <li>
-          <LinkTo href="/contact-me">Contact Me</LinkTo>
+          <StyledLinkTo href="/contact-me">Contact Me</StyledLinkTo>
         </li>
       </NavList>
       <SocialMediaLinks fill="white" />
