@@ -3,6 +3,8 @@ import Image from 'next/image';
 import { MobileMenu } from '../..';
 import { useRouter } from 'next/router';
 import React from 'react';
+import Link from 'next/link';
+import { LinkTo } from '@sd/minimalist-portfolio/ui';
 /* eslint-disable-next-line */
 export interface NavigationBarProps {}
 
@@ -42,22 +44,22 @@ function ActiveLink({
   };
 
   return (
-    <StyledLink
-      href={href}
-      onClick={handleClick}
-      isActive={router.asPath === href}
-    >
-      {children}
-    </StyledLink>
+    <Link href={href}>
+      <StyledLink onClick={handleClick} isActive={router.asPath === href}>
+        {children}
+      </StyledLink>
+    </Link>
   );
 }
 
 export function NavigationBar(props: NavigationBarProps) {
   return (
     <Header>
-      <Logo>
-        <Image height="32" width="61" src="/logo.svg" alt="" />
-      </Logo>
+      <LinkTo href="/">
+        <Logo>
+          <Image height="32" width="61" src="/logo.svg" alt="" />
+        </Logo>
+      </LinkTo>
       <NavList>
         <li>
           <ActiveLink href="/">Home</ActiveLink>

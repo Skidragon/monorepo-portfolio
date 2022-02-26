@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 import { useClickAway } from 'react-use';
-
+import Link from 'next/link';
+import { LinkTo } from '@sd/minimalist-portfolio/ui';
 /* eslint-disable-next-line */
 export interface MobileMenuProps {}
 
@@ -22,6 +23,7 @@ const NavList = styled.ul`
   align-items: center;
   position: absolute;
   right: 0;
+  z-index: 1000;
   background: var(--grayish-dark-blue);
   color: white;
   & li {
@@ -56,13 +58,13 @@ export function MobileMenu(props: MobileMenuProps) {
       {open && (
         <NavList ref={ref}>
           <li>
-            <a href="/">Home</a>
+            <LinkTo href="/">Home</LinkTo>
           </li>
           <li>
-            <a href="/portfolio-index">Portfolio</a>
+            <LinkTo href="/portfolio-index">Portfolio</LinkTo>
           </li>
           <li>
-            <a href="/contact-me">Contact Me</a>
+            <LinkTo href="/contact-me">Contact Me</LinkTo>
           </li>
         </NavList>
       )}

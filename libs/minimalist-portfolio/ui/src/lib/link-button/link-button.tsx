@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import React from 'react';
+import Link from 'next/link';
 /* eslint-disable-next-line */
 export interface LinkButtonProps
   extends React.DetailedHTMLProps<
@@ -42,12 +43,14 @@ const StyledLinkButton = styled.a<LinkButtonProps>`
 `;
 
 export const LinkButton = React.forwardRef<HTMLAnchorElement, LinkButtonProps>(
-  ({ variant = 'primary', ...props }: LinkButtonProps, ref) => {
+  ({ variant = 'primary', href = '#', ...props }: LinkButtonProps, ref) => {
     console.log(variant);
     return (
-      <StyledLinkButton variant={variant} {...props} ref={ref}>
-        {props.children}
-      </StyledLinkButton>
+      <Link href={href} passHref>
+        <StyledLinkButton variant={variant} {...props} ref={ref}>
+          {props.children}
+        </StyledLinkButton>
+      </Link>
     );
   }
 );

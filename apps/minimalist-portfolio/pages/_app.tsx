@@ -122,7 +122,7 @@ html {
   }
 }
 h1,h2,h3,h4,h5,h6 {
-  line-height: 1;
+  line-height: 1.25;
   margin-bottom: 1.5rem;
 }
 a {
@@ -133,6 +133,8 @@ a {
 }
 section {
   padding: 1em;
+  max-width: 80ch;
+  margin: 0 auto;
 }
 section + section, footer {
   margin-top: 4em;
@@ -152,7 +154,26 @@ function CustomApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Welcome to minimalist-portfolio!</title>
+        <title>Simon Davis</title>
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+
+        <link rel="manifest" href="/site.webmanifest" />
       </Head>
       <GlobalStyle />
       <div className="app">

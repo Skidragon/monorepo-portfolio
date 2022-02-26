@@ -1,7 +1,10 @@
 import styled from 'styled-components';
-import Image from 'next/image';
 import { LinkButton } from '@sd/minimalist-portfolio/ui';
-import { Footer, NavigationBar } from '@sd/minimalist-portfolio/feature';
+import {
+  Footer,
+  InterestedToContactMeSection,
+  NavigationBar,
+} from '@sd/minimalist-portfolio/feature';
 /* eslint-disable-next-line */
 export interface PortfolioIndexProps {}
 
@@ -102,6 +105,8 @@ export function PortfolioIndex(props: PortfolioIndexProps) {
           </LinkButton>
         </ProjectCard>
       </section>
+      <InterestedToContactMeSection />
+
       <Footer />
     </StyledPortfolioIndex>
   );

@@ -1,5 +1,8 @@
 import styled from 'styled-components';
-import Image from 'next/image';
+import Link from 'next/link';
+
+import { Logo, SocialMediaLinks } from '../..';
+import { LinkTo } from '@sd/minimalist-portfolio/ui';
 
 /* eslint-disable-next-line */
 export interface FooterProps {}
@@ -40,49 +43,25 @@ const NavList = styled.ul`
     }
   }
 `;
-const SocialList = styled.ul`
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  color: white;
-  stroke: white;
-  background: white;
-  & > li + li {
-    margin-left: 1rem;
-  }
-  @media screen and (min-width: 40em) {
-    margin-left: auto;
-  }
-`;
+
 export function Footer(props: FooterProps) {
   return (
     <StyledFooter>
-      <div style={{ background: 'white' }}>
-        <Image height="32" width="61" src="/logo.svg" alt="" />
-      </div>
+      <LinkTo href="/">
+        <Logo fill="white" />
+      </LinkTo>
       <NavList>
         <li>
-          <a href="/">Home</a>
+          <LinkTo href="/">Home</LinkTo>
         </li>
         <li>
-          <a href="/portfolio-index">Portfolio</a>
+          <LinkTo href="/portfolio-index">Portfolio</LinkTo>
         </li>
         <li>
-          <a href="/contact-me">Contact Me</a>
+          <LinkTo href="/contact-me">Contact Me</LinkTo>
         </li>
       </NavList>
-      <SocialList>
-        <li>
-          <a href="https://github.com/Skidragon">
-            <Image width="25" height="25" src="/github.svg" alt="" />
-          </a>
-        </li>
-        <li>
-          <a href="https://www.linkedin.com/in/simon-k-davis/">
-            <Image width="25" height="25" src="/linkedin.svg" alt="" />
-          </a>
-        </li>
-      </SocialList>
+      <SocialMediaLinks fill="white" />
     </StyledFooter>
   );
 }
