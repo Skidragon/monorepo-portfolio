@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import Image from 'next/image';
 import Link from 'next/link';
-import { SocialMediaLinks } from '../..';
+
+import { Logo, SocialMediaLinks } from '../..';
 
 /* eslint-disable-next-line */
 export interface FooterProps {}
@@ -42,26 +42,15 @@ const NavList = styled.ul`
     }
   }
 `;
-const SocialList = styled.ul`
-  display: flex;
-  align-items: baseline;
 
-  color: white;
-  stroke: white;
-  background: white;
-  & > li + li {
-    margin-left: 1rem;
-  }
-  @media screen and (min-width: 40em) {
-    margin-left: auto;
-  }
-`;
 export function Footer(props: FooterProps) {
   return (
     <StyledFooter>
-      <div style={{ background: 'white' }}>
-        <Image height="32" width="61" src="/logo.svg" alt="" />
-      </div>
+      <Link href="/">
+        <a>
+          <Logo fill="white" />
+        </a>
+      </Link>
       <NavList>
         <li>
           <Link href="/">
@@ -79,7 +68,7 @@ export function Footer(props: FooterProps) {
           </Link>
         </li>
       </NavList>
-      <SocialMediaLinks />
+      <SocialMediaLinks fill="white" />
     </StyledFooter>
   );
 }
