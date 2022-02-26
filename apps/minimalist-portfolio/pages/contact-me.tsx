@@ -3,7 +3,7 @@ import {
   NavigationBar,
   SocialMediaLinks,
 } from '@sd/minimalist-portfolio/feature';
-import { TextField, Button } from '@sd/minimalist-portfolio/ui';
+import { TextField, Button, TextArea } from '@sd/minimalist-portfolio/ui';
 import styled from 'styled-components';
 /* eslint-disable-next-line */
 export interface ContactMeProps {}
@@ -48,6 +48,7 @@ export function ContactMe(props: ContactMeProps) {
             id="name"
             placeholder="Jane Appleseed"
             isRequired
+            maxLength={100}
           />
           <TextField
             label="Email Address"
@@ -55,12 +56,16 @@ export function ContactMe(props: ContactMeProps) {
             type="email"
             placeholder="email@example.com"
             isRequired
+            maxLength={100}
           />
-          <TextField
+          <TextArea
             label="Message"
             id="message"
+            name={'message'}
             placeholder="How can I help?"
             isRequired
+            rows={5}
+            maxLength={500}
           />
           <Button variant="primary" type="submit">
             Send Message
