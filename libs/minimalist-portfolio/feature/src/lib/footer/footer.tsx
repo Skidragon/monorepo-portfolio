@@ -42,12 +42,13 @@ const NavList = styled.ul`
       margin-left: 2rem;
     }
   }
-`;
-const StyledLinkTo = styled(LinkTo)`
-  &:visited {
-    color: white;
+  & a {
+    &:visited {
+      color: white;
+    }
   }
 `;
+const StyledLinkTo = styled(LinkTo)``;
 export function Footer(props: FooterProps) {
   return (
     <StyledFooter>

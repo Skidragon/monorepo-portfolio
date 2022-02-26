@@ -33,16 +33,15 @@ const NavList = styled.ul`
   & a {
     display: block;
     padding: 2em;
-  }
-  & a:hover {
-    background: var(--cyan);
-  }
-`;
-const StyledLinkTo = styled(LinkTo)`
-  &:visited {
-    color: white;
+    &:hover {
+      background: var(--cyan);
+    }
+    &:visited {
+      color: white;
+    }
   }
 `;
+const StyledLinkTo = styled(LinkTo)``;
 export function MobileMenu(props: MobileMenuProps) {
   const [open, setOpen] = useState(false);
   const ref = useRef<any>();
