@@ -1,20 +1,29 @@
+import {
+  Footer,
+  NavigationBar,
+  SocialMediaLinks,
+} from '@sd/minimalist-portfolio/feature';
+import { TextField, Button } from '@sd/minimalist-portfolio/ui';
 import styled from 'styled-components';
-
 /* eslint-disable-next-line */
 export interface ContactMeProps {}
-
-const StyledContactMe = styled.div`
-  color: pink;
+const StyledContactMe = styled.div``;
+const GetInTouchSection = styled.section`
+  & > * + * {
+    margin-top: 1.5rem;
+  }
 `;
-const GetInTouchSection = styled.section``;
 const ContactMeSection = styled.section``;
-const ContactMeForm = styled.form``;
-const TextField = styled.div``;
-const Label = styled.label``;
-const Input = styled.input``;
+const ContactMeForm = styled.form`
+  & > * + * {
+    margin-top: 1.5rem;
+  }
+`;
+
 export function ContactMe(props: ContactMeProps) {
   return (
     <StyledContactMe>
+      <NavigationBar />
       <GetInTouchSection>
         <h2>Get In Touch</h2>
         <p>
@@ -25,16 +34,40 @@ export function ContactMe(props: ContactMeProps) {
           that don’t fit that description. Please do feel free to check out my
           online profiles below and get in touch using the form.
         </p>
+        <SocialMediaLinks />
       </GetInTouchSection>
       <ContactMeSection>
-        <ContactMeForm>
-          <TextField>
-            <Label></Label>
-            <Input type="text" />
-          </TextField>
-          <button type="submit">Send Message</button>
+        <h2>Contact Me</h2>
+        <ContactMeForm
+          action="https://getform.io/f/522c6d08-8834-4289-905c-c10bedb4476c"
+          method="POST"
+        >
+          {/* name, email message */}
+          <TextField
+            label="Name"
+            id="name"
+            placeholder="Jane Appleseed"
+            isRequired
+          />
+          <TextField
+            label="Email Address"
+            id="email"
+            type="email"
+            placeholder="email@example.com"
+            isRequired
+          />
+          <TextField
+            label="Message"
+            id="message"
+            placeholder="How can I help?"
+            isRequired
+          />
+          <Button variant="primary" type="submit">
+            Send Message
+          </Button>
         </ContactMeForm>
       </ContactMeSection>
+      <Footer />
     </StyledContactMe>
   );
 }

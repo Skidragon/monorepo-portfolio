@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Image from 'next/image';
+import { SocialMediaLinks } from '../..';
 
 /* eslint-disable-next-line */
 export interface FooterProps {}
@@ -43,7 +44,7 @@ const NavList = styled.ul`
 const SocialList = styled.ul`
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
+
   color: white;
   stroke: white;
   background: white;
@@ -71,18 +72,7 @@ export function Footer(props: FooterProps) {
           <a href="/contact-me">Contact Me</a>
         </li>
       </NavList>
-      <SocialList>
-        <li>
-          <a href="https://github.com/Skidragon">
-            <Image width="25" height="25" src="/github.svg" alt="" />
-          </a>
-        </li>
-        <li>
-          <a href="https://www.linkedin.com/in/simon-k-davis/">
-            <Image width="25" height="25" src="/linkedin.svg" alt="" />
-          </a>
-        </li>
-      </SocialList>
+      <SocialMediaLinks />
     </StyledFooter>
   );
 }
