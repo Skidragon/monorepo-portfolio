@@ -4,6 +4,7 @@ import { MobileMenu } from '../..';
 import { useRouter } from 'next/router';
 import React from 'react';
 import Link from 'next/link';
+import { LinkTo } from '@sd/minimalist-portfolio/ui';
 /* eslint-disable-next-line */
 export interface NavigationBarProps {}
 
@@ -54,13 +55,11 @@ function ActiveLink({
 export function NavigationBar(props: NavigationBarProps) {
   return (
     <Header>
-      <Link href="/">
-        <a>
-          <Logo>
-            <Image height="32" width="61" src="/logo.svg" alt="" />
-          </Logo>
-        </a>
-      </Link>
+      <LinkTo href="/">
+        <Logo>
+          <Image height="32" width="61" src="/logo.svg" alt="" />
+        </Logo>
+      </LinkTo>
       <NavList>
         <li>
           <ActiveLink href="/">Home</ActiveLink>

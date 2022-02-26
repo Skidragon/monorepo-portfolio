@@ -60,10 +60,10 @@ export function MobileMenu(props: MobileMenuProps) {
             <LinkTo href="/">Home</LinkTo>
           </li>
           <li>
-            <Link href="/portfolio-index">Portfolio</Link>
+            <LinkTo href="/portfolio-index">Portfolio</LinkTo>
           </li>
           <li>
-            <Link href="/contact-me">Contact Me</Link>
+            <LinkTo href="/contact-me">Contact Me</LinkTo>
           </li>
         </NavList>
       )}
