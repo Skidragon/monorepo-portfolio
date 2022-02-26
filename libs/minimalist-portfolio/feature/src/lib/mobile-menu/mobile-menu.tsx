@@ -49,7 +49,7 @@ export function MobileMenu(props: MobileMenuProps) {
     setOpen(false);
   });
   return (
-    <StyledMobileMenu>
+    <StyledMobileMenu ref={ref}>
       <Hamburger
         onClick={() => {
           setOpen((prev) => !prev);
@@ -59,7 +59,7 @@ export function MobileMenu(props: MobileMenuProps) {
         {open && <Image height="19" width="18" src="/close.svg" alt="" />}
       </Hamburger>
       {open && (
-        <NavList ref={ref}>
+        <NavList>
           <li>
             <StyledLinkTo href="/">Home</StyledLinkTo>
           </li>
