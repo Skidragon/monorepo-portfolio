@@ -8,6 +8,7 @@
     "start:ap": "nx run-many --target=serve --projects=audiophile --parallel=true",
     "start:ag": "nx run-many --target=serve --projects=advice-gen --parallel=true",
     "start:mp": "nx run-many --target=serve --projects=minimalist-portfolio --parallel=true",
+    "start:toh": "nx run-many --target=serve --projects=tower-of-hanoi --parallel=true",
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
