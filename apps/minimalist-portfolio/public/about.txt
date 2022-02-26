@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: Saira
+- Font Author: Copyright 2020 The Saira Project Authors (https://github.com/Omnibus-Type/Saira)
+- Font Source: http://fonts.gstatic.com/s/saira/v8/memWYa2wxmKQyPMrZX79wwYZQMhsyuShhKMjjbU9uXuA71rCosg7lwYmUVY.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))
