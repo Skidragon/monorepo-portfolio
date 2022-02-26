@@ -34,7 +34,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
   ) => {
     return (
       <StyledTextArea>
-        <Label htmlFor={id}>{label}</Label>
+        <Label htmlFor={id}>{`${isRequired ? '*' : ''}${label}`}</Label>
         <Input id={id} {...props} ref={ref} />
       </StyledTextArea>
     );
