@@ -25,9 +25,9 @@ export function Index() {
       <NavigationBar />
       <IntroSection>
         <Image
-          height="600"
-          width="1110"
-          src="/image-homepage-hero.jpg"
+          height="386"
+          width="1584"
+          src="/image-homepage-hero.png"
           alt=""
         />
         <h1
