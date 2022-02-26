@@ -44,14 +44,21 @@ const StyledLinkButton = styled.a<LinkButtonProps>`
 
 export const LinkButton = React.forwardRef<HTMLAnchorElement, LinkButtonProps>(
   ({ variant = 'primary', href = '#', ...props }: LinkButtonProps, ref) => {
-    console.log(variant);
-    return (
-      <Link href={href} passHref>
-        <StyledLinkButton variant={variant} {...props} ref={ref}>
+    if (!props.download) {
+      return (
+        <Link href={href} passHref>
+          <StyledLinkButton variant={variant} {...props} ref={ref}>
+            {props.children}
+          </StyledLinkButton>
+        </Link>
+      );
+    } else {
+      return (
+        <StyledLinkButton href={href} variant={variant} {...props} ref={ref}>
           {props.children}
         </StyledLinkButton>
-      </Link>
-    );
+      );
+    }
   }
 );
 

@@ -122,8 +122,15 @@ html {
   }
 }
 h1,h2,h3,h4,h5,h6 {
-  line-height: 1.25;
+  line-height: 1.15;
   margin-bottom: 1.5rem;
+  font-family: 'Ibarra Real Nova', serif;
+}
+h1 {
+  font-size: 2rem;
+}
+h2 {
+  font-size: 1.8rem;
 }
 a {
   all: unset;

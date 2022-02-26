@@ -5,6 +5,7 @@ import {
   InterestedToContactMeSection,
   NavigationBar,
 } from '@sd/minimalist-portfolio/feature';
+import Image from 'next/image';
 /* eslint-disable-next-line */
 export interface PortfolioIndexProps {}
 
@@ -26,6 +27,12 @@ export function PortfolioIndex(props: PortfolioIndexProps) {
 
       <section>
         <ProjectCard>
+          <Image
+            height="556"
+            width="1508"
+            src="/typemaster-keyboard.png"
+            alt=""
+          />
           <h2>Typemaster Landing Page</h2>
           <p>
             This project required me to build a fully responsive landing page to
@@ -41,6 +48,7 @@ export function PortfolioIndex(props: PortfolioIndexProps) {
           </LinkButton>
         </ProjectCard>
         <ProjectCard>
+          <Image height="746" width="1070" src="/loopstudios.png" alt="" />
           <h2>Loopstudios Landing Page</h2>
           <p>
             CSS Grid was used to make most of the site responsive. Next.js to
@@ -56,6 +64,7 @@ export function PortfolioIndex(props: PortfolioIndexProps) {
           </LinkButton>
         </ProjectCard>
         <ProjectCard>
+          <Image height="745" width="1093" src="/advice-gen.png" alt="" />
           <h2>Advice Generator</h2>
           <p>
             This project was made as a challenge based on a design file and is
@@ -98,8 +107,8 @@ export function PortfolioIndex(props: PortfolioIndexProps) {
           </LinkButton>
         </ProjectCard>
         <ProjectCard>
-          <h2>Minimalistic Portfolio</h2>
-          <p>Using Next.js, a CMS, Styled components, and Netlify Forms.</p>
+          <h2>Minimalist Portfolio</h2>
+          <p>Using Next.js, NX, Styled components, and GetForms.</p>
           <LinkButton variant="secondary" href="/">
             View Project
           </LinkButton>
