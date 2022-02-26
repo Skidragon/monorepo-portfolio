@@ -133,6 +133,8 @@ a {
 }
 section {
   padding: 1em;
+  max-width: 80ch;
+  margin: 0 auto;
 }
 section + section, footer {
   margin-top: 4em;

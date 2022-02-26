@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Link from 'next/link';
 
 import { Logo, SocialMediaLinks } from '../..';
+import { LinkTo } from '@sd/minimalist-portfolio/ui';
 
 /* eslint-disable-next-line */
 export interface FooterProps {}
@@ -46,26 +47,18 @@ const NavList = styled.ul`
 export function Footer(props: FooterProps) {
   return (
     <StyledFooter>
-      <Link href="/">
-        <a>
-          <Logo fill="white" />
-        </a>
-      </Link>
+      <LinkTo href="/">
+        <Logo fill="white" />
+      </LinkTo>
       <NavList>
         <li>
-          <Link href="/">
-            <a>Home</a>
-          </Link>
+          <LinkTo href="/">Home</LinkTo>
         </li>
         <li>
-          <Link href="/portfolio-index">
-            <a>Portfolio</a>
-          </Link>
+          <LinkTo href="/portfolio-index">Portfolio</LinkTo>
         </li>
         <li>
-          <Link href="/contact-me">
-            <a>Contact Me</a>
-          </Link>
+          <LinkTo href="/contact-me">Contact Me</LinkTo>
         </li>
       </NavList>
       <SocialMediaLinks fill="white" />

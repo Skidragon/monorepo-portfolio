@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useRef, useState } from 'react';
 import { useClickAway } from 'react-use';
 import Link from 'next/link';
+import { LinkTo } from '@sd/minimalist-portfolio/ui';
 /* eslint-disable-next-line */
 export interface MobileMenuProps {}
 
@@ -56,19 +57,13 @@ export function MobileMenu(props: MobileMenuProps) {
       {open && (
         <NavList ref={ref}>
           <li>
-            <Link href="/">
-              <a>Home</a>
-            </Link>
+            <LinkTo href="/">Home</LinkTo>
           </li>
           <li>
-            <Link href="/portfolio-index">
-              <a>Portfolio</a>
-            </Link>
+            <Link href="/portfolio-index">Portfolio</Link>
           </li>
           <li>
-            <Link href="/contact-me">
-              <a>Contact Me</a>
-            </Link>
+            <Link href="/contact-me">Contact Me</Link>
           </li>
         </NavList>
       )}
