@@ -23,6 +23,7 @@ const NavList = styled.ul`
   align-items: center;
   position: absolute;
   right: 0;
+  z-index: 1000;
   background: var(--grayish-dark-blue);
   color: white;
   & li {
