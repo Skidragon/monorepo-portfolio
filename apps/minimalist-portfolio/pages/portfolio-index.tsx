@@ -98,8 +98,8 @@ export function PortfolioIndex(props: PortfolioIndexProps) {
           </LinkButton>
         </ProjectCard>
         <ProjectCard>
-          <h2>Minimalistic Portfolio</h2>
-          <p>Using Next.js, a CMS, Styled components, and Netlify Forms.</p>
+          <h2>Minimalist Portfolio</h2>
+          <p>Using Next.js, NX, Styled components, and GetForms.</p>
           <LinkButton variant="secondary" href="/">
             View Project
           </LinkButton>
