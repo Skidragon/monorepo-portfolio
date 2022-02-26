@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 import { useClickAway } from 'react-use';
-import Link from 'next/link';
 import { LinkTo } from '@sd/minimalist-portfolio/ui';
 /* eslint-disable-next-line */
 export interface MobileMenuProps {}
@@ -39,6 +38,11 @@ const NavList = styled.ul`
     background: var(--cyan);
   }
 `;
+const StyledLinkTo = styled(LinkTo)`
+  &::visited {
+    color: white;
+  }
+`;
 export function MobileMenu(props: MobileMenuProps) {
   const [open, setOpen] = useState(false);
   const ref = useRef<any>();
@@ -58,13 +62,13 @@ export function MobileMenu(props: MobileMenuProps) {
       {open && (
         <NavList ref={ref}>
           <li>
-            <LinkTo href="/">Home</LinkTo>
+            <StyledLinkTo href="/">Home</StyledLinkTo>
           </li>
           <li>
-            <LinkTo href="/portfolio-index">Portfolio</LinkTo>
+            <StyledLinkTo href="/portfolio-index">Portfolio</StyledLinkTo>
           </li>
           <li>
-            <LinkTo href="/contact-me">Contact Me</LinkTo>
+            <StyledLinkTo href="/contact-me">Contact Me</StyledLinkTo>
           </li>
         </NavList>
       )}
