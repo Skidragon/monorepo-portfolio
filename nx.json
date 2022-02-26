@@ -135,6 +135,9 @@
     "tower-of-hanoi-e2e": {
       "tags": [],
       "implicitDependencies": ["tower-of-hanoi"]
+    },
+    "tower-of-hanoi-ui": {
+      "tags": []
     }
   }
 }
