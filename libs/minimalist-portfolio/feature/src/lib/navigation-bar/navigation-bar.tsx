@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { MobileMenu } from '../..';
 import { useRouter } from 'next/router';
 import React from 'react';
+import Link from 'next/link';
 /* eslint-disable-next-line */
 export interface NavigationBarProps {}
 
@@ -42,22 +43,24 @@ function ActiveLink({
   };
 
   return (
-    <StyledLink
-      href={href}
-      onClick={handleClick}
-      isActive={router.asPath === href}
-    >
-      {children}
-    </StyledLink>
+    <Link href={href}>
+      <StyledLink onClick={handleClick} isActive={router.asPath === href}>
+        {children}
+      </StyledLink>
+    </Link>
   );
 }
 
 export function NavigationBar(props: NavigationBarProps) {
   return (
     <Header>
-      <Logo>
-        <Image height="32" width="61" src="/logo.svg" alt="" />
-      </Logo>
+      <Link href="/">
+        <a>
+          <Logo>
+            <Image height="32" width="61" src="/logo.svg" alt="" />
+          </Logo>
+        </a>
+      </Link>
       <NavList>
         <li>
           <ActiveLink href="/">Home</ActiveLink>

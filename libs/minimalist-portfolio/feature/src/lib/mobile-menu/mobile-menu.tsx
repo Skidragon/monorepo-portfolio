@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 import { useClickAway } from 'react-use';
-
+import Link from 'next/link';
 /* eslint-disable-next-line */
 export interface MobileMenuProps {}
 
@@ -56,13 +56,19 @@ export function MobileMenu(props: MobileMenuProps) {
       {open && (
         <NavList ref={ref}>
           <li>
-            <a href="/">Home</a>
+            <Link href="/">
+              <a>Home</a>
+            </Link>
           </li>
           <li>
-            <a href="/portfolio-index">Portfolio</a>
+            <Link href="/portfolio-index">
+              <a>Portfolio</a>
+            </Link>
           </li>
           <li>
-            <a href="/contact-me">Contact Me</a>
+            <Link href="/contact-me">
+              <a>Contact Me</a>
+            </Link>
           </li>
         </NavList>
       )}

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Image from 'next/image';
+import Link from 'next/link';
 import { SocialMediaLinks } from '../..';
 
 /* eslint-disable-next-line */
@@ -63,13 +64,19 @@ export function Footer(props: FooterProps) {
       </div>
       <NavList>
         <li>
-          <a href="/">Home</a>
+          <Link href="/">
+            <a>Home</a>
+          </Link>
         </li>
         <li>
-          <a href="/portfolio-index">Portfolio</a>
+          <Link href="/portfolio-index">
+            <a>Portfolio</a>
+          </Link>
         </li>
         <li>
-          <a href="/contact-me">Contact Me</a>
+          <Link href="/contact-me">
+            <a>Contact Me</a>
+          </Link>
         </li>
       </NavList>
       <SocialMediaLinks />

@@ -1,17 +1,13 @@
 import styled from 'styled-components';
 import Image from 'next/image';
 import { LinkButton } from '@sd/minimalist-portfolio/ui';
-import {
-  MobileMenu,
-  Footer,
-  NavigationBar,
-} from '@sd/minimalist-portfolio/feature';
+import { Footer, NavigationBar } from '@sd/minimalist-portfolio/feature';
+import Link from 'next/link';
 const StyledPage = styled.div``;
 const DownArrows = styled.div`
   background: var(--dark-blue);
   filter: brightness(80%);
 `;
-
 const IntroSection = styled.section``;
 const AboutMeSection = styled.section``;
 const ContactMeSection = styled.section`
