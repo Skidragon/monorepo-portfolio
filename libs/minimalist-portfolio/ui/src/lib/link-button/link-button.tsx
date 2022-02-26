@@ -46,7 +46,7 @@ export const LinkButton = React.forwardRef<HTMLAnchorElement, LinkButtonProps>(
   ({ variant = 'primary', href = '#', ...props }: LinkButtonProps, ref) => {
     console.log(variant);
     return (
-      <Link href={href}>
+      <Link href={href} passHref>
         <StyledLinkButton variant={variant} {...props} ref={ref}>
           {props.children}
         </StyledLinkButton>
