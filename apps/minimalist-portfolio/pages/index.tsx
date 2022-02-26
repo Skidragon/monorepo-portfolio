@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 import Image from 'next/image';
 import { LinkButton } from '@sd/minimalist-portfolio/ui';
-import { Footer, NavigationBar } from '@sd/minimalist-portfolio/feature';
-import Link from 'next/link';
+import {
+  Footer,
+  NavigationBar,
+  InterestedToContactMeSection,
+} from '@sd/minimalist-portfolio/feature';
 const StyledPage = styled.div``;
 const DownArrows = styled.div`
   background: var(--dark-blue);
@@ -10,23 +13,6 @@ const DownArrows = styled.div`
 `;
 const IntroSection = styled.section``;
 const AboutMeSection = styled.section``;
-const ContactMeSection = styled.section`
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  text-align: center;
-  @media screen and (min-width: 30em) {
-    display: flex;
-    flex-flow: row;
-    align-items: baseline;
-    & > *:last-child {
-      margin-left: auto;
-    }
-  }
-`;
-const Interested = styled.h2`
-  max-width: 17rem;
-`;
 
 export function Index() {
   /*
@@ -38,7 +24,19 @@ export function Index() {
     <StyledPage>
       <NavigationBar />
       <IntroSection>
-        <h1>Hey, I’m Simon Davis and I love building beautiful websites</h1>
+        <Image
+          height="600"
+          width="1110"
+          src="/image-homepage-hero.jpg"
+          alt=""
+        />
+        <h1
+          style={{
+            marginBottom: 0,
+          }}
+        >
+          Hey, I’m Simon Davis and I love building beautiful websites.
+        </h1>
         <LinkButton variant="primary" href="#about-me">
           <DownArrows>
             <Image height="14" width="16" src="/down-arrows.svg" alt="" />
@@ -63,12 +61,7 @@ export function Index() {
           Go To Portfolio
         </LinkButton>
       </AboutMeSection>
-      <ContactMeSection>
-        <Interested>Interested in doing a project together?</Interested>
-        <LinkButton variant="secondary" href="/contact-me">
-          Contact Me
-        </LinkButton>
-      </ContactMeSection>
+      <InterestedToContactMeSection />
       <Footer />
     </StyledPage>
   );
