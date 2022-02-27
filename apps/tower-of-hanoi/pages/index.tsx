@@ -1,101 +1,182 @@
 import styled from 'styled-components';
-
+import { Rod, Disk } from '@sd/tower-of-hanoi/ui';
+import { createMachine, assign } from 'xstate';
+import { useMachine } from '@xstate/react';
+type SelectSourceRodEvent = {
+  type: 'SELECT_SOURCE_ROD';
+  fromIndex: number;
+};
+type SelectTargetRodEvent = {
+  type: 'SELECT_TARGET_ROD';
+  toIndex: number;
+};
+type ResetGameEvent = {
+  type: 'RESET';
+};
+type Event = SelectSourceRodEvent | SelectTargetRodEvent | ResetGameEvent;
+type Stack = number[];
+type Context = {
+  stacks: [Stack, Stack, Stack];
+  fromStack: Stack;
+  fromIndex: number;
+  toIndex: number;
+  countMoves: number;
+  hasWon: boolean;
+};
+const initialContext: Context = {
+  stacks: [[4, 3, 2, 1], [], []],
+  fromStack: [],
+  fromIndex: -1,
+  toIndex: -1,
+  countMoves: 0,
+  hasWon: false,
+};
+const gameMachine = createMachine<Context, Event>({
+  initial: 'idle',
+  context: initialContext,
+  states: {
+    idle: {
+      on: {
+        SELECT_SOURCE_ROD: {
+          target: 'chooseTarget',
+          actions: assign<Context, SelectSourceRodEvent>({
+            fromIndex: (_ctx, { fromIndex }) => fromIndex,
+            fromStack: (ctx, { fromIndex }) => ctx.stacks[fromIndex],
+          }),
+          cond: (ctx, { fromIndex }) => Boolean(ctx.stacks[fromIndex].length),
+        },
+      },
+    },
+    chooseTarget: {
+      on: {
+        SELECT_TARGET_ROD: {
+          cond: (ctx, { toIndex }) => {
+            const targetStack = ctx.stacks[toIndex];
+            if (targetStack.length === 0) {
+              return true;
+            }
+            return targetStack[targetStack.length - 1] >=
+              ctx.fromStack[ctx.fromStack.length - 1]
+              ? true
+              : false;
+          },
+          target: 'checkWin',
+          actions: assign<Context, SelectTargetRodEvent>({
+            fromStack: [],
+            fromIndex: -1,
+            countMoves: (ctx, { toIndex }) =>
+              ctx.fromStack !== ctx.stacks[toIndex]
+                ? ctx.countMoves + 1
+                : ctx.countMoves,
+            stacks: (ctx, { toIndex }): [Stack, Stack, Stack] => {
+              const { stacks, fromIndex } = ctx;
+              const newStacks: [Stack, Stack, Stack] = [
+                stacks[0].slice(),
+                stacks[1].slice(),
+                stacks[2].slice(),
+              ];
+              const disk = newStacks[fromIndex].pop();
+              const targetStack = newStacks[toIndex];
+              if (disk) {
+                targetStack.push(disk);
+              } else {
+                return ctx.stacks;
+              }
+              newStacks[toIndex] = targetStack;
+              return newStacks;
+            },
+          }),
+        },
+      },
+    },
+    checkWin: {
+      on: {
+        '': [
+          {
+            target: 'win',
+            cond: (ctx) => ctx.stacks[2].length === 4,
+          },
+          {
+            target: 'idle',
+          },
+        ],
+      },
+    },
+    win: {
+      entry: assign<Context, Event>({ hasWon: true }),
+      on: {
+        RESET: {
+          target: 'idle',
+          actions: assign({
+            ...initialContext,
+          }),
+        },
+      },
+    },
+  },
+});
 const StyledPage = styled.div`
   .page {
   }
 `;
 
 export function Index() {
-  /*
-   * Replace the elements below with your own.
-   *
-   * Note: The corresponding styles are in the ./index.styled-components file.
-   */
+  const [state, send] = useMachine(gameMachine);
+  const { fromStack, stacks, hasWon, countMoves } = state.context;
   return (
     <StyledPage>
-      <h2>Resources &amp; Tools</h2>
-      <p>Thank you for using and showing some ♥ for Nx.</p>
-      <div className="flex github-star-container">
-        <a
-          href="https://github.com/nrwl/nx"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {' '}
-          If you like Nx, please give it a star:
-          <div className="github-star-badge">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/star.svg" className="material-icons" alt="" />
-            Star
-          </div>
-        </a>
-      </div>
-      <p>Here are some links to help you get started.</p>
-      <ul className="resources">
-        <li className="col-span-2">
-          <a
-            className="resource flex"
-            href="https://egghead.io/playlists/scale-react-development-with-nx-4038"
+      {hasWon ? (
+        <div>
+          You Win!
+          <button
+            onClick={() => {
+              send({ type: 'RESET' });
+            }}
           >
-            Scale React Development with Nx (Course)
-          </a>
-        </li>
-        <li className="col-span-2">
-          <a
-            className="resource flex"
-            href="https://nx.dev/latest/react/tutorial/01-create-application"
-          >
-            Interactive tutorial
-          </a>
-        </li>
-        <li className="col-span-2">
-          <a className="resource flex" href="https://nx.app/">
-            <svg
-              width="36"
-              height="36"
-              viewBox="0 0 120 120"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+            Reset
+          </button>
+        </div>
+      ) : (
+        <p>
+          Object of the game is to move all the disks over to Tower 3. But you
+          cannot place a larger disk onto a smaller disk.
+        </p>
+      )}
+      <div>Current State: {state.value}</div>
+      <div>Moves: {countMoves}</div>
+      <div
+        className="App"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr 1fr',
+        }}
+      >
+        {stacks.map((stack, i) => {
+          return (
+            <Rod
+              key={i}
+              isActive={fromStack === stack}
+              onClick={() => {
+                if (state.value === 'idle') {
+                  send({
+                    type: 'SELECT_SOURCE_ROD',
+                    fromIndex: i,
+                  });
+                } else if (state.value === 'chooseTarget') {
+                  send({
+                    type: 'SELECT_TARGET_ROD',
+                    toIndex: i,
+                  });
+                }
+              }}
             >
-              <path
-                d="M120 15V30C103.44 30 90 43.44 90 60C90 76.56 76.56 90 60 90C43.44 90 30 103.44 30 120H15C6.72 120 0 113.28 0 105V15C0 6.72 6.72 0 15 0H105C113.28 0 120 6.72 120 15Z"
-                fill="#0E2039"
-              />
-              <path
-                d="M120 30V105C120 113.28 113.28 120 105 120H30C30 103.44 43.44 90 60 90C76.56 90 90 76.56 90 60C90 43.44 103.44 30 120 30Z"
-                fill="white"
-              />
-            </svg>
-            <span className="gutter-left">Nx Cloud</span>
-          </a>
-        </li>
-      </ul>
-      <h2>Next Steps</h2>
-      <p>Here are some things you can do with Nx.</p>
-      <details open>
-        <summary>Add UI library</summary>
-        <pre>{`# Generate UI lib
-nx g @nrwl/react:lib ui
-
-# Add a component
-nx g @nrwl/react:component xyz --project ui`}</pre>
-      </details>
-      <details>
-        <summary>View dependency graph</summary>
-        <pre>{`nx dep-graph`}</pre>
-      </details>
-      <details>
-        <summary>Run affected commands</summary>
-        <pre>{`# see what's been affected by changes
-nx affected:dep-graph
-
-# run tests for current changes
-nx affected:test
-
-# run e2e tests for current changes
-nx affected:e2e
-`}</pre>
-      </details>
+              {stack.map((diskValue) => {
+                return <Disk key={diskValue} value={diskValue} />;
+              })}
+            </Rod>
+          );
+        })}
+      </div>
     </StyledPage>
   );
 }
