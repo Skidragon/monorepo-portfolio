@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Image from 'next/image';
+import { MobileMenu } from '@sd/audiophile/feature';
 const StyledPage = styled.div`
   .page {
   }
@@ -14,7 +15,13 @@ const Navbar = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
   padding: 2em;
+  background: black;
   & > * + * {
     margin-left: 2rem;
   }
@@ -22,41 +29,14 @@ const Navbar = styled.nav`
     margin-right: auto;
   }
 `;
-const MobileMenu = styled.button``;
 const Logo = styled.div``;
 const Cart = styled.button``;
-const ShopCategoryCard = styled.div`
-  display: inline-flex;
-  width: 100%;
-  max-width: 20rem;
-  flex-flow: column;
-  align-items: center;
-  padding: 2em;
-  position: relative;
-  color: black;
-  & > * + * {
-    margin-top: 1.5rem;
-  }
-`;
-const Background = styled.div`
-  position: absolute;
-  z-index: -1;
-  height: 65%;
-  width: 100%;
-  bottom: 0;
-  background: lightgrey;
-`;
+
 export function Index() {
   return (
     <StyledPage>
       <Navbar>
-        <MobileMenu>
-          <svg width="16" height="15" xmlns="http://www.w3.org/2000/svg">
-            <g fill="#FFF" fillRule="evenodd">
-              <path d="M0 0h16v3H0zM0 6h16v3H0zM0 12h16v3H0z" />
-            </g>
-          </svg>
-        </MobileMenu>
+        <MobileMenu />
         <Logo>
           <svg width="143" height="25" xmlns="http://www.w3.org/2000/svg">
             <path
