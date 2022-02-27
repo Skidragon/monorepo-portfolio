@@ -120,6 +120,9 @@
     "shared-storybook": {
       "tags": []
     },
+    "shared-ui": {
+      "tags": []
+    },
     "shared-ui-layout": {
       "tags": []
     },
