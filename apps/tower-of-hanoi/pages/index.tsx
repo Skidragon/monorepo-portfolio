@@ -118,6 +118,7 @@ const gameMachine = createMachine<Context, Event>({
 const StyledPage = styled.div`
   height: 100vh;
   width: 100vw;
+  font-family: sans-serif;
 `;
 const GameDashboard = styled.div`
   max-width: 60ch;
@@ -155,7 +156,8 @@ export function Index() {
         ) : (
           <p>
             Object of the game is to move all the disks over to Tower 3. But you
-            cannot place a larger disk onto a smaller disk.
+            cannot place a larger disk onto a smaller disk. If on phone, best
+            played on landscape orientation.
           </p>
         )}
         <div>Current State: {state.value}</div>
