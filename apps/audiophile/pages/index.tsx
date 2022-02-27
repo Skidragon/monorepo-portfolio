@@ -76,11 +76,7 @@ export function Index() {
           </svg>
         </Cart>
       </Navbar>
-      <ShopCategoryCard>
-        <Background />
-        <Image width={100} height={100} src="/imae-hero.jpg" alt="" />
-        <h3>Headphones</h3>
-      </ShopCategoryCard>
+
       <Hero>
         <Image
           src="/image-hero.jpg"
