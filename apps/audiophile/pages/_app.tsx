@@ -157,7 +157,12 @@ ul {
   padding: 0;
   margin: 0;
 }
-
+button {
+  all: unset;
+  cursor: pointer;
+  &:focus {
+    border: 4px solid orange;
+  }
 `;
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
