@@ -161,7 +161,10 @@ button {
   all: unset;
   cursor: pointer;
   &:focus {
-    border: 4px solid orange;
+-webkit-box-shadow: 0px 0px 0px 2px rgba(255,157,0,1);
+-moz-box-shadow: 0px 0px 0px 2px rgba(255,157,0,1);
+box-shadow: 0px 0px 0px 2px rgba(255,157,0,1);
+Copy Text
   }
 `;
 function CustomApp({ Component, pageProps }: AppProps) {
