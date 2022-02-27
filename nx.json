@@ -44,6 +44,9 @@
       "tags": [],
       "implicitDependencies": ["audiophile"]
     },
+    "audiophile-feature": {
+      "tags": []
+    },
     "audiophile-ui": {
       "tags": []
     },
