@@ -103,7 +103,14 @@ const gameMachine = createMachine<Context, Event>({
       },
     },
     win: {
-      entry: assign<Context, Event>({ hasWon: true }),
+      entry: [
+        assign<Context, Event>({ hasWon: true }),
+        () =>
+          window.scrollTo({
+            behavior: 'smooth',
+            top: 0,
+          }),
+      ],
       on: {
         RESET: {
           target: 'idle',
