@@ -117,8 +117,9 @@ const gameMachine = createMachine<Context, Event>({
 });
 const StyledPage = styled.div`
   height: 100vh;
-  width: 100vw;
+  width: 100%;
   font-family: sans-serif;
+  margin: 0 auto;
 `;
 const GameDashboard = styled.div`
   max-width: 60ch;
@@ -134,6 +135,7 @@ const PlayArea = styled.div`
     grid-template-columns: repeat(3, 1fr);
     height: auto;
   }
+  max-width: 120ch;
 `;
 export function Index() {
   const [state, send] = useMachine(gameMachine);
