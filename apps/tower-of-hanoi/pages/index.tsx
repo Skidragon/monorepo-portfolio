@@ -103,7 +103,14 @@ const gameMachine = createMachine<Context, Event>({
       },
     },
     win: {
-      entry: assign<Context, Event>({ hasWon: true }),
+      entry: [
+        assign<Context, Event>({ hasWon: true }),
+        () =>
+          window.scrollTo({
+            behavior: 'smooth',
+            top: 0,
+          }),
+      ],
       on: {
         RESET: {
           target: 'idle',
@@ -116,45 +123,61 @@ const gameMachine = createMachine<Context, Event>({
   },
 });
 const StyledPage = styled.div`
-  .page {
-  }
+  height: 100vh;
+  width: 100%;
+  font-family: sans-serif;
+  margin: 0 auto;
 `;
-
+const GameDashboard = styled.div`
+  max-width: 60ch;
+`;
+const PlayArea = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-gap: 1rem;
+  height: 100vh;
+  min-height: 15rem;
+  @media screen and (min-width: 35em) {
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    height: auto;
+  }
+  max-width: 120ch;
+`;
 export function Index() {
   const [state, send] = useMachine(gameMachine);
   const { fromStack, stacks, hasWon, countMoves } = state.context;
   return (
     <StyledPage>
-      {hasWon ? (
-        <div>
-          You Win!
-          <button
-            onClick={() => {
-              send({ type: 'RESET' });
-            }}
-          >
-            Reset
-          </button>
-        </div>
-      ) : (
-        <p>
-          Object of the game is to move all the disks over to Tower 3. But you
-          cannot place a larger disk onto a smaller disk.
-        </p>
-      )}
-      <div>Current State: {state.value}</div>
-      <div>Moves: {countMoves}</div>
-      <div
-        className="App"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr 1fr',
-        }}
-      >
+      <h1>Tower of Hanoi</h1>
+      <GameDashboard>
+        {hasWon ? (
+          <div>
+            You Win!
+            <button
+              onClick={() => {
+                send({ type: 'RESET' });
+              }}
+            >
+              Reset
+            </button>
+          </div>
+        ) : (
+          <p>
+            Object of the game is to move all the disks over to Tower 3. But you
+            cannot place a larger disk onto a smaller disk. If on phone, best
+            played on landscape orientation.
+          </p>
+        )}
+        <div>Current State: {state.value}</div>
+        <div>Moves: {countMoves}</div>
+      </GameDashboard>
+      <PlayArea>
         {stacks.map((stack, i) => {
           return (
             <Rod
               key={i}
+              number={i + 1}
               isActive={fromStack === stack}
               onClick={() => {
                 if (state.value === 'idle') {
@@ -176,7 +199,7 @@ export function Index() {
             </Rod>
           );
         })}
-      </div>
+      </PlayArea>
     </StyledPage>
   );
 }

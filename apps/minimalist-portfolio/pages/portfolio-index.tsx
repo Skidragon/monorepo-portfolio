@@ -79,6 +79,7 @@ export function PortfolioIndex(props: PortfolioIndexProps) {
           </LinkButton>
         </ProjectCard>
         <ProjectCard>
+          <Image height="531" width="1068" src="/tower-of-hanoi.png" alt="" />
           <h2>Tower of Hanoi</h2>
           <p>
             Xstate was used to control state which simplified making the game
@@ -87,12 +88,13 @@ export function PortfolioIndex(props: PortfolioIndexProps) {
           </p>
           <LinkButton
             variant="secondary"
-            href="https://codesandbox.io/s/tower-of-hanoi-gmzuk"
+            href="https://tower-of-hanoi-two.vercel.app/"
           >
             View Project
           </LinkButton>
         </ProjectCard>
         <ProjectCard>
+          <Image height="747" width="1583" src="/audiophile.png" alt="" />
           <h2>Audiophile</h2>
           <p>
             Graphql CMS is used to store images of the products and the
@@ -108,10 +110,10 @@ export function PortfolioIndex(props: PortfolioIndexProps) {
         </ProjectCard>
         <ProjectCard>
           <h2>Minimalist Portfolio</h2>
-          <p>Using Next.js, NX, Styled components, and GetForms.</p>
-          <LinkButton variant="secondary" href="/">
-            View Project
-          </LinkButton>
+          <p>
+            You are currently on the site. It uses Next.js, NX, Styled
+            components, and GetForms.
+          </p>
         </ProjectCard>
       </section>
       <InterestedToContactMeSection />
