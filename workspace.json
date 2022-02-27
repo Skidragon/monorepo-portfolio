@@ -1234,6 +1234,104 @@
           }
         }
       }
+    },
+    "tower-of-hanoi": {
+      "root": "apps/tower-of-hanoi",
+      "sourceRoot": "apps/tower-of-hanoi",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/next:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "root": "apps/tower-of-hanoi",
+            "outputPath": "dist/apps/tower-of-hanoi"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/next:server",
+          "options": {
+            "buildTarget": "tower-of-hanoi:build",
+            "dev": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "tower-of-hanoi:build:production",
+              "dev": false
+            }
+          }
+        },
+        "export": {
+          "executor": "@nrwl/next:export",
+          "options": {
+            "buildTarget": "tower-of-hanoi:build:production"
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/tower-of-hanoi"],
+          "options": {
+            "jestConfig": "apps/tower-of-hanoi/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/tower-of-hanoi/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
+    },
+    "tower-of-hanoi-e2e": {
+      "root": "apps/tower-of-hanoi-e2e",
+      "sourceRoot": "apps/tower-of-hanoi-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/tower-of-hanoi-e2e/cypress.json",
+            "tsConfig": "apps/tower-of-hanoi-e2e/tsconfig.e2e.json",
+            "devServerTarget": "tower-of-hanoi:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "tower-of-hanoi:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/tower-of-hanoi-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "tower-of-hanoi-ui": {
+      "root": "libs/tower-of-hanoi/ui",
+      "sourceRoot": "libs/tower-of-hanoi/ui/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/tower-of-hanoi/ui/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/tower-of-hanoi/ui"],
+          "options": {
+            "jestConfig": "libs/tower-of-hanoi/ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

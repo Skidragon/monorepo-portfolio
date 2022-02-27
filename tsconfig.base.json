@@ -58,7 +58,8 @@
       "@sd/react-layout-styled-components": [
         "libs/shared/ui/layout/src/index.ts"
       ],
-      "@sd/shared/util/styles": ["libs/shared/util/styles/src/index.ts"]
+      "@sd/shared/util/styles": ["libs/shared/util/styles/src/index.ts"],
+      "@sd/tower-of-hanoi/ui": ["libs/tower-of-hanoi/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
