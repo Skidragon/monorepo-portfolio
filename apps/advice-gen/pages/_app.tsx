@@ -10,7 +10,9 @@ const queryClient = new QueryClient({
       refetchOnWindowFocus: false,
       queryFn: async () => {
         try {
-          const { data } = await axios.get('https://api.adviceslip.com/advice');
+          const { data } = await axios.get(
+            `https://api.adviceslip.com/advice?timestamp=${new Date().getTime()}`
+          );
           return data;
         } catch (err) {
           throw new Error(err);
