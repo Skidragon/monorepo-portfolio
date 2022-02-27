@@ -88,7 +88,7 @@ export function PortfolioIndex(props: PortfolioIndexProps) {
           </p>
           <LinkButton
             variant="secondary"
-            href="https://codesandbox.io/s/tower-of-hanoi-gmzuk"
+            href="https://tower-of-hanoi-two.vercel.app/"
           >
             View Project
           </LinkButton>
