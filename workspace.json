@@ -155,24 +155,22 @@
         }
       }
     },
-    "audiophile-feature-product": {
-      "root": "libs/audiophile/feature/product",
-      "sourceRoot": "libs/audiophile/feature/product/src",
+    "audiophile-feature": {
+      "root": "libs/audiophile/feature",
+      "sourceRoot": "libs/audiophile/feature/src",
       "projectType": "library",
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/audiophile/feature/product/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["libs/audiophile/feature/**/*.{ts,tsx,js,jsx}"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/audiophile/feature/product"],
+          "outputs": ["coverage/libs/audiophile/feature"],
           "options": {
-            "jestConfig": "libs/audiophile/feature/product/jest.config.js",
+            "jestConfig": "libs/audiophile/feature/jest.config.js",
             "passWithNoTests": true
           }
         }
@@ -1118,6 +1116,27 @@
             "ci": {
               "quiet": true
             }
+          }
+        }
+      }
+    },
+    "shared-ui": {
+      "root": "libs/shared/ui",
+      "sourceRoot": "libs/shared/ui/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/ui/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/ui"],
+          "options": {
+            "jestConfig": "libs/shared/ui/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }
