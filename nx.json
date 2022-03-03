@@ -47,6 +47,10 @@
     "audiophile-feature": {
       "tags": []
     },
+    "audiophile-feature-e2e": {
+      "tags": [],
+      "implicitDependencies": ["audiophile-feature"]
+    },
     "audiophile-ui": {
       "tags": []
     },
