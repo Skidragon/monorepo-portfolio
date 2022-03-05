@@ -2,7 +2,14 @@ import styled from 'styled-components';
 import { createMachine, assign } from 'xstate';
 import { useMachine } from '@xstate/react';
 /* eslint-disable-next-line */
-export interface StepperFieldProps {}
+type Context = {
+  quantity: number;
+  min: number;
+  max: number;
+};
+export type StepperFieldProps = {
+  [K in keyof Context]?: Context[K];
+};
 type IncreaseEvent = {
   type: 'INCREASE';
   quantity: number;
@@ -13,11 +20,11 @@ type DecreaseEvent = {
 };
 
 type Event = IncreaseEvent | DecreaseEvent;
-type Context = {
-  quantity: number;
-};
+
 const initialContext: Context = {
   quantity: 0,
+  min: 0,
+  max: 50,
 };
 const machine = createMachine<Context, Event>({
   initial: 'idle',
@@ -26,12 +33,16 @@ const machine = createMachine<Context, Event>({
     idle: {
       on: {
         INCREASE: {
+          cond: (ctx) => Boolean(ctx.quantity < ctx.max),
           actions: assign<Context, IncreaseEvent>({
             quantity: (ctx) => ctx.quantity + 1,
           }),
         },
         DECREASE: {
-          cond: (ctx) => Boolean(ctx.quantity > 0),
+          cond: (ctx) =>
+            ctx.min
+              ? Boolean(ctx.quantity > ctx.min)
+              : Boolean(ctx.quantity > 0),
           actions: assign<Context, DecreaseEvent>({
             quantity: (ctx) => ctx.quantity - 1,
           }),
@@ -69,9 +80,19 @@ const Input = styled.input`
   background: none;
   font-weight: 900;
 `;
-export function StepperField(props: StepperFieldProps) {
-  const [state, send] = useMachine(machine);
-  const { quantity } = state.context;
+export function StepperField({
+  quantity = 0,
+  min = 0,
+  max = 50,
+}: StepperFieldProps) {
+  const [state, send] = useMachine(
+    machine.withContext({
+      quantity,
+      min,
+      max,
+    })
+  );
+  const { context } = state;
   return (
     <StyledStepperField>
       <Button
@@ -84,7 +105,7 @@ export function StepperField(props: StepperFieldProps) {
       >
         -
       </Button>
-      <Input type="text" disabled={true} value={quantity} />
+      <Input type="text" disabled={true} value={context.quantity} />
       <Button
         onClick={() =>
           send({
