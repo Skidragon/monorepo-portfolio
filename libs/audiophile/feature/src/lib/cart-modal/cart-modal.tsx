@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Image from 'next/image';
+import { StepperField, Button } from '@sd/audiophile/ui';
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
-import { useState } from '@storybook/addons';
 /* eslint-disable-next-line */
 interface Product {
   name: string;
@@ -31,6 +31,15 @@ const StyledCartModal = styled.div`
   & > * + * {
     margin-top: 2rem;
   }
+  --dark-orange: hsl(22, 65%, 57%);
+  --primary-color: hsl(21, 94%, 60%);
+  --secondary-color: hsl(0, 0%, 0%);
+  --light-black: hsl(0, 0%, 6%);
+  --white: hsl(255, 255%, 255%);
+  --light-grey: hsl(0, 0%, 95%);
+  --light-gray: var(--light-grey);
+  --lighter-grey: hsl(0, 0%, 98%);
+  --lighter-gray: var(--lighter-grey);
 `;
 const RemoveAllButton = styled.button`
   background: none;
@@ -77,14 +86,7 @@ const TotalLine = styled.div`
     margin-left: 1rem;
   }
 `;
-const Button = styled.button`
-  cursor: pointer;
-  width: 100%;
-  background: orange;
-  color: white;
-  padding: 1em;
-  font-size: 1rem;
-`;
+
 const CartFooter = styled.div`
   & > * + * {
     margin-top: 1rem;
@@ -106,15 +108,7 @@ interface PriceProps
 function Price({ cents, ...props }: PriceProps) {
   return <div {...props}>{formatPrice(cents)}</div>;
 }
-function StepperField() {
-  return (
-    <div>
-      <button>-</button>
-      <input type="text" disabled={true} />
-      <button>+</button>
-    </div>
-  );
-}
+
 export function CartModal({ products = [] }: CartModalProps) {
   const total = products.reduce((acc, currentProduct) => {
     return acc + currentProduct.price;
@@ -151,7 +145,7 @@ export function CartModal({ products = [] }: CartModalProps) {
             <div>Total</div>
             <Price cents={total} />
           </TotalLine>
-          <Button>Checkout</Button>
+          <Button variant="primary">Checkout</Button>
         </CartFooter>
       </StyledCartModal>
     </>
