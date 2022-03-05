@@ -7,7 +7,7 @@ export default {
 } as Meta;
 
 const Template: Story<CartModalProps> = (args) => (
-  <CartModal {...args} ref={null} />
+  <CartModal {...args} open={true} ref={null} />
 );
 
 export const Primary = Template.bind({});
