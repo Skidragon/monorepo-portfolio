@@ -40,7 +40,7 @@ const RemoveAllButton = styled.button`
 `;
 const CartHeader = styled.div`
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
   & > * + * {
     margin-left: 1rem;
