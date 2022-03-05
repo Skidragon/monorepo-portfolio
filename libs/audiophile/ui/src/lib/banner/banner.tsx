@@ -6,17 +6,19 @@ export interface BannerProps {
 }
 
 const StyledBanner = styled.div`
-  padding: 3em;
   width: 100%;
   color: var(--white, hsl(0, 0%, 97%));
   background: var(--secondary-color, hsl(0, 0%, 3%));
+  text-transform: uppercase;
   text-align: center;
 `;
-
+const Heading = styled.h1`
+  padding: 2em 0.5em;
+`;
 export function Banner(props: BannerProps) {
   return (
     <StyledBanner>
-      <h1>{props.children}</h1>
+      <Heading>{props.children}</Heading>
     </StyledBanner>
   );
 }

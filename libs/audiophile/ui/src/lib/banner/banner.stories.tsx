@@ -10,5 +10,5 @@ const Template: Story<BannerProps> = (args) => <Banner {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
-  children: '',
+  children: 'Headphones',
 };
