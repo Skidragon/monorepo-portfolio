@@ -100,7 +100,10 @@ select {
   --phone: 23em;
   --tablet: 48em;
   --desktop: 90em;
-    --dark-orange: hsl(22, 65%, 57%);
+  --modal-backdrop-z-index: 500;
+  --navbar-z-index: 1000;
+  --shop-categories-menu-z-index: 1001;
+  --dark-orange: hsl(22, 65%, 57%);
   --primary-color: hsl(21, 94%, 60%);
   --secondary-color: hsl(0, 0%, 0%);
   --light-black: hsl(0, 0%, 6%);
@@ -115,7 +118,7 @@ html {
   background: var(--color-background-page);
 
   body {
-    font-family: 'Jost', sans-serif;
+    font-family: sans-serif;
     /* Default Typography */
     font-size: 1rem;
 
@@ -127,7 +130,9 @@ html {
 h1,h2,h3,h4,h5,h6 {
   line-height: 1.15;
   margin-bottom: 1.5rem;
-  font-family: 'Ibarra Real Nova', serif;
+}
+p {
+  line-height: 1.5;
 }
 image {
   display: inline-block;
@@ -145,9 +150,6 @@ a {
   text-transform: uppercase;
 }
 section {
-  padding: 1em;
-  max-width: 80ch;
-  margin: 0 auto;
 }
 section + section, footer {
   margin-top: 4em;

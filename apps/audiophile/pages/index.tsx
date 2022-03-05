@@ -1,18 +1,45 @@
 import styled from 'styled-components';
 import Image from 'next/image';
-import { Navbar } from '@sd/audiophile/feature';
+import { Navbar, ShopCategories } from '@sd/audiophile/feature';
+import { Button } from '@sd/audiophile/ui';
 
 const StyledPage = styled.div`
   .page {
   }
-  background: #1c1c1c;
+  background: white;
 `;
 
-const Hero = styled.div`
-  height: 100vh;
+const Hero = styled.section`
   width: 100%;
+  position: relative;
 `;
-
+const HeroContent = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  & > * + * {
+    margin-top: 1.5rem;
+  }
+`;
+const NewProductText = styled.h1`
+  text-transform: uppercase;
+  color: grey;
+  font-size: 1rem;
+  letter-spacing: 0.5rem;
+`;
+const NewProductNameText = styled.h2`
+  color: white;
+`;
+const NewProductDescription = styled.p`
+  color: white;
+`;
+const ShopCategoriesSection = styled.section`
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+`;
 export function Index() {
   return (
     <StyledPage>
@@ -25,7 +52,19 @@ export function Index() {
           alt=""
           layout="responsive"
         />
+        <HeroContent>
+          <NewProductText>New Product</NewProductText>
+          <NewProductNameText>XX99 Mark II Headphone</NewProductNameText>
+          <NewProductDescription>
+            Experience natural, lifelike audio and exceptional build quality
+            made for the passionate music enthusiast.
+          </NewProductDescription>
+          <Button>See Product</Button>
+        </HeroContent>
       </Hero>
+      <ShopCategoriesSection>
+        <ShopCategories data={[]} />
+      </ShopCategoriesSection>
     </StyledPage>
   );
 }

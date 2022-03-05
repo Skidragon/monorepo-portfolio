@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import { MobileMenu, CartModal } from '@sd/audiophile/feature';
-import { useClickAway, useToggle } from 'react-use';
+import { useClickAway } from 'react-use';
 import { useRef, useState } from 'react';
+import { ModalBackdrop } from '@sd/audiophile/ui';
 /* eslint-disable-next-line */
 export interface NavbarProps {}
 const InvisiblePadding = styled.div`
@@ -16,7 +17,7 @@ const StyledNavbar = styled.nav`
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1;
+  z-index: var(--navbar-z-index);
   padding: 2em;
   background: black;
   & > * + * {
@@ -44,6 +45,7 @@ export function Navbar(props: NavbarProps) {
   });
   return (
     <>
+      {(openMenu || openCart) && <ModalBackdrop />}
       <InvisiblePadding>a</InvisiblePadding>
       <StyledNavbar>
         <div ref={menuRef}>

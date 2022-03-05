@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ShopCategoryCard } from '@sd/audiophile/ui';
+import ShopCategories from '../shop-categories/shop-categories';
 
 /* eslint-disable-next-line */
 export interface MobileMenuProps {
@@ -11,7 +11,7 @@ const StyledMobileMenu = styled.div<MobileMenuProps>`
   flex-flow: column;
   align-items: center;
   position: absolute;
-  z-index: 1;
+  z-index: var(--shop-categories-menu-z-index);
   bottom: 0;
   left: 0;
   right: 0;
@@ -30,17 +30,7 @@ const MenuItem = styled.li``;
 export function MobileMenu(props: MobileMenuProps) {
   return (
     <StyledMobileMenu {...props}>
-      <MenuList>
-        <MenuItem>
-          <ShopCategoryCard category="Speakers" src="/test.png" />
-        </MenuItem>
-        <MenuItem>
-          <ShopCategoryCard category="Headphones" src="/test.png" />
-        </MenuItem>
-        <MenuItem>
-          <ShopCategoryCard category="Earphones" src="/test.png" />
-        </MenuItem>
-      </MenuList>
+      <ShopCategories data={[]} />
     </StyledMobileMenu>
   );
 }

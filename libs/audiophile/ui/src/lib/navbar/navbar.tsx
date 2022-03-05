@@ -8,10 +8,9 @@ export interface NavbarProps
   > {
   children: React.ReactNode;
   hasEmphasis?: boolean;
-  zIndex?: number;
 }
 
-const StyledNavbar = styled.div<Pick<NavbarProps, 'hasEmphasis' | 'zIndex'>>`
+const StyledNavbar = styled.div<Pick<NavbarProps, 'hasEmphasis'>>`
   @keyframes emphasis {
     from {
       width: 0;
@@ -23,7 +22,7 @@ const StyledNavbar = styled.div<Pick<NavbarProps, 'hasEmphasis' | 'zIndex'>>`
   display: grid;
   grid-template-columns: auto 1fr auto;
   position: fixed;
-  z-index: ${(props) => props.zIndex};
+  z-index: var(--navbar-z-index);
   top: 0;
   width: 100%;
   padding: 2em 1em;
@@ -47,15 +46,10 @@ const StyledNavbar = styled.div<Pick<NavbarProps, 'hasEmphasis' | 'zIndex'>>`
 
 export function Navbar({
   hasEmphasis = false,
-  zIndex = 100,
   children,
   ...props
 }: NavbarProps) {
-  return (
-    <StyledNavbar hasEmphasis={hasEmphasis} zIndex={zIndex}>
-      {children}
-    </StyledNavbar>
-  );
+  return <StyledNavbar hasEmphasis={hasEmphasis}>{children}</StyledNavbar>;
 }
 
 export default Navbar;
