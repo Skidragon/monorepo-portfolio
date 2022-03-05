@@ -57,6 +57,10 @@
     "audiophile-ui": {
       "tags": []
     },
+    "audiophile-ui-e2e": {
+      "tags": [],
+      "implicitDependencies": ["audiophile-ui"]
+    },
     "minimalist-portfolio": {
       "tags": []
     },
