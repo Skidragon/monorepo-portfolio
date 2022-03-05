@@ -6,7 +6,9 @@ export default {
   title: 'CartModal',
 } as Meta;
 
-const Template: Story<CartModalProps> = (args) => <CartModal {...args} />;
+const Template: Story<CartModalProps> = (args) => (
+  <CartModal {...args} ref={null} />
+);
 
 export const Primary = Template.bind({});
 Primary.args = {

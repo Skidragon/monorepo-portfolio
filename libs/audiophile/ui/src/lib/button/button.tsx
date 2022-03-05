@@ -20,7 +20,14 @@ const StyledButton = styled.button<ButtonProps>`
   transition: all 250ms;
   font-weight: $fw-700;
   text-transform: uppercase;
+
   ${(props) => {
+    if (props.disabled) {
+      return css`
+        background: grey;
+        cursor: auto;
+      `;
+    }
     if (props.variant === 'primary') {
       return css`
         background: var(--primary-color);

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Image from 'next/image';
+import React from 'react';
 import { StepperField, Button } from '@sd/audiophile/ui';
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 /* eslint-disable-next-line */
@@ -8,19 +9,14 @@ interface Product {
   price: number;
   src: string;
 }
-export interface CartModalProps {
+export interface CartModalProps
+  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   products: Product[];
+  open: boolean;
 }
-const Overlay = styled.div`
-  position: absolute;
-  z-index: 1000;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: #0000003d;
-`;
-const StyledCartModal = styled.div`
+
+const StyledCartModal = styled.div<Pick<CartModalProps, 'open'>>`
+  display: ${(props) => (props.open ? 'inline-block' : 'none')};
   position: absolute;
   z-index: 1001;
   background: white;
@@ -89,6 +85,7 @@ const formatPrice = (cents: number) => {
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
+    minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   });
   return formatter.format(cents / 100);
@@ -100,14 +97,13 @@ interface PriceProps
 function Price({ cents, ...props }: PriceProps) {
   return <div {...props}>{formatPrice(cents)}</div>;
 }
-export function CartModal({ products = [] }: CartModalProps) {
-  const total = products.reduce((acc, currentProduct) => {
-    return acc + currentProduct.price;
-  }, 0);
-  return (
-    <>
-      <Overlay />
-      <StyledCartModal>
+export const CartModal = React.forwardRef<HTMLDivElement, CartModalProps>(
+  ({ products = [], ...props }: CartModalProps, ref) => {
+    const total = products.reduce((acc, currentProduct) => {
+      return acc + currentProduct.price;
+    }, 0);
+    return (
+      <StyledCartModal {...props} ref={ref}>
         <CartHeader>
           <h3>Cart ({products.length})</h3>
           <RemoveAllButton>Remove All</RemoveAllButton>
@@ -136,11 +132,16 @@ export function CartModal({ products = [] }: CartModalProps) {
             <div>Total</div>
             <Price cents={total} />
           </TotalLine>
-          <CartButton variant="primary">Checkout</CartButton>
+          <CartButton
+            variant="primary"
+            disabled={Boolean(products.length === 0)}
+          >
+            Checkout
+          </CartButton>
         </CartFooter>
       </StyledCartModal>
-    </>
-  );
-}
+    );
+  }
+);
 
 export default CartModal;

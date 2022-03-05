@@ -161,6 +161,8 @@ ul {
   margin: 0;
 }
 button {
+  background: none;
+  border: none;
   cursor: pointer;
   &:focus {
 -webkit-box-shadow: 0px 0px 0px 2px rgba(255,157,0,1);
