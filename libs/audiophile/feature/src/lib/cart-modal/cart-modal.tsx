@@ -86,7 +86,6 @@ const TotalLine = styled.div`
     margin-left: 1rem;
   }
 `;
-
 const CartFooter = styled.div`
   & > * + * {
     margin-top: 1rem;
@@ -108,7 +107,6 @@ interface PriceProps
 function Price({ cents, ...props }: PriceProps) {
   return <div {...props}>{formatPrice(cents)}</div>;
 }
-
 export function CartModal({ products = [] }: CartModalProps) {
   const total = products.reduce((acc, currentProduct) => {
     return acc + currentProduct.price;
