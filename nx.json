@@ -51,6 +51,9 @@
       "tags": [],
       "implicitDependencies": ["audiophile-feature"]
     },
+    "audiophile-shared": {
+      "tags": []
+    },
     "audiophile-ui": {
       "tags": []
     },

@@ -31,15 +31,6 @@ const StyledCartModal = styled.div`
   & > * + * {
     margin-top: 2rem;
   }
-  --dark-orange: hsl(22, 65%, 57%);
-  --primary-color: hsl(21, 94%, 60%);
-  --secondary-color: hsl(0, 0%, 0%);
-  --light-black: hsl(0, 0%, 6%);
-  --white: hsl(255, 255%, 255%);
-  --light-grey: hsl(0, 0%, 95%);
-  --light-gray: var(--light-grey);
-  --lighter-grey: hsl(0, 0%, 98%);
-  --lighter-gray: var(--lighter-grey);
 `;
 const RemoveAllButton = styled.button`
   background: none;

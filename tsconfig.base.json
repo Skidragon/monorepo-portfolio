@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@sd/audiophile/feature": ["libs/audiophile/feature/src/index.ts"],
+      "@sd/audiophile/shared": ["libs/audiophile/shared/src/index.ts"],
       "@sd/audiophile/ui": ["libs/audiophile/ui/src/index.ts"],
       "@sd/minimalist-portfolio/feature": [
         "libs/minimalist-portfolio/feature/src/index.ts"

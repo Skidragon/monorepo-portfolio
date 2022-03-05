@@ -1,0 +1,6 @@
+{
+  "/feature": {
+    "target": "http://localhost:4400",
+    "secure": false
+  }
+}
