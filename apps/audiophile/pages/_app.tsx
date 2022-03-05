@@ -100,12 +100,15 @@ select {
   --phone: 23em;
   --tablet: 48em;
   --desktop: 90em;
-  --cyan: #5FB4A2;
-  --dark-blue: #203A4C;
-  --grayish-dark-blue: #33323D;
-  --very-light-gray: #FAFAFA;
-  --light-gray: #EAEAEB;
-  --error-clr: #F43030;
+    --dark-orange: hsl(22, 65%, 57%);
+  --primary-color: hsl(21, 94%, 60%);
+  --secondary-color: hsl(0, 0%, 0%);
+  --light-black: hsl(0, 0%, 6%);
+  --white: hsl(255, 255%, 255%);
+  --light-grey: hsl(0, 0%, 95%);
+  --light-gray: var(--light-grey);
+  --lighter-grey: hsl(0, 0%, 98%);
+  --lighter-gray: var(--lighter-grey);
 }
 html {
   --color-background-page: #F7F8FD;
@@ -164,7 +167,6 @@ button {
 -webkit-box-shadow: 0px 0px 0px 2px rgba(255,157,0,1);
 -moz-box-shadow: 0px 0px 0px 2px rgba(255,157,0,1);
 box-shadow: 0px 0px 0px 2px rgba(255,157,0,1);
-Copy Text
   }
 `;
 function CustomApp({ Component, pageProps }: AppProps) {
