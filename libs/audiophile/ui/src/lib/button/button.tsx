@@ -12,11 +12,14 @@ export interface ButtonProps
   invert?: boolean;
 }
 const StyledButton = styled.button<ButtonProps>`
+  display: inline-block;
   padding: 1em 2em;
   position: relative;
   cursor: pointer;
+  text-align: center;
   transition: all 250ms;
   font-weight: $fw-700;
+  text-transform: uppercase;
   ${(props) => {
     if (props.variant === 'primary') {
       return css`
@@ -64,7 +67,7 @@ const StyledButton = styled.button<ButtonProps>`
       `;
     }
     return css``;
-  }}
+  }};
 `;
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(

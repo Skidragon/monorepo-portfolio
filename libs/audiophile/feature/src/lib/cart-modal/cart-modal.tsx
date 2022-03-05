@@ -82,7 +82,9 @@ const CartFooter = styled.div`
     margin-top: 1rem;
   }
 `;
-
+const CartButton = styled(Button)`
+  width: 100%;
+`;
 const formatPrice = (cents: number) => {
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -134,7 +136,7 @@ export function CartModal({ products = [] }: CartModalProps) {
             <div>Total</div>
             <Price cents={total} />
           </TotalLine>
-          <Button variant="primary">Checkout</Button>
+          <CartButton variant="primary">Checkout</CartButton>
         </CartFooter>
       </StyledCartModal>
     </>
