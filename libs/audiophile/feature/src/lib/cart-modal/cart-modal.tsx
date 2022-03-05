@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Image from 'next/image';
 import React from 'react';
-import { StepperField, Button } from '@sd/audiophile/ui';
+import { StepperField, Button, Price } from '@sd/audiophile/ui';
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 /* eslint-disable-next-line */
 interface Product {
@@ -81,22 +81,7 @@ const CartFooter = styled.div`
 const CartButton = styled(Button)`
   width: 100%;
 `;
-const formatPrice = (cents: number) => {
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  });
-  return formatter.format(cents / 100);
-};
-interface PriceProps
-  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-  cents: number;
-}
-function Price({ cents, ...props }: PriceProps) {
-  return <div {...props}>{formatPrice(cents)}</div>;
-}
+
 export const CartModal = React.forwardRef<HTMLDivElement, CartModalProps>(
   ({ products = [], ...props }: CartModalProps, ref) => {
     const total = products.reduce((acc, currentProduct) => {
@@ -111,7 +96,7 @@ export const CartModal = React.forwardRef<HTMLDivElement, CartModalProps>(
         <CartList>
           {products.map((product) => {
             return (
-              <CartProduct>
+              <CartProduct key={product.name}>
                 <Image
                   src={product.src}
                   height={48}
