@@ -27,7 +27,7 @@ export function SeeProductCard({
       <h2>{name}</h2>
       <p>{description}</p>
       <div>{cents}</div>
-      <Button>Add To Cart</Button>
+      <Button>See Product</Button>
     </StyledSeeProductCard>
   );
 }
