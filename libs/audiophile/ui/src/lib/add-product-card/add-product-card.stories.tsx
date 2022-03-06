@@ -1,13 +1,13 @@
 import { Story, Meta } from '@storybook/react';
-import { SeeProductCard, SeeProductCardProps } from './see-product-card';
+import { AddProductCard, AddProductCardProps } from './add-product-card';
 
 export default {
-  component: SeeProductCard,
-  title: 'SeeProductCard',
+  component: AddProductCard,
+  title: 'AddProductCard',
 } as Meta;
 
-const Template: Story<SeeProductCardProps> = (args) => (
-  <SeeProductCard {...args} />
+const Template: Story<AddProductCardProps> = (args) => (
+  <AddProductCard {...args} />
 );
 
 export const Primary = Template.bind({});
@@ -16,6 +16,5 @@ Primary.args = {
   description:
     'The new XX99 Mark II headphones is the pinnacle of pristine audio. It redefines your premium headphone experience by reproducing the balanced depth and precision of studio-quality sound.',
   cents: 299900,
-  src: '/image-category-page-preview.jpg',
-  href: '#',
+  src: '/test.png',
 };
