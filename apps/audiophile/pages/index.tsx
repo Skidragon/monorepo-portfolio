@@ -11,6 +11,11 @@ const StyledPage = styled.div`
 
 const Hero = styled.section`
   width: 100%;
+  height: 80vh;
+  position: relative;
+`;
+const HeroImage = styled.div`
+  height: 100%;
   position: relative;
 `;
 const HeroContent = styled.div`
@@ -46,13 +51,9 @@ export function Index() {
     <StyledPage>
       <Navbar />
       <Hero>
-        <Image
-          src="/image-hero.jpg"
-          width={1440}
-          height={729}
-          alt=""
-          layout="responsive"
-        />
+        <HeroImage>
+          <Image src="/image-hero.jpg" alt="" layout="fill" objectFit="cover" />
+        </HeroImage>
         <HeroContent>
           <NewProductText>New Product</NewProductText>
           <NewProductNameText>XX99 Mark II Headphone</NewProductNameText>
