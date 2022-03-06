@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { MobileMenu, CartModal } from '@sd/audiophile/feature';
 import { useClickAway } from 'react-use';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ModalBackdrop } from '@sd/audiophile/ui';
 /* eslint-disable-next-line */
 export interface NavbarProps {}
@@ -51,6 +51,13 @@ export function Navbar(props: NavbarProps) {
   useClickAway(cartRef, () => {
     setOpenCart(false);
   });
+  useEffect(() => {
+    if (openMenu || openCart) {
+      document.body.style.overflowY = 'hidden';
+    } else {
+      document.body.style.overflowY = 'auto';
+    }
+  }, [openMenu, openCart]);
   return (
     <>
       {(openMenu || openCart) && <ModalBackdrop />}
