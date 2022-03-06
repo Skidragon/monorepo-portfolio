@@ -5,7 +5,7 @@
   "scripts": {
     "nx": "nx",
     "start:pf": "nx run-many --target=serve --projects=product-feedback,product-feedback-api --parallel=true",
-    "start:ap": "nx run-many --target=serve --projects=audiophile --parallel=true",
+    "start:ap": "nx run-many --target=serve --projects=audiophile,audiophile-api --parallel=true",
     "start:ag": "nx run-many --target=serve --projects=advice-gen --parallel=true",
     "start:mp": "nx run-many --target=serve --projects=minimalist-portfolio --parallel=true",
     "start:toh": "nx run-many --target=serve --projects=tower-of-hanoi --parallel=true",
@@ -43,6 +43,8 @@
     "core-js": "^3.6.5",
     "document-register-element": "1.13.1",
     "downshift": "^6.1.6",
+    "graphql": "^16.3.0",
+    "graphql-request": "^4.0.0",
     "next": "11.0.1",
     "react": "17.0.2",
     "react-dnd": "^14.0.2",
