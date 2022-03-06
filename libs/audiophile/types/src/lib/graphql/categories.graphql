@@ -1,0 +1,25 @@
+query Categories {
+  categories {
+    id
+    name
+    slug
+    image {
+      id
+      url
+    }
+  }
+}
+query GetProductsByCategoryId($id: ID!) {
+  category(where: { id: $id }) {
+    products {
+      id
+      name
+      cents
+      description
+      image {
+        id
+        url
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+overwrite: true
+schema: 'https://api-us-east-1.graphcms.com/v2/ckq2ba4mjc8mf01xd4mw5duj2/master'
+documents: 'libs/audiophile/types/src/lib/graphql/*.graphql'
+generates:
+  libs/audiophile/types/src/lib/graphql/graphql.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-graphql-request'
+      - 'typescript-resolvers'
+  ./graphql.schema.json:
+    plugins:
+      - 'introspection'

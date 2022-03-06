@@ -40,6 +40,10 @@
     "audiophile": {
       "tags": []
     },
+    "audiophile-api": {
+      "tags": [],
+      "implicitDependencies": ["audiophile-types"]
+    },
     "audiophile-e2e": {
       "tags": [],
       "implicitDependencies": ["audiophile"]
@@ -47,8 +51,22 @@
     "audiophile-feature": {
       "tags": []
     },
+    "audiophile-feature-e2e": {
+      "tags": [],
+      "implicitDependencies": ["audiophile-feature"]
+    },
+    "audiophile-shared": {
+      "tags": []
+    },
+    "audiophile-types": {
+      "tags": []
+    },
     "audiophile-ui": {
       "tags": []
+    },
+    "audiophile-ui-e2e": {
+      "tags": [],
+      "implicitDependencies": ["audiophile-ui"]
     },
     "minimalist-portfolio": {
       "tags": []

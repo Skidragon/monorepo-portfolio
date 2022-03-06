@@ -1,105 +1,123 @@
-import css from './StepperField.module.scss';
 import styled from 'styled-components';
-export interface StepperFieldProps {
-  step: number;
-  onChange: (step: number) => void;
-  min?: number;
-  max?: number;
-  incrementBy?: number;
-  decrementBy?: number;
-  disabled?: boolean;
-}
-const Stepper = styled.div`
+import { createMachine, assign } from 'xstate';
+import { useMachine } from '@xstate/react';
+/* eslint-disable-next-line */
+type Context = {
+  quantity: number;
+  min: number;
+  max: number;
+};
+export type StepperFieldProps = {
+  [K in keyof Context]?: Context[K];
+};
+type IncreaseEvent = {
+  type: 'INCREASE';
+  quantity: number;
+};
+type DecreaseEvent = {
+  type: 'DECREASE';
+  quantity: number;
+};
+
+type Event = IncreaseEvent | DecreaseEvent;
+
+const initialContext: Context = {
+  quantity: 0,
+  min: 0,
+  max: 50,
+};
+const machine = createMachine<Context, Event>({
+  initial: 'idle',
+  context: initialContext,
+  states: {
+    idle: {
+      on: {
+        INCREASE: {
+          cond: (ctx) => Boolean(ctx.quantity < ctx.max),
+          actions: assign<Context, IncreaseEvent>({
+            quantity: (ctx) => ctx.quantity + 1,
+          }),
+        },
+        DECREASE: {
+          cond: (ctx) =>
+            ctx.min
+              ? Boolean(ctx.quantity > ctx.min)
+              : Boolean(ctx.quantity > 0),
+          actions: assign<Context, DecreaseEvent>({
+            quantity: (ctx) => ctx.quantity - 1,
+          }),
+        },
+      },
+    },
+  },
+});
+const StyledStepperField = styled.div`
   display: inline-grid;
-  grid-template-columns: repeat(3, 1fr);
-  & > * {
-    border: 2px solid transparent;
-    background: var(--light-gray, lightgrey);
-    width: 4rem;
-    height: 4rem;
-    outline: none;
-    &:focus {
-      border: 2px solid var(--primary-color);
-    }
-  }
+  grid-template-columns: 1fr 1fr 1fr;
+  background: #f2f2f2;
+  max-width: 10rem;
 `;
 const Button = styled.button`
-  color: grey;
+  all: unset;
+  text-align: center;
+  padding: 0.2em;
+  cursor: pointer;
   &:hover,
-  &:active {
-    color: var(--dark-orange, orange);
-    font-weight: 700;
+  &:focus {
+    color: orange;
+    -webkit-box-shadow: 0px 0px 0px 2px rgba(255, 157, 0, 1);
+    -moz-box-shadow: 0px 0px 0px 2px rgba(255, 157, 0, 1);
+    box-shadow: 0px 0px 0px 2px rgba(255, 157, 0, 1);
   }
 `;
 const Input = styled.input`
-  color: var(--secondary-color, black);
+  box-sizing: border-box; /* border, within the width of the element */
+  display: block;
+  margin: 0;
+  width: 100%;
+  border: none;
   text-align: center;
-  &:hover,
-  &:focus-within {
-    font-weight: 700;
-  }
+  background: none;
+  font-weight: 900;
 `;
-export const StepperField: React.FC<StepperFieldProps> = ({
-  min = 1,
-  max = 10,
-  step = 1,
-  onChange,
-  incrementBy = 1,
-  decrementBy = 1,
-  disabled = false,
-}) => {
-  const increment = () => {
-    if (step + incrementBy > max) return;
-    onChange(step + incrementBy);
-  };
-  const decrement = () => {
-    if (step - decrementBy < min) return;
-
-    onChange(step - decrementBy);
-  };
+export function StepperField({
+  quantity = 0,
+  min = 0,
+  max = 50,
+}: StepperFieldProps) {
+  const [state, send] = useMachine(
+    machine.withContext({
+      quantity,
+      min,
+      max,
+    })
+  );
+  const { context } = state;
   return (
-    <Stepper className={css['stepper']}>
+    <StyledStepperField>
       <Button
-        disabled={disabled}
-        onMouseDown={() => {
-          decrement();
-        }}
-        type={'button'}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            decrement();
-          }
-        }}
+        onClick={() =>
+          send({
+            type: 'DECREASE',
+            quantity: 1,
+          })
+        }
       >
         -
       </Button>
-      <Input
-        disabled={true}
-        type={'text'}
-        value={step}
-        onChange={(e) => {
-          if (/[^\d]/.test(e.target.value)) {
-            return;
-          }
-          const value = Number(e.target.value);
-          if (value < min || value > max) return;
-          onChange(value);
-        }}
-      />
+      <Input type="text" disabled={true} value={context.quantity} />
       <Button
-        disabled={disabled}
-        onMouseDown={() => {
-          increment();
-        }}
-        type={'button'}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            increment();
-          }
-        }}
+        onClick={() =>
+          send({
+            type: 'INCREASE',
+            quantity: 1,
+          })
+        }
       >
         +
       </Button>
-    </Stepper>
+    </StyledStepperField>
   );
-};
+}
+
+export default StepperField;

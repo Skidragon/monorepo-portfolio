@@ -1,0 +1,33 @@
+query ProductItemsById($id: ID!) {
+  product(where: { id: $id }) {
+    name
+    description
+    description_long
+    id
+    slug
+    cents
+    image {
+      id
+      url
+    }
+    productItems {
+      quantity
+      item {
+        name
+      }
+    }
+  }
+}
+query Products {
+  products {
+    description
+    cents
+    id
+    name
+    slug
+    image {
+      id
+      url
+    }
+  }
+}
