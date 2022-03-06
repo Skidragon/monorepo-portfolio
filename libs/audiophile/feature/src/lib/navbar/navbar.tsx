@@ -31,6 +31,14 @@ const Hamburger = styled.button``;
 
 const Logo = styled.div``;
 const Cart = styled.button``;
+const PositionCartModal = styled(CartModal)`
+  bottom: 0;
+  right: 0;
+  transform: translate(0%, 110%);
+  @media screen and (min-width: 40em) {
+    transform: translate(-10%, 110%);
+  }
+`;
 export function Navbar(props: NavbarProps) {
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -81,15 +89,7 @@ export function Navbar(props: NavbarProps) {
               />
             </svg>
           </Cart>
-          <CartModal
-            open={openCart}
-            style={{
-              bottom: 0,
-              right: 0,
-              transform: 'translate(-10%,110%)',
-            }}
-            products={[]}
-          />
+          <PositionCartModal open={openCart} products={[]} />
         </div>
       </StyledNavbar>
     </>
