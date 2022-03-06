@@ -1,6 +1,6 @@
 {
-  "/feature": {
-    "target": "http://localhost:4400",
+  "/api": {
+    "target": "http://localhost:3333",
     "secure": false
   }
 }
