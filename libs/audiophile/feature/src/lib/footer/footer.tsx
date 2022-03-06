@@ -1,5 +1,6 @@
 import { CategoriesQuery } from '@sd/audiophile/types';
 import { Logo } from '@sd/audiophile/ui';
+import Link from 'next/link';
 import styled from 'styled-components';
 
 /* eslint-disable-next-line */
@@ -142,9 +143,9 @@ export function Footer(props: FooterProps) {
         {props.categories.map((category) => {
           return (
             <CategoryItem key={category.id}>
-              <CategoryLink href={`/${category.slug}`}>
-                {category.name}
-              </CategoryLink>
+              <Link href={`/${category.slug}`}>
+                <CategoryLink>{category.name}</CategoryLink>
+              </Link>
             </CategoryItem>
           );
         })}
