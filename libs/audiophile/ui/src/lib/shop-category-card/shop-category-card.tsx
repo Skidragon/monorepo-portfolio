@@ -51,7 +51,7 @@ const ShopButton = styled.a`
   }
   &:hover,
   &:focus {
-    color: black;
+    color: orange;
     &::after {
       content: '>>';
       margin-left: 0.5rem;
