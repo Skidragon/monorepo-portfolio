@@ -1,4 +1,4 @@
-import { Button } from '@sd/audiophile/ui';
+import { LinkButton } from '@sd/audiophile/ui';
 import styled from 'styled-components';
 import Image from 'next/image';
 
@@ -64,7 +64,7 @@ export function SeeProductCard({
         {isNew && <div>New Product</div>}
         <h2>{name}</h2>
         <Description>{description}</Description>
-        <Button>See Product</Button>
+        <LinkButton href={href}>See Product</LinkButton>
       </Content>
     </StyledSeeProductCard>
   );
