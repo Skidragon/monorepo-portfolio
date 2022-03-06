@@ -30,7 +30,21 @@ const StyledNavbar = styled.nav`
 const Hamburger = styled.button``;
 
 const Logo = styled.div``;
-const Cart = styled.button``;
+const Cart = styled.button`
+  position: relative;
+`;
+const CartCount = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  transform: translate(15%, -100%);
+  padding: 0.08em 0.4em;
+  border-radius: 50%;
+  background: orange;
+  color: white;
+`;
 const PositionCartModal = styled(CartModal)`
   bottom: 0;
   right: 0;
@@ -95,6 +109,7 @@ export function Navbar(props: NavbarProps) {
                 fillRule="nonzero"
               />
             </svg>
+            <CartCount>5</CartCount>
           </Cart>
           <PositionCartModal open={openCart} products={[]} />
         </div>
