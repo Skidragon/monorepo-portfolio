@@ -4,3 +4,4 @@ export * from './lib/button/button';
 export * from './lib/modal-backdrop/modal-backdrop';
 export * from './lib/price/price';
 export * from './lib/logo/logo';
+export * from './lib/link-button/link-button';
