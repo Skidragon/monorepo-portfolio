@@ -40,6 +40,9 @@
     "audiophile": {
       "tags": []
     },
+    "audiophile-api": {
+      "tags": []
+    },
     "audiophile-e2e": {
       "tags": [],
       "implicitDependencies": ["audiophile"]
