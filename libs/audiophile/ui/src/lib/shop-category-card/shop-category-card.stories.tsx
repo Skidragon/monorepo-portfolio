@@ -11,4 +11,7 @@ const Template: Story<ShopCategoryCardProps> = (args) => (
 );
 
 export const Primary = Template.bind({});
-Primary.args = {};
+Primary.args = {
+  src: '/test.png',
+  category: 'speakers',
+};
