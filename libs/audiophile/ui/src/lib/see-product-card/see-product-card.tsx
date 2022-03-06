@@ -27,6 +27,7 @@ const StyledSeeProductCard = styled.div`
   }
 `;
 const ProductImage = styled.div`
+  position: relative;
   width: 100%;
   height: 25rem;
   background: lightgrey;
