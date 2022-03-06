@@ -19,6 +19,7 @@ const HeroContent = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
+  max-width: 50ch;
   & > * + * {
     margin-top: 1.5rem;
   }
