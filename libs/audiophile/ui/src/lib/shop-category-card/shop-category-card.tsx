@@ -37,10 +37,14 @@ const StyledShopCategoryCard = styled.div`
     z-index: -1;
   }
 `;
+
 const Content = styled.div`
   display: flex;
   flex-flow: column;
   align-items: center;
+`;
+const CategoryText = styled.h3`
+  text-transform: capitalize;
 `;
 const ShopButton = styled.a`
   color: grey;
@@ -59,12 +63,13 @@ const ShopButton = styled.a`
     }
   }
 `;
+
 export function ShopCategoryCard(props: ShopCategoryCardProps) {
   return (
     <StyledShopCategoryCard>
       <Image width={100} height={100} src={props.src} alt="" />
       <Content>
-        <h3>{props.category}</h3>
+        <CategoryText>{props.category}</CategoryText>
         <Link href={`/${props.category}`} passHref>
           <ShopButton>Shop</ShopButton>
         </Link>
