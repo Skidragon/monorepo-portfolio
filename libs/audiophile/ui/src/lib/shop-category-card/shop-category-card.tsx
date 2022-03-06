@@ -2,11 +2,11 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
 /* eslint-disable-next-line */
-interface Category {
+
+export interface ShopCategoryCardProps {
   category: string;
   src: string;
 }
-export interface ShopCategoryCardProps extends Category {}
 
 const StyledShopCategoryCard = styled.div`
   display: flex;
