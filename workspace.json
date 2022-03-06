@@ -305,6 +305,27 @@
         }
       }
     },
+    "audiophile-types": {
+      "root": "libs/audiophile/types",
+      "sourceRoot": "libs/audiophile/types/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/audiophile/types/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/audiophile/types"],
+          "options": {
+            "jestConfig": "libs/audiophile/types/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "audiophile-ui": {
       "root": "libs/audiophile/ui",
       "sourceRoot": "libs/audiophile/ui/src",

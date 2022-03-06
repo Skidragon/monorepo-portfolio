@@ -41,7 +41,8 @@
       "tags": []
     },
     "audiophile-api": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["audiophile-types"]
     },
     "audiophile-e2e": {
       "tags": [],
@@ -55,6 +56,9 @@
       "implicitDependencies": ["audiophile-feature"]
     },
     "audiophile-shared": {
+      "tags": []
+    },
+    "audiophile-types": {
       "tags": []
     },
     "audiophile-ui": {
