@@ -28,13 +28,13 @@ const StyledShopCategoryCard = styled.div`
   }
   &::after {
     content: '';
-    top: 0;
     bottom: 0;
     width: 100%;
-
+    height: 70%;
     background: #f2f2f2;
     position: absolute;
     z-index: -1;
+    border-radius: 1rem;
   }
 `;
 
