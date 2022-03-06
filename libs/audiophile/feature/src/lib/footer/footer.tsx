@@ -156,14 +156,7 @@ export function Footer(props: FooterProps) {
         facility - we’re open 7 days a week.
       </AboutAudiophile>
       <Copyright>Copyright 2021. All Rights Reserved</Copyright>
-      <SocialList>
-        <SocialItem>
-          <SocialLink href={'#'}>Home</SocialLink>
-        </SocialItem>
-        <SocialItem>
-          <SocialLink href={'#'}>Headphones</SocialLink>
-        </SocialItem>
-      </SocialList>
+      <SocialList></SocialList>
     </StyledFooter>
   );
 }
