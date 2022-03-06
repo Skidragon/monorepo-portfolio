@@ -2,3 +2,4 @@ export * from './lib/mobile-menu/mobile-menu';
 export * from './lib/navbar/navbar';
 export * from './lib/cart-modal/cart-modal';
 export * from './lib/shop-categories/shop-categories';
+export * from './lib/footer/footer';

@@ -154,6 +154,9 @@ section {
 section + section, footer {
   margin-top: 4em;
 }
+section + footer {
+  margin-top: 4em;
+}
 section > * + * {
   margin-top: 1rem;
 }

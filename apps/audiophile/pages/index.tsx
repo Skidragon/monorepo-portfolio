@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Image from 'next/image';
-import { Navbar, ShopCategories } from '@sd/audiophile/feature';
+import { Footer, Navbar, ShopCategories } from '@sd/audiophile/feature';
 import { Button } from '@sd/audiophile/ui';
 
 const StyledPage = styled.div`
@@ -65,6 +65,7 @@ export function Index() {
       <ShopCategoriesSection>
         <ShopCategories data={[]} />
       </ShopCategoriesSection>
+      <Footer />
     </StyledPage>
   );
 }
