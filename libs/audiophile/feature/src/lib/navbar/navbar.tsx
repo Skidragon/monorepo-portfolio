@@ -45,7 +45,8 @@ const CartCount = styled.div`
   background: orange;
   color: white;
 `;
-const PositionCartModal = styled(CartModal)`
+const PositionCartModal = styled.div`
+  position: absolute;
   bottom: 0;
   right: 0;
   transform: translate(0%, 110%);
@@ -111,7 +112,9 @@ export function Navbar(props: NavbarProps) {
             </svg>
             <CartCount>5</CartCount>
           </Cart>
-          <PositionCartModal open={openCart} products={[]} />
+          <PositionCartModal>
+            <CartModal open={openCart} products={[]} />
+          </PositionCartModal>
         </div>
       </StyledNavbar>
     </>

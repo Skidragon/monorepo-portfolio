@@ -17,7 +17,6 @@ export interface CartModalProps
 
 const StyledCartModal = styled.div<Pick<CartModalProps, 'open'>>`
   display: ${(props) => (props.open ? 'inline-block' : 'none')};
-  position: absolute;
   z-index: 1001;
   background: white;
   border-radius: 1rem;
