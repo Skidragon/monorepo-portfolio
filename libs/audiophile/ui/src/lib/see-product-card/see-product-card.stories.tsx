@@ -16,6 +16,7 @@ Primary.args = {
   description:
     'The new XX99 Mark II headphones is the pinnacle of pristine audio. It redefines your premium headphone experience by reproducing the balanced depth and precision of studio-quality sound.',
   cents: 299900,
-  src: '/test.png',
+  src: '/image-category-page-preview.jpg',
+
   href: '#',
 };
