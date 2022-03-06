@@ -1,13 +1,11 @@
 import styled from 'styled-components';
 import { ShopCategoryCard } from '@sd/audiophile/ui';
+import { CategoriesQuery } from '@sd/audiophile/types';
 
 /* eslint-disable-next-line */
-interface Category {
-  category: string;
-  src: string;
-}
+
 export interface ShopCategoriesProps {
-  data: Category[];
+  data: CategoriesQuery['categories'];
 }
 
 const StyledShopCategories = styled.div``;
@@ -26,15 +24,16 @@ export function ShopCategories(props: ShopCategoriesProps) {
   return (
     <StyledShopCategories>
       <MenuList>
-        <MenuItem>
-          <ShopCategoryCard category="Speakers" src="/test.png" />
-        </MenuItem>
-        <MenuItem>
-          <ShopCategoryCard category="Headphones" src="/test.png" />
-        </MenuItem>
-        <MenuItem>
-          <ShopCategoryCard category="Earphones" src="/test.png" />
-        </MenuItem>
+        {props.data.map((category) => {
+          return (
+            <MenuItem key={category.id}>
+              <ShopCategoryCard
+                category={category.name}
+                src={category.image.url}
+              />
+            </MenuItem>
+          );
+        })}
       </MenuList>
     </StyledShopCategories>
   );
