@@ -75,9 +75,11 @@ export function Index(props: CategoriesQuery) {
           <Button>See Product</Button>
         </HeroContent>
       </Hero>
-      <ShopCategoriesSection>
-        <ShopCategories data={props.categories} />
-      </ShopCategoriesSection>
+      <main>
+        <ShopCategoriesSection>
+          <ShopCategories data={props.categories} />
+        </ShopCategoriesSection>
+      </main>
       <Footer categories={props.categories} />
     </StyledPage>
   );

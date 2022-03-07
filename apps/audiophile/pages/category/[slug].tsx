@@ -60,20 +60,22 @@ export function ProductsByCategory(props: ProductsByCategoryProps) {
     <StyledCategory>
       <Navbar categories={props.categories} />
       <Banner>{props.categoryName}</Banner>
-      <SeeProductsSection>
-        {props.products.map((product, i) => {
-          return (
-            <SeeProductCard
-              key={product.id}
-              name={product.name}
-              description={product.description}
-              src={product.image.url}
-              href={`/product/${product.slug}`}
-              reverse={i % 2 === 0}
-            />
-          );
-        })}
-      </SeeProductsSection>
+      <main>
+        <SeeProductsSection>
+          {props.products.map((product, i) => {
+            return (
+              <SeeProductCard
+                key={product.id}
+                name={product.name}
+                description={product.description}
+                src={product.image.url}
+                href={`/product/${product.id}`}
+                reverse={i % 2 === 0}
+              />
+            );
+          })}
+        </SeeProductsSection>
+      </main>
       <Footer categories={props.categories} />
     </StyledCategory>
   );

@@ -42,7 +42,6 @@ body {
   line-height: 1.3;
   font-family: sans-serif;
   margin: 0;
-
 }
 
 /* A elements that don't have a class get default styles */
@@ -150,6 +149,14 @@ a {
   text-transform: uppercase;
 }
 section {
+}
+main {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+main > section {
+  max-width: 120ch;
 }
 section + section, footer {
   margin-top: 4em;

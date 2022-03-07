@@ -1,7 +1,8 @@
 import {
   CategoriesQuery,
   GetProductsByCategoryIdQuery,
-  ProductItemsByIdQuery,
+  ProductByIdQuery,
+  ProductsQuery,
   ProductsByCategorySlugQuery,
   getSdk,
 } from '@sd/audiophile/types';
@@ -20,9 +21,21 @@ export class AppController {
   getData() {
     return this.appService.getData();
   }
+
   @Get('/categories')
   async getCategories(): Promise<CategoriesQuery> {
     return await sdk.Categories();
+  }
+  @Get('/products')
+  async getProducts(): Promise<ProductsQuery> {
+    return await sdk.Products();
+  }
+  @Get('/product/id/:id')
+  async getProductById(@Param('id') id: string): Promise<ProductByIdQuery> {
+    const data = await sdk.ProductById({
+      id,
+    });
+    return data;
   }
   @Get('products/category/id/:id')
   async getProductsByCategoryId(
@@ -41,15 +54,6 @@ export class AppController {
   ): Promise<ProductsByCategorySlugQuery> {
     const data = await sdk.ProductsByCategorySlug({ slug });
     console.log(data);
-    return data;
-  }
-  @Get('/product-items/:id')
-  async getProductItemsById(
-    @Param('id') id: string
-  ): Promise<ProductItemsByIdQuery> {
-    const data = await sdk.ProductItemsById({
-      id,
-    });
     return data;
   }
 }

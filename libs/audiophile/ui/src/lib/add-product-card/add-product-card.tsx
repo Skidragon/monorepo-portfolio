@@ -63,7 +63,7 @@ export function AddProductCard({
   return (
     <StyledAddProductCard>
       <ProductImage>
-        <Image src={src} alt="" layout="fill" />
+        <Image src={src} alt="" layout="fill" objectFit="cover" />
       </ProductImage>
       <Content>
         {isNew && <div>New Product</div>}

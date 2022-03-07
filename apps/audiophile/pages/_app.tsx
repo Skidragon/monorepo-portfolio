@@ -1,6 +1,9 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { GlobalStyle } from '@sd/audiophile/shared';
+import { CategoriesQuery } from '@sd/audiophile/types';
+import axios from 'axios';
+
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
     <>
@@ -10,9 +13,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
       <GlobalStyle />
       <div className="app">
         <header className="flex"></header>
-        <main>
-          <Component {...pageProps} />
-        </main>
+        <Component {...pageProps} />
       </div>
     </>
   );
