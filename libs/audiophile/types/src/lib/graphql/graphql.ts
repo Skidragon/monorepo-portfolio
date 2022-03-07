@@ -10672,6 +10672,13 @@ export type ProductItemsByIdQueryVariables = Exact<{
 
 export type ProductItemsByIdQuery = { __typename?: 'Query', product?: { __typename?: 'Product', name: string, description: string, description_long: string, id: string, slug: string, cents: number, image: { __typename?: 'Asset', id: string, url: string }, productItems: Array<{ __typename?: 'ProductItem', quantity: number, item?: { __typename?: 'Item', name: string } | null }> } | null };
 
+export type ProductsByCategorySlugQueryVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+
+export type ProductsByCategorySlugQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', name: string, id: string, products: Array<{ __typename?: 'Product', description: string, cents: number, id: string, name: string, slug: string, image: { __typename?: 'Asset', id: string, url: string } }> }> };
+
 export type ProductsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -10729,6 +10736,25 @@ export const ProductItemsByIdDocument = gql`
   }
 }
     `;
+export const ProductsByCategorySlugDocument = gql`
+    query ProductsByCategorySlug($slug: String!) {
+  categories(where: {slug: $slug}) {
+    name
+    id
+    products {
+      description
+      cents
+      id
+      name
+      slug
+      image {
+        id
+        url
+      }
+    }
+  }
+}
+    `;
 export const ProductsDocument = gql`
     query Products {
   products {
@@ -10760,6 +10786,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     ProductItemsById(variables: ProductItemsByIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ProductItemsByIdQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<ProductItemsByIdQuery>(ProductItemsByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'ProductItemsById');
+    },
+    ProductsByCategorySlug(variables: ProductsByCategorySlugQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ProductsByCategorySlugQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<ProductsByCategorySlugQuery>(ProductsByCategorySlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'ProductsByCategorySlug');
     },
     Products(variables?: ProductsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ProductsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<ProductsQuery>(ProductsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Products');

@@ -28,8 +28,9 @@ export function ShopCategories(props: ShopCategoriesProps) {
           return (
             <MenuItem key={category.id}>
               <ShopCategoryCard
-                category={category.name}
+                name={category.name}
                 src={category.image.url}
+                slug={category.slug}
               />
             </MenuItem>
           );

@@ -3,10 +3,11 @@ import { MobileMenu, CartModal } from '@sd/audiophile/feature';
 import { useClickAway } from 'react-use';
 import { useEffect, useRef, useState } from 'react';
 import { ModalBackdrop } from '@sd/audiophile/ui';
-import { CategoriesQuery } from '@sd/audiophile/types';
+import { CategoriesQuery, Category } from '@sd/audiophile/types';
+import { MobileMenuProps } from '../mobile-menu/mobile-menu';
 /* eslint-disable-next-line */
 export interface NavbarProps {
-  categories: CategoriesQuery['categories'];
+  categories: MobileMenuProps['categories'];
 }
 const InvisiblePadding = styled.div`
   padding: 2em;
@@ -93,7 +94,7 @@ export function Navbar(props: NavbarProps) {
               </g>
             </svg>
           </Hamburger>
-          <MobileMenu open={openMenu} categories={props.categories} />
+          <MobileMenu open={openMenu} categories={props.categories || []} />
         </div>
         <Logo>
           <svg width="143" height="25" xmlns="http://www.w3.org/2000/svg">

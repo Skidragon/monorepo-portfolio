@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Category } from '@sd/audiophile/types';
 /* eslint-disable-next-line */
 
 export interface ShopCategoryCardProps {
-  category: string;
+  name: string;
   src: string;
+  slug: string;
 }
 
 const StyledShopCategoryCard = styled.div`
@@ -69,8 +71,8 @@ export function ShopCategoryCard(props: ShopCategoryCardProps) {
     <StyledShopCategoryCard>
       <Image width={100} height={100} src={props.src} alt="" />
       <Content>
-        <CategoryText>{props.category}</CategoryText>
-        <Link href={`/${props.category}`} passHref>
+        <CategoryText>{props.name}</CategoryText>
+        <Link href={`/category/${props.slug}`} passHref>
           <ShopButton>Shop</ShopButton>
         </Link>
       </Content>

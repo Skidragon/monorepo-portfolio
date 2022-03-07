@@ -5,3 +5,5 @@ export * from './lib/modal-backdrop/modal-backdrop';
 export * from './lib/price/price';
 export * from './lib/logo/logo';
 export * from './lib/link-button/link-button';
+export * from './lib/see-product-card/see-product-card';
+export * from './lib/banner/banner';

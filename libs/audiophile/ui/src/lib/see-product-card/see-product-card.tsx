@@ -6,10 +6,10 @@ import Image from 'next/image';
 export interface SeeProductCardProps {
   name: string;
   description: string;
-  cents: number;
   isNew?: boolean;
   src: string;
   href: string;
+  reverse: boolean;
 }
 
 const StyledSeeProductCard = styled.div`
@@ -30,13 +30,14 @@ const ProductImage = styled.div`
   position: relative;
   width: 100%;
   height: 25rem;
-  background: lightgrey;
 `;
-const Content = styled.div`
+const Content = styled.div<Pick<SeeProductCardProps, 'reverse'>>`
   display: flex;
+  order: ${(props) => (props.reverse ? 1 : -1)};
   flex-flow: column;
   align-items: center;
   text-align: center;
+  max-width: 60ch;
   & > * + * {
     margin-top: var(--flow, 1.5rem);
   }
@@ -50,17 +51,17 @@ const Description = styled.p``;
 export function SeeProductCard({
   name,
   description,
-  cents,
   isNew,
   src,
   href,
+  reverse = false,
 }: SeeProductCardProps) {
   return (
     <StyledSeeProductCard>
       <ProductImage>
-        <Image src={src} layout={'fill'} objectFit={'contain'} />
+        <Image src={src} layout={'fill'} objectFit={'cover'} />
       </ProductImage>
-      <Content>
+      <Content reverse={reverse}>
         {isNew && <div>New Product</div>}
         <h2>{name}</h2>
         <Description>{description}</Description>

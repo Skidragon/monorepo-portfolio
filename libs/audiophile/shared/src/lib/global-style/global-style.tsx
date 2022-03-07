@@ -158,7 +158,7 @@ section + footer {
   margin-top: 4em;
 }
 section > * + * {
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 ul {
   list-style: none;

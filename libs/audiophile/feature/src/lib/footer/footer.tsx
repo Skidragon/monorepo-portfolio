@@ -143,7 +143,7 @@ export function Footer(props: FooterProps) {
         {props.categories.map((category) => {
           return (
             <CategoryItem key={category.id}>
-              <Link href={`/${category.slug}`}>
+              <Link href={`/category/${category.slug}`}>
                 <CategoryLink>{category.name}</CategoryLink>
               </Link>
             </CategoryItem>

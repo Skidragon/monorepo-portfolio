@@ -2,6 +2,7 @@ import {
   CategoriesQuery,
   GetProductsByCategoryIdQuery,
   ProductItemsByIdQuery,
+  ProductsByCategorySlugQuery,
   getSdk,
 } from '@sd/audiophile/types';
 import { Controller, Get, Param } from '@nestjs/common';
@@ -23,22 +24,32 @@ export class AppController {
   async getCategories(): Promise<CategoriesQuery> {
     return await sdk.Categories();
   }
-  @Get('/category/:id')
+  @Get('products/category/id/:id')
   async getProductsByCategoryId(
     @Param('id') id: string
-  ): Promise<GetProductsByCategoryIdQuery['category']['products']> {
-    const { category } = await sdk.GetProductsByCategoryId({
+  ): Promise<GetProductsByCategoryIdQuery> {
+    console.log('testingtestingtestingtestingtestingtestingtesting');
+
+    const data = await sdk.GetProductsByCategoryId({
       id,
     });
-    return category.products;
+    return data;
   }
-  @Get('/product/items/:id')
+  @Get('/products/category/slug/:slug')
+  async getProductsByCategorySlug(
+    @Param('slug') slug: string
+  ): Promise<ProductsByCategorySlugQuery> {
+    const data = await sdk.ProductsByCategorySlug({ slug });
+    console.log(data);
+    return data;
+  }
+  @Get('/product-items/:id')
   async getProductItemsById(
     @Param('id') id: string
-  ): Promise<ProductItemsByIdQuery['product']> {
-    const { product } = await sdk.ProductItemsById({
+  ): Promise<ProductItemsByIdQuery> {
+    const data = await sdk.ProductItemsById({
       id,
     });
-    return product;
+    return data;
   }
 }

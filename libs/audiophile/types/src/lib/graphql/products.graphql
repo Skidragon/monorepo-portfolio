@@ -18,6 +18,24 @@ query ProductItemsById($id: ID!) {
     }
   }
 }
+query ProductsByCategorySlug($slug: String!) {
+  categories(where: { slug: $slug }) {
+    name
+    id
+    products {
+      description
+      cents
+      id
+      name
+      slug
+      image {
+        id
+        url
+      }
+    }
+  }
+}
+
 query Products {
   products {
     description
