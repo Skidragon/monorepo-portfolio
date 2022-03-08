@@ -8,7 +8,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Welcome to audiophile!</title>
+        <title>Audiophile</title>
       </Head>
       <GlobalStyle />
       <div className="app">
