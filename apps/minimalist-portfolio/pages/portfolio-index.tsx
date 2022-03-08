@@ -38,7 +38,7 @@ const projects: Project[] = [
             between GraphCMS and the client. Graphql Codegen to generate types
             and create code to make api calls. NX, Next.js, and Styled
             Components to build components and pages.`,
-    projectHref: 'https://compassionate-montalcini-3c106c.netlify.app/',
+    projectHref: 'https://sd-audiophile.netlify.app/',
   },
 ];
 export function PortfolioIndex(props: PortfolioIndexProps) {
