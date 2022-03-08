@@ -3,16 +3,14 @@ import Image from 'next/image';
 import React from 'react';
 import { StepperField, Button, Price } from '@sd/audiophile/ui';
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
+import { Item, useCart } from 'react-use-cart';
 /* eslint-disable-next-line */
-interface Product {
-  name: string;
-  price: number;
-  src: string;
-}
+
 export interface CartModalProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-  products: Product[];
+  products: Item[];
   open: boolean;
+  onRemoveAll: () => void;
 }
 
 const StyledCartModal = styled.div<Pick<CartModalProps, 'open'>>`
@@ -22,7 +20,7 @@ const StyledCartModal = styled.div<Pick<CartModalProps, 'open'>>`
   border-radius: 1rem;
   padding: 2em;
   width: 100%;
-  max-width: 50ch;
+  max-width: 150ch;
   & > * + * {
     margin-top: 2rem;
   }
@@ -82,22 +80,28 @@ const CartButton = styled(Button)`
 `;
 
 export const CartModal = React.forwardRef<HTMLDivElement, CartModalProps>(
-  ({ products = [], ...props }: CartModalProps, ref) => {
+  ({ onRemoveAll, ...props }: CartModalProps, ref) => {
+    const {
+      removeItem,
+      totalItems,
+      items: products,
+      updateItemQuantity,
+    } = useCart();
     const total = products.reduce((acc, currentProduct) => {
-      return acc + currentProduct.price;
+      return acc + currentProduct.price * (currentProduct?.quantity || 1);
     }, 0);
     return (
       <StyledCartModal {...props} ref={ref}>
         <CartHeader>
-          <h3>Cart ({products.length})</h3>
-          <RemoveAllButton>Remove All</RemoveAllButton>
+          <h3>Cart ({totalItems})</h3>
+          <RemoveAllButton onClick={onRemoveAll}>Remove All</RemoveAllButton>
         </CartHeader>
         <CartList>
           {products.map((product) => {
             return (
-              <CartProduct key={product.name}>
+              <CartProduct key={`${product.name}`}>
                 <Image
-                  src={product.src}
+                  src={product.image.url}
                   height={48}
                   width={48}
                   layout="fixed"
@@ -106,7 +110,19 @@ export const CartModal = React.forwardRef<HTMLDivElement, CartModalProps>(
                   <Name>{product.name}</Name>
                   <Price cents={product.price} />
                 </ProductInfo>
-                <StepperField />
+                <StepperField
+                  quantity={product.quantity}
+                  onIncrease={(ctx) => {
+                    updateItemQuantity(product.id, ctx.quantity);
+                  }}
+                  onDecrease={(ctx) => {
+                    if (product.quantity === 0) {
+                      removeItem(product.id);
+                    } else {
+                      updateItemQuantity(product.id, ctx.quantity);
+                    }
+                  }}
+                />
               </CartProduct>
             );
           })}
@@ -116,10 +132,7 @@ export const CartModal = React.forwardRef<HTMLDivElement, CartModalProps>(
             <div>Total</div>
             <Price cents={total} />
           </TotalLine>
-          <CartButton
-            variant="primary"
-            disabled={Boolean(products.length === 0)}
-          >
+          <CartButton variant="primary" disabled={Boolean(totalItems === 0)}>
             Checkout
           </CartButton>
         </CartFooter>

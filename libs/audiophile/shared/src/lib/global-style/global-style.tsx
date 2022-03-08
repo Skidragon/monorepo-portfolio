@@ -102,6 +102,7 @@ select {
   --modal-backdrop-z-index: 500;
   --navbar-z-index: 1000;
   --shop-categories-menu-z-index: 1001;
+  --error: #ff1900;
   --dark-orange: hsl(22, 65%, 57%);
   --primary-color: hsl(21, 94%, 60%);
   --secondary-color: hsl(0, 0%, 0%);
@@ -154,6 +155,7 @@ main {
   display: flex;
   flex-flow: column;
   align-items: center;
+  padding: 1rem;
 }
 main > section {
   max-width: 120ch;

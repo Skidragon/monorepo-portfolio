@@ -1,8 +1,8 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { GlobalStyle } from '@sd/audiophile/shared';
-import { CategoriesQuery } from '@sd/audiophile/types';
-import axios from 'axios';
+
+import { CartProvider } from 'react-use-cart';
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
@@ -13,7 +13,9 @@ function CustomApp({ Component, pageProps }: AppProps) {
       <GlobalStyle />
       <div className="app">
         <header className="flex"></header>
-        <Component {...pageProps} />
+        <CartProvider>
+          <Component {...pageProps} />
+        </CartProvider>
       </div>
     </>
   );
