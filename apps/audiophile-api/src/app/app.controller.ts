@@ -41,7 +41,6 @@ export class AppController {
   async getProductsByCategoryId(
     @Param('id') id: string
   ): Promise<GetProductsByCategoryIdQuery> {
-    console.log('testingtestingtestingtestingtestingtestingtesting');
 
     const data = await sdk.GetProductsByCategoryId({
       id,
