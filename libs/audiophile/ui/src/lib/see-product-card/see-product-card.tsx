@@ -33,7 +33,6 @@ const ProductImage = styled.div`
 `;
 const Content = styled.div<Pick<SeeProductCardProps, 'reverse'>>`
   display: flex;
-  order: ${(props) => (props.reverse ? 1 : -1)};
   flex-flow: column;
   align-items: center;
   text-align: center;
@@ -42,6 +41,7 @@ const Content = styled.div<Pick<SeeProductCardProps, 'reverse'>>`
     margin-top: var(--flow, 1.5rem);
   }
   @media screen and (min-width: 70em) {
+    order: ${(props) => (props.reverse ? 1 : -1)};
     align-items: flex-start;
     text-align: left;
     justify-content: center;

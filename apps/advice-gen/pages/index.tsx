@@ -28,7 +28,7 @@ const AdviceHeading = styled.h1`
   color: #53ffaa;
   font-size: 1rem;
 `;
-const Advice = styled.p`
+const Advice = styled.blockquote`
   color: #cee3e9;
   font-size: 2rem;
 `;
@@ -119,7 +119,7 @@ export function Index() {
     <StyledPage>
       <Card>
         <AdviceHeading>Advice #{data?.slip?.id || ''}</AdviceHeading>
-        <Advice>“{data?.slip?.advice || ''}”</Advice>
+        <Advice>{data?.slip?.advice || ''}</Advice>
         <DesktopDivider>
           <Image
             src="/pattern-divider-desktop.svg"
