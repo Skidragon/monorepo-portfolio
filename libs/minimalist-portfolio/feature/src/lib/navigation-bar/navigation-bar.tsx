@@ -46,7 +46,7 @@ function ActiveLink({
   };
 
   return (
-    <Link href={href}>
+    <Link href={href} passHref>
       <StyledLink onClick={handleClick} isActive={router.asPath === href}>
         {children}
       </StyledLink>
