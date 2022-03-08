@@ -22,7 +22,8 @@ const StyledButton = styled.button<ButtonProps>`
         text-transform: uppercase;
         padding: 1em;
         cursor: pointer;
-        &:hover {
+        &:hover,
+        &:focus {
           background: #5fb4a2;
           stroke: white;
         }
@@ -31,7 +32,8 @@ const StyledButton = styled.button<ButtonProps>`
       return css`
         border: 2px solid var(--dark-blue);
         padding: 1em;
-        &:hover {
+        &:hover,
+        &:focus {
           color: white;
           background: var(--dark-blue);
         }

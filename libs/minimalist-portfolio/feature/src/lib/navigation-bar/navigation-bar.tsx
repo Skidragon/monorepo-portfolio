@@ -12,6 +12,8 @@ const Header = styled.header`
   display: flex;
   justify-content: space-between;
   padding: 1em;
+  max-width: 80ch;
+  margin: 0 auto;
 `;
 const NavList = styled.ul`
   display: none;
@@ -44,7 +46,7 @@ function ActiveLink({
   };
 
   return (
-    <Link href={href}>
+    <Link href={href} passHref>
       <StyledLink onClick={handleClick} isActive={router.asPath === href}>
         {children}
       </StyledLink>
