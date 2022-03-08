@@ -36,7 +36,6 @@ const NavList = styled.ul`
   display: flex;
   flex-flow: column;
   align-items: center;
-  margin-right: 0;
   & > li + li {
     margin-top: 2rem;
   }
