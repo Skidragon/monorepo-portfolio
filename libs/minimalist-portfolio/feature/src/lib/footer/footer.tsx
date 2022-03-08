@@ -36,13 +36,13 @@ const NavList = styled.ul`
   display: flex;
   flex-flow: column;
   align-items: center;
-  margin-right: auto;
   & > li + li {
     margin-top: 2rem;
   }
   @media screen and (min-width: 40em) {
     flex-flow: row;
     align-items: flex-end;
+    margin-right: auto;
     & > li + li {
       margin-top: 0;
       margin-left: 2rem;
