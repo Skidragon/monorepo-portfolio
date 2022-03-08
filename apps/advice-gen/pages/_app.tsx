@@ -126,8 +126,6 @@ select {
   --desktop: ${media.desktop};
 }
 html {
-  --color-background-page: #F7F8FD;
-  background: var(---color---color-background-page);
 
   body {
     font-family: 'Jost', sans-serif;
@@ -135,7 +133,6 @@ html {
     font-size: .75rem;
 
     line-height: 1.25;
-w
   }
 }
 `;
