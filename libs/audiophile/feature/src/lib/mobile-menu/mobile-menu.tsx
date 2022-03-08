@@ -1,8 +1,10 @@
+import { CategoriesQuery } from '@sd/audiophile/types';
 import styled from 'styled-components';
 import ShopCategories from '../shop-categories/shop-categories';
 
 /* eslint-disable-next-line */
 export interface MobileMenuProps {
+  categories: CategoriesQuery['categories'];
   open: boolean;
 }
 
@@ -30,7 +32,7 @@ const MenuItem = styled.li``;
 export function MobileMenu(props: MobileMenuProps) {
   return (
     <StyledMobileMenu {...props}>
-      <ShopCategories data={[]} />
+      <ShopCategories data={props.categories} />
     </StyledMobileMenu>
   );
 }

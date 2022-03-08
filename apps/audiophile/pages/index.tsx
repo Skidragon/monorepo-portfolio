@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { Footer, Navbar, ShopCategories } from '@sd/audiophile/feature';
 import { Button } from '@sd/audiophile/ui';
-
+import { CategoriesQuery } from '@sd/audiophile/types';
+import axios from 'axios';
 const StyledPage = styled.div`
   .page {
   }
@@ -46,10 +47,20 @@ const ShopCategoriesSection = styled.section`
   flex-flow: column;
   align-items: center;
 `;
-export function Index() {
+export async function getStaticProps() {
+  const { data } = await axios.get<CategoriesQuery>(
+    `${process.env.API_URL}/categories`
+  );
+  return {
+    props: {
+      categories: data.categories,
+    },
+  };
+}
+export function Index(props: CategoriesQuery) {
   return (
     <StyledPage>
-      <Navbar />
+      <Navbar categories={props.categories} />
       <Hero>
         <HeroImage>
           <Image src="/image-hero.jpg" alt="" layout="fill" objectFit="cover" />
@@ -64,10 +75,12 @@ export function Index() {
           <Button>See Product</Button>
         </HeroContent>
       </Hero>
-      <ShopCategoriesSection>
-        <ShopCategories data={[]} />
-      </ShopCategoriesSection>
-      <Footer />
+      <main>
+        <ShopCategoriesSection>
+          <ShopCategories data={props.categories} />
+        </ShopCategoriesSection>
+      </main>
+      <Footer categories={props.categories} />
     </StyledPage>
   );
 }

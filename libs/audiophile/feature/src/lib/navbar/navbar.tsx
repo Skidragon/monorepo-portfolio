@@ -3,8 +3,13 @@ import { MobileMenu, CartModal } from '@sd/audiophile/feature';
 import { useClickAway } from 'react-use';
 import { useEffect, useRef, useState } from 'react';
 import { ModalBackdrop } from '@sd/audiophile/ui';
+import { MobileMenuProps } from '../mobile-menu/mobile-menu';
+import { useCart } from 'react-use-cart';
+import Link from 'next/link';
 /* eslint-disable-next-line */
-export interface NavbarProps {}
+export interface NavbarProps {
+  categories: MobileMenuProps['categories'];
+}
 const InvisiblePadding = styled.div`
   padding: 2em;
   visibility: hidden;
@@ -73,6 +78,7 @@ export function Navbar(props: NavbarProps) {
       document.body.style.overflowY = 'auto';
     }
   }, [openMenu, openCart]);
+  const { items, totalItems, setItems, isEmpty } = useCart();
   return (
     <>
       {(openMenu || openCart) && <ModalBackdrop />}
@@ -90,7 +96,9 @@ export function Navbar(props: NavbarProps) {
               </g>
             </svg>
           </Hamburger>
-          <MobileMenu open={openMenu} />
+          {openMenu && (
+            <MobileMenu open={openMenu} categories={props.categories || []} />
+          )}
         </div>
         <Logo>
           <svg width="143" height="25" xmlns="http://www.w3.org/2000/svg">
@@ -110,11 +118,17 @@ export function Navbar(props: NavbarProps) {
                 fillRule="nonzero"
               />
             </svg>
-            <CartCount>5</CartCount>
+            {!isEmpty ? <CartCount>{totalItems}</CartCount> : null}
           </Cart>
-          <PositionCartModal>
-            <CartModal open={openCart} products={[]} />
-          </PositionCartModal>
+          {openCart && (
+            <PositionCartModal>
+              <CartModal
+                open={openCart}
+                products={items}
+                onRemoveAll={() => setItems([])}
+              />
+            </PositionCartModal>
+          )}
         </div>
       </StyledNavbar>
     </>

@@ -1,4 +1,4 @@
-query ProductItemsById($id: ID!) {
+query ProductById($id: ID!) {
   product(where: { id: $id }) {
     name
     description
@@ -18,16 +18,41 @@ query ProductItemsById($id: ID!) {
     }
   }
 }
+query ProductsByCategorySlug($slug: String!) {
+  categories(where: { slug: $slug }) {
+    name
+    id
+    products {
+      description
+      cents
+      id
+      name
+      slug
+      image {
+        id
+        url
+      }
+    }
+  }
+}
+
 query Products {
   products {
-    description
-    cents
-    id
     name
+    description
+    description_long
+    id
     slug
+    cents
     image {
       id
       url
+    }
+    productItems {
+      quantity
+      item {
+        name
+      }
     }
   }
 }

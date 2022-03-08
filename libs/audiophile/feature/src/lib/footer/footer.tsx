@@ -1,8 +1,12 @@
+import { CategoriesQuery } from '@sd/audiophile/types';
 import { Logo } from '@sd/audiophile/ui';
+import Link from 'next/link';
 import styled from 'styled-components';
 
 /* eslint-disable-next-line */
-export interface FooterProps {}
+export interface FooterProps {
+  categories: CategoriesQuery['categories'];
+}
 
 const devices = {
   tablet: '50em',
@@ -136,18 +140,15 @@ export function Footer(props: FooterProps) {
         <Logo />
       </PositionLogo>
       <CategoryList>
-        <CategoryItem>
-          <CategoryLink href={'#'}>Home</CategoryLink>
-        </CategoryItem>
-        <CategoryItem>
-          <CategoryLink href={'#'}>Headphones</CategoryLink>
-        </CategoryItem>
-        <CategoryItem>
-          <CategoryLink href={'#'}>Speakers</CategoryLink>
-        </CategoryItem>
-        <CategoryItem>
-          <CategoryLink href={'#'}>Earphones</CategoryLink>
-        </CategoryItem>
+        {props.categories.map((category) => {
+          return (
+            <CategoryItem key={category.id}>
+              <Link href={`/category/${category.slug}`}>
+                <CategoryLink>{category.name}</CategoryLink>
+              </Link>
+            </CategoryItem>
+          );
+        })}
       </CategoryList>
       <AboutAudiophile>
         Audiophile is an all in one stop to fulfill your audio needs. We're a

@@ -10665,17 +10665,24 @@ export type GetProductsByCategoryIdQueryVariables = Exact<{
 
 export type GetProductsByCategoryIdQuery = { __typename?: 'Query', category?: { __typename?: 'Category', products: Array<{ __typename?: 'Product', id: string, name: string, cents: number, description: string, image: { __typename?: 'Asset', id: string, url: string } }> } | null };
 
-export type ProductItemsByIdQueryVariables = Exact<{
+export type ProductByIdQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type ProductItemsByIdQuery = { __typename?: 'Query', product?: { __typename?: 'Product', name: string, description: string, description_long: string, id: string, slug: string, cents: number, image: { __typename?: 'Asset', id: string, url: string }, productItems: Array<{ __typename?: 'ProductItem', quantity: number, item?: { __typename?: 'Item', name: string } | null }> } | null };
+export type ProductByIdQuery = { __typename?: 'Query', product?: { __typename?: 'Product', name: string, description: string, description_long: string, id: string, slug: string, cents: number, image: { __typename?: 'Asset', id: string, url: string }, productItems: Array<{ __typename?: 'ProductItem', quantity: number, item?: { __typename?: 'Item', name: string } | null }> } | null };
+
+export type ProductsByCategorySlugQueryVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+
+export type ProductsByCategorySlugQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', name: string, id: string, products: Array<{ __typename?: 'Product', description: string, cents: number, id: string, name: string, slug: string, image: { __typename?: 'Asset', id: string, url: string } }> }> };
 
 export type ProductsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', description: string, cents: number, id: string, name: string, slug: string, image: { __typename?: 'Asset', id: string, url: string } }> };
+export type ProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', name: string, description: string, description_long: string, id: string, slug: string, cents: number, image: { __typename?: 'Asset', id: string, url: string }, productItems: Array<{ __typename?: 'ProductItem', quantity: number, item?: { __typename?: 'Item', name: string } | null }> }> };
 
 
 export const CategoriesDocument = gql`
@@ -10707,8 +10714,8 @@ export const GetProductsByCategoryIdDocument = gql`
   }
 }
     `;
-export const ProductItemsByIdDocument = gql`
-    query ProductItemsById($id: ID!) {
+export const ProductByIdDocument = gql`
+    query ProductById($id: ID!) {
   product(where: {id: $id}) {
     name
     description
@@ -10729,17 +10736,43 @@ export const ProductItemsByIdDocument = gql`
   }
 }
     `;
+export const ProductsByCategorySlugDocument = gql`
+    query ProductsByCategorySlug($slug: String!) {
+  categories(where: {slug: $slug}) {
+    name
+    id
+    products {
+      description
+      cents
+      id
+      name
+      slug
+      image {
+        id
+        url
+      }
+    }
+  }
+}
+    `;
 export const ProductsDocument = gql`
     query Products {
   products {
-    description
-    cents
-    id
     name
+    description
+    description_long
+    id
     slug
+    cents
     image {
       id
       url
+    }
+    productItems {
+      quantity
+      item {
+        name
+      }
     }
   }
 }
@@ -10758,8 +10791,11 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     GetProductsByCategoryId(variables: GetProductsByCategoryIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetProductsByCategoryIdQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetProductsByCategoryIdQuery>(GetProductsByCategoryIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetProductsByCategoryId');
     },
-    ProductItemsById(variables: ProductItemsByIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ProductItemsByIdQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<ProductItemsByIdQuery>(ProductItemsByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'ProductItemsById');
+    ProductById(variables: ProductByIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ProductByIdQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<ProductByIdQuery>(ProductByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'ProductById');
+    },
+    ProductsByCategorySlug(variables: ProductsByCategorySlugQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ProductsByCategorySlugQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<ProductsByCategorySlugQuery>(ProductsByCategorySlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'ProductsByCategorySlug');
     },
     Products(variables?: ProductsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ProductsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<ProductsQuery>(ProductsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Products');

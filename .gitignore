@@ -34,7 +34,7 @@ yarn-error.log
 testem.log
 /typings
 apps/audiophile-api/.env
-
+apps/audiophile/.env.local
 # System Files
 .DS_Store
 Thumbs.db

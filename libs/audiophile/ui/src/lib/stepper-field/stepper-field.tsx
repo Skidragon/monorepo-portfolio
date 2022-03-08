@@ -1,25 +1,37 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { createMachine, assign } from 'xstate';
 import { useMachine } from '@xstate/react';
+import React, {
+  DetailedHTMLProps,
+  InputHTMLAttributes,
+  useEffect,
+} from 'react';
 /* eslint-disable-next-line */
 type Context = {
   quantity: number;
   min: number;
   max: number;
+  onIncrease?: (value: Context) => void;
+  onDecrease?: (value: Context) => void;
 };
 export type StepperFieldProps = {
   [K in keyof Context]?: Context[K];
+} & {
+  hasError?: boolean;
+} & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+
+type SetValueEvent = {
+  type: 'SET_VALUE';
+  quantity: number;
 };
 type IncreaseEvent = {
   type: 'INCREASE';
-  quantity: number;
 };
 type DecreaseEvent = {
   type: 'DECREASE';
-  quantity: number;
 };
 
-type Event = IncreaseEvent | DecreaseEvent;
+type Event = IncreaseEvent | DecreaseEvent | SetValueEvent;
 
 const initialContext: Context = {
   quantity: 0,
@@ -34,28 +46,55 @@ const machine = createMachine<Context, Event>({
       on: {
         INCREASE: {
           cond: (ctx) => Boolean(ctx.quantity < ctx.max),
-          actions: assign<Context, IncreaseEvent>({
-            quantity: (ctx) => ctx.quantity + 1,
-          }),
+          actions: [
+            assign<Context, IncreaseEvent>({
+              quantity: (ctx) => ctx.quantity + 1,
+            }),
+            (ctx) => (ctx.onIncrease ? ctx.onIncrease(ctx) : null),
+          ],
         },
         DECREASE: {
           cond: (ctx) =>
             ctx.min
               ? Boolean(ctx.quantity > ctx.min)
               : Boolean(ctx.quantity > 0),
-          actions: assign<Context, DecreaseEvent>({
-            quantity: (ctx) => ctx.quantity - 1,
+          actions: [
+            assign<Context, DecreaseEvent>({
+              quantity: (ctx) => ctx.quantity - 1,
+            }),
+            (ctx) => (ctx.onDecrease ? ctx.onDecrease(ctx) : null),
+          ],
+        },
+        SET_VALUE: {
+          actions: assign<Context, SetValueEvent>({
+            quantity: (ctx) => {
+              console.log('SET_VALUE');
+              if (ctx.quantity > ctx.max) {
+                return ctx.max;
+              }
+              if (ctx.quantity < ctx.min) {
+                return ctx.min;
+              }
+              return ctx.quantity;
+            },
           }),
         },
       },
     },
   },
 });
-const StyledStepperField = styled.div`
+const StyledStepperField = styled.div<Pick<StepperFieldProps, 'hasError'>>`
   display: inline-grid;
   grid-template-columns: 1fr 1fr 1fr;
   background: #f2f2f2;
   max-width: 10rem;
+  ${(props) =>
+    props.hasError &&
+    css`
+      -webkit-box-shadow: 0px 0px 0px 2px var(--error);
+      -moz-box-shadow: 0px 0px 0px 2px var(--error);
+      box-shadow: 0px 0px 0px 2px var(--error);
+    `}
 `;
 const Button = styled.button`
   all: unset;
@@ -80,44 +119,72 @@ const Input = styled.input`
   background: none;
   font-weight: 900;
 `;
-export function StepperField({
-  quantity = 0,
-  min = 0,
-  max = 50,
-}: StepperFieldProps) {
-  const [state, send] = useMachine(
-    machine.withContext({
-      quantity,
-      min,
-      max,
-    })
-  );
-  const { context } = state;
-  return (
-    <StyledStepperField>
-      <Button
-        onClick={() =>
-          send({
-            type: 'DECREASE',
-            quantity: 1,
-          })
-        }
-      >
-        -
-      </Button>
-      <Input type="text" disabled={true} value={context.quantity} />
-      <Button
-        onClick={() =>
-          send({
-            type: 'INCREASE',
-            quantity: 1,
-          })
-        }
-      >
-        +
-      </Button>
-    </StyledStepperField>
-  );
-}
+export const StepperField = React.forwardRef<
+  HTMLInputElement,
+  StepperFieldProps
+>(
+  (
+    {
+      quantity = 0,
+      min = 0,
+      max = 50,
+      hasError,
+      onDecrease,
+      onIncrease,
+      ...props
+    },
+    ref
+  ) => {
+    const [state, send] = useMachine(() =>
+      machine.withContext({
+        quantity,
+        min,
+        max,
+        onIncrease,
+        onDecrease,
+      })
+    );
+    const { context } = state;
+
+    useEffect(() => {
+      send({
+        type: 'SET_VALUE',
+        quantity: quantity,
+      });
+    }, [send, quantity]);
+
+    return (
+      <StyledStepperField hasError={hasError}>
+        <Button
+          onClick={() =>
+            send({
+              type: 'DECREASE',
+            })
+          }
+          type="button"
+        >
+          -
+        </Button>
+        <Input
+          type="text"
+          disabled={true}
+          value={context.quantity}
+          {...props}
+          ref={ref}
+        />
+        <Button
+          type="button"
+          onClick={() =>
+            send({
+              type: 'INCREASE',
+            })
+          }
+        >
+          +
+        </Button>
+      </StyledStepperField>
+    );
+  }
+);
 
 export default StepperField;

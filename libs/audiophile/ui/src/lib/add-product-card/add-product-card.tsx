@@ -1,4 +1,4 @@
-import { Price, StepperField, Button } from '@sd/audiophile/ui';
+import { Price } from '@sd/audiophile/ui';
 import './add-product-card.module.css';
 import styled from 'styled-components';
 import Image from 'next/image';
@@ -9,6 +9,7 @@ export interface AddProductCardProps {
   cents: number;
   isNew?: boolean;
   src: string;
+  children: React.ReactNode;
 }
 const StyledAddProductCard = styled.div`
   display: grid;
@@ -59,11 +60,12 @@ export function AddProductCard({
   cents,
   isNew,
   src,
+  children,
 }: AddProductCardProps) {
   return (
     <StyledAddProductCard>
       <ProductImage>
-        <Image src={src} alt="" layout="fill" />
+        <Image src={src} alt="" layout="fill" objectFit="cover" />
       </ProductImage>
       <Content>
         {isNew && <div>New Product</div>}
@@ -75,10 +77,7 @@ export function AddProductCard({
           }}
           cents={cents}
         />
-        <Actions>
-          <StepperField quantity={1} min={1} max={20} />
-          <Button>Add To Cart</Button>
-        </Actions>
+        <Actions>{children}</Actions>
       </Content>
     </StyledAddProductCard>
   );
