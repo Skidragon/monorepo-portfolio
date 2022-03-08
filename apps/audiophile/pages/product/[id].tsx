@@ -6,7 +6,7 @@ import {
   ProductsQuery,
 } from '@sd/audiophile/types';
 import { GetStaticPropsContext, GetStaticPaths, GetStaticProps } from 'next';
-import { Footer, Navbar } from '@sd/audiophile/feature';
+import { Footer, GoBackLink, Navbar } from '@sd/audiophile/feature';
 import { AddProductCard, StepperField, Button } from '@sd/audiophile/ui';
 import { useCart } from 'react-use-cart';
 import { useState } from 'react';
@@ -79,6 +79,11 @@ export function ProductPage(props: ProductPageProps) {
       <Navbar categories={categories} />
       <main>
         <AddProductSection>
+          <GoBackLink
+            style={{
+              marginRight: 'auto',
+            }}
+          />
           <form
             onSubmit={(e) => {
               e.preventDefault();
