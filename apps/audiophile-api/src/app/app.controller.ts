@@ -6,7 +6,7 @@ import {
   ProductsByCategorySlugQuery,
   getSdk,
 } from '@sd/audiophile/types';
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Post, Put, Param } from '@nestjs/common';
 
 import { AppService } from './app.service';
 import { GraphQLClient } from 'graphql-request';
@@ -41,7 +41,6 @@ export class AppController {
   async getProductsByCategoryId(
     @Param('id') id: string
   ): Promise<GetProductsByCategoryIdQuery> {
-
     const data = await sdk.GetProductsByCategoryId({
       id,
     });
@@ -54,5 +53,24 @@ export class AppController {
     const data = await sdk.ProductsByCategorySlug({ slug });
     console.log(data);
     return data;
+  }
+  @Post('/order')
+  async createOrder() {
+    // start transaction
+    // orders table
+    // customer products in cart go to db orders table
+    // make payment
+    // send email and/or text that the payment succeeded and the order has been processed
+    // end transaction
+    // use Fedex or UPS to tell user when order is shipping
+    return {
+      id: 10425,
+      hasSucceeded: true,
+    };
+  }
+  @Put('/order')
+  async updateOrder() {
+    // product is out of stock
+    // only this much of the product is available
   }
 }
