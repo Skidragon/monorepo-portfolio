@@ -1,5 +1,3 @@
-
-
 # Sd
 
 This project was generated using [Nx](https://nx.dev).
@@ -7,6 +5,10 @@ This project was generated using [Nx](https://nx.dev).
 <p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
 
 🔎 **Smart, Extensible Build Framework**
+
+## Netlify Projects Status
+
+Audiophile: [![Netlify Status](https://api.netlify.com/api/v1/badges/ee335cfd-5a69-4eca-a074-a5dfa93212e4/deploy-status)](https://app.netlify.com/sites/sd-audiophile/deploys)
 
 ## Adding capabilities to your workspace
 
@@ -78,8 +80,6 @@ Run `nx dep-graph` to see a diagram of the dependencies of your projects.
 ## Further help
 
 Visit the [Nx Documentation](https://nx.dev) to learn more.
-
-
 
 ## ☁ Nx Cloud
 
