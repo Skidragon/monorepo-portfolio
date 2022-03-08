@@ -23,7 +23,8 @@ const StyledLinkButton = styled.a<LinkButtonProps>`
         & > * {
           padding: 1em;
         }
-        &:hover > * {
+        &:hover,
+        &:focus > * {
           background: #5fb4a2;
           stroke: white;
         }
@@ -32,7 +33,8 @@ const StyledLinkButton = styled.a<LinkButtonProps>`
       return css`
         border: 2px solid var(--dark-blue);
         padding: 1em;
-        &:hover {
+        &:hover,
+        &:focus {
           color: white;
           background: var(--dark-blue);
         }

@@ -137,6 +137,11 @@ a {
   cursor: pointer;
   display: inline-block;
   text-transform: uppercase;
+    &:focus {
+    -webkit-box-shadow: 0px 0px 0px 2px var(--cyan);
+-moz-box-shadow: 0px 0px 0px 2px var(--cyan);
+box-shadow: 0px 0px 0px 2px var(--cyan);
+    }
 }
 section {
   padding: 1em;
