@@ -27,38 +27,16 @@ export function PortfolioIndex(props: PortfolioIndexProps) {
 
       <section>
         <ProjectCard>
-          <Image
-            height="556"
-            width="1508"
-            src="/typemaster-keyboard.png"
-            alt=""
-          />
-          <h2>Typemaster Landing Page</h2>
+          <Image height="747" width="1583" src="/audiophile.png" alt="" />
+          <h2>Audiophile</h2>
           <p>
-            This project required me to build a fully responsive landing page to
-            the designs provided. I used HTML5 while making sure the site was
-            accessible and SCSS with flexbox to make it responsive. Snowpack is
-            used to create a production build.
+            Graphql CMS is used to store images of the products and the
+            information about them. Next.js was able to build the pages. Used
+            Codegen to create query code to get the products.
           </p>
           <LinkButton
             variant="secondary"
-            href="https://sd-typemaster-prelaunch-page.vercel.app/"
-          >
-            View Project
-          </LinkButton>
-        </ProjectCard>
-        <ProjectCard>
-          <Image height="746" width="1070" src="/loopstudios.png" alt="" />
-          <h2>Loopstudios Landing Page</h2>
-          <p>
-            CSS Grid was used to make most of the site responsive. Next.js to
-            make the navigation bar animation run when scrolled past a certain
-            point using observers and closing the mobile navigation bar using
-            the escape key.
-          </p>
-          <LinkButton
-            variant="secondary"
-            href="https://loopstudio-nu.vercel.app/"
+            href="https://compassionate-montalcini-3c106c.netlify.app/"
           >
             View Project
           </LinkButton>
@@ -93,17 +71,40 @@ export function PortfolioIndex(props: PortfolioIndexProps) {
             View Project
           </LinkButton>
         </ProjectCard>
+
         <ProjectCard>
-          <Image height="747" width="1583" src="/audiophile.png" alt="" />
-          <h2>Audiophile</h2>
+          <Image height="746" width="1070" src="/loopstudios.png" alt="" />
+          <h2>Loopstudios Landing Page</h2>
           <p>
-            Graphql CMS is used to store images of the products and the
-            information about them. Next.js was able to build the pages. Used
-            Codegen to create query code to get the products.
+            CSS Grid was used to make most of the site responsive. Next.js to
+            make the navigation bar animation run when scrolled past a certain
+            point using observers and closing the mobile navigation bar using
+            the escape key.
           </p>
           <LinkButton
             variant="secondary"
-            href="https://sd-audiophile.vercel.app/"
+            href="https://loopstudio-nu.vercel.app/"
+          >
+            View Project
+          </LinkButton>
+        </ProjectCard>
+        <ProjectCard>
+          <Image
+            height="556"
+            width="1508"
+            src="/typemaster-keyboard.png"
+            alt=""
+          />
+          <h2>Typemaster Landing Page</h2>
+          <p>
+            This project required me to build a fully responsive landing page to
+            the designs provided. I used HTML5 while making sure the site was
+            accessible and SCSS with flexbox to make it responsive. Snowpack is
+            used to create a production build.
+          </p>
+          <LinkButton
+            variant="secondary"
+            href="https://sd-typemaster-prelaunch-page.vercel.app/"
           >
             View Project
           </LinkButton>
