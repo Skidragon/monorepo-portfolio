@@ -148,7 +148,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Welcome to advice-gen!</title>
+        <title>Advice Generator</title>
       </Head>
       <GlobalStyle />
       <div className="app">
