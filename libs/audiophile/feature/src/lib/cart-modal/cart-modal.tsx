@@ -4,6 +4,7 @@ import React from 'react';
 import { StepperField, Button, Price } from '@sd/audiophile/ui';
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 import { Item, useCart } from 'react-use-cart';
+import Link from 'next/link';
 /* eslint-disable-next-line */
 
 export interface CartModalProps
@@ -132,9 +133,15 @@ export const CartModal = React.forwardRef<HTMLDivElement, CartModalProps>(
             <div>Total</div>
             <Price cents={total} />
           </TotalLine>
-          <CartButton variant="primary" disabled={Boolean(totalItems === 0)}>
-            Checkout
-          </CartButton>
+          {totalItems ? (
+            <Link href="/checkout">
+              <CartButton variant="primary">Checkout</CartButton>
+            </Link>
+          ) : (
+            <CartButton variant="primary" disabled={true}>
+              Checkout
+            </CartButton>
+          )}
         </CartFooter>
       </StyledCartModal>
     );

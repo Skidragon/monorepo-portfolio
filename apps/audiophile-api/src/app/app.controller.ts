@@ -55,7 +55,7 @@ export class AppController {
     return data;
   }
   @Post('/order')
-  async createOrder() {
+  createOrder() {
     // start transaction
     // orders table
     // customer products in cart go to db orders table
