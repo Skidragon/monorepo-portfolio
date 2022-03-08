@@ -2,12 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 
 /* eslint-disable-next-line */
-export interface RadioFieldProps
-  extends React.DetailedHTMLProps<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
-  > {}
-
+export type RadioFieldProps = React.DetailedHTMLProps<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+> &
+  React.DetailedHTMLProps<
+    React.LabelHTMLAttributes<HTMLLabelElement>,
+    HTMLLabelElement
+  > & {
+    label: string;
+    id: string;
+  };
 const StyledRadioField = styled.label`
   display: inline-flex;
   align-items: center;

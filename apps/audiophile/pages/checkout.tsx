@@ -103,10 +103,18 @@ export function Checkout(props: CheckoutProps) {
             </Fieldset>
             <Fieldset>
               <Legend>Payment Details</Legend>
-              <Fieldset>
+              <Fieldset id="payment-method">
                 <legend>Payment Method</legend>
-                <RadioField label="e-Money" />
-                <RadioField label="Cash on Delivery" />
+                <RadioField
+                  label="e-Money"
+                  id="e-money"
+                  name="payment-method"
+                />
+                <RadioField
+                  label="Cash on Delivery"
+                  id="cash-on-delivery"
+                  name="payment-method"
+                />
               </Fieldset>
               <TextField
                 id="e-money-number"
