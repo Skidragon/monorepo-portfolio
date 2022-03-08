@@ -1,12 +1,26 @@
-import { GoBackLink } from '@sd/audiophile/feature';
+import { Footer, GoBackLink, Navbar } from '@sd/audiophile/feature';
 import { Button, Price, RadioField, TextField } from '@sd/audiophile/ui';
+import { GetStaticProps } from 'next';
 import Image from 'next/image';
 import { useCart } from 'react-use-cart';
 import styled from 'styled-components';
-
+import axios from 'axios';
+import { CategoriesQuery } from '@sd/audiophile/types';
 /* eslint-disable-next-line */
-export interface CheckoutProps {}
+export interface CheckoutProps {
+  categories: CategoriesQuery['categories'];
+}
 
+export async function getStaticProps() {
+  const { data } = await axios.get<CategoriesQuery>(
+    `${process.env.API_URL}/categories`
+  );
+  return {
+    props: {
+      categories: data.categories,
+    },
+  };
+}
 const StyledCheckout = styled.div``;
 const CheckoutSection = styled.section`
   background: white;
@@ -14,7 +28,12 @@ const CheckoutSection = styled.section`
   max-width: 80ch;
   width: 100%;
 `;
-const CheckoutForm = styled.form``;
+const CheckoutForm = styled.form`
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 100%;
+`;
 const Fieldset = styled.fieldset`
   display: grid;
   grid-template-columns: 1fr;
@@ -32,6 +51,31 @@ const SummarySection = styled.section`
   padding: 2em;
   max-width: 80ch;
   width: 100%;
+  & > * + * {
+    margin-top: 2rem;
+  }
+`;
+const ProductList = styled.ul`
+  display: grid;
+  grid-gap: 1rem;
+`;
+const ProductLine = styled.div`
+  display: flex;
+`;
+
+const ProductInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-left: 1rem;
+`;
+const Quantity = styled.div``;
+const PriceLine = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+const PayButton = styled(Button)`
+  width: 100%;
 `;
 const SHIPPING_PRICE_IN_CENTS = 5000;
 const VAT_IN_CENTS = 107900;
@@ -39,11 +83,12 @@ export function Checkout(props: CheckoutProps) {
   const { items, cartTotal } = useCart();
   return (
     <StyledCheckout>
+      <Navbar categories={props.categories} />
       <main>
-        <CheckoutSection>
-          <GoBackLink style={{ marginRight: 'auto' }} />
-          <h1>Checkout</h1>
-          <CheckoutForm>
+        <CheckoutForm>
+          <CheckoutSection>
+            <GoBackLink style={{ marginRight: 'auto' }} />
+            <h1>Checkout</h1>
             <Fieldset>
               <Legend>Billing Details</Legend>
 
@@ -131,49 +176,57 @@ export function Checkout(props: CheckoutProps) {
                 errorMessage={'Required'}
               />
             </Fieldset>
-          </CheckoutForm>
-        </CheckoutSection>
-        <SummarySection>
-          <h2>Summary</h2>
-          <div>
+          </CheckoutSection>
+          <SummarySection>
+            <h2>Summary</h2>
+            <div>
+              <ProductList>
+                {items.map((item) => {
+                  return (
+                    <li key={item.id}>
+                      <ProductLine>
+                        <Image
+                          height={64}
+                          width={64}
+                          src={item.image.url}
+                          alt=""
+                        />
+                        <ProductInfo>
+                          <div>
+                            <div>{item.name}</div>
+                            <Price cents={item.price} />
+                          </div>
+                          <Quantity>x{item.quantity}</Quantity>
+                        </ProductInfo>
+                      </ProductLine>
+                    </li>
+                  );
+                })}
+              </ProductList>
+            </div>
             <ul>
-              {items.map((item) => {
-                return (
-                  <li key={item.id}>
-                    <div>
-                      <Image
-                        height={64}
-                        width={64}
-                        src={item.image.url}
-                        alt=""
-                      />
-                      <div>{item.name}</div>
-                      <Price cents={item.price} />
-                    </div>
-                  </li>
-                );
-              })}
+              <PriceLine>
+                Total
+                <Price cents={cartTotal} />
+              </PriceLine>
+              <PriceLine>
+                Shipping
+                <Price cents={SHIPPING_PRICE_IN_CENTS} />
+              </PriceLine>
+              <PriceLine>
+                VAT (Included)
+                <Price cents={VAT_IN_CENTS} />
+              </PriceLine>
+              <PriceLine>
+                Grand Total
+                <Price cents={cartTotal + SHIPPING_PRICE_IN_CENTS} />
+              </PriceLine>
             </ul>
-            <div>
-              Total
-              <Price cents={cartTotal} />
-            </div>
-            <div>
-              Shipping
-              <Price cents={SHIPPING_PRICE_IN_CENTS} />
-            </div>
-          </div>
-          <div>
-            VAT (Included)
-            <Price cents={VAT_IN_CENTS} />
-          </div>
-          <div>
-            Grand Total
-            <Price cents={cartTotal + SHIPPING_PRICE_IN_CENTS} />
-          </div>
-          <Button type="submit">Continue & Pay</Button>
-        </SummarySection>
+            <PayButton type="submit">Continue & Pay</PayButton>
+          </SummarySection>
+        </CheckoutForm>
       </main>
+      <Footer categories={props.categories} />
     </StyledCheckout>
   );
 }
