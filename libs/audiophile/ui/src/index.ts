@@ -7,4 +7,6 @@ export * from './lib/logo/logo';
 export * from './lib/link-button/link-button';
 export * from './lib/see-product-card/see-product-card';
 export * from './lib/banner/banner';
-export * from './lib/add-product-card/add-product-card'
+export * from './lib/add-product-card/add-product-card';
+export * from './lib/text-field/text-field';
+export * from './lib/radio-field/radio-field';
