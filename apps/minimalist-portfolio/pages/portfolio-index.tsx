@@ -19,28 +19,52 @@ const ProjectCard = styled.div`
     margin-top: 1rem;
   }
 `;
-
+type Project = {
+  height: number;
+  width: number;
+  src: string;
+  title: string;
+  description: string;
+  projectHref: string;
+};
+const projects: Project[] = [
+  {
+    height: 747,
+    width: 1583,
+    src: '/audiophile.png',
+    title: 'Audiophile',
+    description: `Used GraphCMS like a database to store images, create relations
+            between data, and test queries. Nest.js to serve as a reverse proxy
+            between GraphCMS and the client. Graphql Codegen to generate types
+            and create code to make api calls. NX, Next.js, and Styled
+            Components to build components and pages.`,
+    projectHref: 'https://compassionate-montalcini-3c106c.netlify.app/',
+  },
+];
 export function PortfolioIndex(props: PortfolioIndexProps) {
   return (
     <StyledPortfolioIndex>
       <NavigationBar />
 
       <section>
-        <ProjectCard>
-          <Image height="747" width="1583" src="/audiophile.png" alt="" />
-          <h2>Audiophile</h2>
-          <p>
-            Graphql CMS is used to store images of the products and the
-            information about them. Next.js was able to build the pages. Used
-            Codegen to create query code to get the products.
-          </p>
-          <LinkButton
-            variant="secondary"
-            href="https://compassionate-montalcini-3c106c.netlify.app/"
-          >
-            View Project
-          </LinkButton>
-        </ProjectCard>
+        {projects.map((project) => {
+          return (
+            <ProjectCard key={project.title}>
+              <Image
+                height={project.height}
+                width={project.width}
+                src={project.src}
+                alt=""
+              />
+              <h2>{project.title}</h2>
+              <p>{project.description}</p>
+              <LinkButton variant="secondary" href={project.projectHref}>
+                View Project
+              </LinkButton>
+            </ProjectCard>
+          );
+        })}
+
         <ProjectCard>
           <Image height="745" width="1093" src="/advice-gen.png" alt="" />
           <h2>Advice Generator</h2>
@@ -71,7 +95,6 @@ export function PortfolioIndex(props: PortfolioIndexProps) {
             View Project
           </LinkButton>
         </ProjectCard>
-
         <ProjectCard>
           <Image height="746" width="1070" src="/loopstudios.png" alt="" />
           <h2>Loopstudios Landing Page</h2>
