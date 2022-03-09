@@ -48,6 +48,10 @@ const Fieldset = styled.fieldset`
   border: none;
   padding: 2rem 0;
 `;
+const PaymentMethodFieldset = styled(Fieldset)<{ hasError: boolean }>`
+  border: ${(props) =>
+    props.hasError ? '2px solid var(--error, red)' : 'none'};
+`;
 const Legend = styled.legend`
   color: orange;
   text-transform: uppercase;
@@ -228,8 +232,11 @@ export function Checkout(props: CheckoutProps) {
               </Fieldset>
               <Fieldset>
                 <Legend>Payment Details</Legend>
-                <Fieldset id="payment-method">
-                  <legend>Payment Method</legend>
+                <PaymentMethodFieldset
+                  hasError={Boolean(errors.paymentMethod)}
+                  id="payment-method"
+                >
+                  <legend>Payment Method*</legend>
                   <RadioField
                     label="e-Money"
                     id="e-money"
@@ -248,7 +255,7 @@ export function Checkout(props: CheckoutProps) {
                       required: REQUIRED_MESSAGE,
                     })}
                   />
-                </Fieldset>
+                </PaymentMethodFieldset>
                 {paymentMethod === 'eMoney' ? (
                   <>
                     <TextField
