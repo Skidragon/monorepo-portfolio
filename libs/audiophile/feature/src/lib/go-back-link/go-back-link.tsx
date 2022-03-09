@@ -20,7 +20,12 @@ export const GoBackLink = React.forwardRef<HTMLButtonElement, GoBackLinkProps>(
   (props, ref) => {
     const router = useRouter();
     return (
-      <StyledGoBackLink onClick={() => router.back()} {...props} ref={ref}>
+      <StyledGoBackLink
+        type="button"
+        onClick={() => router.back()}
+        {...props}
+        ref={ref}
+      >
         Go Back
       </StyledGoBackLink>
     );
