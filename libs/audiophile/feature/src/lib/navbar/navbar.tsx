@@ -76,7 +76,7 @@ const NavList = styled.ul`
     display: flex;
     margin: 0 auto;
     & > * + * {
-      margin-left: 1rem;
+      margin-left: 2rem;
     }
   }
 `;
