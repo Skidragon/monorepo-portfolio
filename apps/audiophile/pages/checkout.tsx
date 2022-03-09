@@ -11,6 +11,8 @@ import { useCart } from 'react-use-cart';
 import styled from 'styled-components';
 import axios from 'axios';
 import { CategoriesQuery } from '@sd/audiophile/types';
+import { useForm } from 'react-hook-form';
+import { DevTool } from '@hookform/devtools';
 /* eslint-disable-next-line */
 export interface CheckoutProps {
   categories: CategoriesQuery['categories'];
@@ -84,10 +86,33 @@ const PayButton = styled(Button)`
 `;
 const SHIPPING_PRICE_IN_CENTS = 5000;
 const VAT_IN_CENTS = 107900;
-
+type PaymentMethod = 'cashOnDelivery' | 'eMoney';
+type Inputs = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  address: string;
+  zipCode: string;
+  city: string;
+  country: string;
+  paymentMethod: PaymentMethod;
+  eMoneyNumber?: number;
+  eMoneyPin?: number;
+};
+const REQUIRED_MESSAGE = 'Required';
 export function Checkout(props: CheckoutProps) {
   const { items, isEmpty, cartTotal } = useCart();
-
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors, isSubmitting },
+    control,
+  } = useForm<Inputs>({
+    mode: 'onChange',
+  });
+  const paymentMethod = watch('paymentMethod');
   return (
     <StyledCheckout>
       <Navbar categories={props.categories} />
@@ -100,9 +125,12 @@ export function Checkout(props: CheckoutProps) {
         </CheckoutForm>
       ) : (
         <main>
+          {process.env.NODE_ENV === 'development' ? (
+            <DevTool control={control} placement="bottom-right" />
+          ) : null}
+          {/* set up the dev tool */}
           <CheckoutForm
-            onSubmit={async (e) => {
-              e.preventDefault();
+            onSubmit={handleSubmit(async () => {
               try {
                 const { data } = await axios.post(
                   `${process.env.NEXT_PUBLIC_API_URL}/order`
@@ -113,7 +141,7 @@ export function Checkout(props: CheckoutProps) {
                 alert('Order Failed! (Placeholder)');
                 console.log(err);
               }
-            }}
+            })}
           >
             <CheckoutSection>
               <GoBackLink style={{ marginRight: 'auto' }} />
@@ -122,57 +150,80 @@ export function Checkout(props: CheckoutProps) {
                 <Legend>Billing Details</Legend>
 
                 <TextField
-                  id="name"
-                  label="Name"
-                  placeholder="Alexei Ward"
-                  hasError={false}
-                  errorMessage={'Required'}
+                  isRequired={true}
+                  id="first-name"
+                  label="First Name"
+                  placeholder="Alexei"
+                  hasError={Boolean(errors.firstName)}
+                  errorMessage={errors.firstName?.message}
+                  {...register('firstName', { required: REQUIRED_MESSAGE })}
                 />
                 <TextField
+                  isRequired={true}
+                  id="last-name"
+                  label="Last Name"
+                  placeholder="Ward"
+                  hasError={Boolean(errors.lastName)}
+                  errorMessage={errors.lastName?.message}
+                  {...register('lastName', { required: REQUIRED_MESSAGE })}
+                />
+                <TextField
+                  isRequired={true}
                   id="email"
                   label="Email"
                   type="email"
                   placeholder="alexei@email.com"
-                  hasError={false}
-                  errorMessage={'Required'}
+                  hasError={Boolean(errors.email)}
+                  errorMessage={errors.email?.message}
+                  {...register('email', { required: REQUIRED_MESSAGE })}
                 />
                 <TextField
+                  isRequired={true}
                   id="phone-number"
                   label="Phone Number"
                   placeholder="+1 202-555-0316"
-                  hasError={false}
-                  errorMessage={'Required'}
+                  hasError={Boolean(errors.phoneNumber)}
+                  errorMessage={errors.phoneNumber?.message}
+                  {...register('phoneNumber', { required: REQUIRED_MESSAGE })}
                 />
               </Fieldset>
               <Fieldset>
                 <Legend>Shipping Info</Legend>
                 <TextField
+                  isRequired={true}
                   id="your-address"
                   label="Your Address"
                   placeholder="1137 Williams Avenue"
-                  hasError={false}
-                  errorMessage={'Required'}
+                  hasError={Boolean(errors.address)}
+                  errorMessage={errors.address?.message}
+                  {...register('address', { required: REQUIRED_MESSAGE })}
                 />
                 <TextField
+                  isRequired={true}
                   id="zip-code"
                   label="Zip Code"
                   placeholder="10001"
-                  hasError={false}
-                  errorMessage={'Required'}
+                  hasError={Boolean(errors.zipCode)}
+                  errorMessage={errors.zipCode?.message}
+                  {...register('zipCode', { required: REQUIRED_MESSAGE })}
                 />
                 <TextField
+                  isRequired={true}
                   id="city"
                   label="City"
                   placeholder="New York"
-                  hasError={false}
-                  errorMessage={'Required'}
+                  hasError={Boolean(errors.city)}
+                  errorMessage={errors.city?.message}
+                  {...register('city', { required: REQUIRED_MESSAGE })}
                 />
                 <TextField
+                  isRequired={true}
                   id="country"
                   label="Country"
                   placeholder="United States"
-                  hasError={false}
-                  errorMessage={'Required'}
+                  hasError={Boolean(errors.country)}
+                  errorMessage={errors.country?.message}
+                  {...register('country', { required: REQUIRED_MESSAGE })}
                 />
               </Fieldset>
               <Fieldset>
@@ -183,27 +234,45 @@ export function Checkout(props: CheckoutProps) {
                     label="e-Money"
                     id="e-money"
                     name="payment-method"
+                    value={'eMoney'}
+                    {...register('paymentMethod', {
+                      required: REQUIRED_MESSAGE,
+                    })}
                   />
                   <RadioField
                     label="Cash on Delivery"
                     id="cash-on-delivery"
                     name="payment-method"
+                    value="cash"
+                    {...register('paymentMethod', {
+                      required: REQUIRED_MESSAGE,
+                    })}
                   />
                 </Fieldset>
-                <TextField
-                  id="e-money-number"
-                  label="e-Money Number"
-                  placeholder="238521993"
-                  hasError={false}
-                  errorMessage={'Required'}
-                />
-                <TextField
-                  id="e-money-pin"
-                  label="e-Money PIN"
-                  placeholder="6891"
-                  hasError={false}
-                  errorMessage={'Required'}
-                />
+                {paymentMethod === 'eMoney' ? (
+                  <>
+                    <TextField
+                      isRequired={true}
+                      id="e-money-number"
+                      label="e-Money Number"
+                      placeholder="238521993"
+                      hasError={Boolean(errors.eMoneyNumber)}
+                      errorMessage={errors.eMoneyNumber?.message}
+                      {...register('eMoneyNumber', {
+                        required: REQUIRED_MESSAGE,
+                      })}
+                    />
+                    <TextField
+                      isRequired={true}
+                      id="e-money-pin"
+                      label="e-Money PIN"
+                      placeholder="6891"
+                      hasError={Boolean(errors.eMoneyPin)}
+                      errorMessage={errors.eMoneyPin?.message}
+                      {...register('eMoneyPin', { required: REQUIRED_MESSAGE })}
+                    />
+                  </>
+                ) : null}
               </Fieldset>
             </CheckoutSection>
             <SummarySection>
@@ -251,7 +320,9 @@ export function Checkout(props: CheckoutProps) {
                   <Price cents={cartTotal + SHIPPING_PRICE_IN_CENTS} />
                 </PriceLine>
               </ul>
-              <PayButton type="submit">Continue & Pay</PayButton>
+              <PayButton type="submit" isSubmitting={isSubmitting}>
+                {isSubmitting ? 'Processing Order' : 'Continue & Pay'}
+              </PayButton>
             </SummarySection>
           </CheckoutForm>
         </main>

@@ -40,6 +40,7 @@
     "@graphql-codegen/cli": "^2.6.2",
     "@graphql-codegen/typescript-graphql-request": "^4.3.7",
     "@graphql-codegen/typescript-resolvers": "^2.5.2",
+    "@hookform/devtools": "^4.0.2",
     "@nestjs/common": "^7.0.0",
     "@nestjs/config": "^1.2.0",
     "@nestjs/core": "^7.0.0",

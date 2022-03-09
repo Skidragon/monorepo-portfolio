@@ -10,6 +10,7 @@ export interface ButtonProps
   // Button Style Flavor
   variant?: 'primary' | 'secondary' | 'tertiary';
   invert?: boolean;
+  isSubmitting?: boolean;
 }
 const StyledButton = styled.button<ButtonProps>`
   display: inline-block;
@@ -79,11 +80,23 @@ const StyledButton = styled.button<ButtonProps>`
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
-    { variant = 'primary', children, invert = false, ...props }: ButtonProps,
+    {
+      variant = 'primary',
+      children,
+      invert = false,
+      isSubmitting = false,
+      ...props
+    }: ButtonProps,
     ref
   ) => {
     return (
-      <StyledButton variant={variant} invert={invert} {...props} ref={ref}>
+      <StyledButton
+        variant={variant}
+        invert={invert}
+        disabled={props.disabled || isSubmitting}
+        {...props}
+        ref={ref}
+      >
         {children}
       </StyledButton>
     );
