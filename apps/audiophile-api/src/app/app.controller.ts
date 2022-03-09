@@ -5,6 +5,7 @@ import {
   ProductsQuery,
   ProductsByCategorySlugQuery,
   getSdk,
+  HomeQuery,
 } from '@sd/audiophile/types';
 import { Controller, Get, Post, Put, Param } from '@nestjs/common';
 
@@ -21,7 +22,10 @@ export class AppController {
   getData() {
     return this.appService.getData();
   }
-
+  @Get('/home')
+  async getHome(): Promise<HomeQuery> {
+    return await sdk.Home();
+  }
   @Get('/categories')
   async getCategories(): Promise<CategoriesQuery> {
     return await sdk.Categories();

@@ -56,6 +56,7 @@ export type Asset = Node & {
   /** The unique identifier */
   id: Scalars['ID'];
   imageCategory: Array<Category>;
+  imageHero: Array<Hero>;
   imageProduct: Array<Product>;
   /** System Locale field */
   locale: Locale;
@@ -122,6 +123,19 @@ export type AssetImageCategoryArgs = {
   orderBy?: InputMaybe<CategoryOrderByInput>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<CategoryWhereInput>;
+};
+
+
+/** Asset system model */
+export type AssetImageHeroArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  orderBy?: InputMaybe<HeroOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<HeroWhereInput>;
 };
 
 
@@ -222,6 +236,7 @@ export type AssetCreateInput = {
   handle: Scalars['String'];
   height?: InputMaybe<Scalars['Float']>;
   imageCategory?: InputMaybe<CategoryCreateManyInlineInput>;
+  imageHero?: InputMaybe<HeroCreateManyInlineInput>;
   imageProduct?: InputMaybe<ProductCreateManyInlineInput>;
   /** Inline mutations for managing document localizations excluding the default locale */
   localizations?: InputMaybe<AssetCreateLocalizationsInput>;
@@ -325,6 +340,9 @@ export type AssetManyWhereInput = {
   imageCategory_every?: InputMaybe<CategoryWhereInput>;
   imageCategory_none?: InputMaybe<CategoryWhereInput>;
   imageCategory_some?: InputMaybe<CategoryWhereInput>;
+  imageHero_every?: InputMaybe<HeroWhereInput>;
+  imageHero_none?: InputMaybe<HeroWhereInput>;
+  imageHero_some?: InputMaybe<HeroWhereInput>;
   imageProduct_every?: InputMaybe<ProductWhereInput>;
   imageProduct_none?: InputMaybe<ProductWhereInput>;
   imageProduct_some?: InputMaybe<ProductWhereInput>;
@@ -404,6 +422,7 @@ export type AssetUpdateInput = {
   handle?: InputMaybe<Scalars['String']>;
   height?: InputMaybe<Scalars['Float']>;
   imageCategory?: InputMaybe<CategoryUpdateManyInlineInput>;
+  imageHero?: InputMaybe<HeroUpdateManyInlineInput>;
   imageProduct?: InputMaybe<ProductUpdateManyInlineInput>;
   /** Manage document localizations */
   localizations?: InputMaybe<AssetUpdateLocalizationsInput>;
@@ -632,6 +651,9 @@ export type AssetWhereInput = {
   imageCategory_every?: InputMaybe<CategoryWhereInput>;
   imageCategory_none?: InputMaybe<CategoryWhereInput>;
   imageCategory_some?: InputMaybe<CategoryWhereInput>;
+  imageHero_every?: InputMaybe<HeroWhereInput>;
+  imageHero_none?: InputMaybe<HeroWhereInput>;
+  imageHero_some?: InputMaybe<HeroWhereInput>;
   imageProduct_every?: InputMaybe<ProductWhereInput>;
   imageProduct_none?: InputMaybe<ProductWhereInput>;
   imageProduct_some?: InputMaybe<ProductWhereInput>;
@@ -3238,6 +3260,796 @@ export type DocumentVersion = {
   stage: Stage;
 };
 
+export type Hero = Node & {
+  __typename?: 'Hero';
+  /** The time the document was created */
+  createdAt: Scalars['DateTime'];
+  /** User that created this document */
+  createdBy?: Maybe<User>;
+  description?: Maybe<Scalars['String']>;
+  /** Get the document in other stages */
+  documentInStages: Array<Hero>;
+  /** List of Hero versions */
+  history: Array<Version>;
+  /** The unique identifier */
+  id: Scalars['ID'];
+  image?: Maybe<Asset>;
+  product?: Maybe<Product>;
+  /** The time the document was published. Null on documents in draft stage. */
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  /** User that last published this document */
+  publishedBy?: Maybe<User>;
+  scheduledIn: Array<ScheduledOperation>;
+  /** System stage field */
+  stage: Stage;
+  /** The time the document was updated */
+  updatedAt: Scalars['DateTime'];
+  /** User that last updated this document */
+  updatedBy?: Maybe<User>;
+};
+
+
+export type HeroCreatedByArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type HeroDocumentInStagesArgs = {
+  includeCurrent?: Scalars['Boolean'];
+  inheritLocale?: Scalars['Boolean'];
+  stages?: Array<Stage>;
+};
+
+
+export type HeroHistoryArgs = {
+  limit?: Scalars['Int'];
+  skip?: Scalars['Int'];
+  stageOverride?: InputMaybe<Stage>;
+};
+
+
+export type HeroImageArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type HeroProductArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type HeroPublishedByArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type HeroScheduledInArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ScheduledOperationWhereInput>;
+};
+
+
+export type HeroUpdatedByArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+export type HeroConnectInput = {
+  /** Allow to specify document position in list of connected documents, will default to appending at end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Document to connect */
+  where: HeroWhereUniqueInput;
+};
+
+/** A connection to a list of items. */
+export type HeroConnection = {
+  __typename?: 'HeroConnection';
+  aggregate: Aggregate;
+  /** A list of edges. */
+  edges: Array<HeroEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+export type HeroCreateInput = {
+  cl0jsdizt44mt01xt58bk03fy?: InputMaybe<HomeCreateManyInlineInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  description?: InputMaybe<Scalars['String']>;
+  image?: InputMaybe<AssetCreateOneInlineInput>;
+  product?: InputMaybe<ProductCreateOneInlineInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type HeroCreateManyInlineInput = {
+  /** Connect multiple existing Hero documents */
+  connect?: InputMaybe<Array<HeroWhereUniqueInput>>;
+  /** Create and connect multiple existing Hero documents */
+  create?: InputMaybe<Array<HeroCreateInput>>;
+};
+
+export type HeroCreateOneInlineInput = {
+  /** Connect one existing Hero document */
+  connect?: InputMaybe<HeroWhereUniqueInput>;
+  /** Create and connect one Hero document */
+  create?: InputMaybe<HeroCreateInput>;
+};
+
+/** An edge in a connection. */
+export type HeroEdge = {
+  __typename?: 'HeroEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of the edge. */
+  node: Hero;
+};
+
+/** Identifies documents */
+export type HeroManyWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<HeroWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<HeroWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<HeroWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<Scalars['DateTime']>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<Scalars['DateTime']>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  description?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  description_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  description_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  description_in?: InputMaybe<Array<Scalars['String']>>;
+  /** All values that are not equal to given value. */
+  description_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  description_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  description_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  description_not_in?: InputMaybe<Array<Scalars['String']>>;
+  /** All values not starting with the given string. */
+  description_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  description_starts_with?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  /** All values that are not equal to given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  image?: InputMaybe<AssetWhereInput>;
+  product?: InputMaybe<ProductWhereInput>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<Scalars['DateTime']>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<Scalars['DateTime']>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<Scalars['DateTime']>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<Scalars['DateTime']>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+export enum HeroOrderByInput {
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  DescriptionAsc = 'description_ASC',
+  DescriptionDesc = 'description_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  PublishedAtAsc = 'publishedAt_ASC',
+  PublishedAtDesc = 'publishedAt_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
+}
+
+export type HeroUpdateInput = {
+  cl0jsdizt44mt01xt58bk03fy?: InputMaybe<HomeUpdateManyInlineInput>;
+  description?: InputMaybe<Scalars['String']>;
+  image?: InputMaybe<AssetUpdateOneInlineInput>;
+  product?: InputMaybe<ProductUpdateOneInlineInput>;
+};
+
+export type HeroUpdateManyInlineInput = {
+  /** Connect multiple existing Hero documents */
+  connect?: InputMaybe<Array<HeroConnectInput>>;
+  /** Create and connect multiple Hero documents */
+  create?: InputMaybe<Array<HeroCreateInput>>;
+  /** Delete multiple Hero documents */
+  delete?: InputMaybe<Array<HeroWhereUniqueInput>>;
+  /** Disconnect multiple Hero documents */
+  disconnect?: InputMaybe<Array<HeroWhereUniqueInput>>;
+  /** Override currently-connected documents with multiple existing Hero documents */
+  set?: InputMaybe<Array<HeroWhereUniqueInput>>;
+  /** Update multiple Hero documents */
+  update?: InputMaybe<Array<HeroUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple Hero documents */
+  upsert?: InputMaybe<Array<HeroUpsertWithNestedWhereUniqueInput>>;
+};
+
+export type HeroUpdateManyInput = {
+  description?: InputMaybe<Scalars['String']>;
+};
+
+export type HeroUpdateManyWithNestedWhereInput = {
+  /** Update many input */
+  data: HeroUpdateManyInput;
+  /** Document search */
+  where: HeroWhereInput;
+};
+
+export type HeroUpdateOneInlineInput = {
+  /** Connect existing Hero document */
+  connect?: InputMaybe<HeroWhereUniqueInput>;
+  /** Create and connect one Hero document */
+  create?: InputMaybe<HeroCreateInput>;
+  /** Delete currently connected Hero document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Disconnect currently connected Hero document */
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  /** Update single Hero document */
+  update?: InputMaybe<HeroUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single Hero document */
+  upsert?: InputMaybe<HeroUpsertWithNestedWhereUniqueInput>;
+};
+
+export type HeroUpdateWithNestedWhereUniqueInput = {
+  /** Document to update */
+  data: HeroUpdateInput;
+  /** Unique document search */
+  where: HeroWhereUniqueInput;
+};
+
+export type HeroUpsertInput = {
+  /** Create document if it didn't exist */
+  create: HeroCreateInput;
+  /** Update document if it exists */
+  update: HeroUpdateInput;
+};
+
+export type HeroUpsertWithNestedWhereUniqueInput = {
+  /** Upsert data */
+  data: HeroUpsertInput;
+  /** Unique document search */
+  where: HeroWhereUniqueInput;
+};
+
+/** Identifies documents */
+export type HeroWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<HeroWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<HeroWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<HeroWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<Scalars['DateTime']>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<Scalars['DateTime']>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  description?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  description_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  description_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  description_in?: InputMaybe<Array<Scalars['String']>>;
+  /** All values that are not equal to given value. */
+  description_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  description_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  description_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  description_not_in?: InputMaybe<Array<Scalars['String']>>;
+  /** All values not starting with the given string. */
+  description_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  description_starts_with?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  /** All values that are not equal to given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  image?: InputMaybe<AssetWhereInput>;
+  product?: InputMaybe<ProductWhereInput>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<Scalars['DateTime']>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<Scalars['DateTime']>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<Scalars['DateTime']>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<Scalars['DateTime']>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+/** References Hero record uniquely */
+export type HeroWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+export type Home = Node & {
+  __typename?: 'Home';
+  /** The time the document was created */
+  createdAt: Scalars['DateTime'];
+  /** User that created this document */
+  createdBy?: Maybe<User>;
+  /** Get the document in other stages */
+  documentInStages: Array<Home>;
+  hero?: Maybe<Hero>;
+  /** List of Home versions */
+  history: Array<Version>;
+  /** The unique identifier */
+  id: Scalars['ID'];
+  /** The time the document was published. Null on documents in draft stage. */
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  /** User that last published this document */
+  publishedBy?: Maybe<User>;
+  scheduledIn: Array<ScheduledOperation>;
+  /** System stage field */
+  stage: Stage;
+  /** The time the document was updated */
+  updatedAt: Scalars['DateTime'];
+  /** User that last updated this document */
+  updatedBy?: Maybe<User>;
+};
+
+
+export type HomeCreatedByArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type HomeDocumentInStagesArgs = {
+  includeCurrent?: Scalars['Boolean'];
+  inheritLocale?: Scalars['Boolean'];
+  stages?: Array<Stage>;
+};
+
+
+export type HomeHeroArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type HomeHistoryArgs = {
+  limit?: Scalars['Int'];
+  skip?: Scalars['Int'];
+  stageOverride?: InputMaybe<Stage>;
+};
+
+
+export type HomePublishedByArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type HomeScheduledInArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ScheduledOperationWhereInput>;
+};
+
+
+export type HomeUpdatedByArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+export type HomeConnectInput = {
+  /** Allow to specify document position in list of connected documents, will default to appending at end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Document to connect */
+  where: HomeWhereUniqueInput;
+};
+
+/** A connection to a list of items. */
+export type HomeConnection = {
+  __typename?: 'HomeConnection';
+  aggregate: Aggregate;
+  /** A list of edges. */
+  edges: Array<HomeEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+export type HomeCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  hero?: InputMaybe<HeroCreateOneInlineInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type HomeCreateManyInlineInput = {
+  /** Connect multiple existing Home documents */
+  connect?: InputMaybe<Array<HomeWhereUniqueInput>>;
+  /** Create and connect multiple existing Home documents */
+  create?: InputMaybe<Array<HomeCreateInput>>;
+};
+
+export type HomeCreateOneInlineInput = {
+  /** Connect one existing Home document */
+  connect?: InputMaybe<HomeWhereUniqueInput>;
+  /** Create and connect one Home document */
+  create?: InputMaybe<HomeCreateInput>;
+};
+
+/** An edge in a connection. */
+export type HomeEdge = {
+  __typename?: 'HomeEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of the edge. */
+  node: Home;
+};
+
+/** Identifies documents */
+export type HomeManyWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<HomeWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<HomeWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<HomeWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<Scalars['DateTime']>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<Scalars['DateTime']>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  hero?: InputMaybe<HeroWhereInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  /** All values that are not equal to given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<Scalars['DateTime']>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<Scalars['DateTime']>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<Scalars['DateTime']>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<Scalars['DateTime']>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+export enum HomeOrderByInput {
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  PublishedAtAsc = 'publishedAt_ASC',
+  PublishedAtDesc = 'publishedAt_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
+}
+
+export type HomeUpdateInput = {
+  hero?: InputMaybe<HeroUpdateOneInlineInput>;
+};
+
+export type HomeUpdateManyInlineInput = {
+  /** Connect multiple existing Home documents */
+  connect?: InputMaybe<Array<HomeConnectInput>>;
+  /** Create and connect multiple Home documents */
+  create?: InputMaybe<Array<HomeCreateInput>>;
+  /** Delete multiple Home documents */
+  delete?: InputMaybe<Array<HomeWhereUniqueInput>>;
+  /** Disconnect multiple Home documents */
+  disconnect?: InputMaybe<Array<HomeWhereUniqueInput>>;
+  /** Override currently-connected documents with multiple existing Home documents */
+  set?: InputMaybe<Array<HomeWhereUniqueInput>>;
+  /** Update multiple Home documents */
+  update?: InputMaybe<Array<HomeUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple Home documents */
+  upsert?: InputMaybe<Array<HomeUpsertWithNestedWhereUniqueInput>>;
+};
+
+export type HomeUpdateManyInput = {
+  /** No fields in updateMany data input */
+  _?: InputMaybe<Scalars['String']>;
+};
+
+export type HomeUpdateManyWithNestedWhereInput = {
+  /** Update many input */
+  data: HomeUpdateManyInput;
+  /** Document search */
+  where: HomeWhereInput;
+};
+
+export type HomeUpdateOneInlineInput = {
+  /** Connect existing Home document */
+  connect?: InputMaybe<HomeWhereUniqueInput>;
+  /** Create and connect one Home document */
+  create?: InputMaybe<HomeCreateInput>;
+  /** Delete currently connected Home document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Disconnect currently connected Home document */
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  /** Update single Home document */
+  update?: InputMaybe<HomeUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single Home document */
+  upsert?: InputMaybe<HomeUpsertWithNestedWhereUniqueInput>;
+};
+
+export type HomeUpdateWithNestedWhereUniqueInput = {
+  /** Document to update */
+  data: HomeUpdateInput;
+  /** Unique document search */
+  where: HomeWhereUniqueInput;
+};
+
+export type HomeUpsertInput = {
+  /** Create document if it didn't exist */
+  create: HomeCreateInput;
+  /** Update document if it exists */
+  update: HomeUpdateInput;
+};
+
+export type HomeUpsertWithNestedWhereUniqueInput = {
+  /** Upsert data */
+  data: HomeUpsertInput;
+  /** Unique document search */
+  where: HomeWhereUniqueInput;
+};
+
+/** Identifies documents */
+export type HomeWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<HomeWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<HomeWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<HomeWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<Scalars['DateTime']>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<Scalars['DateTime']>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  hero?: InputMaybe<HeroWhereInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  /** All values that are not equal to given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<Scalars['DateTime']>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<Scalars['DateTime']>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<Scalars['DateTime']>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<Scalars['DateTime']>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+/** References Home record uniquely */
+export type HomeWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
 export enum ImageFit {
   /** Resizes the image to fit within the specified parameters without distorting, cropping, or changing the aspect ratio. */
   Clip = 'clip',
@@ -3720,6 +4532,10 @@ export type Mutation = {
   createCollection?: Maybe<Collection>;
   /** Create one currency */
   createCurrency?: Maybe<Currency>;
+  /** Create one hero */
+  createHero?: Maybe<Hero>;
+  /** Create one home */
+  createHome?: Maybe<Home>;
   /** Create one item */
   createItem?: Maybe<Item>;
   /** Create one order */
@@ -3746,6 +4562,10 @@ export type Mutation = {
   deleteCollection?: Maybe<Collection>;
   /** Delete one currency from _all_ existing stages. Returns deleted document. */
   deleteCurrency?: Maybe<Currency>;
+  /** Delete one hero from _all_ existing stages. Returns deleted document. */
+  deleteHero?: Maybe<Hero>;
+  /** Delete one home from _all_ existing stages. Returns deleted document. */
+  deleteHome?: Maybe<Home>;
   /** Delete one item from _all_ existing stages. Returns deleted document. */
   deleteItem?: Maybe<Item>;
   /**
@@ -3790,6 +4610,20 @@ export type Mutation = {
   deleteManyCurrencies: BatchPayload;
   /** Delete many Currency documents, return deleted documents */
   deleteManyCurrenciesConnection: CurrencyConnection;
+  /**
+   * Delete many Hero documents
+   * @deprecated Please use the new paginated many mutation (deleteManyHeroesConnection)
+   */
+  deleteManyHeroes: BatchPayload;
+  /** Delete many Hero documents, return deleted documents */
+  deleteManyHeroesConnection: HeroConnection;
+  /**
+   * Delete many Home documents
+   * @deprecated Please use the new paginated many mutation (deleteManyHomesConnection)
+   */
+  deleteManyHomes: BatchPayload;
+  /** Delete many Home documents, return deleted documents */
+  deleteManyHomesConnection: HomeConnection;
   /**
    * Delete many Item documents
    * @deprecated Please use the new paginated many mutation (deleteManyItemsConnection)
@@ -3858,6 +4692,10 @@ export type Mutation = {
   publishCollection?: Maybe<Collection>;
   /** Publish one currency */
   publishCurrency?: Maybe<Currency>;
+  /** Publish one hero */
+  publishHero?: Maybe<Hero>;
+  /** Publish one home */
+  publishHome?: Maybe<Home>;
   /** Publish one item */
   publishItem?: Maybe<Item>;
   /**
@@ -3902,6 +4740,20 @@ export type Mutation = {
   publishManyCurrencies: BatchPayload;
   /** Publish many Currency documents */
   publishManyCurrenciesConnection: CurrencyConnection;
+  /**
+   * Publish many Hero documents
+   * @deprecated Please use the new paginated many mutation (publishManyHeroesConnection)
+   */
+  publishManyHeroes: BatchPayload;
+  /** Publish many Hero documents */
+  publishManyHeroesConnection: HeroConnection;
+  /**
+   * Publish many Home documents
+   * @deprecated Please use the new paginated many mutation (publishManyHomesConnection)
+   */
+  publishManyHomes: BatchPayload;
+  /** Publish many Home documents */
+  publishManyHomesConnection: HomeConnection;
   /**
    * Publish many Item documents
    * @deprecated Please use the new paginated many mutation (publishManyItemsConnection)
@@ -3966,6 +4818,10 @@ export type Mutation = {
   schedulePublishCollection?: Maybe<Collection>;
   /** Schedule to publish one currency */
   schedulePublishCurrency?: Maybe<Currency>;
+  /** Schedule to publish one hero */
+  schedulePublishHero?: Maybe<Hero>;
+  /** Schedule to publish one home */
+  schedulePublishHome?: Maybe<Home>;
   /** Schedule to publish one item */
   schedulePublishItem?: Maybe<Item>;
   /** Schedule to publish one order */
@@ -3990,6 +4846,10 @@ export type Mutation = {
   scheduleUnpublishCollection?: Maybe<Collection>;
   /** Unpublish one currency from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishCurrency?: Maybe<Currency>;
+  /** Unpublish one hero from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  scheduleUnpublishHero?: Maybe<Hero>;
+  /** Unpublish one home from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  scheduleUnpublishHome?: Maybe<Home>;
   /** Unpublish one item from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishItem?: Maybe<Item>;
   /** Unpublish one order from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
@@ -4014,6 +4874,10 @@ export type Mutation = {
   unpublishCollection?: Maybe<Collection>;
   /** Unpublish one currency from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishCurrency?: Maybe<Currency>;
+  /** Unpublish one hero from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  unpublishHero?: Maybe<Hero>;
+  /** Unpublish one home from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  unpublishHome?: Maybe<Home>;
   /** Unpublish one item from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishItem?: Maybe<Item>;
   /**
@@ -4058,6 +4922,20 @@ export type Mutation = {
   unpublishManyCurrencies: BatchPayload;
   /** Find many Currency documents that match criteria in specified stage and unpublish from target stages */
   unpublishManyCurrenciesConnection: CurrencyConnection;
+  /**
+   * Unpublish many Hero documents
+   * @deprecated Please use the new paginated many mutation (unpublishManyHeroesConnection)
+   */
+  unpublishManyHeroes: BatchPayload;
+  /** Find many Hero documents that match criteria in specified stage and unpublish from target stages */
+  unpublishManyHeroesConnection: HeroConnection;
+  /**
+   * Unpublish many Home documents
+   * @deprecated Please use the new paginated many mutation (unpublishManyHomesConnection)
+   */
+  unpublishManyHomes: BatchPayload;
+  /** Find many Home documents that match criteria in specified stage and unpublish from target stages */
+  unpublishManyHomesConnection: HomeConnection;
   /**
    * Unpublish many Item documents
    * @deprecated Please use the new paginated many mutation (unpublishManyItemsConnection)
@@ -4122,6 +5000,10 @@ export type Mutation = {
   updateCollection?: Maybe<Collection>;
   /** Update one currency */
   updateCurrency?: Maybe<Currency>;
+  /** Update one hero */
+  updateHero?: Maybe<Hero>;
+  /** Update one home */
+  updateHome?: Maybe<Home>;
   /** Update one item */
   updateItem?: Maybe<Item>;
   /**
@@ -4166,6 +5048,20 @@ export type Mutation = {
   updateManyCurrencies: BatchPayload;
   /** Update many Currency documents */
   updateManyCurrenciesConnection: CurrencyConnection;
+  /**
+   * Update many heroes
+   * @deprecated Please use the new paginated many mutation (updateManyHeroesConnection)
+   */
+  updateManyHeroes: BatchPayload;
+  /** Update many Hero documents */
+  updateManyHeroesConnection: HeroConnection;
+  /**
+   * Update many homes
+   * @deprecated Please use the new paginated many mutation (updateManyHomesConnection)
+   */
+  updateManyHomes: BatchPayload;
+  /** Update many Home documents */
+  updateManyHomesConnection: HomeConnection;
   /**
    * Update many items
    * @deprecated Please use the new paginated many mutation (updateManyItemsConnection)
@@ -4232,6 +5128,10 @@ export type Mutation = {
   upsertCollection?: Maybe<Collection>;
   /** Upsert one currency */
   upsertCurrency?: Maybe<Currency>;
+  /** Upsert one hero */
+  upsertHero?: Maybe<Hero>;
+  /** Upsert one home */
+  upsertHome?: Maybe<Home>;
   /** Upsert one item */
   upsertItem?: Maybe<Item>;
   /** Upsert one order */
@@ -4274,6 +5174,16 @@ export type MutationCreateCollectionArgs = {
 
 export type MutationCreateCurrencyArgs = {
   data: CurrencyCreateInput;
+};
+
+
+export type MutationCreateHeroArgs = {
+  data: HeroCreateInput;
+};
+
+
+export type MutationCreateHomeArgs = {
+  data: HomeCreateInput;
 };
 
 
@@ -4339,6 +5249,16 @@ export type MutationDeleteCollectionArgs = {
 
 export type MutationDeleteCurrencyArgs = {
   where: CurrencyWhereUniqueInput;
+};
+
+
+export type MutationDeleteHeroArgs = {
+  where: HeroWhereUniqueInput;
+};
+
+
+export type MutationDeleteHomeArgs = {
+  where: HomeWhereUniqueInput;
 };
 
 
@@ -4434,6 +5354,36 @@ export type MutationDeleteManyCurrenciesConnectionArgs = {
   last?: InputMaybe<Scalars['Int']>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<CurrencyManyWhereInput>;
+};
+
+
+export type MutationDeleteManyHeroesArgs = {
+  where?: InputMaybe<HeroManyWhereInput>;
+};
+
+
+export type MutationDeleteManyHeroesConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<HeroManyWhereInput>;
+};
+
+
+export type MutationDeleteManyHomesArgs = {
+  where?: InputMaybe<HomeManyWhereInput>;
+};
+
+
+export type MutationDeleteManyHomesConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<HomeManyWhereInput>;
 };
 
 
@@ -4607,6 +5557,18 @@ export type MutationPublishCurrencyArgs = {
 };
 
 
+export type MutationPublishHeroArgs = {
+  to?: Array<Stage>;
+  where: HeroWhereUniqueInput;
+};
+
+
+export type MutationPublishHomeArgs = {
+  to?: Array<Stage>;
+  where: HomeWhereUniqueInput;
+};
+
+
 export type MutationPublishItemArgs = {
   to?: Array<Stage>;
   where: ItemWhereUniqueInput;
@@ -4736,6 +5698,42 @@ export type MutationPublishManyCurrenciesConnectionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   to?: Array<Stage>;
   where?: InputMaybe<CurrencyManyWhereInput>;
+};
+
+
+export type MutationPublishManyHeroesArgs = {
+  to?: Array<Stage>;
+  where?: InputMaybe<HeroManyWhereInput>;
+};
+
+
+export type MutationPublishManyHeroesConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: InputMaybe<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  to?: Array<Stage>;
+  where?: InputMaybe<HeroManyWhereInput>;
+};
+
+
+export type MutationPublishManyHomesArgs = {
+  to?: Array<Stage>;
+  where?: InputMaybe<HomeManyWhereInput>;
+};
+
+
+export type MutationPublishManyHomesConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: InputMaybe<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  to?: Array<Stage>;
+  where?: InputMaybe<HomeManyWhereInput>;
 };
 
 
@@ -4943,6 +5941,22 @@ export type MutationSchedulePublishCurrencyArgs = {
 };
 
 
+export type MutationSchedulePublishHeroArgs = {
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  to?: Array<Stage>;
+  where: HeroWhereUniqueInput;
+};
+
+
+export type MutationSchedulePublishHomeArgs = {
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  to?: Array<Stage>;
+  where: HomeWhereUniqueInput;
+};
+
+
 export type MutationSchedulePublishItemArgs = {
   releaseAt?: InputMaybe<Scalars['DateTime']>;
   releaseId?: InputMaybe<Scalars['String']>;
@@ -5048,6 +6062,22 @@ export type MutationScheduleUnpublishCurrencyArgs = {
 };
 
 
+export type MutationScheduleUnpublishHeroArgs = {
+  from?: Array<Stage>;
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  where: HeroWhereUniqueInput;
+};
+
+
+export type MutationScheduleUnpublishHomeArgs = {
+  from?: Array<Stage>;
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  where: HomeWhereUniqueInput;
+};
+
+
 export type MutationScheduleUnpublishItemArgs = {
   from?: Array<Stage>;
   releaseAt?: InputMaybe<Scalars['DateTime']>;
@@ -5137,6 +6167,18 @@ export type MutationUnpublishCollectionArgs = {
 export type MutationUnpublishCurrencyArgs = {
   from?: Array<Stage>;
   where: CurrencyWhereUniqueInput;
+};
+
+
+export type MutationUnpublishHeroArgs = {
+  from?: Array<Stage>;
+  where: HeroWhereUniqueInput;
+};
+
+
+export type MutationUnpublishHomeArgs = {
+  from?: Array<Stage>;
+  where: HomeWhereUniqueInput;
 };
 
 
@@ -5263,6 +6305,42 @@ export type MutationUnpublishManyCurrenciesConnectionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   stage?: InputMaybe<Stage>;
   where?: InputMaybe<CurrencyManyWhereInput>;
+};
+
+
+export type MutationUnpublishManyHeroesArgs = {
+  from?: Array<Stage>;
+  where?: InputMaybe<HeroManyWhereInput>;
+};
+
+
+export type MutationUnpublishManyHeroesConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: Array<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: InputMaybe<Stage>;
+  where?: InputMaybe<HeroManyWhereInput>;
+};
+
+
+export type MutationUnpublishManyHomesArgs = {
+  from?: Array<Stage>;
+  where?: InputMaybe<HomeManyWhereInput>;
+};
+
+
+export type MutationUnpublishManyHomesConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: Array<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: InputMaybe<Stage>;
+  where?: InputMaybe<HomeManyWhereInput>;
 };
 
 
@@ -5446,6 +6524,18 @@ export type MutationUpdateCurrencyArgs = {
 };
 
 
+export type MutationUpdateHeroArgs = {
+  data: HeroUpdateInput;
+  where: HeroWhereUniqueInput;
+};
+
+
+export type MutationUpdateHomeArgs = {
+  data: HomeUpdateInput;
+  where: HomeWhereUniqueInput;
+};
+
+
 export type MutationUpdateItemArgs = {
   data: ItemUpdateInput;
   where: ItemWhereUniqueInput;
@@ -5551,6 +6641,40 @@ export type MutationUpdateManyCurrenciesConnectionArgs = {
   last?: InputMaybe<Scalars['Int']>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<CurrencyManyWhereInput>;
+};
+
+
+export type MutationUpdateManyHeroesArgs = {
+  data: HeroUpdateManyInput;
+  where?: InputMaybe<HeroManyWhereInput>;
+};
+
+
+export type MutationUpdateManyHeroesConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  data: HeroUpdateManyInput;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<HeroManyWhereInput>;
+};
+
+
+export type MutationUpdateManyHomesArgs = {
+  data: HomeUpdateManyInput;
+  where?: InputMaybe<HomeManyWhereInput>;
+};
+
+
+export type MutationUpdateManyHomesConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  data: HomeUpdateManyInput;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<HomeManyWhereInput>;
 };
 
 
@@ -5725,6 +6849,18 @@ export type MutationUpsertCollectionArgs = {
 export type MutationUpsertCurrencyArgs = {
   upsert: CurrencyUpsertInput;
   where: CurrencyWhereUniqueInput;
+};
+
+
+export type MutationUpsertHeroArgs = {
+  upsert: HeroUpsertInput;
+  where: HeroWhereUniqueInput;
+};
+
+
+export type MutationUpsertHomeArgs = {
+  upsert: HomeUpsertInput;
+  where: HomeWhereUniqueInput;
 };
 
 
@@ -6942,6 +8078,7 @@ export type ProductCreateInput = {
   categories?: InputMaybe<CategoryCreateManyInlineInput>;
   /** cents input for default locale (en) */
   cents: Scalars['Int'];
+  cl0jslzhb45hp01xt9wi78la6?: InputMaybe<HeroCreateManyInlineInput>;
   collections?: InputMaybe<CollectionCreateManyInlineInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   /** description input for default locale (en) */
@@ -7563,6 +8700,7 @@ export type ProductUpdateInput = {
   categories?: InputMaybe<CategoryUpdateManyInlineInput>;
   /** cents input for default locale (en) */
   cents?: InputMaybe<Scalars['Int']>;
+  cl0jslzhb45hp01xt9wi78la6?: InputMaybe<HeroUpdateManyInlineInput>;
   collections?: InputMaybe<CollectionUpdateManyInlineInput>;
   /** description input for default locale (en) */
   description?: InputMaybe<Scalars['String']>;
@@ -7948,6 +9086,22 @@ export type Query = {
   currency?: Maybe<Currency>;
   /** Retrieve document version */
   currencyVersion?: Maybe<DocumentVersion>;
+  /** Retrieve a single hero */
+  hero?: Maybe<Hero>;
+  /** Retrieve document version */
+  heroVersion?: Maybe<DocumentVersion>;
+  /** Retrieve multiple heroes */
+  heroes: Array<Hero>;
+  /** Retrieve multiple heroes using the Relay connection interface */
+  heroesConnection: HeroConnection;
+  /** Retrieve a single home */
+  home?: Maybe<Home>;
+  /** Retrieve document version */
+  homeVersion?: Maybe<DocumentVersion>;
+  /** Retrieve multiple homes */
+  homes: Array<Home>;
+  /** Retrieve multiple homes using the Relay connection interface */
+  homesConnection: HomeConnection;
   /** Retrieve a single item */
   item?: Maybe<Item>;
   /** Retrieve document version */
@@ -8244,6 +9398,82 @@ export type QueryCurrencyArgs = {
 
 export type QueryCurrencyVersionArgs = {
   where: VersionWhereInput;
+};
+
+
+export type QueryHeroArgs = {
+  locales?: Array<Locale>;
+  stage?: Stage;
+  where: HeroWhereUniqueInput;
+};
+
+
+export type QueryHeroVersionArgs = {
+  where: VersionWhereInput;
+};
+
+
+export type QueryHeroesArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<HeroOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<HeroWhereInput>;
+};
+
+
+export type QueryHeroesConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<HeroOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<HeroWhereInput>;
+};
+
+
+export type QueryHomeArgs = {
+  locales?: Array<Locale>;
+  stage?: Stage;
+  where: HomeWhereUniqueInput;
+};
+
+
+export type QueryHomeVersionArgs = {
+  where: VersionWhereInput;
+};
+
+
+export type QueryHomesArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<HomeOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<HomeWhereInput>;
+};
+
+
+export type QueryHomesConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<HomeOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<HomeWhereInput>;
 };
 
 
@@ -9265,7 +10495,7 @@ export type ScheduledOperationUpdatedByArgs = {
   locales?: InputMaybe<Array<Locale>>;
 };
 
-export type ScheduledOperationAffectedDocument = Asset | Cart | CartProduct | Category | Collection | Currency | Item | Order | OrderItem | Product | ProductItem | Review;
+export type ScheduledOperationAffectedDocument = Asset | Cart | CartProduct | Category | Collection | Currency | Hero | Home | Item | Order | OrderItem | Product | ProductItem | Review;
 
 export type ScheduledOperationConnectInput = {
   /** Allow to specify document position in list of connected documents, will default to appending at end of list */
@@ -10620,6 +11850,8 @@ export enum _MutationKind {
   DeleteMany = 'deleteMany',
   Publish = 'publish',
   PublishMany = 'publishMany',
+  SchedulePublish = 'schedulePublish',
+  ScheduleUnpublish = 'scheduleUnpublish',
   Unpublish = 'unpublish',
   UnpublishMany = 'unpublishMany',
   Update = 'update',
@@ -10665,6 +11897,11 @@ export type GetProductsByCategoryIdQueryVariables = Exact<{
 
 export type GetProductsByCategoryIdQuery = { __typename?: 'Query', category?: { __typename?: 'Category', products: Array<{ __typename?: 'Product', id: string, name: string, cents: number, description: string, image: { __typename?: 'Asset', id: string, url: string } }> } | null };
 
+export type HomeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type HomeQuery = { __typename?: 'Query', homes: Array<{ __typename?: 'Home', hero?: { __typename?: 'Hero', description?: string | null, product?: { __typename?: 'Product', name: string, id: string } | null } | null }> };
+
 export type ProductByIdQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
@@ -10709,6 +11946,19 @@ export const GetProductsByCategoryIdDocument = gql`
       image {
         id
         url
+      }
+    }
+  }
+}
+    `;
+export const HomeDocument = gql`
+    query Home {
+  homes {
+    hero {
+      description
+      product {
+        name
+        id
       }
     }
   }
@@ -10790,6 +12040,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     GetProductsByCategoryId(variables: GetProductsByCategoryIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetProductsByCategoryIdQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetProductsByCategoryIdQuery>(GetProductsByCategoryIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetProductsByCategoryId');
+    },
+    Home(variables?: HomeQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<HomeQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<HomeQuery>(HomeDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Home');
     },
     ProductById(variables: ProductByIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ProductByIdQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<ProductByIdQuery>(ProductByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'ProductById');
@@ -11030,7 +12283,45 @@ export type ResolversTypes = {
   DocumentTransformationInput: DocumentTransformationInput;
   DocumentVersion: ResolverTypeWrapper<DocumentVersion>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
+  Hero: ResolverTypeWrapper<Hero>;
+  HeroConnectInput: HeroConnectInput;
+  HeroConnection: ResolverTypeWrapper<HeroConnection>;
+  HeroCreateInput: HeroCreateInput;
+  HeroCreateManyInlineInput: HeroCreateManyInlineInput;
+  HeroCreateOneInlineInput: HeroCreateOneInlineInput;
+  HeroEdge: ResolverTypeWrapper<HeroEdge>;
+  HeroManyWhereInput: HeroManyWhereInput;
+  HeroOrderByInput: HeroOrderByInput;
+  HeroUpdateInput: HeroUpdateInput;
+  HeroUpdateManyInlineInput: HeroUpdateManyInlineInput;
+  HeroUpdateManyInput: HeroUpdateManyInput;
+  HeroUpdateManyWithNestedWhereInput: HeroUpdateManyWithNestedWhereInput;
+  HeroUpdateOneInlineInput: HeroUpdateOneInlineInput;
+  HeroUpdateWithNestedWhereUniqueInput: HeroUpdateWithNestedWhereUniqueInput;
+  HeroUpsertInput: HeroUpsertInput;
+  HeroUpsertWithNestedWhereUniqueInput: HeroUpsertWithNestedWhereUniqueInput;
+  HeroWhereInput: HeroWhereInput;
+  HeroWhereUniqueInput: HeroWhereUniqueInput;
   Hex: ResolverTypeWrapper<Scalars['Hex']>;
+  Home: ResolverTypeWrapper<Home>;
+  HomeConnectInput: HomeConnectInput;
+  HomeConnection: ResolverTypeWrapper<HomeConnection>;
+  HomeCreateInput: HomeCreateInput;
+  HomeCreateManyInlineInput: HomeCreateManyInlineInput;
+  HomeCreateOneInlineInput: HomeCreateOneInlineInput;
+  HomeEdge: ResolverTypeWrapper<HomeEdge>;
+  HomeManyWhereInput: HomeManyWhereInput;
+  HomeOrderByInput: HomeOrderByInput;
+  HomeUpdateInput: HomeUpdateInput;
+  HomeUpdateManyInlineInput: HomeUpdateManyInlineInput;
+  HomeUpdateManyInput: HomeUpdateManyInput;
+  HomeUpdateManyWithNestedWhereInput: HomeUpdateManyWithNestedWhereInput;
+  HomeUpdateOneInlineInput: HomeUpdateOneInlineInput;
+  HomeUpdateWithNestedWhereUniqueInput: HomeUpdateWithNestedWhereUniqueInput;
+  HomeUpsertInput: HomeUpsertInput;
+  HomeUpsertWithNestedWhereUniqueInput: HomeUpsertWithNestedWhereUniqueInput;
+  HomeWhereInput: HomeWhereInput;
+  HomeWhereUniqueInput: HomeWhereUniqueInput;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   ImageFit: ImageFit;
   ImageResizeInput: ImageResizeInput;
@@ -11061,7 +12352,7 @@ export type ResolversTypes = {
   LocationInput: LocationInput;
   Long: ResolverTypeWrapper<Scalars['Long']>;
   Mutation: ResolverTypeWrapper<{}>;
-  Node: ResolversTypes['Asset'] | ResolversTypes['Cart'] | ResolversTypes['CartProduct'] | ResolversTypes['Category'] | ResolversTypes['Collection'] | ResolversTypes['Currency'] | ResolversTypes['Item'] | ResolversTypes['Order'] | ResolversTypes['OrderItem'] | ResolversTypes['Product'] | ResolversTypes['ProductItem'] | ResolversTypes['Review'] | ResolversTypes['ScheduledOperation'] | ResolversTypes['ScheduledRelease'] | ResolversTypes['User'];
+  Node: ResolversTypes['Asset'] | ResolversTypes['Cart'] | ResolversTypes['CartProduct'] | ResolversTypes['Category'] | ResolversTypes['Collection'] | ResolversTypes['Currency'] | ResolversTypes['Hero'] | ResolversTypes['Home'] | ResolversTypes['Item'] | ResolversTypes['Order'] | ResolversTypes['OrderItem'] | ResolversTypes['Product'] | ResolversTypes['ProductItem'] | ResolversTypes['Review'] | ResolversTypes['ScheduledOperation'] | ResolversTypes['ScheduledRelease'] | ResolversTypes['User'];
   Order: ResolverTypeWrapper<Order>;
   OrderConnectInput: OrderConnectInput;
   OrderConnection: ResolverTypeWrapper<OrderConnection>;
@@ -11177,7 +12468,7 @@ export type ResolversTypes = {
   RichText: ResolverTypeWrapper<RichText>;
   RichTextAST: ResolverTypeWrapper<Scalars['RichTextAST']>;
   ScheduledOperation: ResolverTypeWrapper<Omit<ScheduledOperation, 'affectedDocuments'> & { affectedDocuments: Array<ResolversTypes['ScheduledOperationAffectedDocument']> }>;
-  ScheduledOperationAffectedDocument: ResolversTypes['Asset'] | ResolversTypes['Cart'] | ResolversTypes['CartProduct'] | ResolversTypes['Category'] | ResolversTypes['Collection'] | ResolversTypes['Currency'] | ResolversTypes['Item'] | ResolversTypes['Order'] | ResolversTypes['OrderItem'] | ResolversTypes['Product'] | ResolversTypes['ProductItem'] | ResolversTypes['Review'];
+  ScheduledOperationAffectedDocument: ResolversTypes['Asset'] | ResolversTypes['Cart'] | ResolversTypes['CartProduct'] | ResolversTypes['Category'] | ResolversTypes['Collection'] | ResolversTypes['Currency'] | ResolversTypes['Hero'] | ResolversTypes['Home'] | ResolversTypes['Item'] | ResolversTypes['Order'] | ResolversTypes['OrderItem'] | ResolversTypes['Product'] | ResolversTypes['ProductItem'] | ResolversTypes['Review'];
   ScheduledOperationConnectInput: ScheduledOperationConnectInput;
   ScheduledOperationConnection: ResolverTypeWrapper<ScheduledOperationConnection>;
   ScheduledOperationCreateManyInlineInput: ScheduledOperationCreateManyInlineInput;
@@ -11392,7 +12683,43 @@ export type ResolversParentTypes = {
   DocumentTransformationInput: DocumentTransformationInput;
   DocumentVersion: DocumentVersion;
   Float: Scalars['Float'];
+  Hero: Hero;
+  HeroConnectInput: HeroConnectInput;
+  HeroConnection: HeroConnection;
+  HeroCreateInput: HeroCreateInput;
+  HeroCreateManyInlineInput: HeroCreateManyInlineInput;
+  HeroCreateOneInlineInput: HeroCreateOneInlineInput;
+  HeroEdge: HeroEdge;
+  HeroManyWhereInput: HeroManyWhereInput;
+  HeroUpdateInput: HeroUpdateInput;
+  HeroUpdateManyInlineInput: HeroUpdateManyInlineInput;
+  HeroUpdateManyInput: HeroUpdateManyInput;
+  HeroUpdateManyWithNestedWhereInput: HeroUpdateManyWithNestedWhereInput;
+  HeroUpdateOneInlineInput: HeroUpdateOneInlineInput;
+  HeroUpdateWithNestedWhereUniqueInput: HeroUpdateWithNestedWhereUniqueInput;
+  HeroUpsertInput: HeroUpsertInput;
+  HeroUpsertWithNestedWhereUniqueInput: HeroUpsertWithNestedWhereUniqueInput;
+  HeroWhereInput: HeroWhereInput;
+  HeroWhereUniqueInput: HeroWhereUniqueInput;
   Hex: Scalars['Hex'];
+  Home: Home;
+  HomeConnectInput: HomeConnectInput;
+  HomeConnection: HomeConnection;
+  HomeCreateInput: HomeCreateInput;
+  HomeCreateManyInlineInput: HomeCreateManyInlineInput;
+  HomeCreateOneInlineInput: HomeCreateOneInlineInput;
+  HomeEdge: HomeEdge;
+  HomeManyWhereInput: HomeManyWhereInput;
+  HomeUpdateInput: HomeUpdateInput;
+  HomeUpdateManyInlineInput: HomeUpdateManyInlineInput;
+  HomeUpdateManyInput: HomeUpdateManyInput;
+  HomeUpdateManyWithNestedWhereInput: HomeUpdateManyWithNestedWhereInput;
+  HomeUpdateOneInlineInput: HomeUpdateOneInlineInput;
+  HomeUpdateWithNestedWhereUniqueInput: HomeUpdateWithNestedWhereUniqueInput;
+  HomeUpsertInput: HomeUpsertInput;
+  HomeUpsertWithNestedWhereUniqueInput: HomeUpsertWithNestedWhereUniqueInput;
+  HomeWhereInput: HomeWhereInput;
+  HomeWhereUniqueInput: HomeWhereUniqueInput;
   ID: Scalars['ID'];
   ImageResizeInput: ImageResizeInput;
   ImageTransformationInput: ImageTransformationInput;
@@ -11420,7 +12747,7 @@ export type ResolversParentTypes = {
   LocationInput: LocationInput;
   Long: Scalars['Long'];
   Mutation: {};
-  Node: ResolversParentTypes['Asset'] | ResolversParentTypes['Cart'] | ResolversParentTypes['CartProduct'] | ResolversParentTypes['Category'] | ResolversParentTypes['Collection'] | ResolversParentTypes['Currency'] | ResolversParentTypes['Item'] | ResolversParentTypes['Order'] | ResolversParentTypes['OrderItem'] | ResolversParentTypes['Product'] | ResolversParentTypes['ProductItem'] | ResolversParentTypes['Review'] | ResolversParentTypes['ScheduledOperation'] | ResolversParentTypes['ScheduledRelease'] | ResolversParentTypes['User'];
+  Node: ResolversParentTypes['Asset'] | ResolversParentTypes['Cart'] | ResolversParentTypes['CartProduct'] | ResolversParentTypes['Category'] | ResolversParentTypes['Collection'] | ResolversParentTypes['Currency'] | ResolversParentTypes['Hero'] | ResolversParentTypes['Home'] | ResolversParentTypes['Item'] | ResolversParentTypes['Order'] | ResolversParentTypes['OrderItem'] | ResolversParentTypes['Product'] | ResolversParentTypes['ProductItem'] | ResolversParentTypes['Review'] | ResolversParentTypes['ScheduledOperation'] | ResolversParentTypes['ScheduledRelease'] | ResolversParentTypes['User'];
   Order: Order;
   OrderConnectInput: OrderConnectInput;
   OrderConnection: OrderConnection;
@@ -11531,7 +12858,7 @@ export type ResolversParentTypes = {
   RichText: RichText;
   RichTextAST: Scalars['RichTextAST'];
   ScheduledOperation: Omit<ScheduledOperation, 'affectedDocuments'> & { affectedDocuments: Array<ResolversParentTypes['ScheduledOperationAffectedDocument']> };
-  ScheduledOperationAffectedDocument: ResolversParentTypes['Asset'] | ResolversParentTypes['Cart'] | ResolversParentTypes['CartProduct'] | ResolversParentTypes['Category'] | ResolversParentTypes['Collection'] | ResolversParentTypes['Currency'] | ResolversParentTypes['Item'] | ResolversParentTypes['Order'] | ResolversParentTypes['OrderItem'] | ResolversParentTypes['Product'] | ResolversParentTypes['ProductItem'] | ResolversParentTypes['Review'];
+  ScheduledOperationAffectedDocument: ResolversParentTypes['Asset'] | ResolversParentTypes['Cart'] | ResolversParentTypes['CartProduct'] | ResolversParentTypes['Category'] | ResolversParentTypes['Collection'] | ResolversParentTypes['Currency'] | ResolversParentTypes['Hero'] | ResolversParentTypes['Home'] | ResolversParentTypes['Item'] | ResolversParentTypes['Order'] | ResolversParentTypes['OrderItem'] | ResolversParentTypes['Product'] | ResolversParentTypes['ProductItem'] | ResolversParentTypes['Review'];
   ScheduledOperationConnectInput: ScheduledOperationConnectInput;
   ScheduledOperationConnection: ScheduledOperationConnection;
   ScheduledOperationCreateManyInlineInput: ScheduledOperationCreateManyInlineInput;
@@ -11602,6 +12929,7 @@ export type MarkDirectiveArgs = {
   isConnectInput?: Maybe<Scalars['Boolean']>;
   isListRichText?: Maybe<Scalars['Boolean']>;
   isMemberInput?: Maybe<Scalars['Boolean']>;
+  isPositionInput?: Maybe<Scalars['Boolean']>;
   isRequired?: Maybe<Scalars['Boolean']>;
   isRichTextType?: Maybe<Scalars['Boolean']>;
   isUnidirectional?: Maybe<Scalars['Boolean']>;
@@ -11624,7 +12952,7 @@ export type MarkDirectiveArgs = {
   stages?: Maybe<Scalars['Boolean']>;
   storageId?: Maybe<Scalars['String']>;
   systemDateTimeFieldVariation?: Maybe<_SystemDateTimeFieldVariation>;
-  unionType?: Maybe<Scalars['Boolean']>;
+  unionType?: Maybe<Scalars['String']>;
   updatedAtField?: Maybe<Scalars['String']>;
   url?: Maybe<Scalars['Boolean']>;
   validations?: Maybe<Scalars['String']>;
@@ -11653,6 +12981,7 @@ export type PsqlDirectiveArgs = {
   prio?: Maybe<Scalars['String']>;
   table?: Maybe<Scalars['String']>;
   updatedAtColumn?: Maybe<Scalars['String']>;
+  versionTable?: Maybe<Scalars['String']>;
 };
 
 export type PsqlDirectiveResolver<Result, Parent, ContextType = any, Args = PsqlDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
@@ -11682,6 +13011,7 @@ export type AssetResolvers<ContextType = any, ParentType extends ResolversParent
   history?: Resolver<Array<ResolversTypes['Version']>, ParentType, ContextType, RequireFields<AssetHistoryArgs, 'limit' | 'skip'>>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   imageCategory?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType, Partial<AssetImageCategoryArgs>>;
+  imageHero?: Resolver<Array<ResolversTypes['Hero']>, ParentType, ContextType, Partial<AssetImageHeroArgs>>;
   imageProduct?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType, Partial<AssetImageProductArgs>>;
   locale?: Resolver<ResolversTypes['Locale'], ParentType, ContextType>;
   localizations?: Resolver<Array<ResolversTypes['Asset']>, ParentType, ContextType, RequireFields<AssetLocalizationsArgs, 'includeCurrent' | 'locales'>>;
@@ -11902,9 +13232,69 @@ export type DocumentVersionResolvers<ContextType = any, ParentType extends Resol
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type HeroResolvers<ContextType = any, ParentType extends ResolversParentTypes['Hero'] = ResolversParentTypes['Hero']> = {
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  createdBy?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, Partial<HeroCreatedByArgs>>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  documentInStages?: Resolver<Array<ResolversTypes['Hero']>, ParentType, ContextType, RequireFields<HeroDocumentInStagesArgs, 'includeCurrent' | 'inheritLocale' | 'stages'>>;
+  history?: Resolver<Array<ResolversTypes['Version']>, ParentType, ContextType, RequireFields<HeroHistoryArgs, 'limit' | 'skip'>>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  image?: Resolver<Maybe<ResolversTypes['Asset']>, ParentType, ContextType, Partial<HeroImageArgs>>;
+  product?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, Partial<HeroProductArgs>>;
+  publishedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  publishedBy?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, Partial<HeroPublishedByArgs>>;
+  scheduledIn?: Resolver<Array<ResolversTypes['ScheduledOperation']>, ParentType, ContextType, Partial<HeroScheduledInArgs>>;
+  stage?: Resolver<ResolversTypes['Stage'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  updatedBy?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, Partial<HeroUpdatedByArgs>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type HeroConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['HeroConnection'] = ResolversParentTypes['HeroConnection']> = {
+  aggregate?: Resolver<ResolversTypes['Aggregate'], ParentType, ContextType>;
+  edges?: Resolver<Array<ResolversTypes['HeroEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type HeroEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['HeroEdge'] = ResolversParentTypes['HeroEdge']> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['Hero'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export interface HexScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Hex'], any> {
   name: 'Hex';
 }
+
+export type HomeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Home'] = ResolversParentTypes['Home']> = {
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  createdBy?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, Partial<HomeCreatedByArgs>>;
+  documentInStages?: Resolver<Array<ResolversTypes['Home']>, ParentType, ContextType, RequireFields<HomeDocumentInStagesArgs, 'includeCurrent' | 'inheritLocale' | 'stages'>>;
+  hero?: Resolver<Maybe<ResolversTypes['Hero']>, ParentType, ContextType, Partial<HomeHeroArgs>>;
+  history?: Resolver<Array<ResolversTypes['Version']>, ParentType, ContextType, RequireFields<HomeHistoryArgs, 'limit' | 'skip'>>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  publishedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  publishedBy?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, Partial<HomePublishedByArgs>>;
+  scheduledIn?: Resolver<Array<ResolversTypes['ScheduledOperation']>, ParentType, ContextType, Partial<HomeScheduledInArgs>>;
+  stage?: Resolver<ResolversTypes['Stage'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  updatedBy?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, Partial<HomeUpdatedByArgs>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type HomeConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['HomeConnection'] = ResolversParentTypes['HomeConnection']> = {
+  aggregate?: Resolver<ResolversTypes['Aggregate'], ParentType, ContextType>;
+  edges?: Resolver<Array<ResolversTypes['HomeEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type HomeEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['HomeEdge'] = ResolversParentTypes['HomeEdge']> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['Home'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
 
 export type ItemResolvers<ContextType = any, ParentType extends ResolversParentTypes['Item'] = ResolversParentTypes['Item']> = {
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
@@ -11958,6 +13348,8 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   createCategory?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<MutationCreateCategoryArgs, 'data'>>;
   createCollection?: Resolver<Maybe<ResolversTypes['Collection']>, ParentType, ContextType, RequireFields<MutationCreateCollectionArgs, 'data'>>;
   createCurrency?: Resolver<Maybe<ResolversTypes['Currency']>, ParentType, ContextType, RequireFields<MutationCreateCurrencyArgs, 'data'>>;
+  createHero?: Resolver<Maybe<ResolversTypes['Hero']>, ParentType, ContextType, RequireFields<MutationCreateHeroArgs, 'data'>>;
+  createHome?: Resolver<Maybe<ResolversTypes['Home']>, ParentType, ContextType, RequireFields<MutationCreateHomeArgs, 'data'>>;
   createItem?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<MutationCreateItemArgs, 'data'>>;
   createOrder?: Resolver<Maybe<ResolversTypes['Order']>, ParentType, ContextType, RequireFields<MutationCreateOrderArgs, 'data'>>;
   createOrderItem?: Resolver<Maybe<ResolversTypes['OrderItem']>, ParentType, ContextType, RequireFields<MutationCreateOrderItemArgs, 'data'>>;
@@ -11971,6 +13363,8 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   deleteCategory?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<MutationDeleteCategoryArgs, 'where'>>;
   deleteCollection?: Resolver<Maybe<ResolversTypes['Collection']>, ParentType, ContextType, RequireFields<MutationDeleteCollectionArgs, 'where'>>;
   deleteCurrency?: Resolver<Maybe<ResolversTypes['Currency']>, ParentType, ContextType, RequireFields<MutationDeleteCurrencyArgs, 'where'>>;
+  deleteHero?: Resolver<Maybe<ResolversTypes['Hero']>, ParentType, ContextType, RequireFields<MutationDeleteHeroArgs, 'where'>>;
+  deleteHome?: Resolver<Maybe<ResolversTypes['Home']>, ParentType, ContextType, RequireFields<MutationDeleteHomeArgs, 'where'>>;
   deleteItem?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<MutationDeleteItemArgs, 'where'>>;
   deleteManyAssets?: Resolver<ResolversTypes['BatchPayload'], ParentType, ContextType, Partial<MutationDeleteManyAssetsArgs>>;
   deleteManyAssetsConnection?: Resolver<ResolversTypes['AssetConnection'], ParentType, ContextType, Partial<MutationDeleteManyAssetsConnectionArgs>>;
@@ -11984,6 +13378,10 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   deleteManyCollectionsConnection?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, Partial<MutationDeleteManyCollectionsConnectionArgs>>;
   deleteManyCurrencies?: Resolver<ResolversTypes['BatchPayload'], ParentType, ContextType, Partial<MutationDeleteManyCurrenciesArgs>>;
   deleteManyCurrenciesConnection?: Resolver<ResolversTypes['CurrencyConnection'], ParentType, ContextType, Partial<MutationDeleteManyCurrenciesConnectionArgs>>;
+  deleteManyHeroes?: Resolver<ResolversTypes['BatchPayload'], ParentType, ContextType, Partial<MutationDeleteManyHeroesArgs>>;
+  deleteManyHeroesConnection?: Resolver<ResolversTypes['HeroConnection'], ParentType, ContextType, Partial<MutationDeleteManyHeroesConnectionArgs>>;
+  deleteManyHomes?: Resolver<ResolversTypes['BatchPayload'], ParentType, ContextType, Partial<MutationDeleteManyHomesArgs>>;
+  deleteManyHomesConnection?: Resolver<ResolversTypes['HomeConnection'], ParentType, ContextType, Partial<MutationDeleteManyHomesConnectionArgs>>;
   deleteManyItems?: Resolver<ResolversTypes['BatchPayload'], ParentType, ContextType, Partial<MutationDeleteManyItemsArgs>>;
   deleteManyItemsConnection?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, Partial<MutationDeleteManyItemsConnectionArgs>>;
   deleteManyOrderItems?: Resolver<ResolversTypes['BatchPayload'], ParentType, ContextType, Partial<MutationDeleteManyOrderItemsArgs>>;
@@ -12009,6 +13407,8 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   publishCategory?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<MutationPublishCategoryArgs, 'publishBase' | 'to' | 'where' | 'withDefaultLocale'>>;
   publishCollection?: Resolver<Maybe<ResolversTypes['Collection']>, ParentType, ContextType, RequireFields<MutationPublishCollectionArgs, 'publishBase' | 'to' | 'where' | 'withDefaultLocale'>>;
   publishCurrency?: Resolver<Maybe<ResolversTypes['Currency']>, ParentType, ContextType, RequireFields<MutationPublishCurrencyArgs, 'to' | 'where'>>;
+  publishHero?: Resolver<Maybe<ResolversTypes['Hero']>, ParentType, ContextType, RequireFields<MutationPublishHeroArgs, 'to' | 'where'>>;
+  publishHome?: Resolver<Maybe<ResolversTypes['Home']>, ParentType, ContextType, RequireFields<MutationPublishHomeArgs, 'to' | 'where'>>;
   publishItem?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<MutationPublishItemArgs, 'to' | 'where'>>;
   publishManyAssets?: Resolver<ResolversTypes['BatchPayload'], ParentType, ContextType, RequireFields<MutationPublishManyAssetsArgs, 'publishBase' | 'to' | 'withDefaultLocale'>>;
   publishManyAssetsConnection?: Resolver<ResolversTypes['AssetConnection'], ParentType, ContextType, RequireFields<MutationPublishManyAssetsConnectionArgs, 'from' | 'publishBase' | 'to' | 'withDefaultLocale'>>;
@@ -12022,6 +13422,10 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   publishManyCollectionsConnection?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<MutationPublishManyCollectionsConnectionArgs, 'from' | 'publishBase' | 'to' | 'withDefaultLocale'>>;
   publishManyCurrencies?: Resolver<ResolversTypes['BatchPayload'], ParentType, ContextType, RequireFields<MutationPublishManyCurrenciesArgs, 'to'>>;
   publishManyCurrenciesConnection?: Resolver<ResolversTypes['CurrencyConnection'], ParentType, ContextType, RequireFields<MutationPublishManyCurrenciesConnectionArgs, 'from' | 'to'>>;
+  publishManyHeroes?: Resolver<ResolversTypes['BatchPayload'], ParentType, ContextType, RequireFields<MutationPublishManyHeroesArgs, 'to'>>;
+  publishManyHeroesConnection?: Resolver<ResolversTypes['HeroConnection'], ParentType, ContextType, RequireFields<MutationPublishManyHeroesConnectionArgs, 'from' | 'to'>>;
+  publishManyHomes?: Resolver<ResolversTypes['BatchPayload'], ParentType, ContextType, RequireFields<MutationPublishManyHomesArgs, 'to'>>;
+  publishManyHomesConnection?: Resolver<ResolversTypes['HomeConnection'], ParentType, ContextType, RequireFields<MutationPublishManyHomesConnectionArgs, 'from' | 'to'>>;
   publishManyItems?: Resolver<ResolversTypes['BatchPayload'], ParentType, ContextType, RequireFields<MutationPublishManyItemsArgs, 'to'>>;
   publishManyItemsConnection?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<MutationPublishManyItemsConnectionArgs, 'from' | 'to'>>;
   publishManyOrderItems?: Resolver<ResolversTypes['BatchPayload'], ParentType, ContextType, RequireFields<MutationPublishManyOrderItemsArgs, 'to'>>;
@@ -12045,6 +13449,8 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   schedulePublishCategory?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<MutationSchedulePublishCategoryArgs, 'publishBase' | 'to' | 'where' | 'withDefaultLocale'>>;
   schedulePublishCollection?: Resolver<Maybe<ResolversTypes['Collection']>, ParentType, ContextType, RequireFields<MutationSchedulePublishCollectionArgs, 'publishBase' | 'to' | 'where' | 'withDefaultLocale'>>;
   schedulePublishCurrency?: Resolver<Maybe<ResolversTypes['Currency']>, ParentType, ContextType, RequireFields<MutationSchedulePublishCurrencyArgs, 'to' | 'where'>>;
+  schedulePublishHero?: Resolver<Maybe<ResolversTypes['Hero']>, ParentType, ContextType, RequireFields<MutationSchedulePublishHeroArgs, 'to' | 'where'>>;
+  schedulePublishHome?: Resolver<Maybe<ResolversTypes['Home']>, ParentType, ContextType, RequireFields<MutationSchedulePublishHomeArgs, 'to' | 'where'>>;
   schedulePublishItem?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<MutationSchedulePublishItemArgs, 'to' | 'where'>>;
   schedulePublishOrder?: Resolver<Maybe<ResolversTypes['Order']>, ParentType, ContextType, RequireFields<MutationSchedulePublishOrderArgs, 'to' | 'where'>>;
   schedulePublishOrderItem?: Resolver<Maybe<ResolversTypes['OrderItem']>, ParentType, ContextType, RequireFields<MutationSchedulePublishOrderItemArgs, 'to' | 'where'>>;
@@ -12057,6 +13463,8 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   scheduleUnpublishCategory?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<MutationScheduleUnpublishCategoryArgs, 'from' | 'unpublishBase' | 'where'>>;
   scheduleUnpublishCollection?: Resolver<Maybe<ResolversTypes['Collection']>, ParentType, ContextType, RequireFields<MutationScheduleUnpublishCollectionArgs, 'from' | 'unpublishBase' | 'where'>>;
   scheduleUnpublishCurrency?: Resolver<Maybe<ResolversTypes['Currency']>, ParentType, ContextType, RequireFields<MutationScheduleUnpublishCurrencyArgs, 'from' | 'where'>>;
+  scheduleUnpublishHero?: Resolver<Maybe<ResolversTypes['Hero']>, ParentType, ContextType, RequireFields<MutationScheduleUnpublishHeroArgs, 'from' | 'where'>>;
+  scheduleUnpublishHome?: Resolver<Maybe<ResolversTypes['Home']>, ParentType, ContextType, RequireFields<MutationScheduleUnpublishHomeArgs, 'from' | 'where'>>;
   scheduleUnpublishItem?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<MutationScheduleUnpublishItemArgs, 'from' | 'where'>>;
   scheduleUnpublishOrder?: Resolver<Maybe<ResolversTypes['Order']>, ParentType, ContextType, RequireFields<MutationScheduleUnpublishOrderArgs, 'from' | 'where'>>;
   scheduleUnpublishOrderItem?: Resolver<Maybe<ResolversTypes['OrderItem']>, ParentType, ContextType, RequireFields<MutationScheduleUnpublishOrderItemArgs, 'from' | 'where'>>;
@@ -12069,6 +13477,8 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   unpublishCategory?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<MutationUnpublishCategoryArgs, 'from' | 'unpublishBase' | 'where'>>;
   unpublishCollection?: Resolver<Maybe<ResolversTypes['Collection']>, ParentType, ContextType, RequireFields<MutationUnpublishCollectionArgs, 'from' | 'unpublishBase' | 'where'>>;
   unpublishCurrency?: Resolver<Maybe<ResolversTypes['Currency']>, ParentType, ContextType, RequireFields<MutationUnpublishCurrencyArgs, 'from' | 'where'>>;
+  unpublishHero?: Resolver<Maybe<ResolversTypes['Hero']>, ParentType, ContextType, RequireFields<MutationUnpublishHeroArgs, 'from' | 'where'>>;
+  unpublishHome?: Resolver<Maybe<ResolversTypes['Home']>, ParentType, ContextType, RequireFields<MutationUnpublishHomeArgs, 'from' | 'where'>>;
   unpublishItem?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<MutationUnpublishItemArgs, 'from' | 'where'>>;
   unpublishManyAssets?: Resolver<ResolversTypes['BatchPayload'], ParentType, ContextType, RequireFields<MutationUnpublishManyAssetsArgs, 'from' | 'unpublishBase'>>;
   unpublishManyAssetsConnection?: Resolver<ResolversTypes['AssetConnection'], ParentType, ContextType, RequireFields<MutationUnpublishManyAssetsConnectionArgs, 'from' | 'stage' | 'unpublishBase'>>;
@@ -12082,6 +13492,10 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   unpublishManyCollectionsConnection?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<MutationUnpublishManyCollectionsConnectionArgs, 'from' | 'stage' | 'unpublishBase'>>;
   unpublishManyCurrencies?: Resolver<ResolversTypes['BatchPayload'], ParentType, ContextType, RequireFields<MutationUnpublishManyCurrenciesArgs, 'from'>>;
   unpublishManyCurrenciesConnection?: Resolver<ResolversTypes['CurrencyConnection'], ParentType, ContextType, RequireFields<MutationUnpublishManyCurrenciesConnectionArgs, 'from' | 'stage'>>;
+  unpublishManyHeroes?: Resolver<ResolversTypes['BatchPayload'], ParentType, ContextType, RequireFields<MutationUnpublishManyHeroesArgs, 'from'>>;
+  unpublishManyHeroesConnection?: Resolver<ResolversTypes['HeroConnection'], ParentType, ContextType, RequireFields<MutationUnpublishManyHeroesConnectionArgs, 'from' | 'stage'>>;
+  unpublishManyHomes?: Resolver<ResolversTypes['BatchPayload'], ParentType, ContextType, RequireFields<MutationUnpublishManyHomesArgs, 'from'>>;
+  unpublishManyHomesConnection?: Resolver<ResolversTypes['HomeConnection'], ParentType, ContextType, RequireFields<MutationUnpublishManyHomesConnectionArgs, 'from' | 'stage'>>;
   unpublishManyItems?: Resolver<ResolversTypes['BatchPayload'], ParentType, ContextType, RequireFields<MutationUnpublishManyItemsArgs, 'from'>>;
   unpublishManyItemsConnection?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<MutationUnpublishManyItemsConnectionArgs, 'from' | 'stage'>>;
   unpublishManyOrderItems?: Resolver<ResolversTypes['BatchPayload'], ParentType, ContextType, RequireFields<MutationUnpublishManyOrderItemsArgs, 'from'>>;
@@ -12105,6 +13519,8 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   updateCategory?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<MutationUpdateCategoryArgs, 'data' | 'where'>>;
   updateCollection?: Resolver<Maybe<ResolversTypes['Collection']>, ParentType, ContextType, RequireFields<MutationUpdateCollectionArgs, 'data' | 'where'>>;
   updateCurrency?: Resolver<Maybe<ResolversTypes['Currency']>, ParentType, ContextType, RequireFields<MutationUpdateCurrencyArgs, 'data' | 'where'>>;
+  updateHero?: Resolver<Maybe<ResolversTypes['Hero']>, ParentType, ContextType, RequireFields<MutationUpdateHeroArgs, 'data' | 'where'>>;
+  updateHome?: Resolver<Maybe<ResolversTypes['Home']>, ParentType, ContextType, RequireFields<MutationUpdateHomeArgs, 'data' | 'where'>>;
   updateItem?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<MutationUpdateItemArgs, 'data' | 'where'>>;
   updateManyAssets?: Resolver<ResolversTypes['BatchPayload'], ParentType, ContextType, RequireFields<MutationUpdateManyAssetsArgs, 'data'>>;
   updateManyAssetsConnection?: Resolver<ResolversTypes['AssetConnection'], ParentType, ContextType, RequireFields<MutationUpdateManyAssetsConnectionArgs, 'data'>>;
@@ -12118,6 +13534,10 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   updateManyCollectionsConnection?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<MutationUpdateManyCollectionsConnectionArgs, 'data'>>;
   updateManyCurrencies?: Resolver<ResolversTypes['BatchPayload'], ParentType, ContextType, RequireFields<MutationUpdateManyCurrenciesArgs, 'data'>>;
   updateManyCurrenciesConnection?: Resolver<ResolversTypes['CurrencyConnection'], ParentType, ContextType, RequireFields<MutationUpdateManyCurrenciesConnectionArgs, 'data'>>;
+  updateManyHeroes?: Resolver<ResolversTypes['BatchPayload'], ParentType, ContextType, RequireFields<MutationUpdateManyHeroesArgs, 'data'>>;
+  updateManyHeroesConnection?: Resolver<ResolversTypes['HeroConnection'], ParentType, ContextType, RequireFields<MutationUpdateManyHeroesConnectionArgs, 'data'>>;
+  updateManyHomes?: Resolver<ResolversTypes['BatchPayload'], ParentType, ContextType, RequireFields<MutationUpdateManyHomesArgs, 'data'>>;
+  updateManyHomesConnection?: Resolver<ResolversTypes['HomeConnection'], ParentType, ContextType, RequireFields<MutationUpdateManyHomesConnectionArgs, 'data'>>;
   updateManyItems?: Resolver<ResolversTypes['BatchPayload'], ParentType, ContextType, RequireFields<MutationUpdateManyItemsArgs, 'data'>>;
   updateManyItemsConnection?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<MutationUpdateManyItemsConnectionArgs, 'data'>>;
   updateManyOrderItems?: Resolver<ResolversTypes['BatchPayload'], ParentType, ContextType, RequireFields<MutationUpdateManyOrderItemsArgs, 'data'>>;
@@ -12142,6 +13562,8 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   upsertCategory?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<MutationUpsertCategoryArgs, 'upsert' | 'where'>>;
   upsertCollection?: Resolver<Maybe<ResolversTypes['Collection']>, ParentType, ContextType, RequireFields<MutationUpsertCollectionArgs, 'upsert' | 'where'>>;
   upsertCurrency?: Resolver<Maybe<ResolversTypes['Currency']>, ParentType, ContextType, RequireFields<MutationUpsertCurrencyArgs, 'upsert' | 'where'>>;
+  upsertHero?: Resolver<Maybe<ResolversTypes['Hero']>, ParentType, ContextType, RequireFields<MutationUpsertHeroArgs, 'upsert' | 'where'>>;
+  upsertHome?: Resolver<Maybe<ResolversTypes['Home']>, ParentType, ContextType, RequireFields<MutationUpsertHomeArgs, 'upsert' | 'where'>>;
   upsertItem?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<MutationUpsertItemArgs, 'upsert' | 'where'>>;
   upsertOrder?: Resolver<Maybe<ResolversTypes['Order']>, ParentType, ContextType, RequireFields<MutationUpsertOrderArgs, 'upsert' | 'where'>>;
   upsertOrderItem?: Resolver<Maybe<ResolversTypes['OrderItem']>, ParentType, ContextType, RequireFields<MutationUpsertOrderItemArgs, 'upsert' | 'where'>>;
@@ -12151,7 +13573,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
-  __resolveType: TypeResolveFn<'Asset' | 'Cart' | 'CartProduct' | 'Category' | 'Collection' | 'Currency' | 'Item' | 'Order' | 'OrderItem' | 'Product' | 'ProductItem' | 'Review' | 'ScheduledOperation' | 'ScheduledRelease' | 'User', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'Asset' | 'Cart' | 'CartProduct' | 'Category' | 'Collection' | 'Currency' | 'Hero' | 'Home' | 'Item' | 'Order' | 'OrderItem' | 'Product' | 'ProductItem' | 'Review' | 'ScheduledOperation' | 'ScheduledRelease' | 'User', ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   stage?: Resolver<ResolversTypes['Stage'], ParentType, ContextType>;
 };
@@ -12328,6 +13750,14 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   currenciesConnection?: Resolver<ResolversTypes['CurrencyConnection'], ParentType, ContextType, RequireFields<QueryCurrenciesConnectionArgs, 'locales' | 'stage'>>;
   currency?: Resolver<Maybe<ResolversTypes['Currency']>, ParentType, ContextType, RequireFields<QueryCurrencyArgs, 'locales' | 'stage' | 'where'>>;
   currencyVersion?: Resolver<Maybe<ResolversTypes['DocumentVersion']>, ParentType, ContextType, RequireFields<QueryCurrencyVersionArgs, 'where'>>;
+  hero?: Resolver<Maybe<ResolversTypes['Hero']>, ParentType, ContextType, RequireFields<QueryHeroArgs, 'locales' | 'stage' | 'where'>>;
+  heroVersion?: Resolver<Maybe<ResolversTypes['DocumentVersion']>, ParentType, ContextType, RequireFields<QueryHeroVersionArgs, 'where'>>;
+  heroes?: Resolver<Array<ResolversTypes['Hero']>, ParentType, ContextType, RequireFields<QueryHeroesArgs, 'locales' | 'stage'>>;
+  heroesConnection?: Resolver<ResolversTypes['HeroConnection'], ParentType, ContextType, RequireFields<QueryHeroesConnectionArgs, 'locales' | 'stage'>>;
+  home?: Resolver<Maybe<ResolversTypes['Home']>, ParentType, ContextType, RequireFields<QueryHomeArgs, 'locales' | 'stage' | 'where'>>;
+  homeVersion?: Resolver<Maybe<ResolversTypes['DocumentVersion']>, ParentType, ContextType, RequireFields<QueryHomeVersionArgs, 'where'>>;
+  homes?: Resolver<Array<ResolversTypes['Home']>, ParentType, ContextType, RequireFields<QueryHomesArgs, 'locales' | 'stage'>>;
+  homesConnection?: Resolver<ResolversTypes['HomeConnection'], ParentType, ContextType, RequireFields<QueryHomesConnectionArgs, 'locales' | 'stage'>>;
   item?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<QueryItemArgs, 'locales' | 'stage' | 'where'>>;
   itemVersion?: Resolver<Maybe<ResolversTypes['DocumentVersion']>, ParentType, ContextType, RequireFields<QueryItemVersionArgs, 'where'>>;
   items?: Resolver<Array<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<QueryItemsArgs, 'locales' | 'stage'>>;
@@ -12446,7 +13876,7 @@ export type ScheduledOperationResolvers<ContextType = any, ParentType extends Re
 };
 
 export type ScheduledOperationAffectedDocumentResolvers<ContextType = any, ParentType extends ResolversParentTypes['ScheduledOperationAffectedDocument'] = ResolversParentTypes['ScheduledOperationAffectedDocument']> = {
-  __resolveType: TypeResolveFn<'Asset' | 'Cart' | 'CartProduct' | 'Category' | 'Collection' | 'Currency' | 'Item' | 'Order' | 'OrderItem' | 'Product' | 'ProductItem' | 'Review', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'Asset' | 'Cart' | 'CartProduct' | 'Category' | 'Collection' | 'Currency' | 'Hero' | 'Home' | 'Item' | 'Order' | 'OrderItem' | 'Product' | 'ProductItem' | 'Review', ParentType, ContextType>;
 };
 
 export type ScheduledOperationConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['ScheduledOperationConnection'] = ResolversParentTypes['ScheduledOperationConnection']> = {
@@ -12556,7 +13986,13 @@ export type Resolvers<ContextType = any> = {
   Date?: GraphQLScalarType;
   DateTime?: GraphQLScalarType;
   DocumentVersion?: DocumentVersionResolvers<ContextType>;
+  Hero?: HeroResolvers<ContextType>;
+  HeroConnection?: HeroConnectionResolvers<ContextType>;
+  HeroEdge?: HeroEdgeResolvers<ContextType>;
   Hex?: GraphQLScalarType;
+  Home?: HomeResolvers<ContextType>;
+  HomeConnection?: HomeConnectionResolvers<ContextType>;
+  HomeEdge?: HomeEdgeResolvers<ContextType>;
   Item?: ItemResolvers<ContextType>;
   ItemConnection?: ItemConnectionResolvers<ContextType>;
   ItemEdge?: ItemEdgeResolvers<ContextType>;
