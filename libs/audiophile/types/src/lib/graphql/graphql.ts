@@ -11900,7 +11900,7 @@ export type GetProductsByCategoryIdQuery = { __typename?: 'Query', category?: { 
 export type HomeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type HomeQuery = { __typename?: 'Query', homes: Array<{ __typename?: 'Home', hero?: { __typename?: 'Hero', description?: string | null, product?: { __typename?: 'Product', name: string, id: string } | null } | null }> };
+export type HomeQuery = { __typename?: 'Query', homes: Array<{ __typename?: 'Home', hero?: { __typename?: 'Hero', description?: string | null, image?: { __typename?: 'Asset', url: string } | null, product?: { __typename?: 'Product', name: string, id: string } | null } | null }> };
 
 export type ProductByIdQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -11955,6 +11955,9 @@ export const HomeDocument = gql`
     query Home {
   homes {
     hero {
+      image {
+        url
+      }
       description
       product {
         name

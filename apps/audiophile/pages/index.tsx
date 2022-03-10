@@ -73,7 +73,7 @@ export function Index(props: HomePageProps) {
       <Navbar categories={props.categories} />
       <Hero>
         <HeroImage>
-          <Image src="/image-hero.jpg" alt="" layout="fill" objectFit="cover" />
+          <Image src={hero.image.url} alt="" layout="fill" objectFit="cover" />
         </HeroImage>
         <HeroContent>
           <NewProductText>New Product</NewProductText>
