@@ -20,7 +20,10 @@ export default class CustomDocument extends Document<{
   render() {
     return (
       <Html>
-        <Head>{this.props.styleTags}</Head>
+        <Head>
+          {this.props.styleTags}
+          <link rel="icon" href={'/favicon.ico'} />
+        </Head>
         <body>
           <Main />
           <NextScript />
