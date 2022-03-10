@@ -49,44 +49,22 @@ const ShopCategoriesSection = styled.section`
   align-items: center;
 `;
 export async function getStaticProps() {
-  const { data: homeData } = await axios.get<HomeQuery>(
-    `${process.env.API_URL}/home`
-  );
   const { data: categoriesData } = await axios.get<CategoriesQuery>(
     `${process.env.API_URL}/categories`
   );
   return {
     props: {
-      home: homeData.homes[0],
       categories: categoriesData.categories,
     },
   };
 }
 interface HomePageProps {
-  home: HomeQuery['homes'][0];
   categories: CategoriesQuery['categories'];
 }
 export function Index(props: HomePageProps) {
-  const { hero } = props.home;
-  console.log(props.home);
   return (
     <StyledPage>
       <Navbar categories={props.categories} />
-      <Hero>
-        <HeroImage>
-          <Image src={hero.image.url} alt="" layout="fill" objectFit="cover" />
-        </HeroImage>
-        <HeroContent>
-          <NewProductText>New Product</NewProductText>
-          <NewProductNameText>{hero.product.name}</NewProductNameText>
-          <NewProductDescription>{hero.description}</NewProductDescription>
-          <Link href={`/product/${hero.product.id}`} passHref>
-            <a>
-              <Button>See Product</Button>
-            </a>
-          </Link>
-        </HeroContent>
-      </Hero>
       <main>
         <ShopCategoriesSection>
           <ShopCategories data={props.categories} />
