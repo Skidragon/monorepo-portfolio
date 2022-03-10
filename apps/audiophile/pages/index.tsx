@@ -5,6 +5,7 @@ import { Button } from '@sd/audiophile/ui';
 import { CategoriesQuery, HomeQuery } from '@sd/audiophile/types';
 import axios from 'axios';
 import Link from 'next/link';
+import { GetStaticProps } from 'next';
 const StyledPage = styled.div`
   .page {
   }
@@ -48,7 +49,7 @@ const ShopCategoriesSection = styled.section`
   flex-flow: column;
   align-items: center;
 `;
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const { data: homeData } = await axios.get<HomeQuery>(
     `${process.env.API_URL}/home`
   );
@@ -61,12 +62,7 @@ export async function getStaticProps() {
       categories: categoriesData.categories,
     },
   };
-}
-export async function getStaticPaths() {
-  return {
-    fallback: true,
-  };
-}
+};
 
 interface HomePageProps {
   home: HomeQuery;
