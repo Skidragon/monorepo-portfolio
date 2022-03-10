@@ -101,8 +101,8 @@ export function OrderSuccessModal({
               </ProductInfo>
             </ProductLine>
             <Divider />
-            {totalQuantity > 1 ? (
-              <div>and {totalQuantity - 1} other item(s)</div>
+            {totalQuantity ? (
+              <div>and {totalQuantity} other item(s)</div>
             ) : null}
           </ProductContainer>
           <GrandTotal>
