@@ -57,19 +57,35 @@ export async function getStaticProps() {
   );
   return {
     props: {
-      home: homeData.homes[0],
+      home: homeData,
       categories: categoriesData.categories,
     },
   };
 }
 interface HomePageProps {
-  home: HomeQuery['homes'][0];
+  home: HomeQuery;
   categories: CategoriesQuery['categories'];
 }
 export function Index(props: HomePageProps) {
+  const { hero } = props.home.homes[0];
   return (
     <StyledPage>
       <Navbar categories={props.categories} />
+      <Hero>
+        <HeroImage>
+          <Image src={hero.image.url} alt="" layout="fill" objectFit="cover" />
+        </HeroImage>
+        <HeroContent>
+          <NewProductText>New Product</NewProductText>
+          <NewProductNameText>{hero.product.name}</NewProductNameText>
+          <NewProductDescription>{hero.description}</NewProductDescription>
+          <Link href={`/product/${hero.product.id}`} passHref>
+            <a>
+              <Button>See Product</Button>
+            </a>
+          </Link>
+        </HeroContent>
+      </Hero>
       <main>
         <ShopCategoriesSection>
           <ShopCategories data={props.categories} />
