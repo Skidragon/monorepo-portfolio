@@ -6,7 +6,6 @@ import {
   ShopCategories,
 } from '@sd/audiophile/feature';
 import { Button, Price, RadioField, TextField } from '@sd/audiophile/ui';
-import { GetStaticProps } from 'next';
 import Image from 'next/image';
 import { useCart, Item } from 'react-use-cart';
 import styled from 'styled-components';

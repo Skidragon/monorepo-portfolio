@@ -19,7 +19,6 @@ class CreateOrderDto {
   total: number;
 }
 const SHIPPING_PRICE_IN_CENTS = 5000;
-const VAT_IN_CENTS = 107900;
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}

@@ -5,7 +5,6 @@ import { Button } from '@sd/audiophile/ui';
 import { CategoriesQuery, HomeQuery } from '@sd/audiophile/types';
 import axios from 'axios';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 const StyledPage = styled.div`
   .page {
   }
@@ -68,10 +67,6 @@ interface HomePageProps {
   categories: CategoriesQuery['categories'];
 }
 export function Index(props: HomePageProps) {
-  const router = useRouter();
-  if (router.isFallback) {
-    return <div>Loading...</div>;
-  }
   const { hero } = props.home;
   return (
     <StyledPage>

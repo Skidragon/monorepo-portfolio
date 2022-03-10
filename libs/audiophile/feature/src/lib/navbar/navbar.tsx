@@ -124,7 +124,7 @@ export function Navbar(props: NavbarProps) {
             )}
           </div>
           <Link href="/" passHref>
-            <a>
+            <a href="replace">
               <Logo>
                 <svg width="143" height="25" xmlns="http://www.w3.org/2000/svg">
                   <path
