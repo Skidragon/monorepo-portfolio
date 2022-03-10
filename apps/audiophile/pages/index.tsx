@@ -2,9 +2,8 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { Footer, Navbar, ShopCategories } from '@sd/audiophile/feature';
 import { Button } from '@sd/audiophile/ui';
-import { CategoriesQuery, HomeQuery } from '@sd/audiophile/types';
+import { CategoriesQuery } from '@sd/audiophile/types';
 import axios from 'axios';
-import Link from 'next/link';
 const StyledPage = styled.div`
   .page {
   }
@@ -49,48 +48,36 @@ const ShopCategoriesSection = styled.section`
   align-items: center;
 `;
 export async function getStaticProps() {
-  const { data: homeData } = await axios.get<HomeQuery>(
-    `${process.env.API_URL}/home`
-  );
-  const { data: categoriesData } = await axios.get<CategoriesQuery>(
+  const { data } = await axios.get<CategoriesQuery>(
     `${process.env.API_URL}/categories`
   );
   return {
     props: {
-      home: homeData.homes[0],
-      categories: categoriesData.categories,
+      categories: data.categories,
     },
   };
 }
-interface HomePageProps {
-  home: HomeQuery['homes'][0];
-  categories: CategoriesQuery['categories'];
-}
-export function Index(props: HomePageProps) {
-  const { hero } = props.home;
+export function Index(props: CategoriesQuery) {
   return (
     <StyledPage>
       <Navbar categories={props.categories} />
       <Hero>
         <HeroImage>
-          <Image src={hero.image.url} alt="" layout="fill" objectFit="cover" />
+          <Image src="/image-hero.jpg" alt="" layout="fill" objectFit="cover" />
         </HeroImage>
         <HeroContent>
           <NewProductText>New Product</NewProductText>
-          <NewProductNameText>{hero.product.name}</NewProductNameText>
-          <NewProductDescription>{hero.description}</NewProductDescription>
-          <Link href={`/product/${hero.product.id}`} passHref>
-            <a>
-              <Button>See Product</Button>
-            </a>
-          </Link>
+          <NewProductNameText>XX99 Mark II Headphone</NewProductNameText>
+          <NewProductDescription>
+            Experience natural, lifelike audio and exceptional build quality
+            made for the passionate music enthusiast.
+          </NewProductDescription>
+          <Button>See Product</Button>
         </HeroContent>
       </Hero>
-      <main>
-        <ShopCategoriesSection>
-          <ShopCategories data={props.categories} />
-        </ShopCategoriesSection>
-      </main>
+      <ShopCategoriesSection>
+        <ShopCategories data={props.categories} />
+      </ShopCategoriesSection>
       <Footer categories={props.categories} />
     </StyledPage>
   );
