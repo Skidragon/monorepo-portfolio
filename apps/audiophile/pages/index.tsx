@@ -49,10 +49,9 @@ const ShopCategoriesSection = styled.section`
   align-items: center;
 `;
 export async function getStaticProps() {
-  // const { data: homeData } = await axios.get<HomeQuery>(
-  //   `${process.env.API_URL}/home`
-  // );
-  // console.log(homeData);
+  const { data: homeData } = await axios.get<HomeQuery>(
+    `${process.env.API_URL}/home`
+  );
   const { data: categoriesData } = await axios.get<CategoriesQuery>(
     `${process.env.API_URL}/categories`
   );
@@ -63,21 +62,19 @@ export async function getStaticProps() {
     },
   };
 }
+export async function getStaticPaths() {
+  return {
+    fallback: true,
+  };
+}
+
 interface HomePageProps {
+  home: HomeQuery;
   categories: CategoriesQuery['categories'];
 }
 export function Index(props: HomePageProps) {
-  // const { hero } = props.home.homes[0];
-  const hero = {
-    description: 'test',
-    image: {
-      url: '/test',
-    },
-    product: {
-      name: 'test',
-      id: 5,
-    },
-  };
+  const { hero } = props.home.homes[0];
+
   return (
     <StyledPage>
       <Navbar categories={props.categories} />
