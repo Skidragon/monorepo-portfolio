@@ -57,8 +57,8 @@ export async function getStaticProps() {
   );
   return {
     props: {
-      home: homeData,
-      categories: categoriesData.categories,
+      home: homeData || null,
+      categories: categoriesData.categories || null,
     },
   };
 }
@@ -67,6 +67,9 @@ interface HomePageProps {
   categories: CategoriesQuery['categories'];
 }
 export function Index(props: HomePageProps) {
+  if (!props.home || !props.categories) {
+    return <div />;
+  }
   const { hero } = props.home.homes[0];
   return (
     <StyledPage>
