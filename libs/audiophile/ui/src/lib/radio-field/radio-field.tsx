@@ -36,7 +36,7 @@ export const RadioField = React.forwardRef<HTMLInputElement, RadioFieldProps>(
   (props, ref) => {
     return (
       <StyledRadioField htmlFor={props.id}>
-        <Input type="radio" {...props} ref={ref} checked={true} />
+        <Input type="radio" {...props} ref={ref} />
         <LabelText>{props.label}</LabelText>
       </StyledRadioField>
     );

@@ -14,7 +14,7 @@ const StyledModalBackdrop = styled.div`
 `;
 
 export function ModalBackdrop(props: ModalBackdropProps) {
-  return <StyledModalBackdrop />;
+  return <StyledModalBackdrop {...props} />;
 }
 
 export default ModalBackdrop;

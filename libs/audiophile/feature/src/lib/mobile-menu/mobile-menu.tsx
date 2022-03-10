@@ -25,6 +25,9 @@ const StyledMobileMenu = styled.div<MobileMenuProps>`
   & > * + * {
     margin-top: 1.5rem;
   }
+  @media screen and (min-width: 70em) {
+    display: none;
+  }
 `;
 
 const MenuList = styled.ul``;

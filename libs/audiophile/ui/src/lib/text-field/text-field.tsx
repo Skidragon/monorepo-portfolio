@@ -7,6 +7,7 @@ export interface TextFieldProps
     InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
   > {
+  isRequired?: boolean;
   hasError?: boolean;
   errorMessage?: string;
   label: string;
@@ -25,6 +26,7 @@ const Input = styled.input`
   padding: 1em;
   border: 2px solid lightgrey;
   border-radius: 0.5rem;
+  text-transform: capitalize;
   &::placeholder {
     color: grey;
   }
@@ -32,14 +34,29 @@ const Input = styled.input`
     outline: 2px solid orange;
   }
 `;
-const ErrorMessage = styled.div``;
+const ErrorMessage = styled.div`
+  color: var(--error, red);
+`;
 
 export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
-  ({ hasError, errorMessage, label, id, ...props }: TextFieldProps, ref) => {
+  (
+    {
+      isRequired = false,
+      hasError,
+      errorMessage,
+      label,
+      id,
+      ...props
+    }: TextFieldProps,
+    ref
+  ) => {
     return (
       <StyledTextField>
-        <Label htmlFor={id}>{label}</Label>
-        <Input type={'text'} {...props} id={id} ref={ref} />
+        <Label htmlFor={id}>
+          {label}
+          {isRequired ? '*' : ''}
+        </Label>
+        <Input type={'text'} id={id} {...props} ref={ref} />
         {hasError && errorMessage ? (
           <ErrorMessage>{errorMessage}</ErrorMessage>
         ) : null}

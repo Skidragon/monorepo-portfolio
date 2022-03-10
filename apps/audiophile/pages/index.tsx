@@ -2,8 +2,10 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { Footer, Navbar, ShopCategories } from '@sd/audiophile/feature';
 import { Button } from '@sd/audiophile/ui';
-import { CategoriesQuery } from '@sd/audiophile/types';
+import { CategoriesQuery, HomeQuery } from '@sd/audiophile/types';
 import axios from 'axios';
+import Link from 'next/link';
+import { GetStaticProps } from 'next';
 const StyledPage = styled.div`
   .page {
   }
@@ -47,32 +49,44 @@ const ShopCategoriesSection = styled.section`
   flex-flow: column;
   align-items: center;
 `;
-export async function getStaticProps() {
-  const { data } = await axios.get<CategoriesQuery>(
+export const getStaticProps: GetStaticProps = async () => {
+  const { data: homeData } = await axios.get<HomeQuery>(
+    `${process.env.API_URL}/home`
+  );
+  const { data: categoriesData } = await axios.get<CategoriesQuery>(
     `${process.env.API_URL}/categories`
   );
   return {
     props: {
-      categories: data.categories,
+      home: homeData,
+      categories: categoriesData.categories,
     },
   };
+};
+
+interface HomePageProps {
+  home: HomeQuery;
+  categories: CategoriesQuery['categories'];
 }
-export function Index(props: CategoriesQuery) {
+export function Index(props: HomePageProps) {
+  const { hero } = props.home.homes[0];
+
   return (
     <StyledPage>
       <Navbar categories={props.categories} />
       <Hero>
         <HeroImage>
-          <Image src="/image-hero.jpg" alt="" layout="fill" objectFit="cover" />
+          <Image src={hero.image.url} alt="" layout="fill" objectFit="cover" />
         </HeroImage>
         <HeroContent>
           <NewProductText>New Product</NewProductText>
-          <NewProductNameText>XX99 Mark II Headphone</NewProductNameText>
-          <NewProductDescription>
-            Experience natural, lifelike audio and exceptional build quality
-            made for the passionate music enthusiast.
-          </NewProductDescription>
-          <Button>See Product</Button>
+          <NewProductNameText>{hero.product.name}</NewProductNameText>
+          <NewProductDescription>{hero.description}</NewProductDescription>
+          <Link href={`/product/${hero.product.id}`} passHref>
+            <a>
+              <Button>See Product</Button>
+            </a>
+          </Link>
         </HeroContent>
       </Hero>
       <main>

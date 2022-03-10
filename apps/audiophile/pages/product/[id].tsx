@@ -39,7 +39,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 export const getStaticProps: GetStaticProps = async (
-  ctx: GetStaticPropsContext<any>
+  ctx: GetStaticPropsContext<{ id: string }>
 ) => {
   const { data: categoriesData } = await axios.get<CategoriesQuery>(
     `${process.env.API_URL}/categories`

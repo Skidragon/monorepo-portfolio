@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Footer, Navbar, ShopCategories } from '@sd/audiophile/feature';
+import { Navbar, ShopCategories } from '@sd/audiophile/feature';
 import { CategoriesQuery } from '@sd/audiophile/types';
 import axios from 'axios';
 const StyledPage = styled.div`

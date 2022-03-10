@@ -1,0 +1,14 @@
+query Home {
+  homes {
+    hero {
+      image {
+        url
+      }
+      description
+      product {
+        name
+        id
+      }
+    }
+  }
+}
