@@ -7,13 +7,19 @@ import {
   getSdk,
   HomeQuery,
 } from '@sd/audiophile/types';
-import { Controller, Get, Post, Put, Param } from '@nestjs/common';
+import { Controller, Get, Post, Put, Body, Param } from '@nestjs/common';
 
 import { AppService } from './app.service';
 import { GraphQLClient } from 'graphql-request';
+import { Item } from 'react-use-cart';
 const client = new GraphQLClient(process.env.GRAPH_CMS_URL);
 const sdk = getSdk(client);
-
+class CreateOrderDto {
+  items: Item[];
+  total: number;
+}
+const SHIPPING_PRICE_IN_CENTS = 5000;
+const VAT_IN_CENTS = 107900;
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
@@ -59,7 +65,10 @@ export class AppController {
     return data;
   }
   @Post('/order')
-  createOrder() {
+  async createOrder(@Body() createOrderDto: CreateOrderDto): Promise<{
+    items: Item[];
+    total: number;
+  }> {
     // start transaction
     // orders table
     // customer products in cart go to db orders table
@@ -67,9 +76,24 @@ export class AppController {
     // send email and/or text that the payment succeeded and the order has been processed
     // end transaction
     // use Fedex or UPS to tell user when order is shipping
+    const data = await this.getProducts();
+
+    const { products } = data;
+
+    const cleanedItems = createOrderDto.items.map((item) => {
+      const product = products.find((product) => product.id === item.id);
+      return {
+        cents: product.cents,
+        ...item,
+      };
+    });
+
     return {
-      id: 10425,
-      hasSucceeded: true,
+      items: cleanedItems,
+      total:
+        cleanedItems.reduce((acc, current) => {
+          return acc + current.cents * current.quantity;
+        }, 0) + SHIPPING_PRICE_IN_CENTS,
     };
   }
   @Put('/order')

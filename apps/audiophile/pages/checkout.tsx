@@ -2,17 +2,19 @@ import {
   Footer,
   GoBackLink,
   Navbar,
+  OrderSuccessModal,
   ShopCategories,
 } from '@sd/audiophile/feature';
 import { Button, Price, RadioField, TextField } from '@sd/audiophile/ui';
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
-import { useCart } from 'react-use-cart';
+import { useCart, Item } from 'react-use-cart';
 import styled from 'styled-components';
 import axios from 'axios';
 import { CategoriesQuery } from '@sd/audiophile/types';
 import { useForm } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
+import { useState } from 'react';
 /* eslint-disable-next-line */
 export interface CheckoutProps {
   categories: CategoriesQuery['categories'];
@@ -105,8 +107,12 @@ type Inputs = {
   eMoneyPin?: number;
 };
 const REQUIRED_MESSAGE = 'Required';
+class CreateOrderDto {
+  items: Item[];
+  total: number;
+}
 export function Checkout(props: CheckoutProps) {
-  const { items, isEmpty, cartTotal } = useCart();
+  const { items, isEmpty, cartTotal, setItems } = useCart();
   const {
     register,
     handleSubmit,
@@ -117,8 +123,18 @@ export function Checkout(props: CheckoutProps) {
     mode: 'onChange',
   });
   const paymentMethod = watch('paymentMethod');
+  const [orderedData, setOrderedData] = useState<CreateOrderDto>({
+    items: [],
+    total: 0,
+  });
   return (
     <StyledCheckout>
+      {orderedData.items.length ? (
+        <OrderSuccessModal
+          items={orderedData.items}
+          total={orderedData.total}
+        />
+      ) : null}
       <Navbar categories={props.categories} />
       {isEmpty ? (
         <CheckoutForm>
@@ -132,18 +148,21 @@ export function Checkout(props: CheckoutProps) {
           {process.env.NODE_ENV === 'development' ? (
             <DevTool control={control} placement="bottom-right" />
           ) : null}
-          {/* set up the dev tool */}
           <CheckoutForm
             onSubmit={handleSubmit(async () => {
               try {
                 const { data } = await axios.post(
-                  `${process.env.NEXT_PUBLIC_API_URL}/order`
+                  `${process.env.NEXT_PUBLIC_API_URL}/order`,
+                  {
+                    items,
+                  }
                 );
-                alert('Order Succesful! (Placeholder)');
-                console.log(data);
+                setOrderedData(data);
+                setItems([]);
               } catch (err) {
-                alert('Order Failed! (Placeholder)');
-                console.log(err);
+                alert(
+                  'Order Failed! (Placeholder for failed order attempt modal)'
+                );
               }
             })}
           >
