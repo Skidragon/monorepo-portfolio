@@ -49,16 +49,21 @@ const ShopCategoriesSection = styled.section`
   align-items: center;
 `;
 export async function getStaticProps() {
+  const { data: homeData } = await axios.get<HomeQuery>(
+    `${process.env.API_URL}/home`
+  );
   const { data: categoriesData } = await axios.get<CategoriesQuery>(
     `${process.env.API_URL}/categories`
   );
   return {
     props: {
+      home: homeData.homes[0],
       categories: categoriesData.categories,
     },
   };
 }
 interface HomePageProps {
+  home: HomeQuery['homes'][0];
   categories: CategoriesQuery['categories'];
 }
 export function Index(props: HomePageProps) {
