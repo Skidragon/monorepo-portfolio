@@ -16,7 +16,6 @@ export const ActiveLink = React.forwardRef<HTMLAnchorElement, ActiveLinkProps>(
     const router = useRouter();
 
     const handleClick = (e: React.MouseEvent) => {
-      e.preventDefault();
       router.push(props.href);
     };
 
