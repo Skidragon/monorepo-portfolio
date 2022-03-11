@@ -142,6 +142,9 @@ h1 {
 h2 {
   font-size: 1.8rem;
 }
+fieldset {
+  padding: 0;
+}
 a {
   all: unset;
   cursor: pointer;

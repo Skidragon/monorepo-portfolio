@@ -25,13 +25,13 @@ const Content = styled.div`
 `;
 const Form = styled.form`
   display: grid;
-  grid-gap: 1rem;
+  grid-gap: 2rem;
 `;
 const Fieldset = styled.fieldset`
   display: flex;
   justify-content: space-between;
   border: none;
-
+  padding-top: 0.5rem;
   & > * + * {
     margin-right: 1rem;
   }
