@@ -27,7 +27,8 @@ const StyledRadioButton = styled.label<Pick<RadioButtonProps, 'checked'>>`
 
 const Label = styled.div``;
 const Input = styled.input`
-  display: none;
+  position: absolute;
+  z-index: -1;
 `;
 export const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
   ({ label, id, ...props }: RadioButtonProps, ref) => {
