@@ -85,7 +85,7 @@ export function PortfolioIndex(props: PortfolioIndexProps) {
           <h2>Tower of Hanoi</h2>
           <p>
             Xstate was used to control state which simplified making the game
-            compared to the out of the box state management given by React. Used
+            compared to the out-of-the-box state management given by React. Used
             Typescript to document the code.
           </p>
           <LinkButton

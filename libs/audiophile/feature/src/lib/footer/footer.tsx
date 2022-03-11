@@ -1,7 +1,7 @@
 import { CategoriesQuery } from '@sd/audiophile/types';
 import { Logo } from '@sd/audiophile/ui';
-import Link from 'next/link';
 import styled from 'styled-components';
+import NavigationList from '../navigation-list/navigation-list';
 
 /* eslint-disable-next-line */
 export interface FooterProps {
@@ -64,7 +64,7 @@ const Line = styled.div`
     transform: translate(0, 0);
   }
 `;
-const CategoryList = styled.ul`
+const Navlist = styled(NavigationList)`
   grid-area: categories;
   display: flex;
   flex-flow: column;
@@ -139,17 +139,7 @@ export function Footer(props: FooterProps) {
       <PositionLogo>
         <Logo />
       </PositionLogo>
-      <CategoryList>
-        {props.categories.map((category) => {
-          return (
-            <CategoryItem key={category.id}>
-              <Link href={`/category/${category.slug}`}>
-                <CategoryLink>{category.name}</CategoryLink>
-              </Link>
-            </CategoryItem>
-          );
-        })}
-      </CategoryList>
+      <Navlist categories={props.categories} />
       <AboutAudiophile>
         Audiophile is an all in one stop to fulfill your audio needs. We're a
         small team of music lovers and sound specialists who are devoted to

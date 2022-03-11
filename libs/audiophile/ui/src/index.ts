@@ -10,3 +10,4 @@ export * from './lib/banner/banner';
 export * from './lib/add-product-card/add-product-card';
 export * from './lib/text-field/text-field';
 export * from './lib/radio-field/radio-field';
+export * from './lib/quantity/quantity';

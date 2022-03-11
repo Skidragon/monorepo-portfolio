@@ -1,12 +1,13 @@
 import styled from 'styled-components';
-import { MobileMenu, CartModal } from '@sd/audiophile/feature';
-import { ActiveLink } from '@sd/shared/ui';
 import { useClickAway } from 'react-use';
 import { useEffect, useRef, useState } from 'react';
 import { ModalBackdrop } from '@sd/audiophile/ui';
 import { MobileMenuProps } from '../mobile-menu/mobile-menu';
 import { useCart } from 'react-use-cart';
 import Link from 'next/link';
+import { MobileMenu } from '../mobile-menu/mobile-menu';
+import { CartModal } from '../cart-modal/cart-modal';
+import { NavigationList } from '../navigation-list/navigation-list';
 /* eslint-disable-next-line */
 export interface NavbarProps {
   categories: MobileMenuProps['categories'];
@@ -70,7 +71,7 @@ const PositionCartModal = styled.div`
     transform: translate(-10%, 110%);
   }
 `;
-const NavList = styled.ul`
+const NavList = styled(NavigationList)`
   display: none;
   @media screen and (min-width: 70em) {
     display: flex;
@@ -80,7 +81,6 @@ const NavList = styled.ul`
     }
   }
 `;
-const NavItem = styled.li``;
 export function Navbar(props: NavbarProps) {
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -137,25 +137,7 @@ export function Navbar(props: NavbarProps) {
             </a>
           </Link>
         </LogoContainer>
-        <NavList>
-          <NavItem>
-            <ActiveLink href={`/`} activeColor="orange">
-              Home
-            </ActiveLink>
-          </NavItem>
-          {props.categories.map((category) => {
-            return (
-              <NavItem key={category.id}>
-                <ActiveLink
-                  href={`/category/${category.slug}`}
-                  activeColor="orange"
-                >
-                  {category.name}
-                </ActiveLink>
-              </NavItem>
-            );
-          })}
-        </NavList>
+        <NavList categories={props.categories} />
         <div ref={cartRef}>
           <Cart onClick={() => setOpenCart((prevState) => !prevState)}>
             <svg width="23" height="20" xmlns="http://www.w3.org/2000/svg">
