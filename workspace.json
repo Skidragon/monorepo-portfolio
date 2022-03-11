@@ -481,6 +481,69 @@
         }
       }
     },
+    "memory-feature": {
+      "root": "libs/memory/feature",
+      "sourceRoot": "libs/memory/feature/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/memory/feature/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/memory/feature"],
+          "options": {
+            "jestConfig": "libs/memory/feature/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "memory-shared": {
+      "root": "libs/memory/shared",
+      "sourceRoot": "libs/memory/shared/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/memory/shared/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/memory/shared"],
+          "options": {
+            "jestConfig": "libs/memory/shared/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "memory-ui": {
+      "root": "libs/memory/ui",
+      "sourceRoot": "libs/memory/ui/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/memory/ui/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/memory/ui"],
+          "options": {
+            "jestConfig": "libs/memory/ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "minimalist-portfolio": {
       "root": "apps/minimalist-portfolio",
       "sourceRoot": "apps/minimalist-portfolio",

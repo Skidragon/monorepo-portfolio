@@ -19,6 +19,9 @@
       "@sd/audiophile/shared": ["libs/audiophile/shared/src/index.ts"],
       "@sd/audiophile/types": ["libs/audiophile/types/src/index.ts"],
       "@sd/audiophile/ui": ["libs/audiophile/ui/src/index.ts"],
+      "@sd/memory/feature": ["libs/memory/feature/src/index.ts"],
+      "@sd/memory/shared": ["libs/memory/shared/src/index.ts"],
+      "@sd/memory/ui": ["libs/memory/ui/src/index.ts"],
       "@sd/minimalist-portfolio/feature": [
         "libs/minimalist-portfolio/feature/src/index.ts"
       ],

@@ -75,6 +75,15 @@
       "tags": [],
       "implicitDependencies": ["memory"]
     },
+    "memory-feature": {
+      "tags": []
+    },
+    "memory-shared": {
+      "tags": []
+    },
+    "memory-ui": {
+      "tags": []
+    },
     "minimalist-portfolio": {
       "tags": []
     },
