@@ -101,13 +101,17 @@ const Button = styled.button`
   text-align: center;
   padding: 0.2em;
   cursor: pointer;
-  &:hover,
-  &:focus {
-    color: orange;
-    -webkit-box-shadow: 0px 0px 0px 2px rgba(255, 157, 0, 1);
-    -moz-box-shadow: 0px 0px 0px 2px rgba(255, 157, 0, 1);
-    box-shadow: 0px 0px 0px 2px rgba(255, 157, 0, 1);
-  }
+  ${(props) =>
+    !props.disabled &&
+    css`
+      &:hover,
+      &:focus {
+        color: orange;
+        -webkit-box-shadow: 0px 0px 0px 2px rgba(255, 157, 0, 1);
+        -moz-box-shadow: 0px 0px 0px 2px rgba(255, 157, 0, 1);
+        box-shadow: 0px 0px 0px 2px rgba(255, 157, 0, 1);
+      }
+    `}
 `;
 const Input = styled.input`
   box-sizing: border-box; /* border, within the width of the element */
@@ -162,6 +166,7 @@ export const StepperField = React.forwardRef<
             })
           }
           type="button"
+          disabled={context.quantity === min}
         >
           -
         </Button>
@@ -179,6 +184,7 @@ export const StepperField = React.forwardRef<
               type: 'INCREASE',
             })
           }
+          disabled={context.quantity === max}
         >
           +
         </Button>
