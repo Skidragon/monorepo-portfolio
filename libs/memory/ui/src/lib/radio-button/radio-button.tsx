@@ -11,12 +11,14 @@ export interface RadioButtonProps
   label: string;
 }
 
-const StyledRadioButton = styled.label<Pick<RadioButtonProps, 'checked'>>`
+const Container = styled.div`
+  width: 100%;
+`;
+const Label = styled.label<Pick<RadioButtonProps, 'checked'>>`
   display: flex;
   justify-content: center;
   width: 100%;
-  background: ${(props) =>
-    props.checked ? 'var(--blue-400, blue)' : 'var(--blue-200, lightblue)'};
+  background: var(--blue-200, lightblue);
   padding: 1em;
   border-radius: 2rem;
   color: white;
@@ -25,18 +27,26 @@ const StyledRadioButton = styled.label<Pick<RadioButtonProps, 'checked'>>`
   cursor: pointer;
 `;
 
-const Label = styled.div``;
 const Input = styled.input`
   position: absolute;
   z-index: -1;
+
+  &:checked + label {
+    background: var(--blue-400, blue);
+  }
+  &:focus + label {
+    box-shadow: 0px 0px 0px 4px var(--orange, orange);
+  }
 `;
 export const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
   ({ label, id, ...props }: RadioButtonProps, ref) => {
     return (
-      <StyledRadioButton htmlFor={id} checked={props.checked}>
-        <Label>{label}</Label>
+      <Container>
         <Input type="radio" id={id} {...props} ref={ref} />
-      </StyledRadioButton>
+        <Label htmlFor={id} checked={props.checked}>
+          {label}
+        </Label>
+      </Container>
     );
   }
 );
