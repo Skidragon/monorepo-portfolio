@@ -148,6 +148,9 @@ a {
   cursor: pointer;
   display: inline-block;
   text-transform: uppercase;
+  &:focus {
+box-shadow: 0px 0px 0px 2px var(--dark-orange, orange);
+  }
 }
 section {
 }
