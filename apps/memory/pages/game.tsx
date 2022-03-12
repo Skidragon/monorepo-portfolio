@@ -1,66 +1,62 @@
 import styled from 'styled-components';
-import { Token, TokenState } from '@sd/memory/ui';
+import { Token } from '@sd/memory/ui';
 import { useMachine } from '@xstate/react';
 import { createMachine } from 'xstate';
 import { assign } from 'xstate/lib/actions';
-
+import { createModel } from 'xstate/lib/model';
+import { spawnTokenPairs, shuffle } from '@sd/memory/helpers';
+import { TokenState } from '@sd/memory/types';
 /* eslint-disable-next-line */
 export interface GameProps {}
-type SelectTokenEvent = {
-  type: 'SELECT_TOKEN';
-  index: number;
-};
-
-type Event = SelectTokenEvent;
 type Token = {
   id: number;
   value: number;
   state: TokenState;
 };
-type Context = {
-  tokens: Token[];
-  tokenToMatch: Token | Record<string, string>;
-};
-const generateTokens = (gridSize: number) => {
-  const tokens: Token[] = [];
-  for (let i = 0; i < gridSize * 2; i++) {
-    const token: Token = {
-      id: i,
-      value: i + 1,
-      state: 'HIDDEN',
-    };
-    const matchingToken = {
-      ...token,
-      id: i + 1,
-    };
-    tokens.push(...[token, matchingToken]);
-  }
 
-  return tokens;
-};
-const initialContext: Context = {
-  tokens: [],
-  tokenToMatch: {},
-};
-const gameMachine = createMachine<Context, Event>({
-  initial: 'idle',
-  context: initialContext,
+const gameModel = createModel(
+  {
+    tokens: [] as Token[],
+    pairsCount: 0,
+  },
+  {
+    events: {
+      spawnTokens: () => {
+        return {};
+      },
+      choosePlayer: () => {
+        console.log('player 1');
+        return {};
+      },
+    },
+  }
+);
+const playerModel = createModel(
+  {
+    username: '',
+    tokenPairsFound: [] as [Token, Token][],
+  },
+  {
+    events: {
+      selectToken: () => {
+        return {};
+      },
+    },
+  }
+);
+const gameMachine = gameModel.createMachine({
+  initial: 'initiate',
+  context: gameModel.initialContext,
   states: {
-    idle: {
+    initiate: {
       on: {
-        SELECT_TOKEN: {
-          actions: assign<Context, SelectTokenEvent>({
-            tokens: (ctx, { index }) => {
-              const token = { ...ctx.tokens[index] };
-              const updatedTokens = [...ctx.tokens];
-              token.state = 'SELECTED';
-              updatedTokens[index] = token;
-              return updatedTokens;
-            },
-          }),
+        '*': {
+          target: 'choosePlayer',
+          actions: gameModel.events.spawnTokens,
         },
       },
     },
+    choosePlayer: {},
   },
 });
 const StyledGame = styled.div``;
@@ -90,12 +86,7 @@ const GameInfo = styled.div`
 
 export function Game(props: GameProps) {
   const GRID_SIZE = 4;
-  const [state, send] = useMachine(() =>
-    gameMachine.withContext({
-      tokens: generateTokens(GRID_SIZE),
-      tokenToMatch: {},
-    })
-  );
+  const [state, send] = useMachine(() => gameMachine);
   const { tokens } = state.context;
 
   return (
@@ -107,16 +98,7 @@ export function Game(props: GameProps) {
       <Table size={GRID_SIZE}>
         {tokens.map((token, i) => {
           return (
-            <Token
-              key={token.id}
-              state={token.state}
-              onClick={() => {
-                send({
-                  type: 'SELECT_TOKEN',
-                  index: i,
-                });
-              }}
-            >
+            <Token key={token.id} state={token.state}>
               {token.value}
             </Token>
           );

@@ -78,7 +78,13 @@
     "memory-feature": {
       "tags": []
     },
+    "memory-helpers": {
+      "tags": []
+    },
     "memory-shared": {
+      "tags": []
+    },
+    "memory-types": {
       "tags": []
     },
     "memory-ui": {

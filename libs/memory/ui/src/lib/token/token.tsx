@@ -1,8 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-
+import { TokenState } from '@sd/memory/types';
 /* eslint-disable-next-line */
-export type TokenState = 'HIDDEN' | 'SELECTED' | 'FOUND_MATCH';
 export interface TokenProps
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLButtonElement>,
@@ -24,13 +23,13 @@ const StyledToken = styled.button<Pick<TokenProps, 'state'>>`
   }
   ${(props) => {
     const { state } = props;
-    if (state === 'SELECTED') {
+    if (state === 'HIGHLIGHT') {
       return css`
         background: var(--blue-100, lightblue);
         color: white;
       `;
     }
-    if (state === 'FOUND_MATCH') {
+    if (state === 'MATCH') {
       return css`
         background: var(--orange, orange);
       `;
@@ -43,14 +42,14 @@ const Value = styled.div<Pick<TokenProps, 'state'>>`
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
   ${(props) =>
-    props.state === 'HIDDEN' &&
+    props.state === 'HIDE_VALUE' &&
     css`
       display: none;
     `}
 `;
 
 export const Token = React.forwardRef<HTMLButtonElement, TokenProps>(
-  ({ children, state = 'HIDDEN', ...props }, ref) => {
+  ({ children, state = 'HIDE_VALUE', ...props }, ref) => {
     return (
       <StyledToken {...props} state={state} ref={ref}>
         <Value state={state}>{children}</Value>

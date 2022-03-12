@@ -502,6 +502,27 @@
         }
       }
     },
+    "memory-helpers": {
+      "root": "libs/memory/helpers",
+      "sourceRoot": "libs/memory/helpers/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/memory/helpers/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/memory/helpers"],
+          "options": {
+            "jestConfig": "libs/memory/helpers/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "memory-shared": {
       "root": "libs/memory/shared",
       "sourceRoot": "libs/memory/shared/src",
@@ -518,6 +539,27 @@
           "outputs": ["coverage/libs/memory/shared"],
           "options": {
             "jestConfig": "libs/memory/shared/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "memory-types": {
+      "root": "libs/memory/types",
+      "sourceRoot": "libs/memory/types/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/memory/types/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/memory/types"],
+          "options": {
+            "jestConfig": "libs/memory/types/jest.config.js",
             "passWithNoTests": true
           }
         }
