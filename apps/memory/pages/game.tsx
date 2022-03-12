@@ -2,13 +2,15 @@ import styled from 'styled-components';
 import { Token, TokenState } from '@sd/memory/ui';
 import { useMachine } from '@xstate/react';
 import { createMachine } from 'xstate';
+import { assign } from 'xstate/lib/actions';
 
 /* eslint-disable-next-line */
 export interface GameProps {}
 type SelectTokenEvent = {
   type: 'SELECT_TOKEN';
-  toIndex: number;
+  index: number;
 };
+
 type Event = SelectTokenEvent;
 type Token = {
   id: number;
@@ -27,7 +29,11 @@ const generateTokens = (gridSize: number) => {
       value: i + 1,
       state: 'HIDDEN',
     };
-    tokens.push(...[token, token]);
+    const matchingToken = {
+      ...token,
+      id: i + 1,
+    };
+    tokens.push(...[token, matchingToken]);
   }
 
   return tokens;
@@ -42,7 +48,17 @@ const gameMachine = createMachine<Context, Event>({
   states: {
     idle: {
       on: {
-        SELECT_TOKEN: {},
+        SELECT_TOKEN: {
+          actions: assign<Context, SelectTokenEvent>({
+            tokens: (ctx, { index }) => {
+              const token = { ...ctx.tokens[index] };
+              const updatedTokens = [...ctx.tokens];
+              token.state = 'SELECTED';
+              updatedTokens[index] = token;
+              return updatedTokens;
+            },
+          }),
+        },
       },
     },
   },
@@ -91,7 +107,16 @@ export function Game(props: GameProps) {
       <Table size={GRID_SIZE}>
         {tokens.map((token, i) => {
           return (
-            <Token key={token.id} state={token.state}>
+            <Token
+              key={token.id}
+              state={token.state}
+              onClick={() => {
+                send({
+                  type: 'SELECT_TOKEN',
+                  index: i,
+                });
+              }}
+            >
               {token.value}
             </Token>
           );
