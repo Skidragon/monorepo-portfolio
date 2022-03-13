@@ -11,5 +11,4 @@ describe('Token', () => {
     const { getByText } = render(<Token state={'MATCH'}>3</Token>);
     expect(getByText('3').textContent).toBe('3');
   });
-  
 });
