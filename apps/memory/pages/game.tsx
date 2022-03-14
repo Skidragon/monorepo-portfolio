@@ -1,11 +1,13 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Token } from '@sd/memory/ui';
 import { useMachine } from '@xstate/react';
-import { createMachine } from 'xstate';
+import { createMachine, sendParent, spawn, send } from 'xstate';
 import { assign } from 'xstate/lib/actions';
 import { createModel } from 'xstate/lib/model';
 import { spawnTokenPairs, shuffle } from '@sd/memory/helpers';
 import { TokenState } from '@sd/memory/types';
+import { connected } from 'process';
+import { useEffect } from 'react';
 /* eslint-disable-next-line */
 export interface GameProps {}
 type Token = {
@@ -14,51 +16,85 @@ type Token = {
   state: TokenState;
 };
 
-const gameModel = createModel(
-  {
-    tokens: [] as Token[],
-    pairsCount: 0,
-  },
-  {
-    events: {
-      spawnTokens: () => {
-        return {};
-      },
-      choosePlayer: () => {
-        console.log('player 1');
-        return {};
-      },
-    },
-  }
-);
-const playerModel = createModel(
-  {
-    username: '',
-    tokenPairsFound: [] as [Token, Token][],
-  },
-  {
-    events: {
-      selectToken: () => {
-        return {};
-      },
-    },
-  }
-);
-const gameMachine = gameModel.createMachine({
-  initial: 'initiate',
-  context: gameModel.initialContext,
+const playerMachine = createMachine({
+  initial: 'offline',
   states: {
-    initiate: {
+    offline: {
+      entry: () => {
+        console.log('offline');
+      },
       on: {
-        '*': {
-          target: 'choosePlayer',
-          actions: gameModel.events.spawnTokens,
+        WAKE: 'online',
+      },
+    },
+    online: {
+      entry: () => {
+        console.log('online');
+      },
+      on: {
+        MOVE: {
+          target: 'offline',
+          actions: sendParent('PLAYER_TURN_ENDED'),
         },
       },
     },
-    choosePlayer: {},
   },
 });
+
+const gameMachine = createMachine({
+  id: 'game',
+  initial: 'initializing',
+  context: {
+    tokens: [],
+    players: [],
+    playerIndex: 0,
+    player: null,
+  },
+  states: {
+    initializing: {
+      on: {
+        INITIALIZE: {
+          actions: [
+            assign({
+              tokens: spawnTokenPairs(4),
+              players: () => {
+                return new Array(4).fill(0).map((_, index) => {
+                  return spawn(playerMachine, {
+                    name: `player-${index + 1}`,
+                    sync: true,
+                  });
+                });
+              },
+            }),
+          ],
+          target: 'choosingPlayer',
+        },
+      },
+    },
+    choosingPlayer: {
+      always: {
+        target: 'playerMovePhase',
+        actions: [
+          assign({
+            player: (ctx) => ctx.players[ctx.playerIndex % ctx.players.length],
+          }),
+          send({ type: 'WAKE' }, { to: (ctx) => ctx.player.id }),
+        ],
+      },
+    },
+    playerMovePhase: {
+      on: {
+        PLAYER_TURN_ENDED: {
+          target: 'choosingPlayer',
+          actions: assign({
+            playerIndex: (ctx) => (ctx.playerIndex + 1) % ctx.players.length,
+          }),
+        },
+      },
+    },
+  },
+});
+
 const StyledGame = styled.div``;
 const Header = styled.header``;
 const Table = styled.main<{ size: number }>`
@@ -76,37 +112,63 @@ const Footer = styled.footer`
     margin-left: 1rem;
   }
 `;
-const GameInfo = styled.div`
+const PlayerBox = styled.div<{ isTurn: boolean }>`
   display: inline-flex;
   justify-content: center;
   background: var(--blue-100);
   padding: 2em;
   border-radius: 1rem;
+  ${(props) => {
+    if (props.isTurn) {
+      return css`
+        background: var(--orange, orange);
+      `;
+    }
+    return css`
+      background: var(--blue-100);
+    `;
+  }}
 `;
 
 export function Game(props: GameProps) {
   const GRID_SIZE = 4;
   const [state, send] = useMachine(() => gameMachine);
-  const { tokens } = state.context;
-
+  const { players } = state.context;
+  useEffect(() => {
+    send({
+      type: 'INITIALIZE',
+    });
+  }, [send]);
   return (
     <StyledGame>
       <Header>
         <h1>memory</h1>
-        <div></div>
       </Header>
       <Table size={GRID_SIZE}>
-        {tokens.map((token, i) => {
+        {state.context.tokens.map((token, i) => {
           return (
-            <Token key={token.id} state={token.state}>
+            <Token
+              key={token.id}
+              state={token.state}
+              onClick={() => {
+                state.context.player.send({
+                  type: 'MOVE',
+                });
+              }}
+            >
               {token.value}
             </Token>
           );
         })}
       </Table>
       <Footer>
-        <GameInfo>0:01</GameInfo>
-        <GameInfo>39</GameInfo>
+        {players.map((player) => {
+          return (
+            <PlayerBox key={player.id} isTurn={state.context.player === player}>
+              {player.id}
+            </PlayerBox>
+          );
+        })}
       </Footer>
     </StyledGame>
   );
