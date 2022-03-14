@@ -1,7 +1,7 @@
 import { Token } from '@sd/memory/types';
 export const spawnTokenPairs = (gridSize: number) => {
   const tokens: Token[] = [];
-  for (let i = 0; i < gridSize * 2; i++) {
+  for (let i = 0; i < gridSize * gridSize; i += 2) {
     const token: Token = {
       id: i,
       value: i + 1,
