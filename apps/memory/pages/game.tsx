@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { Token } from '@sd/memory/ui';
 import { useMachine } from '@xstate/react';
-import { createMachine, sendParent, spawn, ActorRefFrom, send } from 'xstate';
+import { sendParent, spawn, ActorRefFrom, send } from 'xstate';
 import { assign } from 'xstate/lib/actions';
 import { createModel } from 'xstate/lib/model';
 import { spawnTokenPairs, shuffle } from '@sd/memory/helpers';
@@ -127,7 +127,7 @@ const gameMachine = gameModel.createMachine({
         INITIALIZE: {
           actions: [
             assign({
-              tokens: spawnTokenPairs(8),
+              tokens: shuffle(spawnTokenPairs(8)),
               playerIndex: 0,
               players: () => {
                 return new Array(4).fill(0).map((_, index) => {
@@ -236,7 +236,13 @@ const gameMachine = gameModel.createMachine({
 });
 
 const StyledGame = styled.div``;
-const Header = styled.header``;
+const Header = styled.header`
+  display: flex;
+  justify-content: center;
+  & > * + * {
+    margin-left: 1rem;
+  }
+`;
 const Table = styled.main<{ size: number }>`
   display: grid;
   grid-template-columns: repeat(${(props) => props.size}, auto);
@@ -300,8 +306,6 @@ export function Game(props: GameProps) {
     <StyledGame>
       <Header>
         <h1>memory</h1>
-        {JSON.stringify(state.value, undefined, 2)}
-        {JSON.stringify(player?.getSnapshot()?.event, undefined, 2)}
       </Header>
       <Table size={GRID_SIZE}>
         {state.context.tokens.map((token, i) => {

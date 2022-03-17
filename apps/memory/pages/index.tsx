@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { RadioButton } from '@sd/memory/ui';
 import { DevTool } from '@hookform/devtools';
+import { GetStaticPaths } from 'next';
+import { useRouter } from 'next/router';
 
 const StyledPage = styled.div`
   display: flex;
@@ -53,17 +55,13 @@ const SubmitButton = styled.button`
   color: white;
   border-radius: 5rem;
 `;
+
 interface FormValues {
   theme: 'numbers' | 'icons';
   players: '1' | '2' | '3' | '4';
   gridSize: '4' | '6';
 }
 export function Index() {
-  /*
-   * Replace the elements below with your own.
-   *
-   * Note: The corresponding styles are in the ./index.styled-components file.
-   */
   const {
     register,
     control,
@@ -77,6 +75,7 @@ export function Index() {
     },
   });
   const fields = watch();
+  const router = useRouter();
   return (
     <StyledPage>
       <Title>memory</Title>
@@ -87,6 +86,7 @@ export function Index() {
         <Form
           onSubmit={(e) => {
             e.preventDefault();
+            router.push('/game');
           }}
         >
           <Fieldset id="theme">
