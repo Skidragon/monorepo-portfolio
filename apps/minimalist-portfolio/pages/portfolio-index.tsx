@@ -81,6 +81,19 @@ export function PortfolioIndex(props: PortfolioIndexProps) {
           </LinkButton>
         </ProjectCard>
         <ProjectCard>
+          <Image height="745" width="1093" src="/advice-gen.png" alt="" />
+          <h2>Memory (Under Construction)</h2>
+          <p>
+            This project is created with XState, Styled Components, Jest, and
+            Next.js. I had to use the actor model and state machines to create
+            the game and I used radio buttons for the create game form. This is
+            still a work in progress.
+          </p>
+          <LinkButton variant="secondary" href="#">
+            View Project
+          </LinkButton>
+        </ProjectCard>
+        <ProjectCard>
           <Image height="531" width="1068" src="/tower-of-hanoi.png" alt="" />
           <h2>Tower of Hanoi</h2>
           <p>
