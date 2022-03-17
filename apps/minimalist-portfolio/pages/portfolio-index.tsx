@@ -81,7 +81,7 @@ export function PortfolioIndex(props: PortfolioIndexProps) {
           </LinkButton>
         </ProjectCard>
         <ProjectCard>
-          <Image height="745" width="1093" src="/advice-gen.png" alt="" />
+          <Image height="791" width="857" src="/memory.png" alt="" />
           <h2>Memory (Under Construction)</h2>
           <p>
             This project is created with XState, Styled Components, Jest, and
