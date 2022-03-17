@@ -1,10 +1,10 @@
 import { Token } from '@sd/memory/types';
-export const spawnTokenPairs = (gridSize: number) => {
+export const spawnTokenPairs = (pairsAmount: number) => {
   const tokens: Token[] = [];
-  for (let i = 0; i < gridSize * gridSize; i += 2) {
+  for (let i = 1; i <= pairsAmount * 2; i += 2) {
     const token: Token = {
       id: i,
-      value: i + 1,
+      value: Math.ceil(i / 2),
       state: 'HIDE_VALUE',
     };
     const matchingToken = {

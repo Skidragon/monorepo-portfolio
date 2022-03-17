@@ -12,7 +12,7 @@ export interface TokenProps
 
 const StyledToken = styled.button<Pick<TokenProps, 'state'>>`
   display: inline-block;
-  padding: 2em;
+  padding: 1.8em;
   color: white;
   background: var(--blue-400);
   border-radius: 50%;

@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { Token } from '@sd/memory/ui';
 import { useMachine } from '@xstate/react';
-import { createMachine, sendParent, spawn, send } from 'xstate';
+import { createMachine, sendParent, spawn, ActorRefFrom, send } from 'xstate';
 import { assign } from 'xstate/lib/actions';
 import { createModel } from 'xstate/lib/model';
 import { spawnTokenPairs, shuffle } from '@sd/memory/helpers';
@@ -14,13 +14,25 @@ type Token = {
   value: number;
   state: TokenState;
 };
-const playerMachine = createMachine({
-  initial: 'offline',
-  context: {
-    tokensMatched: [],
-    token: null,
-    matchingToken: null,
+const playerModel = createModel(
+  {
+    username: '',
+    tokensMatched: [] as Token[],
+    token: null as Token | null,
+    matchingToken: null as Token | null,
   },
+  {
+    events: {
+      WAKE: () => ({}),
+      SELECT_TOKEN: (token: Token) => ({ token }),
+      SELECT_MATCHING_TOKEN: (token: Token) => ({ token }),
+    },
+  }
+);
+
+const playerMachine = playerModel.createMachine({
+  initial: 'offline',
+  context: playerModel.initialContext,
   states: {
     offline: {
       on: {
@@ -85,30 +97,49 @@ const playerMachine = createMachine({
     },
   },
 });
-
-const gameMachine = createMachine({
+const gameModel = createModel(
+  {
+    tokens: [] as Token[],
+    players: [] as typeof playerMachine[],
+    playerIndex: 0,
+    player: null as null | ActorRefFrom<typeof playerMachine>,
+  },
+  {
+    events: {
+      INITIALIZE: () => ({}),
+      HIGHLIGHT_PLAYER_MATCHES: () => ({}),
+      PLAYER_SELECT_TOKEN: (token: Token) => ({ token }),
+      PLAYER_SELECT_MATCHING_TOKEN: (token: Token, matchingToken: Token) => ({
+        token,
+        matchingToken,
+      }),
+    },
+  }
+);
+const gameMachine = gameModel.createMachine({
   id: 'game',
   initial: 'initializing',
-  context: {
-    tokens: [],
-    players: [],
-    playerIndex: 0,
-    player: null,
-  },
+  context: gameModel.initialContext,
   states: {
     initializing: {
       on: {
         INITIALIZE: {
           actions: [
             assign({
-              tokens: spawnTokenPairs(4),
+              tokens: spawnTokenPairs(8),
               playerIndex: 0,
               players: () => {
                 return new Array(4).fill(0).map((_, index) => {
-                  return spawn(playerMachine, {
-                    name: `player-${index + 1}`,
-                    sync: true,
-                  });
+                  return spawn(
+                    playerMachine.withContext({
+                      ...playerMachine.context,
+                      username: `P${index}`,
+                    }),
+                    {
+                      name: `player-${index + 1}`,
+                      sync: true,
+                    }
+                  );
                 });
               },
             }),
@@ -152,7 +183,6 @@ const gameMachine = createMachine({
           actions: [
             assign({
               tokens: (ctx, event) => {
-                console.log(event);
                 if (event.token.value === event.matchingToken.value) {
                   return ctx.tokens.map((token) => {
                     if (token.value === event.token.value) {
@@ -225,7 +255,8 @@ const PlayerBox = styled.div<{ isTurn: boolean }>`
   display: inline-flex;
   justify-content: center;
   background: var(--blue-100);
-  padding: 2em;
+  padding: 2em 1em;
+  width: 100%;
   border-radius: 1rem;
   ${(props) => {
     if (props.isTurn) {
@@ -253,7 +284,7 @@ export function Game(props: GameProps) {
       <Header>
         <h1>memory</h1>
         {JSON.stringify(state.value, undefined, 2)}
-        {JSON.stringify(player?.state?.event, undefined, 2)}
+        {JSON.stringify(player?.getSnapshot()?.event, undefined, 2)}
       </Header>
       <Table size={GRID_SIZE}>
         {state.context.tokens.map((token, i) => {
@@ -262,7 +293,7 @@ export function Game(props: GameProps) {
               key={token.id}
               state={token.state}
               onClick={() => {
-                if (!player?.state.context?.token) {
+                if (!player?.getSnapshot()?.context?.token) {
                   player.send({
                     type: 'SELECT_TOKEN',
                     token,
@@ -281,10 +312,10 @@ export function Game(props: GameProps) {
         })}
       </Table>
       <Footer>
-        {players.map((currentPlayer) => {
+        {players.map((currentPlayer, index) => {
           return (
             <PlayerBox key={currentPlayer.id} isTurn={player === currentPlayer}>
-              {currentPlayer.id}
+              {`P${index}`}
             </PlayerBox>
           );
         })}
