@@ -8,9 +8,9 @@ describe('SeeProductCard', () => {
       <SeeProductCard
         name="test"
         description="test"
-        src="./image-category-page-preview.jpg"
+        src="/image-category-page-preview.jpg"
         href="#"
-        cents={100}
+        reverse={false}
       />
     );
     expect(baseElement).toBeTruthy();
