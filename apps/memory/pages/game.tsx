@@ -20,12 +20,14 @@ const playerModel = createModel(
     tokensMatched: [] as Token[],
     token: null as Token | null,
     matchingToken: null as Token | null,
+    score: 0,
   },
   {
     events: {
       WAKE: () => ({}),
       SELECT_TOKEN: (token: Token) => ({ token }),
       SELECT_MATCHING_TOKEN: (token: Token) => ({ token }),
+      always: () => ({}),
     },
   }
 );
@@ -88,7 +90,7 @@ const playerMachine = playerModel.createMachine({
       always: {
         target: 'offline',
         actions: [
-          assign({
+          playerModel.assign({
             token: null,
             matchingToken: null,
           }),
@@ -100,7 +102,7 @@ const playerMachine = playerModel.createMachine({
 const gameModel = createModel(
   {
     tokens: [] as Token[],
-    players: [] as typeof playerMachine[],
+    players: [] as ActorRefFrom<typeof playerMachine>[],
     playerIndex: 0,
     player: null as null | ActorRefFrom<typeof playerMachine>,
   },
