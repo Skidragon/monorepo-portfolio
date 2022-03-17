@@ -180,12 +180,22 @@ const gameMachine = createMachine({
       },
     },
     endingTurn: {
-      always: {
-        actions: assign({
-          playerIndex: (ctx) => (ctx.playerIndex + 1) % ctx.players.length,
-        }),
-        target: 'choosingPlayer',
-      },
+      always: [
+        {
+          cond: (ctx) =>
+            ctx.tokens.every((token) => token.state !== 'HIDE_VALUE'),
+          target: 'win',
+        },
+        {
+          actions: assign({
+            playerIndex: (ctx) => (ctx.playerIndex + 1) % ctx.players.length,
+          }),
+          target: 'choosingPlayer',
+        },
+      ],
+    },
+    win: {
+      type: 'final',
     },
   },
 });
