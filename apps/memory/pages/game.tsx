@@ -102,6 +102,7 @@ const gameMachine = createMachine({
           actions: [
             assign({
               tokens: spawnTokenPairs(4),
+              playerIndex: 0,
               players: () => {
                 return new Array(4).fill(0).map((_, index) => {
                   return spawn(playerMachine, {
@@ -195,7 +196,10 @@ const gameMachine = createMachine({
       ],
     },
     win: {
-      type: 'final',
+      always: {
+        target: 'initializing',
+        actions: send('INITIALIZE'),
+      },
     },
   },
 });
