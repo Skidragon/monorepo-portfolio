@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { Token } from '@sd/memory/ui';
-import { useMachine, useActor, useInterpret } from '@xstate/react';
+import { useMachine } from '@xstate/react';
 import { createMachine, sendParent, spawn, send } from 'xstate';
 import { assign } from 'xstate/lib/actions';
 import { createModel } from 'xstate/lib/model';
@@ -14,7 +14,6 @@ type Token = {
   value: number;
   state: TokenState;
 };
-const isValidTokenSelection = () => true;
 const playerMachine = createMachine({
   initial: 'offline',
   context: {
@@ -24,21 +23,12 @@ const playerMachine = createMachine({
   },
   states: {
     offline: {
-      entry: [
-        () => {
-          console.log('offline');
-        },
-        assign({
-          token: null,
-          matchingToken: null,
-        }),
-      ],
       on: {
         WAKE: {
           target: 'online',
           actions: sendParent((ctx) => {
             return {
-              playerTokens: spawnTokenPairs(5),
+              playerTokens: ctx.tokensMatched,
               type: 'HIGHLIGHT_PLAYER_MATCHES',
             };
           }),
@@ -51,27 +41,46 @@ const playerMachine = createMachine({
       },
       on: {
         SELECT_TOKEN: {
-          cond: (_, event) => isValidTokenSelection(event.token),
+          cond: (_, event) => event.token.state == 'HIDE_VALUE',
           actions: [
             assign({
-              token: (_, event) => event.token,
+              token: (_, event) => {
+                return event.token;
+              },
             }),
+            sendParent((context) => ({
+              token: context.token,
+              type: 'PLAYER_SELECT_TOKEN',
+            })),
           ],
         },
         SELECT_MATCHING_TOKEN: {
-          target: 'offline',
-          cond: (_, event) => isValidTokenSelection(event.token),
+          cond: (_, event) => event.token.state === 'HIDE_VALUE',
           actions: [
             assign({
-              matchingToken: (_, event) => event.token,
+              matchingToken: (_, event) => {
+                return event.token;
+              },
             }),
             sendParent((context) => ({
               token: context.token,
               matchingToken: context.matchingToken,
-              type: 'END_PLAYER_TURN',
+              type: 'PLAYER_SELECT_MATCHING_TOKEN',
             })),
           ],
+          target: 'playerTurnEnding',
         },
+      },
+    },
+    playerTurnEnding: {
+      always: {
+        target: 'offline',
+        actions: [
+          assign({
+            token: null,
+            matchingToken: null,
+          }),
+        ],
       },
     },
   },
@@ -109,28 +118,73 @@ const gameMachine = createMachine({
     },
     choosingPlayer: {
       always: {
-        target: 'playerMovePhase',
         actions: [
           assign({
             player: (ctx) => ctx.players[ctx.playerIndex % ctx.players.length],
           }),
           send({ type: 'WAKE' }, { to: (ctx) => ctx.player.id }),
         ],
+        target: 'playerMovePhase',
       },
     },
     playerMovePhase: {
       on: {
         HIGHLIGHT_PLAYER_MATCHES: {
+          actions: assign({}),
+        },
+        PLAYER_SELECT_TOKEN: {
           actions: assign({
-            tokens: (ctx, event) => event.playerTokens,
+            tokens: (ctx, event) => {
+              return ctx.tokens.map((token) => {
+                if (token === event.token) {
+                  return {
+                    ...token,
+                    state: 'HIGHLIGHT',
+                  };
+                }
+                return token;
+              });
+            },
           }),
         },
-        END_PLAYER_TURN: {
-          target: 'choosingPlayer',
-          actions: assign({
-            playerIndex: (ctx) => (ctx.playerIndex + 1) % ctx.players.length,
-          }),
+        PLAYER_SELECT_MATCHING_TOKEN: {
+          actions: [
+            assign({
+              tokens: (ctx, event) => {
+                console.log(event);
+                if (event.token.value === event.matchingToken.value) {
+                  return ctx.tokens.map((token) => {
+                    if (token.value === event.token.value) {
+                      return {
+                        ...token,
+                        state: 'MATCH',
+                      };
+                    }
+                    return token;
+                  });
+                }
+                return ctx.tokens.map((token) => {
+                  if (token.value === event.token.value) {
+                    return {
+                      ...token,
+                      state: 'HIDE_VALUE',
+                    };
+                  }
+                  return token;
+                });
+              },
+            }),
+          ],
+          target: 'endingTurn',
         },
+      },
+    },
+    endingTurn: {
+      always: {
+        actions: assign({
+          playerIndex: (ctx) => (ctx.playerIndex + 1) % ctx.players.length,
+        }),
+        target: 'choosingPlayer',
       },
     },
   },
@@ -184,6 +238,8 @@ export function Game(props: GameProps) {
     <StyledGame>
       <Header>
         <h1>memory</h1>
+        {JSON.stringify(state.value, undefined, 2)}
+        {JSON.stringify(player?.state?.event, undefined, 2)}
       </Header>
       <Table size={GRID_SIZE}>
         {state.context.tokens.map((token, i) => {
