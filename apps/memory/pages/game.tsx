@@ -27,7 +27,6 @@ const playerModel = createModel(
       WAKE: () => ({}),
       SELECT_TOKEN: (token: Token) => ({ token }),
       SELECT_MATCHING_TOKEN: (token: Token) => ({ token }),
-      always: () => ({}),
     },
   }
 );
