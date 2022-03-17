@@ -9,5 +9,6 @@ describe('spawnTokenPairs', () => {
     const tokens = spawnTokenPairs(4);
     const pairs = getTokenPairs(tokens);
     expect(pairs.length).toBe(8);
+    expect(pairs.every((pair) => pair[0].value === pair[1].value)).toBeTruthy();
   });
 });
