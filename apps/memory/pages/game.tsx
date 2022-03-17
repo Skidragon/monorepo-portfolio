@@ -6,7 +6,6 @@ import { assign } from 'xstate/lib/actions';
 import { createModel } from 'xstate/lib/model';
 import { spawnTokenPairs, shuffle } from '@sd/memory/helpers';
 import { TokenState } from '@sd/memory/types';
-import { connected } from 'process';
 import { useEffect } from 'react';
 /* eslint-disable-next-line */
 export interface GameProps {}
@@ -18,13 +17,29 @@ type Token = {
 
 const playerMachine = createMachine({
   initial: 'offline',
+  context: {
+    tokensMatched: [],
+    token: null,
+    matchingToken: null
+  },
   states: {
     offline: {
-      entry: () => {
+      entry: [() => {
         console.log('offline');
-      },
+      }, assign({
+        token: null,
+        matchingToken: null
+      })],
       on: {
-        WAKE: 'online',
+        WAKE: {
+          target: 'online',
+          actions: sendParent((ctx) => {
+            return {
+              playerTokens: ctx.tokensMatched,
+              type: 'HIGHLIGHT_PLAYER_MATCHES'
+            }
+          })
+        },
       },
     },
     online: {
@@ -32,9 +47,21 @@ const playerMachine = createMachine({
         console.log('online');
       },
       on: {
-        MOVE: {
+        SELECT_TOKEN: {
+          cond: (_, event) => isValidTokenSelection(event.token);
+          actions: [assign({
+            token: (ctx) => assignToken
+          })]
+        },
+        SELECT_MATCHING_TOKEN: {
           target: 'offline',
-          actions: sendParent('PLAYER_TURN_ENDED'),
+          cond: (_ event) => isValidTokenSelection(event.token);
+          actions: [assign({
+            matchingToken: (ctx) => assignToken
+          }), sendParent((context) => ({
+            ...context,
+            type: 'PLAYER_TURN_ENDED'
+          }))]
         },
       },
     },
@@ -84,6 +111,12 @@ const gameMachine = createMachine({
     },
     playerMovePhase: {
       on: {
+        HIGHLIGHT_PLAYER_MATCHES: {
+
+          actions: assign({
+
+          })
+        },
         PLAYER_TURN_ENDED: {
           target: 'choosingPlayer',
           actions: assign({
@@ -133,7 +166,7 @@ const PlayerBox = styled.div<{ isTurn: boolean }>`
 export function Game(props: GameProps) {
   const GRID_SIZE = 4;
   const [state, send] = useMachine(() => gameMachine);
-  const { players } = state.context;
+  const { players, player } = state.context;
   useEffect(() => {
     send({
       type: 'INITIALIZE',
@@ -151,9 +184,17 @@ export function Game(props: GameProps) {
               key={token.id}
               state={token.state}
               onClick={() => {
-                state.context.player.send({
-                  type: 'MOVE',
-                });
+                if(!player.context.token) {
+                  player.send({
+                    type: 'SELECT_TOKEN',
+                    token
+                  });
+                } else {
+                  player.send({
+                    type: 'SELECT_MATCHING_TOKEN',
+                    token
+                  })
+                }
               }}
             >
               {token.value}
@@ -162,10 +203,10 @@ export function Game(props: GameProps) {
         })}
       </Table>
       <Footer>
-        {players.map((player) => {
+        {players.map((currentPlayer) => {
           return (
-            <PlayerBox key={player.id} isTurn={state.context.player === player}>
-              {player.id}
+            <PlayerBox key={currentPlayer.id} isTurn={player === currentPlayer}>
+              {currentPlayer.id}
             </PlayerBox>
           );
         })}
