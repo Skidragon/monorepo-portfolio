@@ -253,15 +253,31 @@ const Footer = styled.footer`
 `;
 const PlayerBox = styled.div<{ isTurn: boolean }>`
   display: inline-flex;
+  flex-flow: column;
+  color: white;
   justify-content: center;
+  align-items: center;
   background: var(--blue-100);
   padding: 2em 1em;
   width: 100%;
+  max-width: 5rem;
   border-radius: 1rem;
   ${(props) => {
     if (props.isTurn) {
       return css`
         background: var(--orange, orange);
+        position: relative;
+        &::after {
+          content: '';
+          width: 1rem;
+          height: 1rem;
+          position: absolute;
+          top: 0;
+          left: 50%;
+          transform: translate(-50%, -100%);
+          border: 0.5rem solid transparent;
+          border-bottom: 0.6rem solid orange;
+        }
       `;
     }
     return css`
@@ -314,7 +330,10 @@ export function Game(props: GameProps) {
       <Footer>
         {players.map((currentPlayer, index) => {
           return (
-            <PlayerBox key={currentPlayer.id} isTurn={player === currentPlayer}>
+            <PlayerBox
+              key={currentPlayer.id}
+              isTurn={player.id === currentPlayer.id}
+            >
               {`P${index}`}
             </PlayerBox>
           );
