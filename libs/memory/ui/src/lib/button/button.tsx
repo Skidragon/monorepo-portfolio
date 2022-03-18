@@ -25,8 +25,8 @@ const StyledButton = styled.button<Pick<ButtonProps, 'variant'>>`
       `;
     }
     return css`
-      color: var(--blue-100, lightblue);
-      background: var(--blue-500, blue);
+      background: var(--blue-100, lightblue);
+      color: var(--blue-500, blue);
     `;
   }}
 `;
