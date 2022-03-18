@@ -167,9 +167,6 @@ const gameMachine = gameModel.createMachine({
       always: {
         actions: [
           assign({
-            playerIndex: (ctx) => (ctx.playerIndex + 1) % ctx.players.length,
-          }),
-          assign({
             player: (ctx) => ctx.players[ctx.playerIndex % ctx.players.length],
           }),
           send({ type: 'WAKE' }, { to: (ctx) => ctx.player.id }),
@@ -329,6 +326,7 @@ const gameMachine = gameModel.createMachine({
                   };
                 });
               },
+              playerIndex: (ctx) => (ctx.playerIndex + 1) % ctx.players.length,
             }),
           ],
           target: 'choosingPlayer',
