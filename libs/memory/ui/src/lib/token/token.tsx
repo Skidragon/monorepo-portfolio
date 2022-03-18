@@ -20,6 +20,7 @@ const StyledToken = styled.button<Pick<TokenProps, 'state'>>`
   cursor: pointer;
   &:focus {
     box-shadow: 0px 0px 0px 6px lightblue;
+    outline: none;
   }
   ${(props) => {
     const { state } = props;
