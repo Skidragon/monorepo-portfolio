@@ -32,18 +32,19 @@ const Form = styled.form`
   }
 `;
 const Fieldset = styled.fieldset`
-  display: flex;
-  justify-content: space-between;
   border: none;
   padding-top: 0.5rem;
+`;
+const RadioButtonsGroup = styled.div`
+  display: flex;
+  justify-content: space-between;
   & > * + * {
-    margin-right: 1rem;
+    margin-left: 1rem;
   }
   & > *:last-child {
     margin-right: 0;
   }
 `;
-
 const Legend = styled.legend`
   font-size: 1rem;
   font-family: sans-serif;
@@ -93,76 +94,82 @@ export function Index() {
         >
           <Fieldset id="theme">
             <Legend>Select Theme</Legend>
-            <RadioButton
-              name="theme"
-              label="Numbers"
-              id="numbers"
-              value="numbers"
-              checked={fields.theme === 'numbers'}
-              {...register('theme')}
-            />
-            <RadioButton
-              name="theme"
-              label="Icons"
-              id="icons"
-              value="icons"
-              checked={fields.theme === 'icons'}
-              {...register('theme')}
-            />
+            <RadioButtonsGroup>
+              <RadioButton
+                name="theme"
+                label="Numbers"
+                id="numbers"
+                value="numbers"
+                checked={fields.theme === 'numbers'}
+                {...register('theme')}
+              />
+              <RadioButton
+                name="theme"
+                label="Icons"
+                id="icons"
+                value="icons"
+                checked={fields.theme === 'icons'}
+                {...register('theme')}
+              />
+            </RadioButtonsGroup>
           </Fieldset>
           <Fieldset id="players">
             <Legend>Number of Players</Legend>
-            <RadioButton
-              name="players"
-              label="1"
-              id="1"
-              value="1"
-              checked={fields.players === '1'}
-              {...register('players')}
-            />
-            <RadioButton
-              name="players"
-              label="2"
-              id="2"
-              value="2"
-              checked={fields.players === '2'}
-              {...register('players')}
-            />
-            <RadioButton
-              name="players"
-              label="3"
-              id="3"
-              value="3"
-              checked={fields.players === '3'}
-              {...register('players')}
-            />
-            <RadioButton
-              name="players"
-              label="4"
-              id="4"
-              value="4"
-              checked={fields.players === '4'}
-              {...register('players')}
-            />
+            <RadioButtonsGroup>
+              <RadioButton
+                name="players"
+                label="1"
+                id="1"
+                value="1"
+                checked={fields.players === '1'}
+                {...register('players')}
+              />
+              <RadioButton
+                name="players"
+                label="2"
+                id="2"
+                value="2"
+                checked={fields.players === '2'}
+                {...register('players')}
+              />
+              <RadioButton
+                name="players"
+                label="3"
+                id="3"
+                value="3"
+                checked={fields.players === '3'}
+                {...register('players')}
+              />
+              <RadioButton
+                name="players"
+                label="4"
+                id="4"
+                value="4"
+                checked={fields.players === '4'}
+                {...register('players')}
+              />
+            </RadioButtonsGroup>
           </Fieldset>
           <Fieldset id="grid-size">
             <Legend>Grid Size</Legend>
-            <RadioButton
-              name="grid-size"
-              label="4x4"
-              id="4x4"
-              value="4"
-              checked={fields.gridSize === '4'}
-              {...register('gridSize')}
-            />
-            <RadioButton
-              name="grid-size"
-              label="6x6"
-              id="6x6"
-              value="6"
-              checked={fields.gridSize === '6'}
-              {...register('gridSize')}
-            />
+            <RadioButtonsGroup>
+              <RadioButton
+                name="grid-size"
+                label="4x4"
+                id="4x4"
+                value="4"
+                checked={fields.gridSize === '4'}
+                {...register('gridSize')}
+              />
+              <RadioButton
+                name="grid-size"
+                label="6x6"
+                id="6x6"
+                value="6"
+                checked={fields.gridSize === '6'}
+                {...register('gridSize')}
+              />
+            </RadioButtonsGroup>
           </Fieldset>
           <SubmitButton type="submit">Start Game</SubmitButton>
         </Form>
