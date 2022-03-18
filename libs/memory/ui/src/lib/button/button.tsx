@@ -17,6 +17,7 @@ const StyledButton = styled.button<Pick<ButtonProps, 'variant'>>`
   display: inline-block;
   padding: 0.5em 1.25em;
   border-radius: 5rem;
+  font-weight: 700;
   ${(props) => {
     if (props.variant === 'primary') {
       return css`
