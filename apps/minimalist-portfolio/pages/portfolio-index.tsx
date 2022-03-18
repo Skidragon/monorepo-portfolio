@@ -89,7 +89,7 @@ export function PortfolioIndex(props: PortfolioIndexProps) {
             the game and I used radio buttons for the create game form. This is
             still a work in progress.
           </p>
-          <LinkButton variant="secondary" href="#">
+          <LinkButton variant="secondary" href="https://sd-memory.netlify.app/">
             View Project
           </LinkButton>
         </ProjectCard>
