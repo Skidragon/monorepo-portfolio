@@ -8,7 +8,9 @@ This project was generated using [Nx](https://nx.dev).
 
 ## Netlify Projects Status
 
-Audiophile: [![Netlify Status](https://api.netlify.com/api/v1/badges/ee335cfd-5a69-4eca-a074-a5dfa93212e4/deploy-status)](https://app.netlify.com/sites/sd-audiophile/deploys)
+### Memory: [![Netlify Status](https://api.netlify.com/api/v1/badges/23057279-45e8-4511-bbcc-c2012e0ca59c/deploy-status)](https://app.netlify.com/sites/sd-memory/deploys)
+
+### Audiophile: [![Netlify Status](https://api.netlify.com/api/v1/badges/ee335cfd-5a69-4eca-a074-a5dfa93212e4/deploy-status)](https://app.netlify.com/sites/sd-audiophile/deploys)
 
 ## Adding capabilities to your workspace
 
