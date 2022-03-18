@@ -254,10 +254,13 @@ const gameMachine = gameModel.createMachine({
               assign({
                 tokens: (ctx, event) => {
                   return ctx.tokens.map((token) => {
-                    if (token.value === event.token.value) {
+                    if (
+                      token.id === event.token.id ||
+                      token.id === event.matchingToken.id
+                    ) {
                       return {
                         ...token,
-                        state: 'HIDE_VALUE',
+                        state: 'HIGHLIGHT',
                       };
                     }
                     return token;
@@ -265,9 +268,36 @@ const gameMachine = gameModel.createMachine({
                 },
               }),
             ],
-            target: 'endingTurn',
+            target: 'waiting',
           },
         ],
+      },
+    },
+    waiting: {
+      after: {
+        800: {
+          target: 'endingTurn',
+          actions: assign({
+            tokens: (ctx) => {
+              return ctx.tokens.map((token) => {
+                if (
+                  ctx.players.some((player) => {
+                    return player.getSnapshot().context.tokensMatched[token.id];
+                  })
+                ) {
+                  return {
+                    ...token,
+                    state: 'HIGHLIGHT',
+                  };
+                }
+                return {
+                  ...token,
+                  state: 'HIDE_VALUE',
+                };
+              });
+            },
+          }),
+        },
       },
     },
     endingTurn: {
@@ -292,7 +322,6 @@ const gameMachine = gameModel.createMachine({
                   };
                 });
               },
-              playerIndex: (ctx) => (ctx.playerIndex + 1) % ctx.players.length,
             }),
           ],
           target: 'choosingPlayer',
