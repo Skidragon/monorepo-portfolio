@@ -247,7 +247,7 @@ const gameMachine = gameModel.createMachine({
                 { to: (ctx) => ctx.player.id }
               ),
             ],
-            target: 'endingTurn',
+            target: 'match',
           },
           {
             actions: [
@@ -268,12 +268,19 @@ const gameMachine = gameModel.createMachine({
                 },
               }),
             ],
-            target: 'waiting',
+            target: 'mismatch',
           },
         ],
       },
     },
-    waiting: {
+    match: {
+      after: {
+        1200: {
+          target: 'endingTurn',
+        },
+      },
+    },
+    mismatch: {
       after: {
         800: {
           target: 'endingTurn',
