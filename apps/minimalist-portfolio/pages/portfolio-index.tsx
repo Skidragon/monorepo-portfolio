@@ -64,7 +64,22 @@ export function PortfolioIndex(props: PortfolioIndexProps) {
             </ProjectCard>
           );
         })}
-
+        <ProjectCard>
+          <Image height="791" width="857" src="/memory.png" alt="" />
+          <h2>Memory (Under Construction)</h2>
+          <p>
+            This project is created with XState, Styled Components, Jest, and
+            Next.js. I had to use the actor model and state machines to create
+            the game and I used radio buttons for the create game form for
+            accessibility purposes. This is still a work in progress. I will try
+            to complete an MVP by 03/21/2021. Afterwards I will use Nest.js and
+            use websockets to create a real-time experience and create lobbies
+            for players to join rooms.
+          </p>
+          <LinkButton variant="secondary" href="https://sd-memory.netlify.app/">
+            View Project
+          </LinkButton>
+        </ProjectCard>
         <ProjectCard>
           <Image height="745" width="1093" src="/advice-gen.png" alt="" />
           <h2>Advice Generator</h2>
@@ -80,19 +95,7 @@ export function PortfolioIndex(props: PortfolioIndexProps) {
             View Project
           </LinkButton>
         </ProjectCard>
-        <ProjectCard>
-          <Image height="791" width="857" src="/memory.png" alt="" />
-          <h2>Memory (Under Construction)</h2>
-          <p>
-            This project is created with XState, Styled Components, Jest, and
-            Next.js. I had to use the actor model and state machines to create
-            the game and I used radio buttons for the create game form. This is
-            still a work in progress.
-          </p>
-          <LinkButton variant="secondary" href="https://sd-memory.netlify.app/">
-            View Project
-          </LinkButton>
-        </ProjectCard>
+
         <ProjectCard>
           <Image height="531" width="1068" src="/tower-of-hanoi.png" alt="" />
           <h2>Tower of Hanoi</h2>
