@@ -14,10 +14,11 @@ type Token = {
   value: number;
   state: TokenState;
 };
+type PlayerTokensMatched = Record<string, Token>;
 const playerModel = createModel(
   {
     username: '',
-    tokensMatched: [] as Token[],
+    tokensMatched: {} as PlayerTokensMatched,
     token: null as Token | null,
     matchingToken: null as Token | null,
     score: 0,
@@ -27,6 +28,11 @@ const playerModel = createModel(
       WAKE: () => ({}),
       SELECT_TOKEN: (token: Token) => ({ token }),
       SELECT_MATCHING_TOKEN: (token: Token) => ({ token }),
+      UPDATE_SCORE: (number: number) => ({ number }),
+      UPDATE_TOKENS_MATCHED: (tokensMatched: PlayerTokensMatched) => ({
+        tokensMatched,
+      }),
+      END_TURN: () => ({}),
     },
   }
 );
@@ -39,12 +45,7 @@ const playerMachine = playerModel.createMachine({
       on: {
         WAKE: {
           target: 'online',
-          actions: sendParent((ctx) => {
-            return {
-              playerTokens: ctx.tokensMatched,
-              type: 'HIGHLIGHT_PLAYER_MATCHES',
-            };
-          }),
+          actions: sendParent('HIGHLIGHT_PLAYER_MATCHES'),
         },
       },
     },
@@ -81,19 +82,38 @@ const playerMachine = playerModel.createMachine({
               type: 'PLAYER_SELECT_MATCHING_TOKEN',
             })),
           ],
-          target: 'playerTurnEnding',
+          target: 'endingTurn',
         },
       },
     },
-    playerTurnEnding: {
-      always: {
-        target: 'offline',
-        actions: [
-          playerModel.assign({
-            token: null,
-            matchingToken: null,
+
+    endingTurn: {
+      on: {
+        UPDATE_SCORE: {
+          actions: assign({
+            score: (ctx, event) => ctx.score + event.number,
           }),
-        ],
+        },
+        UPDATE_TOKENS_MATCHED: {
+          actions: assign({
+            tokensMatched: (ctx) => {
+              return {
+                ...ctx.tokensMatched,
+                [ctx.token.id]: ctx.token,
+                [ctx.matchingToken.id]: ctx.matchingToken,
+              };
+            },
+          }),
+        },
+        END_TURN: {
+          target: 'offline',
+          actions: [
+            playerModel.assign({
+              token: null,
+              matchingToken: null,
+            }),
+          ],
+        },
       },
     },
   },
@@ -131,16 +151,10 @@ const gameMachine = gameModel.createMachine({
               playerIndex: 0,
               players: () => {
                 return new Array(4).fill(0).map((_, index) => {
-                  return spawn(
-                    playerMachine.withContext({
-                      ...playerMachine.context,
-                      username: `P${index}`,
-                    }),
-                    {
-                      name: `player-${index + 1}`,
-                      sync: true,
-                    }
-                  );
+                  return spawn(playerMachine, {
+                    name: `player-${index + 1}`,
+                    sync: true,
+                  });
                 });
               },
             }),
@@ -163,7 +177,31 @@ const gameMachine = gameModel.createMachine({
     playerMovePhase: {
       on: {
         HIGHLIGHT_PLAYER_MATCHES: {
-          actions: assign({}),
+          actions: assign({
+            tokens: (ctx) => {
+              const otherPlayers = ctx.players.filter(
+                (player) => player !== ctx.player
+              );
+              return ctx.tokens.map((token) => {
+                if (ctx.player.getSnapshot().context.tokensMatched[token.id]) {
+                  return {
+                    ...token,
+                    state: 'MATCH',
+                  };
+                } else if (
+                  otherPlayers.some((player) => {
+                    return player.getSnapshot().context.tokensMatched[token.id];
+                  })
+                ) {
+                  return {
+                    ...token,
+                    state: 'HIGHLIGHT',
+                  };
+                }
+                return token;
+              });
+            },
+          }),
         },
         PLAYER_SELECT_TOKEN: {
           actions: assign({
@@ -180,11 +218,12 @@ const gameMachine = gameModel.createMachine({
             },
           }),
         },
-        PLAYER_SELECT_MATCHING_TOKEN: {
-          actions: [
-            assign({
-              tokens: (ctx, event) => {
-                if (event.token.value === event.matchingToken.value) {
+        PLAYER_SELECT_MATCHING_TOKEN: [
+          {
+            cond: (_, event) => event.token.value === event.matchingToken.value,
+            actions: [
+              assign({
+                tokens: (ctx, event) => {
                   return ctx.tokens.map((token) => {
                     if (token.value === event.token.value) {
                       return {
@@ -194,21 +233,38 @@ const gameMachine = gameModel.createMachine({
                     }
                     return token;
                   });
-                }
-                return ctx.tokens.map((token) => {
-                  if (token.value === event.token.value) {
-                    return {
-                      ...token,
-                      state: 'HIDE_VALUE',
-                    };
-                  }
-                  return token;
-                });
-              },
-            }),
-          ],
-          target: 'endingTurn',
-        },
+                },
+              }),
+              send(
+                { type: 'UPDATE_SCORE', number: 1 },
+                { to: (ctx) => ctx.player.id }
+              ),
+              send(
+                { type: 'UPDATE_TOKENS_MATCHED' },
+                { to: (ctx) => ctx.player.id }
+              ),
+            ],
+            target: 'endingTurn',
+          },
+          {
+            actions: [
+              assign({
+                tokens: (ctx, event) => {
+                  return ctx.tokens.map((token) => {
+                    if (token.value === event.token.value) {
+                      return {
+                        ...token,
+                        state: 'HIDE_VALUE',
+                      };
+                    }
+                    return token;
+                  });
+                },
+              }),
+            ],
+            target: 'endingTurn',
+          },
+        ],
       },
     },
     endingTurn: {
@@ -219,9 +275,23 @@ const gameMachine = gameModel.createMachine({
           target: 'win',
         },
         {
-          actions: assign({
-            playerIndex: (ctx) => (ctx.playerIndex + 1) % ctx.players.length,
-          }),
+          actions: [
+            send({ type: 'END_TURN' }, { to: (ctx) => ctx.player.id }),
+            assign({
+              tokens: (ctx) => {
+                return ctx.tokens.map((token) => {
+                  if (token.state === 'HIDE_VALUE') {
+                    return token;
+                  }
+                  return {
+                    ...token,
+                    state: 'HIGHLIGHT',
+                  };
+                });
+              },
+              playerIndex: (ctx) => (ctx.playerIndex + 1) % ctx.players.length,
+            }),
+          ],
           target: 'choosingPlayer',
         },
       ],
@@ -339,7 +409,8 @@ export function Game(props: GameProps) {
               key={currentPlayer.id}
               isTurn={player.id === currentPlayer.id}
             >
-              {`P${index}`}
+              <div>{`P${index}`}</div>
+              <div>{currentPlayer.getSnapshot().context.score}</div>
             </PlayerBox>
           );
         })}
