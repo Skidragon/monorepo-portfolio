@@ -68,6 +68,28 @@
       "tags": [],
       "implicitDependencies": ["audiophile-ui"]
     },
+    "memory": {
+      "tags": []
+    },
+    "memory-e2e": {
+      "tags": [],
+      "implicitDependencies": ["memory"]
+    },
+    "memory-feature": {
+      "tags": []
+    },
+    "memory-helpers": {
+      "tags": []
+    },
+    "memory-shared": {
+      "tags": []
+    },
+    "memory-types": {
+      "tags": []
+    },
+    "memory-ui": {
+      "tags": []
+    },
     "minimalist-portfolio": {
       "tags": []
     },
