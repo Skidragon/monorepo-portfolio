@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { Token } from '@sd/memory/ui';
+import { Token, Button } from '@sd/memory/ui';
 import { useMachine } from '@xstate/react';
 import { sendParent, spawn, ActorRefFrom, send } from 'xstate';
 import { assign } from 'xstate/lib/actions';
@@ -7,6 +7,7 @@ import { createModel } from 'xstate/lib/model';
 import { spawnTokenPairs, shuffle } from '@sd/memory/helpers';
 import { TokenState } from '@sd/memory/types';
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 /* eslint-disable-next-line */
 export interface GameProps {}
 type Token = {
@@ -334,21 +335,26 @@ const gameMachine = gameModel.createMachine({
       ],
     },
     win: {
-      always: {
-        target: 'initializing',
-        actions: send('INITIALIZE'),
-      },
+      type: 'final',
     },
   },
 });
 
-const StyledGame = styled.div``;
+const StyledGame = styled.div`
+  display: flex;
+  flex-flow: column;
+  padding: 1rem;
+  margin: 0 auto;
+  max-width: 50rem;
+`;
 const Header = styled.header`
   display: flex;
-  justify-content: center;
+  align-items: baseline;
+  justify-content: space-between;
   & > * + * {
     margin-left: 1rem;
   }
+  margin-bottom: 2rem;
 `;
 const Table = styled.main<{ size: number }>`
   display: grid;
@@ -399,11 +405,17 @@ const PlayerBox = styled.div<{ isTurn: boolean }>`
     `;
   }}
 `;
-
+const GameOptions = styled.div`
+  display: flex;
+  & > * + * {
+    margin-left: 1rem;
+  }
+`;
 export function Game(props: GameProps) {
   const GRID_SIZE = 4;
   const [state, send] = useMachine(() => gameMachine);
   const { players, player } = state.context;
+  const router = useRouter();
   useEffect(() => {
     send({
       type: 'INITIALIZE',
@@ -413,6 +425,16 @@ export function Game(props: GameProps) {
     <StyledGame>
       <Header>
         <h1>memory</h1>
+        <GameOptions>
+          <Button variant="primary">Restart</Button>
+          <Button
+            onClick={() => {
+              router.push('/');
+            }}
+          >
+            New Game
+          </Button>
+        </GameOptions>
       </Header>
       <Table size={GRID_SIZE}>
         {state.context.tokens.map((token, i) => {
