@@ -14,8 +14,8 @@ export interface ButtonProps
 }
 
 const StyledButton = styled.button<Pick<ButtonProps, 'variant'>>`
-  padding: 0.5em;
-  width: 100%;
+  display: inline-block;
+  padding: 0.5em 1.25em;
   border-radius: 5rem;
   ${(props) => {
     if (props.variant === 'primary') {
