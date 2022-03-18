@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { RadioButton } from '@sd/memory/ui';
 import { DevTool } from '@hookform/devtools';
-import { GetStaticPaths } from 'next';
 import { useRouter } from 'next/router';
 
 const StyledPage = styled.div`
@@ -11,7 +10,7 @@ const StyledPage = styled.div`
   justify-content: center;
   align-items: center;
   background: var(--blue-500);
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   padding: 1em;
 `;
@@ -26,8 +25,11 @@ const Content = styled.div`
   max-width: 60ch;
 `;
 const Form = styled.form`
-  display: grid;
-  grid-gap: 2rem;
+  display: flex;
+  flex-flow: column;
+  & > * + * {
+    margin-top: 2rem;
+  }
 `;
 const Fieldset = styled.fieldset`
   display: flex;
