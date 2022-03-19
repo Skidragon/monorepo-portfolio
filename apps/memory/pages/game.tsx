@@ -354,9 +354,7 @@ const gameMachine = gameModel.createMachine({
         },
       ],
     },
-    win: {
-      type: 'final',
-    },
+    win: {},
   },
 });
 
