@@ -26,7 +26,7 @@ const StyledToken = styled.button<Pick<TokenProps, 'state'>>`
     const { state } = props;
     if (state === 'HIGHLIGHT') {
       return css`
-        background: var(--blue-100, lightblue);
+        background: var(--blue-200, lightblue);
         color: white;
       `;
     }
