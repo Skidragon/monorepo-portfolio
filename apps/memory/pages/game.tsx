@@ -123,12 +123,14 @@ const playerMachine = playerModel.createMachine({
 const gameModel = createModel(
   {
     tokens: [] as Token[],
+    gridSize: 4,
     players: [] as ActorRefFrom<typeof playerMachine>[],
     playerIndex: 0,
     player: null as null | ActorRefFrom<typeof playerMachine>,
   },
   {
     events: {
+      RESET: () => ({}),
       INITIALIZE: () => ({}),
       HIGHLIGHT_PLAYER_MATCHES: () => ({}),
       PLAYER_SELECT_TOKEN: (token: Token) => ({ token }),
@@ -143,16 +145,33 @@ const gameMachine = gameModel.createMachine({
   id: 'game',
   initial: 'initializing',
   context: gameModel.initialContext,
+  on: {
+    RESET: {
+      target: '.initializing',
+      actions: send('INITIALIZE'),
+    },
+  },
   states: {
     initializing: {
       on: {
         INITIALIZE: {
           actions: [
             assign({
-              tokens: shuffle(spawnTokenPairs(8, 'icons')),
+              tokens: () => {
+                const gridSize = Number(localStorage.getItem('gridSize'));
+                const theme = localStorage.getItem('theme');
+                return shuffle(
+                  spawnTokenPairs((gridSize * gridSize) / 2, theme)
+                );
+              },
+              gridSize: () => {
+                const gridSize = Number(localStorage.getItem('gridSize'));
+                return gridSize;
+              },
               playerIndex: 0,
               players: () => {
-                return new Array(4).fill(0).map((_, index) => {
+                const players = Number(localStorage.getItem('players'));
+                return new Array(players).fill(0).map((_, index) => {
                   return spawn(playerMachine, {
                     name: `player-${index + 1}`,
                     sync: true,
@@ -412,12 +431,12 @@ const GameOptions = styled.div`
     margin-left: 1rem;
   }
 `;
+
 export function Game(props: GameProps) {
-  const GRID_SIZE = 4;
   const [state, send] = useMachine(() => gameMachine);
   const { players, player } = state.context;
+
   const router = useRouter();
-  const { type } = router.query;
   useEffect(() => {
     send({
       type: 'INITIALIZE',
@@ -428,7 +447,14 @@ export function Game(props: GameProps) {
       <Header>
         <h1>memory</h1>
         <GameOptions>
-          <Button variant="primary">Restart</Button>
+          <Button
+            variant="primary"
+            onClick={() => {
+              send('RESET');
+            }}
+          >
+            Restart
+          </Button>
           <Button
             onClick={() => {
               router.push('/');
@@ -438,7 +464,7 @@ export function Game(props: GameProps) {
           </Button>
         </GameOptions>
       </Header>
-      <Table size={GRID_SIZE}>
+      <Table size={state.context.gridSize}>
         {state.context.tokens.map((token, i) => {
           return (
             <Token
@@ -474,7 +500,7 @@ export function Game(props: GameProps) {
               key={currentPlayer.id}
               isTurn={player.id === currentPlayer.id}
             >
-              <div>{`P${index}`}</div>
+              <div>{`P${index + 1}`}</div>
               <div>{currentPlayer.getSnapshot().context.score}</div>
             </PlayerBox>
           );

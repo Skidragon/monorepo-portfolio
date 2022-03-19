@@ -66,6 +66,7 @@ export function Index() {
     control,
     watch,
     formState: { isSubmitting },
+    handleSubmit,
   } = useForm<CreateGameFormValues>({
     defaultValues: {
       gridSize: '4',
@@ -83,10 +84,12 @@ export function Index() {
       ) : null}
       <Content>
         <Form
-          onSubmit={(e) => {
-            e.preventDefault();
+          onSubmit={handleSubmit(({ gridSize, players, theme }) => {
+            localStorage.setItem('gridSize', gridSize);
+            localStorage.setItem('players', players);
+            localStorage.setItem('theme', theme);
             router.push('/game');
-          }}
+          })}
         >
           <Fieldset id="theme">
             <Legend>Select Theme</Legend>

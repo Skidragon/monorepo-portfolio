@@ -1,5 +1,5 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { Token, Theme, PairsAmount } from '@sd/memory/types';
+import { Token } from '@sd/memory/types';
 import {
   faCoffee,
   faAnchor,
@@ -40,10 +40,7 @@ const icons: IconProp[] = [
   faCalendarWeek,
   faCode,
 ];
-export const spawnTokenPairs = (
-  pairsAmount: PairsAmount = 8,
-  type: Theme = 'numbers'
-) => {
+export const spawnTokenPairs = (pairsAmount = 8, type: string) => {
   const tokens: Token[] = [];
   let id = 0;
   for (let i = 0; i < pairsAmount; i++) {

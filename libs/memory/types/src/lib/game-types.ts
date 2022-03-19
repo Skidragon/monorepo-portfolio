@@ -6,11 +6,11 @@ export type Token = {
   state: TokenState;
 };
 export type Theme = 'numbers' | 'icons';
-export type PlayersAmount = 1 | 2 | 3 | 4;
+export type AmountOfPlayers = 1 | 2 | 3 | 4;
 export type GridSize = 4 | 6;
 export type PairsAmount = 8 | 18;
 export type CreateGameFormValues = {
   theme: Theme;
-  players: `${PlayersAmount}`;
+  players: `${AmountOfPlayers}`;
   gridSize: `${GridSize}`;
 };
