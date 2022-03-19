@@ -158,19 +158,19 @@ const gameMachine = gameModel.createMachine({
           actions: [
             assign({
               tokens: () => {
-                const gridSize = Number(localStorage.getItem('gridSize'));
+                const gridSize = Number(localStorage.getItem('gridSize') || 4);
                 const theme = localStorage.getItem('theme');
                 return shuffle(
                   spawnTokenPairs((gridSize * gridSize) / 2, theme)
                 );
               },
               gridSize: () => {
-                const gridSize = Number(localStorage.getItem('gridSize'));
+                const gridSize = Number(localStorage.getItem('gridSize') || 4);
                 return gridSize;
               },
               playerIndex: 0,
               players: () => {
-                const players = Number(localStorage.getItem('players'));
+                const players = Number(localStorage.getItem('players') || 1);
                 return new Array(players).fill(0).map((_, index) => {
                   return spawn(playerMachine, {
                     name: `player-${index + 1}`,
