@@ -8,6 +8,7 @@ import { spawnTokenPairs, shuffle } from '@sd/memory/helpers';
 import { TokenState } from '@sd/memory/types';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 /* eslint-disable-next-line */
 export interface GameProps {}
 type Token = {
@@ -148,7 +149,7 @@ const gameMachine = gameModel.createMachine({
         INITIALIZE: {
           actions: [
             assign({
-              tokens: shuffle(spawnTokenPairs(8)),
+              tokens: shuffle(spawnTokenPairs(8, 'icons')),
               playerIndex: 0,
               players: () => {
                 return new Array(4).fill(0).map((_, index) => {
@@ -416,6 +417,7 @@ export function Game(props: GameProps) {
   const [state, send] = useMachine(() => gameMachine);
   const { players, player } = state.context;
   const router = useRouter();
+  const { type } = router.query;
   useEffect(() => {
     send({
       type: 'INITIALIZE',
@@ -456,7 +458,11 @@ export function Game(props: GameProps) {
                 }
               }}
             >
-              {token.value}
+              {typeof token.value === 'number' ? (
+                token.value
+              ) : (
+                <FontAwesomeIcon icon={token.value} />
+              )}
             </Token>
           );
         })}

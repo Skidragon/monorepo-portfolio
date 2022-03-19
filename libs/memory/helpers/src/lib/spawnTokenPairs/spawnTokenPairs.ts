@@ -1,17 +1,64 @@
-import { Token } from '@sd/memory/types';
-export const spawnTokenPairs = (pairsAmount: number) => {
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { Token, Theme, PairsAmount } from '@sd/memory/types';
+import {
+  faCoffee,
+  faAnchor,
+  faAppleWhole,
+  faBasketball,
+  faBahai,
+  faBicycle,
+  faBomb,
+  faBrain,
+  faBurger,
+  faFire,
+  faWater,
+  faEarth,
+  faAddressBook,
+  faHandsClapping,
+  faTrailer,
+  faCar,
+  faCalendarWeek,
+  faCode,
+} from '@fortawesome/free-solid-svg-icons';
+const icons: IconProp[] = [
+  faCoffee,
+  faAnchor,
+  faAppleWhole,
+  faBasketball,
+  faBahai,
+  faBicycle,
+  faBomb,
+  faBrain,
+  faBurger,
+  faFire,
+  faWater,
+  faEarth,
+  faAddressBook,
+  faHandsClapping,
+  faTrailer,
+  faCar,
+  faCalendarWeek,
+  faCode,
+];
+export const spawnTokenPairs = (
+  pairsAmount: PairsAmount = 8,
+  type: Theme = 'numbers'
+) => {
   const tokens: Token[] = [];
-  for (let i = 1; i <= pairsAmount * 2; i += 2) {
+  let id = 0;
+  for (let i = 0; i < pairsAmount; i++) {
+    const value = type === 'numbers' ? i + 1 : icons[i];
     const token: Token = {
-      id: i,
-      value: Math.ceil(i / 2),
+      id: id,
+      value: value,
       state: 'HIDE_VALUE',
     };
     const matchingToken = {
       ...token,
-      id: i + 1,
+      id: id + 1,
     };
     tokens.push(...[token, matchingToken]);
+    id += 2;
   }
 
   return tokens;
