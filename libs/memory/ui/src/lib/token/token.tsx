@@ -42,18 +42,15 @@ const Value = styled.div<Pick<TokenProps, 'state'>>`
   position: absolute;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
-  ${(props) =>
-    props.state === 'HIDE_VALUE' &&
-    css`
-      display: none;
-    `}
 `;
 
 export const Token = React.forwardRef<HTMLButtonElement, TokenProps>(
   ({ children, state = 'HIDE_VALUE', ...props }, ref) => {
     return (
       <StyledToken {...props} state={state} ref={ref}>
-        <Value state={state}>{children}</Value>
+        {state !== 'HIDE_VALUE' ? (
+          <Value state={state}>{children}</Value>
+        ) : null}
       </StyledToken>
     );
   }
