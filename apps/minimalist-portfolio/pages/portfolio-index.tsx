@@ -66,15 +66,17 @@ export function PortfolioIndex(props: PortfolioIndexProps) {
         })}
         <ProjectCard>
           <Image height="791" width="857" src="/memory.png" alt="" />
-          <h2>Memory (Under Construction)</h2>
+          <h2>Memory</h2>
           <p>
             This project is created with XState, Styled Components, Jest, and
             Next.js. I had to use the actor model and state machines to create
-            the game and I used radio buttons for the create game form for
-            accessibility purposes. This is still a work in progress. I will try
-            to complete an MVP by 03/21/2021. Afterwards I will use Nest.js and
-            use websockets to create a real-time experience and create lobbies
-            for players to join rooms.
+            the logic for the game, and I used radio buttons for the create game
+            form for accessibility purposes. This is still a work in progress. I
+            plan to add more features such as: a score screen after the game is
+            over, a timer and moves display for single player, and using arrow
+            buttons to navigate the board. Afterwards build a back-end using
+            Nest.js and use websockets to create a real-time experience and
+            create lobbies for players to join rooms.
           </p>
           <LinkButton variant="secondary" href="https://sd-memory.netlify.app/">
             View Project

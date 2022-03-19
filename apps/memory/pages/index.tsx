@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { RadioButton } from '@sd/memory/ui';
+import { CreateGameFormValues } from '@sd/memory/types';
 import { DevTool } from '@hookform/devtools';
 import { useRouter } from 'next/router';
 
@@ -59,18 +60,14 @@ const SubmitButton = styled.button`
   border-radius: 5rem;
 `;
 
-interface FormValues {
-  theme: 'numbers' | 'icons';
-  players: '1' | '2' | '3' | '4';
-  gridSize: '4' | '6';
-}
 export function Index() {
   const {
     register,
     control,
     watch,
     formState: { isSubmitting },
-  } = useForm<FormValues>({
+    handleSubmit,
+  } = useForm<CreateGameFormValues>({
     defaultValues: {
       gridSize: '4',
       players: '1',
@@ -87,10 +84,12 @@ export function Index() {
       ) : null}
       <Content>
         <Form
-          onSubmit={(e) => {
-            e.preventDefault();
+          onSubmit={handleSubmit(({ gridSize, players, theme }) => {
+            localStorage.setItem('gridSize', gridSize);
+            localStorage.setItem('players', players);
+            localStorage.setItem('theme', theme);
             router.push('/game');
-          }}
+          })}
         >
           <Fieldset id="theme">
             <Legend>Select Theme</Legend>
