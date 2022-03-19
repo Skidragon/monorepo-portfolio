@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { RadioButton } from '@sd/memory/ui';
+import { CreateGameFormValues } from '@sd/memory/types';
 import { DevTool } from '@hookform/devtools';
 import { useRouter } from 'next/router';
 
@@ -59,18 +60,13 @@ const SubmitButton = styled.button`
   border-radius: 5rem;
 `;
 
-interface FormValues {
-  theme: 'numbers' | 'icons';
-  players: '1' | '2' | '3' | '4';
-  gridSize: '4' | '6';
-}
 export function Index() {
   const {
     register,
     control,
     watch,
     formState: { isSubmitting },
-  } = useForm<FormValues>({
+  } = useForm<CreateGameFormValues>({
     defaultValues: {
       gridSize: '4',
       players: '1',
