@@ -65,7 +65,7 @@ export function PortfolioIndex(props: PortfolioIndexProps) {
           );
         })}
         <ProjectCard>
-          <Image height="791" width="857" src="/memory.png" alt="" />
+          <Image height="726" width="800" src="/memory.png" alt="" />
           <h2>Memory</h2>
           <p>
             This project is created with XState, Styled Components, Jest, and
