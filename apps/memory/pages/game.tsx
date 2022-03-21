@@ -292,11 +292,18 @@ const gameMachine = gameModel.createMachine({
       },
     },
     match: {
-      after: {
-        1200: {
+      after: [
+        {
+          delay: 0,
           target: 'endingTurn',
+          cond: (ctx) => ctx.players.length === 1,
         },
-      },
+        {
+          delay: 800,
+          target: 'endingTurn',
+          cond: (ctx) => ctx.players.length > 1,
+        },
+      ],
     },
     mismatch: {
       after: {
