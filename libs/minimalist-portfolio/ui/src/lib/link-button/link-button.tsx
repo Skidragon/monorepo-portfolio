@@ -20,9 +20,8 @@ const StyledLinkButton = styled.a<LinkButtonProps>`
         background: var(--dark-blue);
         color: white;
         text-transform: uppercase;
-        & > * {
-          padding: 1em;
-        }
+        padding: 1em;
+
         &:hover,
         &:focus > * {
           background: #5fb4a2;
@@ -46,21 +45,13 @@ const StyledLinkButton = styled.a<LinkButtonProps>`
 
 export const LinkButton = React.forwardRef<HTMLAnchorElement, LinkButtonProps>(
   ({ variant = 'primary', href = '#', ...props }: LinkButtonProps, ref) => {
-    if (!props.download) {
-      return (
-        <Link href={href} passHref>
-          <StyledLinkButton variant={variant} {...props} ref={ref}>
-            {props.children}
-          </StyledLinkButton>
-        </Link>
-      );
-    } else {
-      return (
-        <StyledLinkButton href={href} variant={variant} {...props} ref={ref}>
+    return (
+      <Link href={href} passHref>
+        <StyledLinkButton variant={variant} {...props} ref={ref}>
           {props.children}
         </StyledLinkButton>
-      );
-    }
+      </Link>
+    );
   }
 );
 

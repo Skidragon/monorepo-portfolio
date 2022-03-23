@@ -711,6 +711,27 @@
         }
       }
     },
+    "minimalist-portfolio-utils": {
+      "root": "libs/minimalist-portfolio/utils",
+      "sourceRoot": "libs/minimalist-portfolio/utils/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/minimalist-portfolio/utils/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/minimalist-portfolio/utils"],
+          "options": {
+            "jestConfig": "libs/minimalist-portfolio/utils/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "product-feedback": {
       "root": "apps/product-feedback",
       "sourceRoot": "apps/product-feedback",
