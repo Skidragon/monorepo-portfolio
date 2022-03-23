@@ -30,6 +30,9 @@
       "@sd/minimalist-portfolio/ui": [
         "libs/minimalist-portfolio/ui/src/index.ts"
       ],
+      "@sd/minimalist-portfolio/utils": [
+        "libs/minimalist-portfolio/utils/src/index.ts"
+      ],
       "@sd/monorepo-portfolio-storybook": [
         "libs/shared/storybook/src/index.ts"
       ],

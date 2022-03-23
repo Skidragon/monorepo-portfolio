@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import Link from 'next/link';
-
+import React from 'react';
 import { Logo, SocialMediaLinks } from '../..';
 import { LinkTo } from '@sd/minimalist-portfolio/ui';
 
@@ -56,28 +55,30 @@ const NavList = styled.ul`
 `;
 
 const StyledLinkTo = styled(LinkTo)``;
-export function Footer(props: FooterProps) {
-  return (
-    <StyledFooter>
-      <Content>
-        <LinkTo href="/">
-          <Logo fill="white" />
-        </LinkTo>
-        <NavList>
-          <li>
-            <StyledLinkTo href="/">Home</StyledLinkTo>
-          </li>
-          <li>
-            <StyledLinkTo href="/portfolio-index">Portfolio</StyledLinkTo>
-          </li>
-          <li>
-            <StyledLinkTo href="/contact-me">Contact Me</StyledLinkTo>
-          </li>
-        </NavList>
-        <SocialMediaLinks fill="white" />
-      </Content>
-    </StyledFooter>
-  );
-}
+export const Footer = React.forwardRef<HTMLElement, FooterProps>(
+  (props: FooterProps, ref) => {
+    return (
+      <StyledFooter ref={ref}>
+        <Content>
+          <LinkTo href="/">
+            <Logo fill="white" />
+          </LinkTo>
+          <NavList>
+            <li>
+              <StyledLinkTo href="/">Home</StyledLinkTo>
+            </li>
+            <li>
+              <StyledLinkTo href="/portfolio-index">Portfolio</StyledLinkTo>
+            </li>
+            <li>
+              <StyledLinkTo href="/contact-me">Contact Me</StyledLinkTo>
+            </li>
+          </NavList>
+          <SocialMediaLinks fill="white" />
+        </Content>
+      </StyledFooter>
+    );
+  }
+);
 
 export default Footer;
