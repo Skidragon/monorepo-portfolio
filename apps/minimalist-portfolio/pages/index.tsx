@@ -23,7 +23,7 @@ export function Index() {
       <IntroSection>
         <Image
           height="386"
-          width="1584"
+          width="1588"
           src="/image-homepage-hero.png"
           alt=""
         />
